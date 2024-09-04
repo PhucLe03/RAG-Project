@@ -1,1 +1,3 @@
 # RAG-Project
+
+## Plan
