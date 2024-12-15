@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment folder
+Include/
+Lib/
+Scripts/
+*.cfg
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Logs and temporary files
+*.log
+*.out
+*.err
+*.pid
+*.gz
+*.zip
+
+# Package and dependency files
+*.egg-info/
+.eggs/
+*.whl
+Pipfile.lock
+
+# IDE configurations and metadata
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+volumes/
+
+preprocessed/merged_output.csv

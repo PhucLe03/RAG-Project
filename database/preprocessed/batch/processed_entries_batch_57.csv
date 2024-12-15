@@ -1,0 +1,639 @@
+entry_id,entry_type,parent_id,title,description,metadata,version,text_content,code_content,sparse_title_description,dense_text_content,dense_code_snippet,tag
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,document,,Codemods,Use codemods to upgrade your Next.js codebase when new features are released.,{'related_links': []},15.1.0,"Codemods are transformations that run on your codebase programmatically. This allows a large number of changes to be programmatically applied without having to manually go through every file.
+
+Next.js provides Codemod transformations to help upgrade your Next.js codebase when an API is updated or deprecated.
+
+## Usage
+
+In your terminal, navigate (`cd`) into your project's folder, then run:
+
+```bash filename=""Terminal""
+npx @next/codemod <transform> <path>
+```
+
+Replacing `<transform>` and `<path>` with appropriate values.
+
+- `transform` - name of transform
+- `path` - files or directory to transform
+- `--dry` Do a dry-run, no code will be edited
+- `--print` Prints the changed output for comparison
+
+## Codemods
+
+### 15.0
+
+#### Transform App Router Route Segment Config `runtime` value from `experimental-edge` to `edge`
+
+##### `app-dir-runtime-config-experimental-edge`
+
+> **Note**: This codemod is App Router specific.
+
+```bash filename=""Terminal""
+npx @next/codemod@latest app-dir-runtime-config-experimental-edge .
+```
+
+This codemod transforms [Route Segment Config `runtime`](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#runtime) value `experimental-edge` to `edge`.
+
+For example:
+
+```ts
+export const runtime = 'experimental-edge'
+```
+
+Transforms into:
+
+```ts
+export const runtime = 'edge'
+```
+
+#### Migrate to async Dynamic APIs
+
+APIs that opted into dynamic rendering that previously supported synchronous access are now asynchronous. You can read more about this breaking change in the [upgrade guide](/docs/app/building-your-application/upgrading/version-15).
+
+##### `next-async-request-api`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest next-async-request-api .
+```
+
+This codemod will transform dynamic APIs (`cookies()`, `headers()` and `draftMode()` from `next/headers`) that are now asynchronous to be properly awaited or wrapped with `React.use()` if applicable.
+When an automatic migration isn't possible, the codemod will either add a typecast (if a TypeScript file) or a comment to inform the user that it needs to be manually reviewed & updated.
+
+For example:
+
+```tsx
+import { cookies, headers } from 'next/headers'
+const token = cookies().get('token')
+
+function useToken() {
+  const token = cookies().get('token')
+  return token
+}
+
+export default function Page() {
+  const name = cookies().get('name')
+}
+
+function getHeader() {
+  return headers().get('x-foo')
+}
+```
+
+Transforms into:
+
+```tsx
+import { use } from 'react'
+import {
+  cookies,
+  headers,
+  type UnsafeUnwrappedCookies,
+  type UnsafeUnwrappedHeaders,
+} from 'next/headers'
+const token = (cookies() as unknown as UnsafeUnwrappedCookies).get('token')
+
+function useToken() {
+  const token = use(cookies()).get('token')
+  return token
+}
+
+export default async function Page() {
+  const name = (await cookies()).get('name')
+}
+
+function getHeader() {
+  return (headers() as unknown as UnsafeUnwrappedHeaders).get('x-foo')
+}
+```
+
+When we detect property access on the `params` or `searchParams` props in the page / route entries (`page.js`, `layout.js`, `route.js`, or `default.js`) or the `generateMetadata` / `generateViewport` APIs,
+it will attempt to transform the callsite from a sync to an async function, and await the property access. If it can't be made async (such as with a client component), it will use `React.use` to unwrap the promise .
+
+For example:
+
+```tsx
+// page.tsx
+export default function Page({
+  params,
+  searchParams,
+}: {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const { value } = searchParams
+  if (value === 'foo') {
+    // ...
+  }
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const { slug } = params
+  return {
+    title: `My Page - ${slug}`,
+  }
+}
+```
+
+Transforms into:
+
+```tsx
+// page.tsx
+export default async function Page(props: {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParams = await props.searchParams
+  const { value } = searchParams
+  if (value === 'foo') {
+    // ...
+  }
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>
+}) {
+  const params = await props.params
+  const { slug } = params
+  return {
+    title: `My Page - ${slug}`,
+  }
+}
+```
+
+> **Good to know:** When this codemod identifies a spot that might require manual intervention, but we aren't able to determine the exact fix, it will add a comment or typecast to the code to inform the user that it needs to be manually updated. These comments are prefixed with **@next/codemod**, and typecasts are prefixed with `UnsafeUnwrapped`.
+> Your build will error until these comments are explicitly removed. [Read more](/docs/messages/sync-dynamic-apis).
+
+#### Replace `geo` and `ip` properties of `NextRequest` with `@vercel/functions`
+
+##### `next-request-geo-ip`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest next-request-geo-ip .
+```
+
+This codemod installs `@vercel/functions` and transforms `geo` and `ip` properties of `NextRequest` with corresponding `@vercel/functions` features.
+
+For example:
+
+```ts
+import type { NextRequest } from 'next/server'
+
+export function GET(req: NextRequest) {
+  const { geo, ip } = req
+}
+```
+
+Transforms into:
+
+```ts
+import type { NextRequest } from 'next/server'
+import { geolocation, ipAddress } from '@vercel/functions'
+
+export function GET(req: NextRequest) {
+  const geo = geolocation(req)
+  const ip = ipAddress(req)
+}
+```
+
+### 14.0
+
+#### Migrate `ImageResponse` imports
+
+##### `next-og-import`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest next-og-import .
+```
+
+This codemod moves transforms imports from `next/server` to `next/og` for usage of [Dynamic OG Image Generation](/docs/app/building-your-application/optimizing/metadata#dynamic-image-generation).
+
+For example:
+
+```js
+import { ImageResponse } from 'next/server'
+```
+
+Transforms into:
+
+```js
+import { ImageResponse } from 'next/og'
+```
+
+#### Use `viewport` export
+
+##### `metadata-to-viewport-export`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest metadata-to-viewport-export .
+```
+
+This codemod migrates certain viewport metadata to `viewport` export.
+
+For example:
+
+```js
+export const metadata = {
+  title: 'My App',
+  themeColor: 'dark',
+  viewport: {
+    width: 1,
+  },
+}
+```
+
+Transforms into:
+
+```js
+export const metadata = {
+  title: 'My App',
+}
+
+export const viewport = {
+  width: 1,
+  themeColor: 'dark',
+}
+```
+
+### 13.2
+
+#### Use Built-in Font
+
+##### `built-in-next-font`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest built-in-next-font .
+```
+
+This codemod uninstalls the `@next/font` package and transforms `@next/font` imports into the built-in `next/font`.
+
+For example:
+
+```js
+import { Inter } from '@next/font/google'
+```
+
+Transforms into:
+
+```js
+import { Inter } from 'next/font/google'
+```
+
+### 13.0
+
+#### Rename Next Image Imports
+
+##### `next-image-to-legacy-image`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest next-image-to-legacy-image .
+```
+
+Safely renames `next/image` imports in existing Next.js 10, 11, or 12 applications to `next/legacy/image` in Next.js 13. Also renames `next/future/image` to `next/image`.
+
+For example:
+
+```jsx filename=""pages/index.js""
+import Image1 from 'next/image'
+import Image2 from 'next/future/image'
+
+export default function Home() {
+  return (
+    <div>
+      <Image1 src=""/test.jpg"" width=""200"" height=""300"" />
+      <Image2 src=""/test.png"" width=""500"" height=""400"" />
+    </div>
+  )
+}
+```
+
+Transforms into:
+
+```jsx filename=""pages/index.js""
+// 'next/image' becomes 'next/legacy/image'
+import Image1 from 'next/legacy/image'
+// 'next/future/image' becomes 'next/image'
+import Image2 from 'next/image'
+
+export default function Home() {
+  return (
+    <div>
+      <Image1 src=""/test.jpg"" width=""200"" height=""300"" />
+      <Image2 src=""/test.png"" width=""500"" height=""400"" />
+    </div>
+  )
+}
+```
+
+#### Migrate to the New Image Component
+
+##### `next-image-experimental`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest next-image-experimental .
+```
+
+Dangerously migrates from `next/legacy/image` to the new `next/image` by adding inline styles and removing unused props.
+
+- Removes `layout` prop and adds `style`.
+- Removes `objectFit` prop and adds `style`.
+- Removes `objectPosition` prop and adds `style`.
+- Removes `lazyBoundary` prop.
+- Removes `lazyRoot` prop.
+
+#### Remove `<a>` Tags From Link Components
+
+##### `new-link`
+
+```bash filename=""Terminal""
+npx @next/codemod@latest new-link .
+```
+
+<AppOnly>
+
+Remove `<a>` tags inside [Link Components](/docs/app/api-reference/components/link), or add a `legacyBehavior` prop to Links that cannot be auto-fixed.
+
+</AppOnly>
+
+<PagesOnly>
+
+Remove `<a>` tags inside [Link Components](/docs/pages/api-reference/components/link), or add a `legacyBehavior` prop to Links that cannot be auto-fixed.
+
+</PagesOnly>
+
+For example:
+
+```jsx
+<Link href=""/about"">
+  <a>About</a>
+</Link>
+// transforms into
+<Link href=""/about"">
+  About
+</Link>
+
+<Link href=""/about"">
+  <a onClick={() => console.log('clicked')}>About</a>
+</Link>
+// transforms into
+<Link href=""/about"" onClick={() => console.log('clicked')}>
+  About
+</Link>
+```
+
+In cases where auto-fixing can't be applied, the `legacyBehavior` prop is added. This allows your app to keep functioning using the old behavior for that particular link.
+
+```jsx
+const Component = () => <a>About</a>
+
+<Link href=""/about"">
+  <Component />
+</Link>
+// becomes
+<Link href=""/about"" legacyBehavior>
+  <Component />
+</Link>
+```
+
+### 11
+
+#### Migrate from CRA
+
+##### `cra-to-next`
+
+```bash filename=""Terminal""
+npx @next/codemod cra-to-next
+```
+
+Migrates a Create React App project to Next.js; creating a Pages Router and necessary config to match behavior. Client-side only rendering is leveraged initially to prevent breaking compatibility due to `window` usage during SSR and can be enabled seamlessly to allow the gradual adoption of Next.js specific features.
+
+Please share any feedback related to this transform [in this discussion](https://github.com/vercel/next.js/discussions/25858).
+
+### 10
+
+#### Add React imports
+
+##### `add-missing-react-import`
+
+```bash filename=""Terminal""
+npx @next/codemod add-missing-react-import
+```
+
+Transforms files that do not import `React` to include the import in order for the new [React JSX transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) to work.
+
+For example:
+
+```jsx filename=""my-component.js""
+export default class Home extends React.Component {
+  render() {
+    return <div>Hello World</div>
+  }
+}
+```
+
+Transforms into:
+
+```jsx filename=""my-component.js""
+import React from 'react'
+export default class Home extends React.Component {
+  render() {
+    return <div>Hello World</div>
+  }
+}
+```
+
+### 9
+
+#### Transform Anonymous Components into Named Components
+
+##### `name-default-component`
+
+```bash filename=""Terminal""
+npx @next/codemod name-default-component
+```
+
+**Versions 9 and above.**
+
+Transforms anonymous components into named components to make sure they work with [Fast Refresh](https://nextjs.org/blog/next-9-4#fast-refresh).
+
+For example:
+
+```jsx filename=""my-component.js""
+export default function () {
+  return <div>Hello World</div>
+}
+```
+
+Transforms into:
+
+```jsx filename=""my-component.js""
+export default function MyComponent() {
+  return <div>Hello World</div>
+}
+```
+
+The component will have a camel-cased name based on the name of the file, and it also works with arrow functions.
+
+### 8
+
+#### Transform AMP HOC into page config
+
+##### `withamp-to-config`
+
+```bash filename=""Terminal""
+npx @next/codemod withamp-to-config
+```
+
+Transforms the `withAmp` HOC into Next.js 9 page configuration.
+
+For example:
+
+```js
+// Before
+import { withAmp } from 'next/amp'
+
+function Home() {
+  return <h1>My AMP Page</h1>
+}
+
+export default withAmp(Home)
+```
+
+```js
+// After
+export default function Home() {
+  return <h1>My AMP Page</h1>
+}
+
+export const config = {
+  amp: true,
+}
+```
+
+### 6
+
+#### Use `withRouter`
+
+##### `url-to-withrouter`
+
+```bash filename=""Terminal""
+npx @next/codemod url-to-withrouter
+```
+
+Transforms the deprecated automatically injected `url` property on top level pages to using `withRouter` and the `router` property it injects. Read more here: [https://nextjs.org/docs/messages/url-deprecated](/docs/messages/url-deprecated)
+
+For example:
+
+```js filename=""From""
+import React from 'react'
+export default class extends React.Component {
+  render() {
+    const { pathname } = this.props.url
+    return <div>Current pathname: {pathname}</div>
+  }
+}
+```
+
+```js filename=""To""
+import React from 'react'
+import { withRouter } from 'next/router'
+export default withRouter(
+  class extends React.Component {
+    render() {
+      const { pathname } = this.props.router
+      return <div>Current pathname: {pathname}</div>
+    }
+  }
+)
+```
+
+This is one case. All the cases that are transformed (and tested) can be found in the [`__testfixtures__` directory](https://github.com/vercel/next.js/tree/canary/packages/next-codemod/transforms/__testfixtures__/url-to-withrouter).Codemods are transformations that run on your codebase programmatically. This allows a large number of changes to be programmatically applied without having to manually go through every file.
+Next.js provides Codemod transformations to help upgrade your Next.js codebase when an API is updated or deprecated.
+Note: This codemod is App Router specific.
+This codemod transforms [https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#runtime](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#runtime) value `` to ``.
+For example:
+Transforms into:
+This codemod will transform dynamic APIs (``, `` and `` from ``) that are now asynchronous to be properly awaited or wrapped with `` if applicable.When an automatic migration isn't possible, the codemod will either add a typecast (if a TypeScript file) or a comment to inform the user that it needs to be manually reviewed & updated.
+For example:
+Transforms into:
+When we detect property access on the `` or `` props in the page / route entries (``, ``, ``, or ``) or the `` / `` APIs,it will attempt to transform the callsite from a sync to an async function, and await the property access. If it can't be made async (such as with a client component), it will use `` to unwrap the promise .
+For example:
+Transforms into:
+Good to know: When this codemod identifies a spot that might require manual intervention, but we aren't able to determine the exact fix, it will add a comment or typecast to the code to inform the user that it needs to be manually updated. These comments are prefixed with @next/codemod, and typecasts are prefixed with ``.Your build will error until these comments are explicitly removed. [/docs/messages/sync-dynamic-apis](/docs/messages/sync-dynamic-apis).
+This codemod installs `` and transforms `` and `` properties of `` with corresponding `` features.
+For example:
+Transforms into:
+This codemod moves transforms imports from `` to `` for usage of [/docs/app/building-your-application/optimizing/metadata#dynamic-image-generation](/docs/app/building-your-application/optimizing/metadata#dynamic-image-generation).
+For example:
+Transforms into:
+This codemod migrates certain viewport metadata to `` export.
+For example:
+Transforms into:
+This codemod uninstalls the `` package and transforms `` imports into the built-in ``.
+For example:
+Transforms into:
+Safely renames `` imports in existing Next.js 10, 11, or 12 applications to `` in Next.js 13. Also renames `` to ``.
+For example:
+Transforms into:
+Dangerously migrates from `` to the new `` by adding inline styles and removing unused props.
+Removes `` prop and adds ``.
+Removes `` prop and adds ``.
+Removes `` prop and adds ``.
+Removes `` prop.
+Removes `` prop.
+
+Remove `` tags inside [/docs/app/api-reference/components/link](/docs/app/api-reference/components/link), or add a `` prop to Links that cannot be auto-fixed.
+
+
+Remove `` tags inside [/docs/pages/api-reference/components/link](/docs/pages/api-reference/components/link), or add a `` prop to Links that cannot be auto-fixed.
+
+For example:
+In cases where auto-fixing can't be applied, the `` prop is added. This allows your app to keep functioning using the old behavior for that particular link.
+Migrates a Create React App project to Next.js; creating a Pages Router and necessary config to match behavior. Client-side only rendering is leveraged initially to prevent breaking compatibility due to `` usage during SSR and can be enabled seamlessly to allow the gradual adoption of Next.js specific features.
+Please share any feedback related to this transform [https://github.com/vercel/next.js/discussions/25858](https://github.com/vercel/next.js/discussions/25858).
+Transforms files that do not import `` to include the import in order for the new [https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) to work.
+For example:
+Transforms into:
+Versions 9 and above.
+Transforms anonymous components into named components to make sure they work with [https://nextjs.org/blog/next-9-4#fast-refresh](https://nextjs.org/blog/next-9-4#fast-refresh).
+For example:
+Transforms into:
+The component will have a camel-cased name based on the name of the file, and it also works with arrow functions.
+Transforms the `` HOC into Next.js 9 page configuration.
+For example:
+Transforms the deprecated automatically injected `` property on top level pages to using `` and the `` property it injects. Read more here: [/docs/messages/url-deprecated](/docs/messages/url-deprecated)
+For example:
+This is one case. All the cases that are transformed (and tested) can be found in the [https://github.com/vercel/next.js/tree/canary/packages/next-codemod/transforms/__testfixtures__/url-to-withrouter](https://github.com/vercel/next.js/tree/canary/packages/next-codemod/transforms/__testfixtures__/url-to-withrouter).
+",,"[(np.int64(5), np.float64(0.00513063371181488)), (np.int64(7), np.float64(0.17374341189861298)), (np.int64(47), np.float64(0.0864463746547699)), (np.int64(3229), np.float64(0.08305291086435318)), (np.int64(3525), np.float64(0.09672461450099945)), (np.int64(4997), np.float64(0.23399509489536285)), (np.int64(13415), np.float64(0.3041169047355652)), (np.int64(18151), np.float64(0.21947571635246277)), (np.int64(28175), np.float64(0.17883673310279846)), (np.int64(28864), np.float64(0.1890171766281128)), (np.int64(36836), np.float64(0.127393439412117)), (np.int64(37382), np.float64(0.2019186019897461)), (np.int64(66139), np.float64(0.190967857837677)), (np.int64(116086), np.float64(0.20679429173469543)), (np.int64(121447), np.float64(0.1292642205953598))]","[-0.027843350544571877, -0.007072885055094957, -0.04368414729833603, 0.036122918128967285, -0.027172837406396866, -0.006359226070344448, 0.02408093959093094, -0.009071780368685722, 0.009159201756119728, 0.005693218670785427, -0.02141541801393032, -0.03126512095332146, -0.0044179740361869335, -0.008890231139957905, -0.00715400418266654, 0.012964921072125435, -0.0049242726527154446, 0.0078286649659276, -0.0008508394239470363, -0.03666790947318077, -0.008144579827785492, -0.013482525944709778, 0.04619205743074417, 0.02444780431687832, -0.004706753417849541, 0.018703456968069077, -0.02458512783050537, -0.010391142219305038, 0.044227078557014465, 0.030167054384946823, 0.04439228028059006, 0.01249491423368454, 0.009270829148590565, -0.009699086658656597, -0.03799940273165703, 0.0024126048665493727, 0.008967242203652859, -0.03000548854470253, -0.027263816446065903, -0.016033364459872246, -0.009383362717926502, -0.02549268864095211, -0.019931605085730553, -0.0063882675021886826, 0.014861001633107662, -0.02884075604379177, 0.023675423115491867, -0.02530834451317787, -0.0009699030197225511, -0.008587781339883804, -0.01040627621114254, -0.03979500010609627, 0.04690396413207054, -0.029635144397616386, 0.05388525500893593, 0.07402865588665009, -0.01329056452959776, -0.00817714724689722, -0.05355621129274368, 0.028630368411540985, -0.03491199389100075, 0.01051783561706543, 0.015103582292795181, -0.005746723152697086, -0.03178303316235542, 0.003963748924434185, -0.029800908640027046, 0.00423759501427412, -0.007342138793319464, -0.014112942852079868, 0.011371211148798466, 0.0006868087220937014, -0.04129545018076897, -0.03144284710288048, -0.030423808842897415, 0.013826364651322365, 0.03882899880409241, -0.039889026433229446, 0.006889509502798319, 0.026662128046154976, -0.0033801128156483173, 0.023147527128458023, 0.016591738909482956, 0.008009742014110088, -0.00732581689953804, -0.008451606146991253, -0.025847308337688446, 0.020739365369081497, 0.039523132145404816, -0.025752807036042213, 0.012012242339551449, -0.033580534160137177, 0.05092167854309082, -0.06059266999363899, -0.038079023361206055, 0.03681313619017601, -0.0019002339104190469, -0.0030371276661753654, 0.03303518146276474, -0.005426755174994469, -0.008315576240420341, -0.025729317218065262, 0.023999011144042015, -0.02403836138546467, 0.04196300730109215, 0.039882905781269073, 0.06140860170125961, 0.010327696800231934, -0.015544875524938107, -0.04909124970436096, 0.04868755489587784, 0.03492069989442825, 0.0013902169885113835, 0.032462406903505325, -0.01708490215241909, -0.021225756034255028, -0.005008971784263849, -0.06680522114038467, 0.008653849363327026, -0.010893112048506737, 0.03229137510061264, 0.026420608162879944, 0.03550797328352928, -0.02630843035876751, 0.0013934107264503837, 0.01821703091263771, 0.0009451584774069488, 0.02790152281522751, -0.006812973879277706, -0.0015318267978727818, -0.007840380072593689, 0.011939553543925285, 0.0007543906103819609, 0.014734230935573578, -0.04928183555603027, 0.022225119173526764, 0.01752801053225994, -0.02379133179783821, 0.006672300864011049, -0.053381066769361496, 0.0014156661927700043, -0.032904330641031265, -0.03512749820947647, -0.03278962895274162, 0.04242834448814392, -0.06788071244955063, 0.05460363253951073, 0.01725403405725956, -0.00015709211584180593, 0.015189511701464653, 0.011629185639321804, 0.03970316797494888, 0.01892237737774849, -0.019512878730893135, 0.004849966615438461, -0.014173762872815132, -0.002727140672504902, 0.0047130887396633625, 0.022064313292503357, 0.031141890212893486, -0.032987330108881, -0.008346962742507458, -0.039875902235507965, -0.0040787640027701855, 0.04923520237207413, -0.006037783809006214, 0.013711732812225819, -0.010371292009949684, -0.0019433543784543872, -0.05989667773246765, -0.015379229560494423, 0.022265324369072914, 0.007127977441996336, 0.017739975824952126, 0.029476886615157127, 0.02217933163046837, 0.058434080332517624, 0.010556131601333618, 0.0014645992778241634, -0.02144736424088478, -0.04837900027632713, 0.031958695501089096, 0.0006447785417549312, 0.011497900821268559, -0.03409988433122635, 0.0036585971247404814, -0.05047675967216492, 0.003368665697053075, -0.02143435925245285, -0.00445227837190032, -0.030870944261550903, -0.007045412436127663, 0.06803035736083984, 0.03972790017724037, 0.018610144034028053, -0.03249293565750122, 0.03553793579339981, -0.017540594562888145, -0.006150585133582354, -0.013211455196142197, -0.05671549215912819, 0.014183007180690765, 0.01806497760117054, 0.05318213626742363, -0.028871461749076843, -0.0007023541838862002, -0.03537408635020256, -0.052231475710868835, 0.017280589789152145, -0.01871701143682003, 0.014366457238793373, -0.011856497265398502, 0.02037884294986725, 0.005463587585836649, -0.0018529690569266677, 0.029802102595567703, -0.0662444457411766, 0.027142425999045372, -0.01498847920447588, -0.021586105227470398, -0.006877934094518423, 0.051913414150476456, -0.021785985678434372, -0.029934288933873177, 0.020718395709991455, 0.025397278368473053, 0.02951813116669655, 0.04299897700548172, -0.008226715959608555, -0.009114177897572517, -0.020714081823825836, -0.0019433953566476703, 0.04604632034897804, -0.05391254648566246, 0.011459439992904663, -0.03342113643884659, -0.009128936566412449, 0.0006755241192877293, 0.010888365097343922, 0.016500379890203476, -0.004888962022960186, -0.06838678568601608, 0.07781937718391418, 0.019960787147283554, -0.023266896605491638, -0.018368078395724297, -0.009052333422005177, -0.009350324049592018, -0.030065268278121948, -0.04461410269141197, -0.009068834595382214, -0.008221865631639957, -0.0261615552008152, 0.021427204832434654, 0.04000740870833397, 0.03865019977092743, -0.012245940044522285, -0.004975876305252314, -0.025370649993419647, -0.03315962478518486, 0.02024371363222599, 0.048438332974910736, 0.022823285311460495, 0.017189767211675644, 0.026642953976988792, 0.014928583055734634, -0.01443708036094904, -0.008978969417512417, 0.015068217180669308, 0.003898492082953453, -0.05102292075753212, 0.018291426822543144, 0.022568808868527412, -0.01745149865746498, -0.04082566499710083, 0.04280694201588631, 0.010807822458446026, -0.0032034944742918015, 0.11353503912687302, 0.030799414962530136, 0.0006450583459809422, -0.012273590080440044, 0.03463086113333702, -0.007149219512939453, 0.016148297116160393, -0.008618418127298355, -0.007626900915056467, -0.006485221441835165, 0.03876953199505806, -0.02732754498720169, 0.01872299425303936, -0.04373994097113609, 0.03992043808102608, -0.038335684686899185, -0.054078858345746994, -0.018912743777036667, 0.01957472413778305, -0.13533443212509155, 0.01929636485874653, 0.02283625118434429, 0.015733297914266586, -0.00630611227825284, 0.041068729013204575, -0.016561131924390793, -0.003381133545190096, -0.015423729084432125, 0.04820606857538223, -0.01666455715894699, -0.040596090257167816, -0.002529477933421731, -0.027379382401704788, 0.00022793031530454755, -0.0139170465990901, -0.0032365883234888315, -0.02723008207976818, 0.04512491449713707, -0.012899793684482574, -0.029381463304162025, -0.010877695865929127, -0.008436422795057297, -0.0018981386674568057, 0.0189453586935997, -0.01883234642446041, 0.04747897386550903, 0.0022278570104390383, -0.025531789287924767, 0.031144194304943085, 0.012841055169701576, 0.027724729850888252, 0.008274205029010773, -0.0042592971585690975, -0.008894477970898151, -0.0068641481921076775, -0.007403774186968803, -0.020202497020363808, -0.028111517429351807, 0.0017578986007720232, 0.04770764335989952, 0.08280637860298157, -0.010689989663660526, 0.0026778436731547117, 0.019188139587640762, -0.013244199566543102, 0.046539824455976486, -0.018996436148881912, 0.009994675405323505, 0.004061316139996052, 0.03281184658408165, 0.01999702863395214, -0.007745062466710806, -0.03287573531270027, -0.026220982894301414, 0.01035363506525755, 0.04013441875576973, 0.04442510008811951, -0.019542371854186058, -0.01943095400929451, -0.014608461409807205, -0.03514637053012848, 0.05442160367965698, -0.029390372335910797, -0.018283095210790634, 0.03532124310731888, 0.0543631874024868, 0.0010545069817453623, 0.021972298622131348, -0.031445883214473724, 0.013311847113072872, -0.015676895156502724, 0.01281831692904234, -0.009707506746053696, -0.039840515702962875, 0.027118701487779617, -0.017608078196644783, -0.01951499469578266, -0.0008989469497464597, -0.11488687992095947, 0.005749453790485859, 0.007279909681528807, -0.02454718016088009, -0.048775214701890945, -0.020497383549809456, -0.024523265659809113, -0.01670529507100582, -0.026662757620215416, 0.05384274944663048, 0.24963879585266113, 0.025976531207561493, -0.028325257822871208, 0.03338487446308136, 0.0597941055893898, -0.05209469795227051, 0.008455382660031319, 0.018607622012495995, 0.026327993720769882, -0.017011374235153198, 0.012444035150110722, 0.029442915692925453, -0.006952173542231321, 0.007357209455221891, 0.004152233712375164, -0.003765897825360298, -0.03980996087193489, 0.05889899656176567, 0.023080725222826004, -0.020467666909098625, 0.054511651396751404, -0.023729488253593445, 0.022002078592777252, 0.02324712835252285, -0.07549837231636047, 0.009532717987895012, -0.00571869034320116, -0.008597264066338539, -0.023993171751499176, -0.013808510266244411, -0.03610929846763611, 0.041131846606731415, 0.0023091910406947136, -0.02430563047528267, -0.031981341540813446, 0.006177354604005814, -0.014678492210805416, -0.031344033777713776, 0.015886621549725533, 0.048827070742845535, -0.04270602762699127, 0.033409103751182556, 0.006880389992147684, 0.05568789690732956, 0.01878362149000168, -0.02218286320567131, 0.01626298576593399, -0.006124749314039946, -0.009060057811439037, -0.036105066537857056, -0.024404402822256088, -0.006356784608215094, -0.006418445147573948, -0.003331186715513468, -0.0065936255268752575, -0.05895308405160904, -0.01733892410993576, 0.0016789379296824336, 0.03997979685664177, -0.010009367018938065, 0.03127483278512955, 0.014845951460301876, -0.035547222942113876, 0.03926488012075424, -0.017810024321079254, -0.0009397033718414605, -0.02384187839925289, -0.007039561867713928, 0.004382273647934198, 0.039694979786872864, 0.0389852374792099, -0.005760253872722387, 0.021448463201522827, -0.02673289179801941, -0.01125872042030096, -0.006519065238535404, 0.037633974105119705, 0.03785236179828644, -0.05177590623497963, 0.008292431011795998, 0.003353837411850691, -0.009794068522751331, -0.033758822828531265, -0.003900036448612809, 0.01685495674610138, -0.018881702795624733, 0.00379715533927083, 0.03614483028650284, -0.01955569162964821, -0.02769899182021618, -0.0022752229124307632, -0.0007726309704594314, -0.02804243378341198, 0.051752105355262756, 0.03610607981681824, 0.039544884115457535, 0.020408164709806442, -0.026757562533020973, -0.007185608614236116, 0.04128344729542732, -0.009101549163460732, -0.02668970637023449, -0.010641812346875668, -0.028677398338913918, 0.03645933419466019, -0.057138171046972275, -0.014107861556112766, 0.010604471899569035, -0.0022646470461040735, -0.012580410577356815, -0.01672329567372799, 0.00717458501458168, -0.017465325072407722, -0.07860071212053299, -0.002870578784495592, 0.061563890427351, 0.0540291890501976, 0.04529701918363571, 0.03874628245830536, 0.008792564272880554, -0.03179875761270523, 0.04992348700761795, 0.0050367615185678005, 0.053631920367479324, -0.0037006575148552656, -0.06457437574863434, -0.020948000252246857, 0.013034666888415813, -0.020697420462965965, 0.03507661446928978, -0.004709057509899139, -0.01605036109685898, -0.007306152023375034, 0.026850758120417595, -0.026283124461770058, 0.023893622681498528, 0.052170321345329285, 0.08659545332193375, -0.05078943073749542, 0.03519641235470772, -0.021134017035365105, -0.022935055196285248, -0.011903185397386551, -0.0034463966730982065, 0.014761088415980339, 0.034642864018678665, 0.06062139943242073, 0.009738686494529247, 0.01957712322473526, -0.03861565515398979, 0.023105531930923462, 0.029879918321967125, -0.0023995719384402037, -0.07541002333164215, -0.01535740215331316, -0.05553174018859863, -0.006877731066197157, 0.022861266508698463, -0.021162960678339005, 0.0010873812716454268, -0.02907130867242813, 0.038453180342912674, 0.04362310469150543, 0.011145432479679585, 0.03291154280304909, -0.04414213076233864, -0.026001334190368652, 0.04618927836418152, -0.0031698213424533606, -0.01643659919500351, -0.03407366946339607, -0.03654971346259117, -0.012937702238559723, 0.034408267587423325, -0.01809193566441536, -0.03628622367978096, -0.047884728759527206, -0.008594443090260029, -0.025452125817537308, -0.04224507883191109, 0.004045326262712479, 0.035523056983947754, -0.02232627011835575, -0.051595110446214676, -0.01687685213983059, -0.00343228317797184, -0.006544634234160185, -0.0018664533272385597, 0.004122091922909021, -0.03687630966305733, -0.0595361702144146, 0.10502441972494125, -0.030057182535529137, 0.010000670328736305, 0.03771528974175453, 0.007200391031801701, 0.05836948752403259, -0.020963164046406746, 0.009122568182647228, 0.009186209179461002, 0.0061118220910429955, 0.00445974338799715, -0.02542204037308693, 0.0055433907546103, 0.014418170787394047, -0.0191152635961771, 0.020405340939760208, 0.0003409766068216413, -0.04824871942400932, 0.014897513203322887, -0.06062480807304382, -0.02386089414358139, -0.036327775567770004, 0.012977966107428074, 0.034477077424526215, -0.03278897702693939, 0.06397734582424164, 0.0571705624461174, 0.035853493958711624, 0.006784341763705015, -0.07618068158626556, 0.006114436779171228, -0.0016756150871515274, -0.011117015033960342, -0.012166591361165047, -0.005782188381999731, -0.017942199483513832, -0.016229640692472458, 0.05194788798689842, 0.00028772815130650997, -0.0070737386122345924, 0.02195269986987114, 0.05671459063887596, -0.037833139300346375, 0.03819902241230011, -0.007141509093344212, 0.012764270417392254, -0.017275460064411163, -0.008958482183516026, -0.007764126639813185, 0.02412206120789051, 0.04503269121050835, 0.046783074736595154, 0.028537658974528313, 0.03477706015110016, -0.001854355214163661, -0.016163863241672516, 0.018791479989886284, 0.007856068201363087, 0.0007695296662859619, 0.010657865554094315, -0.02422459051012993, 0.04477515071630478, -0.02960171364247799, 0.013901574537158012, 0.05247902870178223, 0.014099218882620335, -0.02781071700155735, 0.006025240290910006, -0.005253253038972616, -0.03863750770688057, -0.023777568712830544, -0.01058843731880188, 0.016533996909856796, -0.0006025130278430879, -0.04419754073023796, 0.05145362764596939, -0.044749803841114044, -0.05893716961145401, -0.10366109758615494, -0.04703960940241814, 0.010681679472327232, -0.022307077422738075, 0.0033321238588541746, 0.015334527008235455, -0.026182832196354866, -0.030286023393273354, -0.04970162361860275, 0.013546253554522991, 0.011370021849870682, -0.0663038119673729, -0.0007762862951494753, 0.032225437462329865, -0.02239607460796833, -0.0320371575653553, 0.03315281867980957, 0.057893913239240646, -0.017405515536665916, -0.012982136569917202, -0.05337688326835632, 0.04978256672620773, 0.017866410315036774, -0.03365282714366913, -0.019061969593167305, -0.0025723485741764307, 0.004496240057051182, 0.025376256555318832, 0.08967925608158112, -0.0015262123197317123, 0.03872552514076233, 0.002327015157788992, -0.01193972211331129, -0.0309592317789793, -0.0020187366753816605, -0.027335450053215027, 0.04164380580186844, -0.01845330186188221, -0.05463869124650955, 0.09487384557723999, 0.012153493240475655, 0.01734020747244358, -0.06923843920230865, 0.020303284749388695, 0.007674036081880331, 0.00684251869097352, -0.017817649990320206, 0.022742005065083504, -0.012408221140503883, -0.002281513763591647, -0.04997432604432106, -0.026669079437851906, 0.00038481238880194724, -0.030360838398337364, 0.0026847990229725838, 0.013491430319845676, 0.03070230223238468, 0.028887618333101273, -0.0051582204177975655, -0.020337192341685295, -0.00187587586697191, -0.013427033089101315, -0.03024599328637123, 0.029843444004654884, -0.011721453629434109, -0.0075063141994178295, 0.009635194204747677, 0.019400758668780327, -0.01646716147661209, 0.012177377007901669, -0.029335103929042816, -0.005982629954814911, -0.022069092839956284, 0.06218022480607033, -0.012205624021589756, -0.00786201935261488, -0.05881926789879799, 0.008179093711078167, -0.017250677570700645, -0.03457220271229744, -0.03684716299176216, 0.0011055334471166134, 0.009382292628288269, -0.00264116283506155, -0.04289009049534798, 0.016277804970741272, -0.033198557794094086, -0.030448438599705696, 0.010705964639782906, -0.00716277863830328, 0.025713298469781876, -0.002055230550467968, -0.0023183163721114397, 0.008841612376272678, -0.03305384889245033, 0.013933991082012653, 0.012635515071451664, 0.03710421919822693, -0.052936043590307236, 0.006752731744199991, -0.01791008561849594, -0.023594558238983154, 0.02717939019203186, 0.02460607886314392, -0.008126524277031422, 0.005130929872393608, -0.009350165724754333, -0.05484611541032791, -0.0008514216169714928, 0.007580367848277092, -0.0636097863316536, 0.003653955413028598, -0.0441705547273159, -0.024589985609054565, -0.016027189791202545, -0.046383086591959, 0.006040902808308601, 0.022081047296524048, -0.016584740951657295, 0.002429347485303879, 0.00519767077639699, 0.0011683929478749633, -0.02287433110177517, -0.008838823065161705, 0.01975090615451336, -0.12082727998495102, 0.01499086618423462, 0.00647329306229949, 0.0014966456219553947, -0.024957409128546715, 0.016402140259742737, 0.019075987860560417, -0.03707411140203476, 0.02394334226846695, -0.022947298362851143, -0.043470598757267, 0.002390134846791625, -0.011163611896336079, -0.004386692773550749, 0.007573332171887159, 0.03995031118392944, -0.03508336842060089, 0.025993002578616142, 0.0013691062340512872, -0.001288764993660152, -0.015234905295073986, -0.031222445890307426, 0.01761612854897976, -0.021509243175387383, 0.03460003063082695, -0.00766198243945837, -0.004013861995190382, -0.007695041596889496, 0.015269719995558262, 0.015716763213276863, 0.0039732190780341625, -0.039382342249155045, -0.008127118460834026, 0.003318190108984709, -0.04083358496427536, -0.00891861878335476, -0.005948534235358238, 0.004460766911506653, -0.02073119394481182, 0.017504779621958733, 0.026130229234695435, 0.011922630481421947, -0.019673611968755722, 0.007702255621552467, 0.05820893868803978, 0.01384811196476221, -0.04608400911092758, -0.042621295899152756, -0.008549215272068977, 0.0016228100284934044, 0.033526722341775894, 0.07914657145738602, -0.02971779555082321, -0.021092725917696953, -0.011365058831870556, 0.00035247651976533234, -0.030780930072069168, 0.023588228970766068, -0.039882440119981766, 0.030359499156475067, -0.004577144514769316, 0.03717869520187378, 0.006998872850090265, -0.012970970012247562, -0.02038608118891716, 0.05012841150164604, -0.030365904793143272, 0.01072855107486248, -0.022327590733766556, 0.020879093557596207, -0.05175377428531647, -0.04738646745681763, -0.03944113105535507, -0.01977473497390747, 0.008662094362080097, -0.037898533046245575, -0.00698113115504384, -0.05408116430044174, 0.0044172415509819984, -0.009301685728132725, -0.027245666831731796, -0.016157086938619614, -0.04951493442058563, 0.012444453313946724, 0.04669633507728577, 0.016121091321110725, 0.005340581759810448, -0.009154580533504486, -0.016911720857024193, -0.024175671860575676, -0.025006497278809547, -0.04309268295764923, -0.0030048536136746407, 0.02041807398200035, 0.003133182879537344, 0.02884506806731224, -0.027247915044426918, -0.02321712300181389, 0.014979508705437183, -0.014896569773554802, -0.006657550111413002, 0.03795495256781578, 0.025250207632780075, 0.04117788001894951, -0.013879643753170967, 0.018403301015496254, 0.01969950646162033, 0.006199281197041273, 0.010510019958019257, -0.020036054775118828, -0.03562181815505028, -0.005896753631532192, -0.02354426495730877, -0.03895033523440361, -0.04771390184760094, 0.01395350880920887, 0.012430746108293533, 0.006049389019608498, -0.006246059201657772, -0.00857139378786087, 0.0382000133395195, -0.0010069638956338167, 0.013916497118771076, -0.009915385395288467, 0.06339593976736069, 0.032164450734853745, 0.06919312477111816, 0.05244738981127739, 0.009037845768034458, -0.02909671515226364, -0.005276112351566553, -0.04182814434170723, -0.017256196588277817, 0.026387395337224007, 0.05466487258672714, -0.016957147046923637, -0.05286937952041626, 0.05150153860449791, -0.0366552509367466, -0.014031787402927876, -0.02239147201180458, -0.040343280881643295, 0.010313699021935463, -0.03775513544678688, -0.010644771158695221, -0.05096505582332611, -0.007978999987244606, -0.01665496826171875, 0.016657473519444466, -0.01901135966181755, 0.010259697213768959, -0.020877022296190262, -0.02620028145611286, 0.02005603536963463, -0.026069575920701027, 0.022246601060032845, 0.0018852008506655693, -0.0007460604538209736, -0.048262614756822586, 0.04815572500228882, 0.004321463871747255, -0.016016023233532906, -0.0046554752625525, -0.018013576045632362, -0.011460687033832073, 0.03424440696835518, -0.030969398096203804, -0.025331785902380943, -0.04822191223502159, 0.045932721346616745, 0.0336357019841671, 0.08954431861639023, -0.008297312073409557, 0.019879568368196487, 0.04086228832602501, -0.044809211045503616, 0.019474729895591736, 0.01762606017291546, 0.034605905413627625, -0.013154919259250164, 0.004219694994390011, -0.010053369216620922, 0.09336446225643158, 0.0035871132276952267, 0.02758616767823696, -0.00713462894782424, -0.03348921239376068, 0.006538376212120056, 0.01696147955954075, 0.0038757924921810627, -0.05526744946837425, -0.013661924749612808, 0.024275027215480804, 0.008651002310216427, 0.007224225904792547, -0.04078931361436844, 0.020059781149029732, -0.0013377693248912692, -0.0011365051614120603, 0.06914215534925461, 0.019100207835435867, -0.017994360998272896, 0.010890795849263668, -0.006571268197149038, -0.011463083326816559, -0.009524394758045673, -0.028150945901870728, 0.01412982027977705, 0.036170437932014465, 0.004793813452124596, -0.03319047391414642, 0.014180425554513931, -0.01884329877793789, 0.06712877005338669, 0.004519310779869556, 0.01634586602449417, 0.017677905037999153, 0.015181103721261024, -0.005922023206949234, -0.004759690258651972, 0.04348643496632576, 0.010562236420810223, -0.013729197904467583, -0.020131532102823257, -0.03916260972619057, -0.02689419500529766, -0.003060943679884076, 0.011966473422944546, 0.0005294890725053847, 0.03211222589015961, -0.04632411524653435, -0.006239037960767746, -0.016692791134119034, 0.012466673739254475, 0.008238514885306358, -0.007814714685082436, -0.0034494700375944376, 0.054166246205568314, -0.030852047726511955, 0.014822243712842464, 0.009838968515396118, -0.018524330109357834, 0.008527410216629505, -0.009228947572410107]",,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_2,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Usage,,{},15.1.0,"In your terminal, navigate (``) into your project's folder, then run:
+Replacing `` and `` with appropriate values.
+`` - name of transform
+`` - files or directory to transform
+`` Do a dry-run, no code will be edited
+`` Prints the changed output for comparison
+",,"[(np.int64(7), np.float64(0.10042588412761688)), (np.int64(429), np.float64(0.1128455251455307)), (np.int64(13415), np.float64(0.3052786886692047)), (np.int64(28864), np.float64(0.18222074210643768)), (np.int64(70166), np.float64(0.18144521117210388))]","[-0.059292275458574295, -0.002563323825597763, -0.011478249914944172, 0.03626707196235657, -0.03970770537853241, 0.020460674539208412, -0.0032088845036923885, 0.027963072061538696, 0.029004458338022232, 0.0025133073795586824, 0.019648369401693344, 0.02214914932847023, -0.006546574179083109, -0.009802249260246754, -0.03184531256556511, -0.030084488913416862, 0.00022782782616559416, 0.037254493683576584, 0.04229225218296051, -0.018421193584799767, 0.01639428921043873, -0.03850553557276726, 0.01704075187444687, -0.024165555834770203, 0.00042925088200718164, 0.00045928245526738465, 0.017279895022511482, -0.021418344229459763, 0.03798597306013107, 0.008961038663983345, 0.023502392694354057, -0.025866162031888962, -0.00738915242254734, -0.04153715819120407, -0.021096039563417435, 0.03328539431095123, -0.016837038099765778, 0.017506401985883713, -0.03816869854927063, -0.0055310605093836784, 0.011180960573256016, 0.002993539208546281, 0.010210747830569744, 0.02921866998076439, 0.02149982564151287, -0.009521720930933952, -0.013636038638651371, -0.013332514092326164, -0.008601021021604538, -0.0032378844916820526, -0.018446926027536392, -0.01869078166782856, 0.035458680242300034, -0.05411304906010628, 0.019895609468221664, -0.0009188523981720209, -0.04126700758934021, -0.0250686164945364, -0.07228589802980423, 0.02487034536898136, -0.03727952763438225, 0.01632537692785263, 0.006669227499514818, 0.009405883960425854, -0.002195154083892703, 0.056160882115364075, 0.016263458877801895, 0.028458936139941216, -0.012959430925548077, -0.008687503635883331, -0.019825447350740433, -0.007905445992946625, -0.04999497905373573, -0.058336660265922546, -0.059962160885334015, 0.01118837296962738, 0.03242388740181923, -0.04631449654698372, -0.006870164070278406, 0.05145278200507164, 0.012517428025603294, -0.022806813940405846, 0.0006181625067256391, -0.01731099747121334, 0.010417607612907887, -0.005572136491537094, 0.000643337843939662, 0.0011816219193860888, 0.044850777834653854, -0.006100725382566452, -0.010621295310556889, -0.038594797253608704, 0.011898082681000233, -0.023548010736703873, -0.03530612587928772, -0.010495622642338276, 0.03253912180662155, -0.0038912801537662745, 0.0046920799650251865, -0.03737978637218475, -0.017567135393619537, 0.02004844695329666, -0.015442079864442348, -0.02710609696805477, 0.03899373114109039, 0.007043437100946903, 0.04260134696960449, 0.03175315260887146, 0.00196561380289495, -0.037304457277059555, 0.025567147880792618, 0.02385048009455204, -0.009378399699926376, 0.061914730817079544, -0.004766958765685558, -0.014246869832277298, -0.0010168891167268157, -0.05046293884515762, 0.03298017755150795, -0.0035077398642897606, 0.041882339864969254, 0.048871055245399475, 0.04805581644177437, -0.0391763336956501, -0.012870225124061108, 0.009037869051098824, 0.0022030058316886425, 0.042902424931526184, 0.02781432680785656, 0.009762026369571686, 0.02954784967005253, 0.046528641134500504, 0.021182933822274208, 0.02534986101090908, -0.0018715305486693978, -0.018593166023492813, -0.006835840176790953, -0.02117024175822735, -0.014922973699867725, -0.038959160447120667, 0.03979286924004555, -0.00564038148149848, -0.027422692626714706, -0.04532241448760033, 0.022493738681077957, -0.07467218488454819, 0.03943042829632759, 0.025761594995856285, -0.0003812859649769962, 0.0063592540100216866, 0.0073016490787267685, 0.03275297209620476, 0.007840560749173164, -0.010993377305567265, 0.029898887500166893, 0.006590005476027727, -0.026332948356866837, 0.011160798370838165, -0.01719672419130802, 0.03970988467335701, -0.04417528957128525, 0.04436406120657921, -0.014973403885960579, 0.0035328513476997614, 0.04149692878127098, -0.03670971840620041, 0.025466235354542732, -0.02141665667295456, -0.011858141981065273, -0.005696283187717199, 0.007627467624843121, 0.005988660734146833, 0.011276704259216785, 0.07789282500743866, 0.014471634291112423, 0.047529175877571106, 0.05916176363825798, 0.010864382609724998, -0.01629510149359703, -0.03767987713217735, -0.014746826142072678, 0.0210270956158638, -0.03164679557085037, 0.006828221958130598, -0.03437359631061554, 0.008740325458347797, -0.0296072605997324, 0.028719764202833176, -0.0006293607293628156, 0.006505867466330528, -0.03339901939034462, 0.010937254875898361, 0.011020023375749588, 0.06626664102077484, 0.047725703567266464, -0.004115921910852194, 0.007551588583737612, -0.03245047479867935, -0.017046906054019928, -0.02073032222688198, 0.015543962828814983, 0.027534455060958862, 0.06745399534702301, 0.008772172965109348, 0.019357534125447273, -0.008225467056035995, 0.015035683289170265, -0.04952874779701233, -0.0054838149808347225, -0.03908589854836464, 0.007260331884026527, -0.027653910219669342, -0.021466445177793503, -0.029866032302379608, -0.03369905427098274, 0.04003174230456352, -0.01883832737803459, 0.020493529736995697, 0.010077624581754208, -0.03633301705121994, -0.01018902100622654, -0.0008764330996200442, 0.020135387778282166, 0.023605024442076683, -0.010581104084849358, 0.01920197159051895, 0.05055331811308861, 0.03886553272604942, -0.007508439011871815, -0.013885247521102428, -0.03501835837960243, -0.019450977444648743, 0.016915662214159966, 0.038598377257585526, 0.033315543085336685, -0.04016539826989174, 0.008103437721729279, 0.04878641292452812, 0.01966012269258499, 0.01626877300441265, -0.012617451138794422, -0.035852864384651184, 0.03728587180376053, 0.0019752944353967905, -0.022175366058945656, 0.0047830864787101746, 0.0001131237149820663, -0.02405295893549919, -0.038982778787612915, -0.009542166255414486, 0.020573221147060394, -0.01677749864757061, 0.024589842185378075, 0.05601690709590912, 0.036444369703531265, 0.012625998817384243, 0.034289807081222534, -0.010076399892568588, -0.04749089851975441, -0.022854598239064217, 0.04018273577094078, 0.049642812460660934, -0.027082134038209915, 0.001463596010580659, -0.01371423527598381, -0.012686573900282383, -0.020458534359931946, 0.01633373461663723, 0.027796750888228416, -0.012150191701948643, -0.03476162999868393, 0.0016687792958691716, 0.023394284769892693, 0.007953397929668427, 0.018878880888223648, 0.03706888109445572, 0.0035772905685007572, 0.04269454628229141, 0.0936935693025589, 0.05025074630975723, -0.008710920810699463, -0.012618031352758408, 0.043047379702329636, -0.01770934648811817, 0.027105797082185745, -0.04458034038543701, -0.011665386147797108, -0.015754638239741325, 0.024593262001872063, -0.03276432305574417, -0.04504562169313431, -0.07544524222612381, 0.042844757437705994, -0.01795807294547558, -0.024218769744038582, 0.006957650650292635, -0.00029350107070058584, -0.1631481796503067, -0.019143955782055855, 0.013969305902719498, 0.01247334759682417, 0.02297382801771164, 0.02771853841841221, 0.016226759180426598, -0.03016321174800396, -0.0558491013944149, 0.0054160612635314465, -0.06459580361843109, -0.04596315696835518, -0.009729892946779728, -0.02006755769252777, 0.04098391532897949, 0.013608836568892002, -0.014942345209419727, 0.0003770207695197314, 0.018973413854837418, -0.03284876048564911, -0.011224547401070595, -0.024176687002182007, 0.06520552188158035, -0.008981509134173393, -0.003709987737238407, 0.025322645902633667, 0.0158220287412405, -0.0018784689018502831, -0.009870636276900768, 0.0421951599419117, 0.022765111178159714, 0.03816666826605797, 0.011139112524688244, 0.03354896977543831, 0.0078055658377707005, 0.026464473456144333, -0.008575982414186, 0.01663312315940857, -0.011519784107804298, -0.01501350849866867, 0.029872693121433258, 0.016705898568034172, 0.020278234034776688, 0.0628872737288475, -0.01575210504233837, 0.02190936729311943, 0.003110916120931506, -0.014196040108799934, -0.04147939756512642, 0.006273959297686815, 0.052070748060941696, -0.02700084075331688, -0.009526742622256279, 0.0003687842399813235, -0.02798379212617874, 0.014269158244132996, 0.027573691681027412, 0.025341341271996498, -0.051347795873880386, 0.031775131821632385, -0.0497082881629467, -0.0048749810084700584, 0.02175532840192318, -0.024455321952700615, -0.033770814538002014, -0.0026085604913532734, -1.5172824419096287e-07, -0.013108481653034687, -0.0022523128427565098, 0.011221743188798428, 0.010985112749040127, -0.010898442007601261, -0.0035978457890450954, -0.0018919798312708735, -0.01508404966443777, 0.014278937131166458, -0.016927102580666542, -0.026953523978590965, -0.008384881541132927, -0.12370529770851135, 0.02632168121635914, -0.008542356081306934, -0.04291906580328941, -0.019107691943645477, 0.02788517065346241, -0.026400886476039886, 0.008684009313583374, 0.004764624405652285, 0.007490053772926331, 0.25703710317611694, 0.02843651920557022, -0.05931705981492996, 0.005050154868513346, 0.0011029395973309875, -0.008134567178785801, 0.01880844309926033, 0.043890196830034256, 0.005006099119782448, -0.02223554626107216, 0.015786709263920784, 0.04155153036117554, 0.015561878681182861, 0.025148147717118263, 0.056492749601602554, -0.021072033792734146, -0.021971723064780235, 0.030170990154147148, 0.05758911743760109, 0.0005443374393507838, 0.08064286410808563, -0.07514312118291855, 0.027301287278532982, 0.010936059057712555, -0.07808483392000198, -0.07167085260152817, -0.04992475360631943, 0.060872092843055725, -0.030912982299923897, 0.0071290102787315845, -0.025282565504312515, 0.028725648298859596, 0.03326814994215965, -0.006550660356879234, -0.02517329715192318, 0.014556439593434334, 0.018590141087770462, -0.07664661109447479, 0.005603074561804533, 0.01856059767305851, -0.036674559116363525, 0.005807251203805208, -0.022203970700502396, 0.03017268516123295, -0.03179618716239929, 0.0037152268923819065, 0.025587378069758415, 0.023281175643205643, 0.00836095493286848, -0.008346544578671455, -0.015818260610103607, -0.020003801211714745, 0.012844176962971687, -0.033071309328079224, 0.045862048864364624, -0.028975896537303925, 0.005521317478269339, -0.02603338472545147, 0.0025619317311793566, 0.02292327769100666, 0.02608460932970047, 0.0044344342313706875, -0.037919942289590836, -0.020224330946803093, 0.016777563840150833, 0.004383317194879055, -0.028806671500205994, -0.003908026497811079, 0.03701992705464363, 0.0757027342915535, 0.024135762825608253, 0.013699759729206562, -0.021483594551682472, -0.023142725229263306, 0.012853101827204227, 0.0009875005343928933, 0.011489233002066612, 0.04776840656995773, -0.029225599020719528, -0.004966671112924814, -0.030744750052690506, -0.028382424265146255, -0.030231434851884842, 0.0006967693916521966, 0.033935096114873886, -0.010169527493417263, 0.026384485885500908, 0.012222941033542156, -0.038200147449970245, -0.01782769151031971, 0.017629532143473625, 0.026151321828365326, -0.02219287119805813, 0.002593855606392026, 0.003252185182645917, 0.00582851329818368, -0.008137451484799385, -0.06664756685495377, -0.015301836654543877, 0.0009983540512621403, 0.010594707913696766, -0.04653458297252655, -0.002425112761557102, -0.005256320349872112, 0.027631809934973717, -0.06568514555692673, -0.026059959083795547, 0.00445807259529829, 0.02889064885675907, 0.03682314231991768, -0.0380031019449234, 0.004876274149864912, -0.04492991790175438, -0.049826592206954956, 0.01297507993876934, 0.06196318194270134, 0.06304829567670822, 0.029505401849746704, 0.018115250393748283, -0.006036790087819099, -0.020516665652394295, 0.04707743972539902, -0.009636747650802135, 0.010764085687696934, -0.015283302403986454, -0.05815182998776436, -0.00705148046836257, 0.04945329949259758, -0.014254450798034668, 0.060967061668634415, -0.008075512945652008, -0.008094540797173977, 0.0042519597336649895, 0.03687024861574173, 0.0019733323715627193, 0.013927439227700233, 0.10281626880168915, 0.026719383895397186, -0.02487323433160782, 0.028106437996029854, -0.004969747271388769, -0.008742730133235455, -0.06087395176291466, -0.003219610545784235, 0.027495967224240303, 0.0012148173991590738, 0.059567999094724655, 0.015070362016558647, -0.018376938998699188, -0.0065043289214372635, 0.01050055492669344, 0.029451265931129456, 0.03847304731607437, -0.026589497923851013, -0.019902877509593964, -0.05735429376363754, -0.045593954622745514, 0.023057278245687485, -0.011619122698903084, -0.006863252259790897, 0.0033336805645376444, 0.03244072198867798, 0.022700222209095955, 0.06467097252607346, -0.005910707637667656, -0.040994249284267426, -0.00815563090145588, 0.04704509302973747, 0.04540242254734039, -0.0060821459628641605, -0.010638779029250145, -0.04075847566127777, -0.024551672860980034, 0.015919771045446396, -0.011844449676573277, -0.0596720315515995, -0.02945167012512684, -0.020602991804480553, -0.03984149172902107, -0.05077557638287544, 0.014788320288062096, -0.0014664269983768463, -0.042324718087911606, -0.00028108363039791584, -0.009560424834489822, -0.009855207987129688, -0.01635538414120674, 0.009796034544706345, 0.030151361599564552, 0.000991776236332953, -0.021230241283774376, 0.1091320738196373, -0.020347997546195984, 0.010200860910117626, 0.00584322027862072, 0.040796056389808655, 0.10289043188095093, -0.06705237179994583, 0.016231002286076546, -0.003282685298472643, 0.005153912119567394, 0.0276523157954216, -0.023396050557494164, -0.057945504784584045, -0.02877507358789444, -0.0025848441291600466, -0.0579107291996479, 0.01755993627011776, -0.024240776896476746, -0.0003954517305828631, -0.01912124641239643, -0.02681673876941204, -0.010330109857022762, 0.008698861114680767, 0.038211721926927567, -0.021977102383971214, 0.020242400467395782, 0.02833925187587738, 0.013883208855986595, -0.02702975831925869, -0.009568188339471817, -0.059040870517492294, -0.03661509230732918, -0.01635340414941311, 0.007016192190349102, 0.00651776185259223, -0.002701654564589262, -0.047828491777181625, 0.02170986868441105, -0.006032959558069706, 0.0013725790195167065, 0.008127433247864246, 0.03405988588929176, -0.022981833666563034, -0.013330040499567986, -0.03046231158077717, -0.02042832039296627, 0.013679143972694874, -0.024077625945210457, -0.0417817197740078, -0.01924443617463112, 0.045039497315883636, 0.018945377320051193, 0.06347574293613434, 0.03421010076999664, -0.0129470843821764, -0.025971218943595886, 0.0033112745732069016, 0.02879389375448227, 0.02091430500149727, -0.025550195947289467, -0.0246418546885252, -0.008398332633078098, -0.005884428042918444, -0.021517859771847725, 0.041728731244802475, -0.005212751682847738, -0.05904200300574303, 0.0019694517832249403, 0.016378818079829216, -0.0021753208711743355, 0.02547195367515087, 0.00012075205449946225, 0.019167393445968628, 0.010492215864360332, -0.048527464270591736, 0.036668408662080765, -0.03576885163784027, -0.03196505829691887, -0.0388399176299572, -0.035977691411972046, -0.008953176438808441, 0.02589125744998455, -0.01389047410339117, -0.006438428070396185, -0.06027867645025253, -0.03552411124110222, 0.00023728611995466053, 0.015581205487251282, 0.006185901816934347, -0.028899801895022392, -0.008134582079946995, 0.02607191540300846, -0.00793379731476307, -0.0003708075964823365, 0.06429685652256012, 0.012186875566840172, 0.019154662266373634, 0.02349531650543213, -0.028930073603987694, -0.017944980412721634, -0.008805976249277592, -0.04241383448243141, 0.01692887768149376, -0.0026826898101717234, -0.027743589133024216, 0.00826065894216299, 0.06934121996164322, -0.014322172850370407, 0.003936764318495989, 0.0013020399492233992, -0.03196118026971817, -0.018875116482377052, -0.010684089735150337, -0.04954934120178223, 0.010274413041770458, 0.004839814268052578, -0.010216047056019306, 0.07962266355752945, -0.0003113271377515048, 0.04763880372047424, -0.08569284528493881, 0.0043799616396427155, 0.012329064309597015, 0.01694880612194538, -0.02813558839261532, 0.00021243626542855054, 0.01919814944267273, -0.01965266279876232, -0.030561257153749466, -0.005390853621065617, -0.008054246194660664, -0.01546094287186861, -0.02726418524980545, -0.016794316470623016, 0.0016686380840837955, -0.0022124394308775663, -0.02409493178129196, -0.06295754015445709, 0.011728893034160137, 0.019573209807276726, 0.003194785676896572, 0.0321345292031765, 0.005229339003562927, -0.028415683656930923, -0.028083428740501404, 0.037851277738809586, 0.02246459759771824, 0.02677931822836399, -0.015337811782956123, 0.027244964614510536, 0.0057675461284816265, 0.039521824568510056, -0.013426653109490871, 0.017092281952500343, -0.04581798240542412, 0.017868367955088615, 0.008330348879098892, -0.018567420542240143, -0.019285554066300392, -0.008591638877987862, -0.0014379228232428432, 0.0058118547312915325, -0.0013257504906505346, 0.03410442918539047, -0.04661564528942108, -0.010160666890442371, -0.016027770936489105, 0.018698224797844887, -0.013645606115460396, -0.02066090889275074, 0.0031607290729880333, -0.03580527752637863, -0.04071982577443123, -0.01805751584470272, 0.012902050279080868, 0.0057905144058167934, -0.012457211501896381, -0.028149424120783806, -0.003342056181281805, -0.011639873497188091, 0.033927131444215775, 0.012902877293527126, 0.04878448694944382, -0.014868555590510368, 0.03839895874261856, -0.046823058277368546, -0.028422966599464417, 0.012290899641811848, -0.00878374557942152, -0.00012725980195682496, -0.03287896886467934, -0.010292106308043003, -0.026938918977975845, -0.008919218555092812, -0.011875114403665066, 0.022663503885269165, -0.031669773161411285, 0.009362786076962948, -0.006439653690904379, 0.0006619390333071351, 0.02978525683283806, -0.04263529181480408, -0.0020848806016147137, -0.14722560346126556, 0.03498281165957451, -0.05750276893377304, -0.0015179943293333054, -0.028545331209897995, -0.03382221981883049, -0.03968309611082077, -0.023222235962748528, 0.0017752456478774548, -0.014443251304328442, -0.0025708558969199657, -0.005325520411133766, 0.0027043940499424934, -0.006993182934820652, 0.015817733481526375, 0.013902421109378338, 0.0020677491556853056, 0.021543404087424278, -0.034834858030080795, 0.026795214042067528, 0.011930224485695362, -0.027935946360230446, -0.012562324292957783, -0.03323131799697876, 0.05179654806852341, 0.016884397715330124, 0.008397066965699196, 0.018628008663654327, 0.0019807752687484026, -0.03564712777733803, 0.03699616715312004, -0.03340526297688484, 0.006365762557834387, 0.03281482681632042, -0.041626591235399246, -0.00576550280675292, 0.00830096285790205, 0.0041289967484772205, -0.04017970338463783, 0.005321478936821222, -0.030157258734107018, 0.020607849583029747, -0.012510640546679497, 0.004104776307940483, 0.0164166446775198, 0.0402212031185627, -0.0009831658098846674, -0.01238043699413538, -0.03055800311267376, 0.00043591539724729955, 0.008661431260406971, 0.08399266749620438, -0.04592891037464142, 0.00796312652528286, -0.0074753048829734325, 0.005164541304111481, -0.0615721233189106, -0.007973355241119862, -0.02292199432849884, 0.010349193587899208, -0.012520846910774708, 0.007197159342467785, -0.042613595724105835, -0.035572540014982224, -0.012853270396590233, 0.03793416544795036, -0.03879725560545921, -0.015197941102087498, 0.0038868356496095657, -0.00611191475763917, -0.013872664421796799, 0.023485751822590828, -0.05149126797914505, -0.02986479550600052, -0.0023278759326785803, 0.006647635716944933, -0.03235431760549545, -0.041812337934970856, -0.0025781262665987015, -0.011924601159989834, -0.010264656506478786, -0.022343315184116364, -0.028115352615714073, 0.020209355279803276, 0.012941542081534863, 0.011675731278955936, -0.014832866378128529, -0.0025823572650551796, -0.020192084833979607, -0.008106916211545467, -0.024834970012307167, -0.02911040186882019, 0.018877442926168442, 0.01177876815199852, -0.01533967163413763, 0.03331330791115761, -0.026198115199804306, -0.01638086698949337, 0.008915380574762821, 0.0028095426969230175, -0.00877339392900467, 0.018362203612923622, -0.0004849557881243527, -0.004482361953705549, 0.008908180519938469, 0.06036839261651039, 0.05980894714593887, -0.01214220467954874, 0.03430898115038872, -0.015270658768713474, -0.03196078538894653, -0.013947328552603722, -0.028639402240514755, -0.024826807901263237, -0.0267023965716362, -0.006875970400869846, 0.00742868660017848, 0.012164760380983353, -0.008652710355818272, -0.04260279983282089, 0.021829649806022644, -0.05306698754429817, -0.0427439883351326, -0.026397092267870903, 0.04095696657896042, 0.04168534278869629, 0.02775461971759796, -0.002574632177129388, -0.022902416065335274, 0.014766151085495949, -0.013519097119569778, -0.03125018626451492, 0.02278250828385353, 0.05566946044564247, 0.04327082261443138, 0.0007547206478193402, -0.04909355193376541, 0.05189745873212814, -0.041987236589193344, -0.0018709679134190083, -0.031760308891534805, -0.025705544278025627, 0.03708358108997345, -0.04296687990427017, 0.01576819084584713, -0.04292304813861847, -0.013854780234396458, -0.01508621871471405, -0.014420714229345322, -0.035012032836675644, 0.014021669514477253, 0.0018481502775102854, -0.0290131364017725, 0.046123355627059937, -0.005884104408323765, 0.002510888734832406, 0.0018739121733233333, 0.005159742198884487, 0.014211827889084816, 0.06363020837306976, -0.02635270170867443, -0.012403824366629124, -0.01018540095537901, 0.0034277979284524918, -0.03981448709964752, 0.04016731679439545, -0.05216801166534424, 0.003616426372900605, -0.039424411952495575, 0.02649606205523014, 0.024374520406126976, 0.051992595195770264, -0.0063066063448786736, -0.006293734069913626, 0.04799514263868332, -0.044556014239788055, 0.013809398747980595, 0.005012596026062965, 0.026651034131646156, 0.0061736274510622025, 0.03243196755647659, 0.008456453680992126, 0.05206180736422539, 0.026036478579044342, 0.044971875846385956, 0.03413919731974602, -0.015334074385464191, 0.04704631119966507, -0.0033788580913096666, 0.03046223893761635, 0.007501934189349413, 0.034134529531002045, -0.0032887523993849754, -0.011732194572687149, 0.03369397670030594, -0.0327063724398613, 0.020095819607377052, 0.0010391098912805319, 0.012199731543660164, 0.0024731033481657505, 0.025890948250889778, 0.04042256996035576, -0.04717328026890755, -0.012825262732803822, -0.025463348254561424, -0.04225790128111839, -0.004271346610039473, 0.06499683856964111, 0.0070540569722652435, 0.008524616248905659, -0.014593461528420448, 0.003948833793401718, -0.012571665458381176, 0.03536103665828705, -0.00711160060018301, -0.028682798147201538, 0.030407115817070007, 0.050828639417886734, -0.011211993172764778, -0.017494739964604378, 0.021274784579873085, 0.02123861387372017, -0.03336559981107712, -0.007230797316879034, -0.04289557784795761, -0.026443369686603546, -0.01869935169816017, -0.003559358883649111, -0.014661530032753944, -0.04002831131219864, -0.07444633543491364, -0.022558925673365593, -0.027884073555469513, 0.012293302454054356, 0.0013760720612481236, -0.012474729679524899, 0.006779294461011887, -0.004907818511128426, 0.021918153390288353, 0.015556261874735355, 0.008753500878810883, -0.038988884538412094, 0.005287813954055309, -0.00033882036223076284]",,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_2_code_1,code_snippet,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_2,Usage - code_1,,"{'programming_language': 'bash', 'filename': 'Terminal', 'switcher': False}",15.1.0,,"npx @next/codemod <transform> <path>
+","[(np.int64(6), np.float64(0.05181024968624115)), (np.int64(87109), np.float64(0.23644021153450012)), (np.int64(124090), np.float64(0.33392333984375))]",,"[-0.033225640654563904, 0.0008747083484195173, -0.0010405349312350154, 0.02415873110294342, -0.05209457501769066, -0.024538708850741386, 0.05443151667714119, 0.0012541423784568906, -0.009518238715827465, 0.021577686071395874, 0.019066596403717995, -0.017225703224539757, -0.017315687611699104, -0.034975603222846985, 0.016591355204582214, 0.007509439717978239, -0.005833697039633989, 0.0360809862613678, 0.03887169063091278, -0.06077255308628082, -0.020262621343135834, -0.01622677408158779, 0.020400715991854668, 0.07516886293888092, -0.03376965969800949, 0.0039427499286830425, -0.02675476111471653, -0.012951459735631943, 0.011294832453131676, 0.0008020511595532298, 0.0016213965136557817, 0.015293673612177372, -0.0006739161326549947, -0.02899678610265255, -0.012758552096784115, 0.01714118756353855, 0.00017379473138134927, -0.005445072893053293, -0.04093564674258232, -0.0006305313436314464, -0.01489674486219883, -0.007631886750459671, -0.008502120152115822, -0.022574489936232567, 0.027809204533696175, -0.007473296485841274, 0.024243507534265518, -0.033506184816360474, 0.013680779375135899, 0.0008010520832613111, 0.009770340286195278, 0.0073624951764941216, 0.020431367680430412, -0.039818014949560165, 0.026019185781478882, -0.014782425947487354, -0.028791144490242004, -0.03630185127258301, -0.03424069657921791, 0.03881296515464783, -0.04253394529223442, 0.02059614658355713, 0.0054193888790905476, 0.015190145932137966, -0.009861939586699009, 0.028674904257059097, -0.038679338991642, 0.027895918115973473, -0.012460416182875633, 0.01172025315463543, -2.714557012950536e-05, 0.005185000132769346, -0.053842976689338684, -0.07812913507223129, -0.0578833743929863, 0.009929293766617775, 0.029503410682082176, -0.051591165363788605, -0.0105616869404912, 0.052735552191734314, 0.03248589113354683, -0.004311323631554842, 0.05930977314710617, -0.041985657066106796, 0.023312676697969437, 0.02256890945136547, -0.01395446714013815, 0.016609029844403267, 0.04260653629899025, -0.011701122857630253, 0.020036526024341583, -0.03834850341081619, 0.02189764939248562, -0.05778159201145172, -0.05093790218234062, -0.0037054189015179873, -0.009836811572313309, 0.037912990897893906, 0.006619976833462715, 0.04319796711206436, -0.013032566756010056, 0.044714078307151794, 0.01811797358095646, -0.01651339791715145, -0.0010126091074198484, 0.010449337773025036, 0.012510007247328758, 0.028500357642769814, 0.006018159445375204, -0.04148558899760246, 0.04773497208952904, 0.004639580845832825, 0.008014116436243057, 0.028483344241976738, 0.012830028310418129, -0.018305661156773567, -0.027207976207137108, -0.06201067566871643, 0.005156937055289745, -0.028244154527783394, 0.08157893270254135, -0.0011939280666410923, 0.06662195175886154, -0.03610077127814293, 0.02522384002804756, -0.03515956550836563, 0.019504358991980553, 0.02814088575541973, -0.03669307008385658, 0.0068228766322135925, -0.009028307162225246, 0.018785450607538223, 0.021744752302765846, 0.03635530546307564, 0.0246138833463192, -0.017661485821008682, 0.02966983988881111, -0.041582174599170685, 0.028982361778616905, -0.05785160884261131, -0.021075626835227013, -0.012047701515257359, 0.0005632388638332486, -0.05144960805773735, 0.016668710857629776, -0.060341306030750275, 0.01669915020465851, -0.004537386354058981, -0.016735300421714783, -0.01989087648689747, 0.016907066106796265, 0.04924836382269859, 0.00994308851659298, -0.0008157858974300325, 0.026081163436174393, 0.01008834782987833, 0.008624729700386524, -0.0026476026978343725, 0.01878604292869568, 0.043061431497335434, -0.014925338327884674, 0.015181421302258968, -0.01867213472723961, -0.03418925777077675, 0.045478738844394684, 0.01990976557135582, 0.047539688646793365, 0.01492688525468111, 0.015807615593075752, -0.06011861935257912, -0.007042040582746267, 0.034062352031469345, -0.009334160014986992, -0.013984855264425278, 0.05844494327902794, 0.020960157737135887, 0.05460597202181816, 0.010286858305335045, -0.0041565848514437675, -0.027761366218328476, -0.037243351340293884, 0.031760986894369125, 0.010991344228386879, 0.009642282500863075, -0.030895397067070007, -0.001376840053126216, -0.002173610497266054, -0.02589443139731884, -0.013695511035621166, 0.051206763833761215, -0.0436493344604969, -0.023010283708572388, 0.01700909249484539, -0.015904666855931282, 0.03362050652503967, 0.0012599991168826818, -0.002763502998277545, -0.04103832319378853, -0.024954991415143013, -0.002677756128832698, -0.07342124730348587, 0.050958797335624695, 0.007256336510181427, -0.015321759507060051, 0.015137460082769394, -0.026061980053782463, -0.016666188836097717, -0.060542281717061996, 0.00818608421832323, -0.005688395816832781, -0.013177981600165367, 0.00016204241546802223, 0.03248036652803421, -0.022249311208724976, -0.03016766533255577, 0.03776213526725769, -0.020018698647618294, 0.01414458081126213, -0.02781037427484989, -0.033624909818172455, 0.006787276826798916, 0.024189835414290428, -0.040210336446762085, 0.034163739532232285, 0.02074301987886429, -0.032872702926397324, 0.022148987278342247, 0.05522056668996811, 0.008042250759899616, -0.07259415835142136, -0.02924647554755211, -0.025953318923711777, 0.009132185019552708, -0.022559678182005882, 0.023807497695088387, -0.009698581881821156, -0.019398007541894913, -0.010356265120208263, 0.0528060682117939, -0.026108495891094208, -0.016744818538427353, -0.048832375556230545, 0.04563291743397713, 0.013935795053839684, -0.004776776302605867, -0.043857675045728683, 0.005771488882601261, 0.018206290900707245, 0.03028840199112892, -0.02230016514658928, 0.05386945605278015, 0.0032701201271265745, -0.00836492795497179, 0.013995357789099216, 0.012764248065650463, 0.04925940930843353, 0.009157652035355568, -0.02249620482325554, -0.06923270970582962, -0.005069973412901163, 0.025677548721432686, -0.003021803917363286, 0.0076994141563773155, 0.02380977012217045, 0.006414257455617189, 0.0012679729843512177, -0.013102124445140362, 0.021297844126820564, -0.0037978924810886383, 0.012264164164662361, -0.0200010035187006, -0.011375750415027142, 0.016339555382728577, -0.005902797915041447, -0.02655504271388054, 0.03297097980976105, -0.01539587788283825, -0.015686018392443657, 0.08534164726734161, 0.034716878086328506, 0.03433223441243172, 0.003481902414932847, 0.017658956348896027, -0.023428767919540405, 0.04071635752916336, 0.02668808028101921, -0.023050887510180473, -0.004343932494521141, 0.005251564085483551, 0.008869257755577564, -0.058590758591890335, -0.009971131570637226, 0.041036006063222885, 0.005821227096021175, -0.07616297900676727, 0.03557692840695381, 0.02210906893014908, -0.1362321823835373, 0.013796097598969936, 0.010044323280453682, 0.011369362473487854, 0.014755846932530403, 0.03002517856657505, -0.05618814006447792, -0.010262572206556797, -0.029698072001338005, -0.0004361878091003746, -0.015167366713285446, -0.061177968978881836, 0.0421573668718338, -0.0041228001937270164, 0.005279630422592163, 0.021117834374308586, -0.03525971621274948, -0.018118811771273613, 0.023445982486009598, -0.014833768829703331, -0.012550554238259792, -0.03508767858147621, 0.0515487864613533, -0.020349228754639626, 0.003664006944745779, -0.030050525441765785, 0.019413936883211136, -0.034709177911281586, -0.06281907111406326, 0.030280116945505142, -0.04993285983800888, 0.018094222992658615, -0.0012583077186718583, -0.002788916463032365, 0.0074804844334721565, 0.06512483954429626, 0.017250286415219307, -0.034690555185079575, -0.04410213232040405, -0.014720427803695202, -0.005478662438690662, 0.05656728893518448, -0.009470623917877674, 0.004382645711302757, 0.010236594825983047, -0.03828897699713707, -0.011079794727265835, -0.0066279335878789425, -0.019378649070858955, 0.02813202142715454, 0.015779387205839157, 0.00028578704223036766, -0.003909624647349119, -0.012344646267592907, -0.021991992369294167, 0.05632931366562843, 0.013745879754424095, 0.043202295899391174, -0.05066244304180145, 0.04000065103173256, -0.03265388309955597, -0.02374422922730446, 0.02160106785595417, -0.017209863290190697, 0.002512255683541298, 0.030982179567217827, 0.05360441654920578, -0.03742518275976181, 0.015524034388363361, -0.0178041011095047, -0.010975180193781853, -0.04893551766872406, 0.022458985447883606, 0.0008177380077540874, -0.026563428342342377, -0.007911640219390392, -0.0020110602490603924, -0.03924006223678589, -0.0013116822810843587, -0.12123763561248779, -0.005813981406390667, 0.014197776094079018, -0.01668412797152996, 0.01724367029964924, -0.048525456339120865, 0.047920674085617065, 0.004929716698825359, -0.023717297241091728, 0.06477738916873932, 0.21435122191905975, 0.04756775498390198, -0.024689963087439537, 0.004481913521885872, 0.034169334918260574, -0.02572665549814701, 0.0447896346449852, 0.0018649381818249822, -0.006919678300619125, -0.038383323699235916, -0.029874930158257484, 0.013180890120565891, -0.0018589664250612259, -0.03676089271903038, -0.02212672308087349, 0.006152594927698374, -0.03768458217382431, 0.0476168654859066, 0.04149113968014717, -0.04205381125211716, 0.014781828038394451, -0.023593438789248466, -0.011644043028354645, -0.0028499835170805454, -0.05541694536805153, 0.01427772268652916, 0.015341122634708881, 0.017176933586597443, -0.009446585550904274, -0.007793102879077196, -0.022871816530823708, 0.03219056874513626, 0.021046118810772896, 0.017376301810145378, -0.03171424940228462, 0.00712253712117672, 0.013935073278844357, -0.05323345586657524, 0.012322230264544487, -0.009309795685112476, -0.0333176851272583, 0.001442581880837679, -0.040396470576524734, 0.04444750398397446, -0.002022635890170932, -0.058114372193813324, 0.039935991168022156, -0.020890144631266594, -0.031888093799352646, -0.04483653977513313, -0.001290258951485157, -0.0233934223651886, -0.03493131697177887, 0.006214948371052742, 0.029740218073129654, -0.04676413908600807, -0.01686139591038227, -0.007023572456091642, -0.013680721633136272, 0.0019465491641312838, 0.049745190888643265, 0.017557088285684586, -0.03212502971291542, 0.018406976014375687, -0.029254205524921417, 0.002508715493604541, 0.00899769738316536, -0.00898120179772377, -0.0002692894486244768, 0.034233711659908295, 0.04262910410761833, -0.006417278200387955, -0.00693456782028079, -0.031933948397636414, -0.01435424666851759, 0.01404804177582264, 0.02635367587208748, 0.027366340160369873, -0.056531112641096115, 0.019663773477077484, 0.005439538508653641, -0.03589053824543953, -0.005475632380694151, -0.006034161429852247, 0.014052785001695156, -0.05782221630215645, 0.04176691174507141, 0.020930862054228783, -0.007926889695227146, -0.013443540781736374, 0.013398375362157822, -0.00743527989834547, -0.03641663119196892, 0.04918821156024933, 0.03353077918291092, 3.0047518521314487e-05, 0.049643319100141525, 0.0243940781801939, -0.06815102696418762, 0.03516065701842308, -0.01931646466255188, -0.020508982241153717, 0.012062780559062958, -0.04428793489933014, 0.06368040293455124, -0.027857229113578796, 0.004677636083215475, 0.02053665742278099, 0.00035534249036572874, -0.03125520050525665, 0.01539179589599371, 0.009552131406962872, 0.003783365711569786, -0.036675501614809036, -0.034895192831754684, 0.02296801097691059, 0.056130439043045044, 0.018788540735840797, 0.03171780705451965, 0.008035852573812008, 0.013506127521395683, 0.0031986157409846783, 0.0081183398142457, 0.028914758935570717, -0.020614031702280045, -0.04775175452232361, -0.01135022472590208, 0.040880411863327026, -0.014927723444998264, 0.04343089088797569, -0.0533788688480854, -0.0070587219670414925, -0.06517360359430313, 0.04356379806995392, 0.012103489600121975, 0.029675308614969254, 0.07737788558006287, 0.05689769238233566, -0.02566230669617653, 0.04490510746836662, 0.002790486440062523, -0.03311138227581978, -0.025471076369285583, -0.013898906297981739, 0.018997859209775925, 0.03499950096011162, 0.006251987535506487, -0.014486615546047688, 0.013844454661011696, 0.00032732266117818654, 0.010957714170217514, 0.05903945118188858, 0.0012132052797824144, -0.036014869809150696, -0.029139557853341103, -0.04162914305925369, 0.0049168202094733715, -0.010153465904295444, -0.02686428651213646, -0.031141972169280052, 0.003851261455565691, 0.0328691266477108, 0.051018908619880676, -0.012864903546869755, 0.002287684939801693, -0.03733395040035248, -0.07952150702476501, 0.07464022934436798, -0.028863605111837387, -0.02347276173532009, -0.020194388926029205, -0.004217040725052357, -0.04516932740807533, 0.03486567363142967, -0.03558781370520592, -0.017822835594415665, -0.021237151697278023, -0.017363306134939194, -0.00771403918042779, -0.038287777453660965, 0.000889998918864876, -0.021473044529557228, 0.012535001151263714, -0.03745667263865471, 0.04551749676465988, -0.017853673547506332, -0.024060513824224472, -0.015874993056058884, 0.02751835808157921, -0.01671893708407879, -0.03209574893116951, 0.10318504273891449, 0.00487776193767786, -0.02737320214509964, -0.013186144642531872, 0.00225724745541811, 0.007300237193703651, -0.019967664033174515, -0.031468674540519714, -0.04148462042212486, 0.03171179071068764, -0.012821865268051624, -0.029528982937335968, 0.038033377379179, 0.0482688806951046, -0.016517704352736473, -0.02286430448293686, 0.01257296558469534, -0.036751773208379745, 0.0065836007706820965, -0.029375063255429268, -0.00017237773863598704, 0.01671612448990345, -0.01582549884915352, 0.022899046540260315, -0.013906667940318584, 0.06017906963825226, 0.0450235940515995, 0.02116299793124199, -0.005204628687351942, -0.038169797509908676, -0.035544976592063904, -0.008713293820619583, -0.014224895276129246, 0.0013128782156854868, -0.009061028249561787, -0.020247668027877808, -0.02793087251484394, 0.026624705642461777, -0.03560498729348183, 0.001564532401971519, 0.04885752126574516, 0.035388946533203125, 0.012687415815889835, 0.07494756579399109, 0.0251575019210577, 0.03317239508032799, 0.015954691916704178, 0.011080648750066757, -0.024912532418966293, 0.029370896518230438, 0.019967377185821533, 0.011860567145049572, 0.07687143236398697, 0.020392756909132004, -0.0006528583471663296, -0.05040193349123001, -0.016445841640233994, 0.03713253140449524, -0.020893851295113564, -0.025379426777362823, -0.04063694179058075, 0.028441671282052994, -0.03076343610882759, 0.01605423353612423, -0.019878217950463295, 0.014828634448349476, -0.011281483806669712, -0.005797156132757664, 0.0034718939568847418, -0.03877852112054825, -7.753580575808883e-05, -0.02286124788224697, 0.00841235276311636, -0.008611406199634075, -0.028934534639120102, 0.08076336979866028, -0.037818022072315216, -0.028436841443181038, -0.034262120723724365, -0.015955206006765366, -0.012504625134170055, 0.0008003830444067717, 0.010874501429498196, 0.012259776704013348, -0.0012712391326203942, 0.03467350825667381, -0.05875677615404129, 0.05349380522966385, 0.033897366374731064, -0.05576073005795479, 0.006113784853368998, 0.03255399316549301, -0.02973981201648712, -0.025333503261208534, 0.03950512036681175, 0.03892377391457558, 0.02407398447394371, 0.01927693374454975, -0.04854448884725571, 0.03881462663412094, -0.03640967234969139, -0.08044836670160294, 0.02006424404680729, -0.04136965423822403, -0.008065346628427505, 0.014224293641746044, 0.08324476331472397, -0.018508929759263992, 0.0005679025780409575, 0.022270144894719124, -0.015353632159531116, -0.037719015032052994, -0.013121463358402252, -0.012266290374100208, 0.028399504721164703, 0.006193999666720629, -0.052416618913412094, 0.05284452065825462, -0.026515083387494087, 0.016008341684937477, -0.06518819183111191, -0.0022370931692421436, 0.007293111644685268, 0.025101525709033012, -0.03687136247754097, 0.030845889821648598, 0.012976817786693573, 0.003802127670496702, -0.020321255549788475, -0.04112706333398819, -0.0014762664213776588, -0.019577518105506897, -0.05005697160959244, 0.017175158485770226, 0.018496206030249596, 0.07678145170211792, 0.008783712051808834, -0.012312181293964386, -0.0027150253299623728, -0.0264577679336071, 0.02804608643054962, 0.04030030220746994, 0.022388426586985588, -0.01693960838019848, 0.02397213503718376, 0.02687481790781021, 0.004410310182720423, -0.01794811710715294, -0.014546718448400497, -0.03147916495800018, 0.006607161369174719, 0.05546136200428009, -0.021086785942316055, 0.0032558052334934473, -0.03396407887339592, 0.010489478707313538, -0.01040925644338131, 0.002231513848528266, -0.021482624113559723, -0.007307894993573427, -0.016859883442521095, -0.016572944819927216, -0.06710397452116013, 0.017017912119627, 0.005053582601249218, -0.02487439662218094, 0.01924164965748787, -0.03652068227529526, -0.027948690578341484, -0.006328673101961613, -0.002656421856954694, -0.023796958848834038, -0.044556405395269394, -0.01653018593788147, -0.001020343042910099, 0.013072886504232883, 0.01711658574640751, 0.010042069479823112, 0.025668561458587646, -0.019319159910082817, 0.017268871888518333, -0.01652318611741066, 0.018317611888051033, -0.0015995355788618326, -0.019979408010840416, -0.01641184277832508, -0.030255872756242752, 0.025395387783646584, -0.0335688516497612, -0.005566860549151897, 0.004461395088583231, -0.027763497084379196, -0.031271811574697495, 0.018122784793376923, -0.021448073908686638, -0.02449125237762928, -0.02408318780362606, 0.044274043291807175, 0.03754415363073349, -0.03033602423965931, -0.009769951924681664, 0.018630055710673332, -0.005316362716257572, -0.135948047041893, -0.0059277708642184734, 0.008123512379825115, -0.014770676381886005, -0.015498495660722256, 0.02785213105380535, -0.0033072829246520996, -0.07085973024368286, -0.007434386759996414, -0.06273763626813889, -0.028828298673033714, 0.009184124879539013, 0.016197126358747482, -0.01690712571144104, 0.010992180556058884, 0.010328317061066628, -0.009550162591040134, -0.009923653677105904, 0.005714192055165768, 0.040295690298080444, -0.021611526608467102, -0.027119139209389687, 0.06058179959654808, -0.009911516681313515, 0.023144496604800224, 0.031640391796827316, 0.004230428487062454, 0.006684052757918835, -0.011740736663341522, -0.005484007764607668, -0.005694396328181028, -0.03977661207318306, 0.03477318584918976, 0.03950481861829758, -0.0005097576067782938, 0.0008335731108672917, -0.012887638062238693, 0.0188645888119936, -0.021501585841178894, 0.013094926252961159, 0.061799608170986176, 0.025438664481043816, -0.006858861073851585, 0.002422660356387496, 0.04453384503722191, 0.06467645615339279, -0.03906626254320145, -0.002568641444668174, -0.03377797454595566, -0.01074744388461113, -0.006050209514796734, 0.05325452238321304, 0.0006307265139184892, 0.004737759009003639, 0.007115435320883989, 0.01342484075576067, -0.02957475371658802, 0.04925982654094696, -0.0033992177341133356, 0.033360060304403305, -0.023304563015699387, 0.03485960513353348, -0.03060820698738098, -0.10292678326368332, -0.02443767711520195, 0.019070252776145935, -0.029777659103274345, 0.0018484089523553848, -0.01950213499367237, 0.00587074737995863, -0.015259930863976479, -0.04287859424948692, -0.0006233894382603467, -0.034919463098049164, 0.004173435736447573, 0.008414383046329021, 0.012977927923202515, -0.01797468774020672, -0.010550721548497677, 0.006774926092475653, -0.035734206438064575, 0.02607574686408043, -0.03826243802905083, -0.032587043941020966, 0.052075546234846115, 0.01906166598200798, -0.035523947328329086, 0.022986147552728653, -0.03339673951268196, 0.007435441482812166, -0.022528065368533134, -0.01800128072500229, -0.02378164790570736, -0.011989545077085495, -0.04368654265999794, 0.02146628499031067, -0.017731867730617523, 0.03278549388051033, 0.0011973109794780612, -0.016341829672455788, 0.006027656607329845, 0.013143826276063919, -0.03334018215537071, 0.017749730497598648, 0.014495154842734337, 0.02398458868265152, 0.05709625780582428, -0.02675468474626541, 0.00931289792060852, -0.004011889919638634, -0.057004187256097794, 0.005796720739454031, -0.025930607691407204, -0.03648684546351433, -0.012115342542529106, -0.03407260403037071, 0.0018124306807294488, -0.004701761528849602, 0.02762955240905285, -0.011565317399799824, 0.012357293628156185, 0.014275300316512585, 0.0434318482875824, -0.03244183585047722, 0.027575146406888962, 0.002129975939169526, 0.03771798685193062, 0.017534125596284866, -0.0021065727341920137, 0.03410700336098671, 0.007832563482224941, -0.015010259114205837, 0.0373622365295887, 0.007356239482760429, 0.06286872178316116, -0.01270583551377058, -0.015208029188215733, 0.06190888211131096, -0.04026184603571892, -0.008608793839812279, 0.004654143936932087, -0.03147777169942856, -0.00033547694329172373, -0.032393552362918854, 0.022460412234067917, -0.05628840997815132, 0.008273978717625141, -0.010970226489007473, -0.006610548589378595, -0.006663635838776827, 0.019902018830180168, 0.012780144810676575, 0.040091268718242645, 0.03311847522854805, -0.011864912696182728, 0.01636742614209652, -0.04602440446615219, -0.030094169080257416, -0.01741684228181839, 0.021115899085998535, -0.010644419118762016, 0.013463329523801804, 0.005186176393181086, 0.02757933735847473, 0.007638391572982073, -0.007846221327781677, -0.02610044553875923, 0.011035578325390816, -0.04840266704559326, 0.05580681189894676, 0.007608306594192982, 0.044802673161029816, -0.011260587722063065, 0.02159784734249115, 0.04896891862154007, -0.04572482034564018, 0.013764603063464165, -0.02632296085357666, 0.013980036601424217, -0.019148966297507286, 0.0018608557293191552, -0.006744212470948696, 0.08316180855035782, -0.001092582824639976, 0.023784920573234558, 0.014612267725169659, -0.006896257866173983, -0.023767994716763496, -0.01205586176365614, 0.004929583519697189, -0.005877728573977947, -0.016959508880972862, 0.004462060984224081, 0.002183539094403386, 0.012938091531395912, -0.02742762677371502, -0.0006317371735349298, 0.02033390663564205, -0.013262985274195671, 0.017574604600667953, 0.0026983267161995173, 0.011402360163629055, 0.004329534247517586, -0.03892339766025543, -0.03126567602157593, 0.010558312758803368, -0.049474772065877914, 0.05364576354622841, 0.04489818960428238, 0.045400362461805344, -0.020020348951220512, 0.003294191090390086, -0.025454459711909294, 0.037214647978544235, -0.027558274567127228, -0.005791356787085533, 0.02670934796333313, 0.0031679042149335146, -0.006880437023937702, 0.014663239009678364, 0.05122716724872589, 0.044167399406433105, -0.024184728041291237, 0.008912746794521809, -0.01251804269850254, 0.008278888650238514, -0.03317633643746376, 0.019495781511068344, 0.04458678141236305, 0.04701227694749832, -0.013647790066897869, 0.018100833520293236, -0.003060730407014489, -0.03571832552552223, -0.010077112354338169, -0.027328573167324066, 0.009675565175712109, 0.04520675539970398, -0.03484603390097618, 0.017098061740398407, 0.007338701281696558, 0.022726401686668396, -0.03363747149705887, 0.012003136798739433]",
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_3,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Codemods,,{},15.1.0,,,"[(np.int64(7), np.float64(0.00562620535492897)), (np.int64(13415), np.float64(0.26557108759880066)), (np.int64(28864), np.float64(0.18780192732810974))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_4,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 15.0,,{},15.1.0,,,"[(np.int64(7), np.float64(0.09531863033771515)), (np.int64(2389), np.float64(0.1832946538925171)), (np.int64(6281), np.float64(0.2298232614994049)), (np.int64(13415), np.float64(0.2768741250038147)), (np.int64(28864), np.float64(0.18168604373931885))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_5,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Transform App Router Route Segment Config ,,{},15.1.0,,,"[(np.int64(7), np.float64(0.04170799255371094)), (np.int64(42), np.float64(0.08546806871891022)), (np.int64(177), np.float64(0.06713254749774933)), (np.int64(674), np.float64(0.0971202403306961)), (np.int64(5037), np.float64(0.21092653274536133)), (np.int64(5659), np.float64(0.2219744622707367)), (np.int64(11062), np.float64(0.09755061566829681)), (np.int64(13415), np.float64(0.25408294796943665)), (np.int64(28864), np.float64(0.14497604966163635)), (np.int64(38462), np.float64(0.15448054671287537)), (np.int64(106015), np.float64(0.22829674184322357)), (np.int64(139403), np.float64(0.17222265899181366))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_7,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Migrate to async Dynamic APIs,,{},15.1.0,"APIs that opted into dynamic rendering that previously supported synchronous access are now asynchronous. You can read more about this breaking change in the [/docs/app/building-your-application/upgrading/version-15](/docs/app/building-your-application/upgrading/version-15).
+",,"[(np.int64(7), np.float64(0.042651351541280746)), (np.int64(10), np.float64(0.026246871799230576)), (np.int64(47), np.float64(0.06215420365333557)), (np.int64(67), np.float64(0.08454485237598419)), (np.int64(238), np.float64(0.08860978484153748)), (np.int64(12654), np.float64(0.19489210844039917)), (np.int64(13415), np.float64(0.31580254435539246)), (np.int64(21068), np.float64(0.13484060764312744)), (np.int64(28864), np.float64(0.18681442737579346)), (np.int64(61687), np.float64(0.2500876784324646)), (np.int64(73327), np.float64(0.16208606958389282)), (np.int64(130446), np.float64(0.23852750658988953))]","[-0.02759326621890068, -0.018869217485189438, 0.0005694190040230751, 0.0035123468842357397, -0.052081651985645294, -0.03176756575703621, -0.014890925027430058, 0.0319078266620636, 0.0061686295084655285, 0.03373292461037636, 0.0266029741615057, -0.009388597682118416, 0.014324773102998734, 0.012102391570806503, -0.03482295200228691, 0.02770337089896202, 0.0010954998433589935, 0.028013626113533974, 0.027023788541555405, -0.0015737243229523301, -0.00861697643995285, 0.013933135196566582, -0.010515069589018822, -0.02205928973853588, 0.0023748602252453566, 0.03159983456134796, -0.029847711324691772, 0.036587730050086975, -0.0022162143141031265, 0.046323563903570175, -0.010535592213273048, -0.04482633247971535, 0.020406953990459442, -0.03525673225522041, -0.06076524406671524, -0.0716564953327179, -0.05308563634753227, -0.03247569128870964, -0.03616685792803764, 0.05011013150215149, 0.0034539212938398123, -0.008922701701521873, 0.0004964711843058467, 0.0013718783156946301, 0.036873865872621536, -0.015300313010811806, -0.013623658567667007, 0.005459287669509649, -0.00837122742086649, -0.04343004524707794, -0.0030540323350578547, -0.04761175066232681, 0.02363620512187481, -0.031700506806373596, -0.007612522225826979, 0.028144901618361473, -0.030394578352570534, -0.030656198039650917, -0.033461909741163254, -0.007474490441381931, -0.06375693529844284, -0.018078165128827095, -6.307349849521415e-06, -0.030975081026554108, -0.029303813353180885, 0.053431618958711624, 0.011438782326877117, 0.019146734848618507, -0.0014524937141686678, -0.033658966422080994, 0.010198566131293774, 0.02821817435324192, -0.021387388929724693, -0.015737896785140038, -0.05407852306962013, -0.00354038760997355, 0.047953397035598755, 0.0030594756826758385, 0.008172551169991493, 0.00513079296797514, 0.008226940408349037, 0.010332935489714146, 0.031740784645080566, -0.02844814769923687, 0.02890235185623169, 0.017348725348711014, -0.02483501471579075, 0.01810626871883869, 0.06322605162858963, 0.02088533528149128, 0.010745609179139137, -0.003213006304576993, 0.06471811234951019, -0.011084607802331448, -0.021243296563625336, 0.011905232444405556, 0.004028961528092623, -0.0188713651150465, 0.060864999890327454, -0.011944310739636421, 0.03213043138384819, -0.040488921105861664, 0.0012658622581511736, -0.034950606524944305, 0.016028810292482376, 0.025314131751656532, 0.07176949828863144, 0.017779404297471046, -0.02724575437605381, -0.00685986690223217, 0.021585652604699135, 0.003997779451310635, 0.040236059576272964, 0.007582538295537233, 0.002646214794367552, -0.05010700970888138, 0.0015778557863086462, -0.029017215594649315, 0.02767166495323181, 0.02592301368713379, 0.020825732499361038, 0.03353794664144516, 0.07301158457994461, -0.02943948097527027, -0.017116310074925423, 0.000876670703291893, -0.012908569537103176, 0.053348738700151443, 0.016554854810237885, 0.018459076061844826, 0.03901895880699158, 0.018791837617754936, -0.029270615428686142, -0.020902477204799652, -0.07675053179264069, 0.04953829571604729, -0.005700287409126759, 0.009864786639809608, 0.040981970727443695, -0.05144237354397774, 0.04827561974525452, -0.013787702657282352, -0.03132279962301254, -0.0045650433748960495, 0.047633685171604156, -0.019654089584946632, 0.04847809299826622, 0.04117202013731003, -0.021307967603206635, 0.013774659484624863, -0.01391676440834999, -0.037114422768354416, 0.001339648268185556, -0.005745737813413143, -0.021460993215441704, -0.014855686575174332, 0.01213798951357603, 0.01907244697213173, -0.01761528104543686, 0.005296963732689619, -0.04725036025047302, 0.0026675937697291374, -0.06211105361580849, 0.018896186724305153, 0.012893048115074635, -0.023745110258460045, 0.026603173464536667, 0.008667067624628544, -0.020802870392799377, -0.03564539924263954, -0.021621854975819588, 0.011297840625047684, 0.029749875888228416, 0.02176516503095627, -0.019299311563372612, 0.04701793193817139, 0.08388462662696838, 0.00932259764522314, 0.014701726846396923, -0.04190059378743172, -0.10003169625997543, 0.026749519631266594, -0.0013310100184753537, 0.007332233712077141, 0.0059356302954256535, -0.026721613481640816, -0.045233361423015594, 0.014950929209589958, -0.010539422743022442, 0.015105313621461391, -0.006081843748688698, 0.019504956901073456, 0.06518106907606125, 0.01318641658872366, 0.0005354586755856872, -0.03997310996055603, 0.006784636527299881, 0.028813807293772697, 0.0007154212216846645, -0.026871386915445328, 0.010623294860124588, 0.05166243761777878, 0.022589564323425293, -0.01034506969153881, -0.032697390764951706, 0.01128055714070797, -0.007092072628438473, -0.05315418541431427, 0.05799480527639389, 0.016365280374884605, -0.009388979524374008, -0.012931179255247116, -0.04880855605006218, 0.0083247609436512, -0.06349050998687744, -0.0036516825202852488, -0.0025407879147678614, 0.007742708548903465, 0.030365420505404472, 0.004577157087624073, -0.029841622337698936, 0.04694826155900955, 0.015799958258867264, -0.007825169712305069, 0.005849999841302633, 0.008280971087515354, -0.0068398164585232735, 0.016576262190937996, -0.008642507717013359, -0.020656848326325417, -0.007204289082437754, 0.004031841177493334, 0.045268572866916656, -0.028694704174995422, 0.08876077085733414, -0.05701654776930809, -0.0059355478733778, 0.008531765080988407, -0.00804994348436594, -0.0025264921132475138, -0.03663415461778641, -0.050196323543787, 0.014429534785449505, -0.005084773525595665, -0.01910075731575489, -0.011270261369645596, 0.010670981369912624, 0.007051465567201376, -0.03774820640683174, -0.03959624096751213, 0.04873064532876015, -2.3583781512570567e-05, -0.015609128400683403, -0.019892599433660507, -0.008399381302297115, 0.0032753166742622852, -0.017261065542697906, 0.006967573426663876, -0.03815075382590294, -0.03255783021450043, 0.02267603948712349, -0.014651292003691196, -0.022547094151377678, -0.0009585198131389916, 0.003562674857676029, -0.020089350640773773, 0.004419491160660982, 0.0006332395132631063, -0.012835977599024773, 0.0065709310583770275, -0.016343070194125175, -0.02881213277578354, -0.01622864045202732, -0.0194788109511137, -0.004539692308753729, 0.020985348150134087, -0.0024861947167664766, -0.018368229269981384, 0.05984361469745636, 0.018915776163339615, -0.0019275234080851078, -0.0061180125921964645, 0.040361035615205765, 0.0327148512005806, 0.008669693022966385, -0.01947203278541565, -0.01104776468127966, 0.01717183366417885, 0.022119343280792236, 0.010097859427332878, 0.002249467419460416, -0.010466203093528748, 0.050157852470874786, -0.022681010887026787, -0.004731742199510336, -0.033938612788915634, -0.01105525903403759, -0.17890959978103638, 0.02905889041721821, 0.02132553607225418, 0.01763044111430645, -0.004165593534708023, 0.01482777763158083, -0.019007572904229164, 0.006059720646589994, -0.05473104491829872, 0.024680351838469505, -0.006254896055907011, -0.05262228101491928, 0.0036735248286277056, -0.03065740503370762, 0.03309281915426254, -0.005170433782041073, 0.017911428585648537, 0.0001003444631351158, -0.019225766882300377, -0.020222023129463196, -0.025964708998799324, 0.008048608899116516, 0.003962576389312744, 0.0017098876414820552, -0.026652980595827103, 0.006270586512982845, 0.03177991509437561, 0.006316435057669878, -0.06744027137756348, -0.01658782921731472, -0.019658464938402176, 0.006046511698514223, 0.0013538295170292258, -0.0018553220434114337, 0.01586669497191906, 0.0263782050460577, 0.018300257623195648, 0.04173269495368004, -0.021774178370833397, -0.009636379778385162, 0.02976050041615963, 0.03426703065633774, -0.010890761390328407, -0.003221940016373992, 0.02193218655884266, -0.025706615298986435, 0.01696866564452648, 0.006407345179468393, 0.0020566985476762056, -0.010789242573082447, 0.02883068472146988, -0.0008802138036116958, -0.005502018146216869, -0.006723607424646616, -0.0383571982383728, -0.011516546830534935, 0.020023049786686897, 0.08057695627212524, -0.024865299463272095, 0.009999151341617107, 0.025403644889593124, -0.00867276918143034, 0.04968123510479927, -0.03045697696506977, -0.06137301027774811, 0.04911486804485321, 0.07292379438877106, -0.0013274545781314373, 0.048892080783843994, -0.06347194314002991, -0.0021650746930390596, 0.031221771612763405, 0.0012502805329859257, -0.0170561745762825, -0.06253421306610107, 0.05718424171209335, -0.003515442367643118, 0.011507389135658741, -0.0028543751686811447, -0.07004445046186447, 0.0006311975885182619, 0.00596571946516633, -0.011062554083764553, -0.0189350675791502, -0.02733401395380497, -0.014037919230759144, 0.0048123872838914394, -0.0049348678439855576, 0.045382026582956314, 0.24550224840641022, 0.019456913694739342, -0.031145960092544556, 0.06043196842074394, 0.07923983782529831, -0.0391492024064064, 0.0583842471241951, 0.06800724565982819, 0.03665011003613472, -0.028062772005796432, -0.033900562673807144, -0.019496601074934006, -0.020706618204712868, -0.008892103098332882, -0.0185017678886652, 0.02416660264134407, -0.04218607023358345, 0.004532248713076115, 0.059744615107774734, -0.019899465143680573, 0.003378761699423194, -0.003646312979981303, 0.03862880542874336, -0.0011112210340797901, -0.060302816331386566, -0.013264290988445282, -0.02186543494462967, 0.005018669180572033, -0.03157058730721474, 0.02440493181347847, -0.052321940660476685, 0.01924845762550831, 0.03388608992099762, -0.043261829763650894, -0.04097004234790802, -0.02567526325583458, 0.03589063137769699, 0.03141250088810921, 0.0013172493781894445, 0.04673181101679802, -0.007716865744441748, -0.008284933865070343, -0.003985577262938023, -0.003173484466969967, -0.025133619084954262, -0.033412836492061615, -0.02932923100888729, 0.0018617227906361222, 0.015467345714569092, -0.041483379900455475, -0.052433762699365616, -0.042517900466918945, -0.01760259084403515, -0.02854115143418312, 0.0009744992130436003, -0.03080507181584835, -0.013281553983688354, -0.01517126988619566, 0.004329476971179247, 0.022379865869879723, -0.014634901657700539, 0.005701730959117413, -0.043125901371240616, 0.05071873962879181, -0.0801255851984024, -0.007000154349952936, 0.031791381537914276, -0.01031212043017149, -0.015902433544397354, 0.03406859189271927, 0.0382617712020874, -0.0006327370647341013, 0.01720895990729332, -0.018659444525837898, 0.030078787356615067, -0.029173141345381737, 0.028113843873143196, 0.032313015311956406, -0.05262655392289162, 0.0071098702028393745, -0.036752715706825256, -0.01977265439927578, -0.007538800593465567, 0.05662429705262184, 0.01021483913064003, -0.020041106268763542, -0.015998734161257744, 0.10127008706331253, 0.0015314635820686817, -0.011242151260375977, -0.03827878087759018, 0.042131975293159485, -0.05451079085469246, 0.029674392193555832, -0.010384069755673409, 0.005423087161034346, -0.024389097467064857, -0.04917341470718384, 0.0021598604507744312, 0.04158898815512657, -0.05642687901854515, -0.020431509241461754, -0.03625797480344772, -0.05722154676914215, 0.041743386536836624, -0.03896946460008621, 0.01670008897781372, -0.005477692931890488, -0.01565767638385296, 0.08446920663118362, 0.00920936744660139, -0.002627081936225295, 0.0034854570403695107, -0.0567580945789814, -0.015621610917150974, 0.04683054983615875, 0.011606685817241669, 0.02722620964050293, 0.06747303158044815, 0.009413931518793106, 0.009479945525527, -0.015117602422833443, 0.004682525526732206, 0.017769191414117813, -0.007313812617212534, -0.014693775214254856, -0.0412396639585495, 9.191036951960996e-05, -0.02383587881922722, 0.029360711574554443, 0.06307902932167053, -0.046233169734478, 0.019720444455742836, 0.006890208926051855, 0.01679525151848793, 0.016553478315472603, 0.01178132276982069, 0.03348013386130333, 0.035951919853687286, 0.017447782680392265, -0.012490344233810902, -0.060894522815942764, 0.006341999396681786, 0.015555491670966148, 0.04672044515609741, 0.04350164532661438, -0.008407617919147015, 0.04815811663866043, 0.018697721883654594, -0.016159839928150177, 0.017463361844420433, 0.0015181442722678185, -0.004218661226332188, -0.013300852850079536, -0.03526835888624191, -0.05281481891870499, -0.015483719296753407, -0.002165217651054263, 0.003962633199989796, -0.007041470613330603, 0.00032331125112250447, 0.02254832163453102, 0.02122424729168415, 0.0272234994918108, -0.0013738508569076657, 0.0215693861246109, -0.004878823645412922, 0.04599158838391304, -0.034810204058885574, -0.02054412290453911, -0.02907208539545536, -0.018060093745589256, -0.03302783519029617, 0.009780854918062687, -0.017046133056282997, 0.010023679584264755, -0.03440801426768303, -0.003491278039291501, 0.011822713539004326, 0.020252985879778862, 0.008916113525629044, -0.0033771793823689222, -0.03928590193390846, -0.0232816431671381, 0.041385795921087265, -0.0014631773810833693, -0.02866717241704464, -0.01557624340057373, 0.009103523567318916, -0.037841130048036575, -0.0035163697320967913, 0.1251574605703354, 0.0054568396881222725, -0.004183363169431686, 0.05955404415726662, 0.018289152532815933, 0.05870220065116882, 0.02359873615205288, 0.01068029273301363, -0.016317717730998993, 0.008381756953895092, 0.008194757625460625, 0.0045515792444348335, -0.011575701646506786, -0.006366518326103687, -0.0011747967218980193, -0.010855482891201973, 0.004011560697108507, -0.04412853717803955, 0.021636348217725754, 0.03883155807852745, 0.013379410840570927, -0.03761999309062958, -0.011235189624130726, 0.018999844789505005, -0.007803319953382015, 0.05422467738389969, 0.04465439170598984, 0.020003508776426315, 0.01299210637807846, -0.031078673899173737, -0.005703848320990801, 0.0133680310100317, -0.023770572617650032, -4.374515265226364e-05, 0.043970126658678055, 0.002344490960240364, -0.030133988708257675, -0.02345733717083931, 0.0014476383803412318, -0.006238345056772232, 0.03368087112903595, 0.023224052041769028, 0.011423630639910698, -0.014174126088619232, -0.021951818838715553, 0.013902243226766586, 0.015106515027582645, -0.05487634986639023, -0.02101312391459942, 0.010460475459694862, -0.006606895476579666, 0.058296628296375275, 0.017012547701597214, -0.03436076268553734, -0.0465884655714035, -0.07744789123535156, -0.04313195124268532, 0.030782312154769897, 0.050780899822711945, -0.009663520380854607, 0.00858365185558796, -0.020029084756970406, -0.011272464878857136, 0.04368267580866814, -0.005489518865942955, -0.004174946807324886, 0.002666476182639599, -0.033590447157621384, -0.04848981276154518, 0.00900751817971468, 0.0028072241693735123, 0.03772418946027756, -0.010195646435022354, 0.0015964364865794778, -0.024811523035168648, 0.003976510372012854, -0.01664033904671669, -0.03292778879404068, -0.020085060968995094, 0.008257181383669376, 0.002561484230682254, -0.03290195018053055, -0.0062459297478199005, 0.006447632797062397, -0.00675210589542985, -0.0013163338880985975, 0.025289544835686684, -0.0522836409509182, -0.006566908210515976, -0.04430897533893585, 0.04589622840285301, -0.03167770057916641, 0.00459441589191556, -0.04124904423952103, 0.015329536981880665, 0.048640176653862, -0.003942287527024746, 0.0038912827149033546, -0.024063244462013245, 0.02487996779382229, -0.015019052661955357, -0.05226803943514824, -0.01198615599423647, 0.015207850374281406, 0.018031427636742592, -0.03906555101275444, 0.043502986431121826, 0.0005232620751485229, 0.005975570995360613, 0.004436838440597057, -0.015531549230217934, -0.00669803936034441, -0.004803928546607494, -0.04706010967493057, 0.018654437735676765, -0.01994110457599163, -0.019118458032608032, 0.06596650183200836, 0.00036118115531280637, -0.023191655054688454, -0.011036252602934837, 0.0086109209805727, 0.04680468887090683, 0.05215322971343994, -0.01935463584959507, 0.05072750151157379, -0.059219494462013245, 0.00012511205568443984, 0.004267070442438126, 0.03516506403684616, 0.023864978924393654, -0.03560031205415726, 0.007638175971806049, -0.024379953742027283, 0.03412286564707756, 0.023608990013599396, -0.01423339918255806, -0.0289673563092947, 0.016673898324370384, -0.08228684216737747, -0.0016935631865635514, -0.012834480032324791, -0.002437499351799488, 0.069313183426857, -0.007397530600428581, 0.002706829458475113, -0.05267481133341789, 0.0025752075016498566, -0.01095572765916586, 0.01158146932721138, 0.022983325645327568, 0.053782109171152115, -0.001463859574869275, 0.015056178905069828, 0.0162977147847414, 0.025600235909223557, -0.025490568950772285, -0.014855063520371914, -0.005165435373783112, -0.008411821909248829, -0.009562814608216286, -0.035757385194301605, -0.018801089376211166, -0.009978275746107101, -0.00547905545681715, -0.02507198601961136, 0.033806536346673965, 0.03776814788579941, 0.06010405719280243, -0.02327745035290718, 0.026210814714431763, -0.021084552630782127, -0.00966514740139246, 0.016160041093826294, 0.03626343607902527, -0.002863610163331032, -0.04078207165002823, 0.029377419501543045, 0.003531110705807805, 0.0286575760692358, 0.04834643378853798, 0.020334316417574883, -0.005275568924844265, -0.0021977617871016264, 0.032194286584854126, -0.028707843273878098, 0.011245684698224068, 0.039432819932699203, 0.03826119750738144, -0.03216996788978577, -0.02532966248691082, 0.002539245877414942, -0.01029406487941742, -0.019289279356598854, -0.014505285769701004, -0.02560483105480671, 0.002427248749881983, 0.019353078678250313, 0.022977329790592194, -0.03347662836313248, -0.025174690410494804, -0.032468151301145554, 0.002396957017481327, -0.13554324209690094, 0.0347621887922287, -0.006565701216459274, 0.017132636159658432, -0.04180733859539032, -0.00979773048311472, -0.03401197865605354, -0.039301108568906784, 0.014133753255009651, -0.027002640068531036, -0.02292643114924431, -0.006695728749036789, -0.036595795303583145, -0.01097174733877182, -0.009166079573333263, 0.026592392474412918, 0.009244265966117382, -0.012137167155742645, 0.022275397554039955, -0.01845693774521351, -0.041072383522987366, -0.027688203379511833, 0.018254030495882034, 0.003436759114265442, 0.02388974279165268, -0.0026403716765344143, 0.0438220389187336, 0.011390813626348972, -0.015019334852695465, 0.016582369804382324, 0.006071967538446188, 0.013005919754505157, 0.026937471702694893, -0.014815873466432095, -0.02692948281764984, 0.0016921525821089745, -0.007198837585747242, -0.003365302924066782, -0.0209425687789917, 0.03457304462790489, -0.02360626496374607, 0.03971907123923302, -0.008337941952049732, 0.018973566591739655, 0.021700799465179443, 0.023168282583355904, -0.009876059368252754, -0.044048972427845, -0.023964256048202515, 0.004375099670141935, -0.0041203005239367485, 0.048998408019542694, 0.010891573503613472, -0.01268601231276989, 0.0032856937032192945, 0.0010008758399635553, -0.013148566707968712, 0.016098352149128914, -0.003438997780904174, 0.05472300946712494, -0.02392096444964409, 0.03836884722113609, -0.023057445883750916, -0.02579047717154026, -0.037255533039569855, 0.045464273542165756, -0.07967885583639145, 0.005758827552199364, -0.02811884693801403, -0.019905315712094307, -0.00818804930895567, -0.025621412321925163, 0.014755114912986755, 0.010050762444734573, -0.01381681952625513, -0.030693812295794487, 0.034845106303691864, 0.0015350248431786895, -0.028822384774684906, 0.004211748950183392, -0.03649841248989105, 0.0023870845325291157, -0.08318077027797699, -0.03315062075853348, 0.07527709007263184, -0.01958615519106388, -0.006093453615903854, -0.0028316706884652376, -0.0023162050638347864, -0.014778279699385166, -0.0324564054608345, -0.001369800535030663, 0.004209611564874649, 0.03435760736465454, 0.00989510491490364, 0.04800444468855858, -0.05048947408795357, 0.008821966126561165, -0.008865469135344028, -0.014694367535412312, -0.003162417095154524, 0.00809821393340826, 0.01005869172513485, 0.006897955667227507, -0.0376276820898056, 0.010498574934899807, -0.013803879730403423, 0.012568742036819458, -0.013723492622375488, -0.03271465748548508, -0.049198783934116364, 0.0057668681256473064, -0.01989607699215412, -0.011453025974333286, -0.0742267593741417, -0.021454768255352974, 0.0076926713809370995, 0.007883700542151928, 0.0220862478017807, 0.02516166679561138, -0.020069800317287445, -0.02436363883316517, 0.030219364911317825, -0.017512058839201927, -0.002200881950557232, 0.032489269971847534, 0.06325624883174896, 0.023340187966823578, 0.05673441290855408, -0.03428091108798981, 0.008676753379404545, -0.029510272666811943, 0.009442009963095188, 0.06640490889549255, 0.035408537834882736, 0.017418786883354187, -0.011182793416082859, 0.05487433448433876, -0.027908531948924065, -0.040368519723415375, -0.006559364032000303, -0.018914494663476944, 0.033877741545438766, -0.045549869537353516, 0.007099947426468134, -0.02903894893825054, 0.02293109893798828, 0.0355951301753521, 0.045492637902498245, -0.008048244751989841, -0.010253597982227802, 0.008078633807599545, -0.0016045956872403622, 0.0032271945383399725, 0.030090510845184326, -0.004867576528340578, -0.012228917330503464, -0.03128284588456154, -0.06305548548698425, 0.028273513540625572, 0.01926773227751255, -0.029080836102366447, -0.03871343284845352, -0.03258775547146797, -0.007030473556369543, 0.02046438492834568, -0.00969440396875143, -0.024137593805789948, -0.0008711173431947827, 0.03284396976232529, 0.012642421759665012, 0.06395018845796585, -0.021385373547673225, -0.002938259392976761, 0.029447531327605247, -0.021528175100684166, 0.042656801640987396, 0.008842917159199715, 0.03969116881489754, -0.018796399235725403, 0.04583664610981941, -0.013683825731277466, 0.02959909290075302, 0.0054060169495642185, -0.021706653758883476, -0.0025694649666547775, -0.009972117841243744, 0.034639958292245865, 0.037620317190885544, -0.014947427436709404, -0.031676966696977615, -0.010584435425698757, -0.024439489468932152, -0.03380037471652031, 0.00032895978074520826, -0.008339469321072102, -0.0233224555850029, 0.00442499341443181, 0.003959712106734514, 0.03132079914212227, 0.00013336208940017968, -0.009626232087612152, 0.011409523896872997, 0.016150401905179024, 0.023011036217212677, -0.01764083281159401, -0.03652004152536392, -0.06523065268993378, -0.03182721138000488, 0.05212782323360443, 0.0009842029539868236, -0.005649356637150049, -0.046342283487319946, 0.012374009005725384, -0.015296129509806633, -0.01578434556722641, -0.010577262379229069, 0.016953572630882263, -0.012477978132665157, 0.02359747141599655, 0.0019460496259853244, -0.006989418528974056, 0.016817858442664146, 0.0031534822192043066, -0.043618980795145035, -0.023333366960287094, -0.03543909266591072, -0.03267787769436836, 0.012484245002269745, 0.004646850284188986, -0.05839969217777252, 0.003679216606542468, -0.009283552877604961, -0.002215866232290864, -0.019350610673427582, 0.03250453993678093, -0.037022147327661514, -0.02354542352259159, 0.02063397876918316, -0.018610337749123573, 0.044432420283555984, -0.007104799151420593, -0.023419752717018127, 0.031709082424640656]",,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_9,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Replace ,,{},15.1.0,,,"[(np.int64(7), np.float64(0.08735442161560059)), (np.int64(853), np.float64(0.10543187707662582)), (np.int64(13415), np.float64(0.2941657602787018)), (np.int64(23935), np.float64(0.2410339117050171)), (np.int64(28864), np.float64(0.18039578199386597))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_11,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 14.0,,{},15.1.0,,,"[(np.int64(7), np.float64(0.08751949667930603)), (np.int64(2389), np.float64(0.1683277189731598)), (np.int64(6370), np.float64(0.19335800409317017)), (np.int64(13415), np.float64(0.26530495285987854)), (np.int64(28864), np.float64(0.16275811195373535))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_12,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Migrate ,,{},15.1.0,,,"[(np.int64(7), np.float64(0.06914210319519043)), (np.int64(67), np.float64(0.16835209727287292)), (np.int64(13415), np.float64(0.30349668860435486)), (np.int64(28864), np.float64(0.19330602884292603)), (np.int64(130446), np.float64(0.2738780379295349))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_14,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Use ,,{},15.1.0,,,"[(np.int64(6), np.float64(0.01686195284128189)), (np.int64(7), np.float64(0.0791291743516922)), (np.int64(13415), np.float64(0.3093594014644623)), (np.int64(28864), np.float64(0.17836123704910278)), (np.int64(36836), np.float64(0.2229388952255249))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_16,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 13.2,,{},15.1.0,,,"[(np.int64(7), np.float64(0.046704813838005066)), (np.int64(304), np.float64(0.1653052270412445)), (np.int64(5847), np.float64(0.2158965915441513)), (np.int64(13415), np.float64(0.2558220624923706)), (np.int64(28864), np.float64(0.153969869017601))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_17,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Use Built-in Font,,{},15.1.0,,,"[(np.int64(7), np.float64(0.08967676013708115)), (np.int64(9), np.float64(0.017189987003803253)), (np.int64(73), np.float64(0.19827598333358765)), (np.int64(667), np.float64(0.12422972172498703)), (np.int64(13415), np.float64(0.3152977228164673)), (np.int64(24908), np.float64(0.185442253947258)), (np.int64(28864), np.float64(0.19001492857933044)), (np.int64(36836), np.float64(0.14574167132377625)), (np.int64(40788), np.float64(0.3140552341938019))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_19,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 13.0,,{},15.1.0,,,"[(np.int64(7), np.float64(0.10027981549501419)), (np.int64(106), np.float64(0.12850651144981384)), (np.int64(13415), np.float64(0.29768821597099304)), (np.int64(28864), np.float64(0.17037564516067505)), (np.int64(132265), np.float64(0.25533008575439453))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_20,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Rename Next Image Imports,,{},15.1.0,,,"[(np.int64(7), np.float64(0.05309557169675827)), (np.int64(853), np.float64(0.11073450744152069)), (np.int64(4997), np.float64(0.23985426127910614)), (np.int64(11627), np.float64(0.2567936182022095)), (np.int64(13415), np.float64(0.24886023998260498)), (np.int64(22710), np.float64(0.2388477772474289)), (np.int64(28864), np.float64(0.1407368779182434)), (np.int64(92966), np.float64(0.2659303545951843))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_22,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Migrate to the New Image Component,,{},15.1.0,,,"[(np.int64(7), np.float64(0.08911903202533722)), (np.int64(47), np.float64(0.11077818274497986)), (np.int64(67), np.float64(0.1296447366476059)), (np.int64(70), np.float64(0.03065142035484314)), (np.int64(2356), np.float64(0.16586069762706757)), (np.int64(3288), np.float64(0.0937449038028717)), (np.int64(13415), np.float64(0.3202909529209137)), (np.int64(22710), np.float64(0.27070152759552)), (np.int64(28864), np.float64(0.20794060826301575)), (np.int64(54137), np.float64(0.23737388849258423)), (np.int64(130446), np.float64(0.26460006833076477))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_24,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Remove ,,{},15.1.0,,,"[(np.int64(6), np.float64(0.04851343482732773)), (np.int64(7), np.float64(0.0014271289110183716)), (np.int64(13415), np.float64(0.26527929306030273)), (np.int64(28864), np.float64(0.14919744431972504)), (np.int64(181139), np.float64(0.25944656133651733))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_26,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 11,,{},15.1.0,,,"[(np.int64(7), np.float64(0.01383906602859497)), (np.int64(534), np.float64(0.2036719173192978)), (np.int64(13415), np.float64(0.23531116545200348)), (np.int64(28864), np.float64(0.12308329343795776))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_27,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Migrate from CRA,,{},15.1.0,,,"[(np.int64(6), np.float64(0.007665641605854034)), (np.int64(7), np.float64(0.09324582666158676)), (np.int64(67), np.float64(0.14771801233291626)), (np.int64(1295), np.float64(0.11416761577129364)), (np.int64(13415), np.float64(0.3064202666282654)), (np.int64(28864), np.float64(0.19634366035461426)), (np.int64(130446), np.float64(0.26048731803894043)), (np.int64(154791), np.float64(0.2686547040939331))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_29,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 10,,{},15.1.0,,,"[(np.int64(7), np.float64(0.040054455399513245)), (np.int64(209), np.float64(0.20539942383766174)), (np.int64(13415), np.float64(0.23608587682247162)), (np.int64(28864), np.float64(0.1280210316181183))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_30,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Add React imports,,{},15.1.0,,,"[(np.int64(7), np.float64(0.05234048515558243)), (np.int64(853), np.float64(0.0948563888669014)), (np.int64(13415), np.float64(0.2193177342414856)), (np.int64(24927), np.float64(0.2594156563282013)), (np.int64(28864), np.float64(0.10862874984741211)), (np.int64(29117), np.float64(0.16728465259075165)), (np.int64(47013), np.float64(0.24964649975299835))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_32,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 9,,{},15.1.0,,,"[(np.int64(7), np.float64(0.04693257063627243)), (np.int64(483), np.float64(0.2271696925163269)), (np.int64(13415), np.float64(0.2603786289691925)), (np.int64(28864), np.float64(0.1445276141166687))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_33,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Transform Anonymous Components into Named Components,,{},15.1.0,,,"[(np.int64(7), np.float64(0.11681318283081055)), (np.int64(297), np.float64(0.21239331364631653)), (np.int64(2096), np.float64(0.25832879543304443)), (np.int64(3288), np.float64(0.11013638973236084)), (np.int64(3934), np.float64(0.10763192176818848)), (np.int64(5037), np.float64(0.19535015523433685)), (np.int64(11062), np.float64(0.09219439327716827)), (np.int64(13415), np.float64(0.3313222825527191)), (np.int64(28864), np.float64(0.19288569688796997)), (np.int64(54137), np.float64(0.24797914922237396)), (np.int64(180585), np.float64(0.3219791054725647))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_35,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 8,,{},15.1.0,,,"[(np.int64(7), np.float64(0.0492967814207077)), (np.int64(382), np.float64(0.22171229124069214)), (np.int64(13415), np.float64(0.26490557193756104)), (np.int64(28864), np.float64(0.14705601334571838))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_36,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Transform AMP HOC into page config,,{},15.1.0,,,"[(np.int64(7), np.float64(0.0278593972325325)), (np.int64(441), np.float64(0.2155253291130066)), (np.int64(3934), np.float64(0.06493542343378067)), (np.int64(5037), np.float64(0.17417675256729126)), (np.int64(9191), np.float64(0.22167468070983887)), (np.int64(11062), np.float64(0.06859404593706131)), (np.int64(13415), np.float64(0.2745193541049957)), (np.int64(21997), np.float64(0.19023984670639038)), (np.int64(28864), np.float64(0.15730425715446472)), (np.int64(81218), np.float64(0.22433438897132874)), (np.int64(153837), np.float64(0.2649843692779541))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_38,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - 6,,{},15.1.0,,,"[(np.int64(7), np.float64(0.041223593056201935)), (np.int64(305), np.float64(0.16553443670272827)), (np.int64(13415), np.float64(0.2585780620574951)), (np.int64(28864), np.float64(0.14542606472969055))]",,,
+15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx_section_39,section,15_1_0_docs_01_app_02_building_your_application_11_upgrading_01_codemods_mdx,Codemods - Use ,,{},15.1.0,,,"[(np.int64(6), np.float64(0.01686195284128189)), (np.int64(7), np.float64(0.0791291743516922)), (np.int64(13415), np.float64(0.3093594014644623)), (np.int64(28864), np.float64(0.17836123704910278)), (np.int64(36836), np.float64(0.2229388952255249))]",,,

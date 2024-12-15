@@ -1,0 +1,190 @@
+ID: 15_1_0_docs_01_app_02_building_your_application_10_deploying_03_multi_zones_mdx_section_4_code_1
+Distance: 0.7886483669281006
+Type: code_snippet
+Title: Routing requests using middleware - code_1
+Description: 
+Metadata: {}
+Content: 
+Code: export async function middleware(request) {
+  const { pathname, search } = req.nextUrl;
+  if (pathname === '/your-path' && myFeatureFlag.isEnabled()) {
+    return NextResponse.rewrite(`${rewriteDomain}${pathname}${search});
+  }
+}
+
+
+
+ID: 15_1_0_errors_middleware_new_signature_mdx_section_2_code_1
+Distance: 0.7348638772964478
+Type: code_snippet
+Title: Possible Ways to Fix It - code_1
+Description: 
+Metadata: {}
+Content: 
+Code: import { NextResponse } from 'next/server'
+
+export function middleware(request) {
+  if (request.nextUrl.pathname === '/blocked') {
+    return new NextResponse(null, {
+      status: 403,
+    })
+  }
+}
+
+
+
+ID: 15_1_0_docs_01_app_02_building_your_application_01_routing_14_middleware_mdx_section_7_code_2
+Distance: 0.7329578399658203
+Type: code_snippet
+Title: Conditional Statements - code_2
+Description: 
+Metadata: {}
+Content: 
+Code: import { NextResponse } from 'next/server'
+
+export function middleware(request) {
+  if (request.nextUrl.pathname.startsWith('/about')) {
+    return NextResponse.rewrite(new URL('/about-2', request.url))
+  }
+
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.rewrite(new URL('/dashboard/user', request.url))
+  }
+}
+
+
+
+ID: 15_1_0_errors_middleware_request_page_mdx_section_1_code_1
+Distance: 0.724006712436676
+Type: code_snippet
+Title: Why This Error Occurred - code_1
+Description: 
+Metadata: {}
+Content: 
+Code: import { NextRequest, NextResponse } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  const { params } = event.request.page
+  const { locale, slug } = params
+
+  if (locale && slug) {
+    const { search, protocol, host } = request.nextUrl
+    const url = new URL(`${protocol}//${locale}.${host}/${slug}${search}`)
+    return NextResponse.redirect(url)
+  }
+}
+
+
+
+ID: 15_1_0_errors_middleware_relative_urls_mdx_section_2_code_2
+Distance: 0.7212651371955872
+Type: code_snippet
+Title: Possible Ways to Fix It - code_2
+Description: 
+Metadata: {}
+Content: 
+Code: import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  return NextResponse.rewrite(new URL('/dest', request.url))
+}
+
+
+
+ID: 15_1_0_errors_deleting_query_params_in_middlewares_mdx_section_2_code_1
+Distance: 0.7195762395858765
+Type: code_snippet
+Title: Possible Ways to Fix It - code_1
+Description: 
+Metadata: {}
+Content: 
+Code: import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+
+export default function middleware(request: NextRequest) {
+  const nextUrl = request.nextUrl
+  nextUrl.pathname = '/dest'
+  return NextResponse.rewrite(nextUrl)
+}
+
+
+
+ID: 15_1_0_errors_middleware_new_signature_mdx_section_1_code_1
+Distance: 0.7143164873123169
+Type: code_snippet
+Title: Why This Error Occurred - code_1
+Description: 
+Metadata: {}
+Content: 
+Code: import { NextResponse } from 'next/server'
+
+export function middleware(event) {
+  if (event.request.nextUrl.pathname === '/blocked') {
+    event.respondWith(
+      new NextResponse(null, {
+        status: 403,
+      })
+    )
+  }
+}
+
+
+
+ID: 15_1_0_docs_01_app_03_api_reference_02_components_link_mdx_section_22_code_1
+Distance: 0.7131821513175964
+Type: code_snippet
+Title: Prefetching links in Middleware - code_1
+Description: 
+Metadata: {}
+Content: 
+Code: import { NextResponse } from 'next/server'
+
+export function middleware(request: Request) {
+  const nextUrl = request.nextUrl
+  if (nextUrl.pathname === '/dashboard') {
+    if (request.cookies.authToken) {
+      return NextResponse.rewrite(new URL('/auth/dashboard', request.url))
+    } else {
+      return NextResponse.rewrite(new URL('/public/dashboard', request.url))
+    }
+  }
+}
+
+
+
+ID: 15_1_0_docs_01_app_02_building_your_application_01_routing_13_route_handlers_mdx_section_12_code_3
+Distance: 0.7128457427024841
+Type: code_snippet
+Title: Headers - code_3
+Description: 
+Metadata: {}
+Content: 
+Code: import { type NextRequest } from 'next/server'
+
+export async function GET(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers)
+}
+
+
+
+ID: 15_1_0_docs_01_app_03_api_reference_02_components_link_mdx_section_22_code_2
+Distance: 0.7116656303405762
+Type: code_snippet
+Title: Prefetching links in Middleware - code_2
+Description: 
+Metadata: {}
+Content: 
+Code: import { NextResponse } from 'next/server'
+
+export function middleware(request) {
+  const nextUrl = request.nextUrl
+  if (nextUrl.pathname === '/dashboard') {
+    if (request.cookies.authToken) {
+      return NextResponse.rewrite(new URL('/auth/dashboard', request.url))
+    } else {
+      return NextResponse.rewrite(new URL('/public/dashboard', request.url))
+    }
+  }
+}
+

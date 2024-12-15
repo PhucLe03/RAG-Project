@@ -1,0 +1,1037 @@
+ID: 15_1_0_docs_02_pages_02_building_your_application_02_rendering_04_automatic_static_optimization_mdx
+Distance: 0.21118518710136414
+Type: document
+Title: Automatic Static Optimization
+Description: Next.js automatically optimizes your app to be static HTML whenever possible. Learn how it works here.
+Metadata: {}
+Content: Next.js automatically determines that a page is static (can be prerendered) if it has no blocking data requirements. This determination is made by the absence of `getServerSideProps` and `getInitialProps` in the page.
+
+This feature allows Next.js to emit hybrid applications that contain **both server-rendered and statically generated pages**.
+
+> **Good to know**: Statically generated pages are still reactive. Next.js will hydrate your application client-side to give it full interactivity.
+
+One of the main benefits of this feature is that optimized pages require no server-side computation, and can be instantly streamed to the end-user from multiple CDN locations. The result is an _ultra fast_ loading experience for your users.
+
+## How it works
+
+If `getServerSideProps` or `getInitialProps` is present in a page, Next.js will switch to render the page on-demand, per-request (meaning [Server-Side Rendering](/docs/pages/building-your-application/rendering/server-side-rendering)).
+
+If the above is not the case, Next.js will **statically optimize** your page automatically by prerendering the page to static HTML.
+
+During prerendering, the router's `query` object will be empty since we do not have `query` information to provide during this phase. After hydration, Next.js will trigger an update to your application to provide the route parameters in the `query` object.
+
+The cases where the query will be updated after hydration triggering another render are:
+
+- The page is a [dynamic-route](/docs/pages/building-your-application/routing/dynamic-routes).
+- The page has query values in the URL.
+- [Rewrites](/docs/pages/api-reference/config/next-config-js/rewrites) are configured in your `next.config.js` since these can have parameters that may need to be parsed and provided in the `query`.
+
+To be able to distinguish if the query is fully updated and ready for use, you can leverage the `isReady` field on [`next/router`](/docs/pages/api-reference/functions/use-router#router-object).
+
+> **Good to know**: Parameters added with [dynamic routes](/docs/pages/building-your-application/routing/dynamic-routes) to a page that's using [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) will always be available inside the `query` object.
+
+`next build` will emit `.html` files for statically optimized pages. For example, the result for the page `pages/about.js` would be:
+
+```bash filename="Terminal"
+.next/server/pages/about.html
+```
+
+And if you add `getServerSideProps` to the page, it will then be JavaScript, like so:
+
+```bash filename="Terminal"
+.next/server/pages/about.js
+```
+
+## Caveats
+
+- If you have a [custom `App`](/docs/pages/building-your-application/routing/custom-app) with `getInitialProps` then this optimization will be turned off in pages without [Static Generation](/docs/pages/building-your-application/data-fetching/get-static-props).
+- If you have a [custom `Document`](/docs/pages/building-your-application/routing/custom-document) with `getInitialProps` be sure you check if `ctx.req` is defined before assuming the page is server-side rendered. `ctx.req` will be `undefined` for pages that are prerendered.
+- Avoid using the `asPath` value on [`next/router`](/docs/pages/api-reference/functions/use-router#router-object) in the rendering tree until the router's `isReady` field is `true`. Statically optimized pages only know `asPath` on the client and not the server, so using it as a prop may lead to mismatch errors. The [`active-class-name` example](https://github.com/vercel/next.js/tree/canary/examples/active-class-name) demonstrates one way to use `asPath` as a prop.Next.js automatically determines that a page is static (can be prerendered) if it has no blocking data requirements. This determination is made by the absence of `` and `` in the page.
+This feature allows Next.js to emit hybrid applications that contain both server-rendered and statically generated pages.
+Good to know: Statically generated pages are still reactive. Next.js will hydrate your application client-side to give it full interactivity.
+One of the main benefits of this feature is that optimized pages require no server-side computation, and can be instantly streamed to the end-user from multiple CDN locations. The result is an ultra fast loading experience for your users.
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx_section_2
+Distance: 0.19481199979782104
+Type: section
+Title: How to set up a new Next.js project - System requirements
+Description: 
+Metadata: {}
+Content: [https://nodejs.org/](https://nodejs.org/) or later.
+macOS, Windows (including WSL), and Linux are supported.
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx_section_7
+Distance: 0.1847439706325531
+Type: section
+Title: How to set up a new Next.js project - Create the 
+Description: 
+Metadata: {}
+Content: You can optionally create a [/docs/app/building-your-application/optimizing/static-assets](/docs/app/building-your-application/optimizing/static-assets) at the root of your project to store static assets such as images, fonts, etc. Files inside `` can then be referenced by your code starting from the base URL (``).
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx_section_6
+Distance: 0.1847439706325531
+Type: section
+Title: How to set up a new Next.js project - Create the 
+Description: 
+Metadata: {}
+Content: Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+Create a `` directory at the root of your project. Then, add an `` file inside your `` folder. This will be your home page (``):
+Next, add an `` file inside `` to define the global layout. Learn more about the [/docs/pages/building-your-application/routing/custom-app](/docs/pages/building-your-application/routing/custom-app).
+Finally, add a `` file inside `` to control the initial response from the server. Learn more about the [/docs/pages/building-your-application/routing/custom-document](/docs/pages/building-your-application/routing/custom-document).
+
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx_section_5
+Distance: 0.1847439706325531
+Type: section
+Title: How to set up a new Next.js project - Create the 
+Description: 
+Metadata: {}
+Content: Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+Create an `` folder, then add a `` and `` file. These will be rendered when the user visits the root of your application (``).
+
+Create a [/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required) inside `` with the required `` and `` tags:
+Finally, create a home page `` with some initial content:
+Good to know:If you forget to create ``, Next.js will automatically create this file when running the development server with ``.You can optionally use a [/docs/app/building-your-application/configuring/src-directory](/docs/app/building-your-application/configuring/src-directory) in the root of your project to separate your application's code from configuration files.
+
+
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_02_building_your_application_06_optimizing_02_videos_mdx
+Distance: 0.18404000997543335
+Type: document
+Title: Video Optimization
+Description: Recommendations and best practices for optimizing videos in your Next.js application.
+Metadata: {}
+Content: This page outlines how to use videos with Next.js applications, showing how to store and display video files without affecting performance.
+
+## Using `<video>` and `<iframe>`
+
+Videos can be embedded on the page using the HTML **`<video>`** tag for direct video files and **`<iframe>`** for external platform-hosted videos.
+
+### `<video>`
+
+The HTML [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) tag can embed self-hosted or directly served video content, allowing full control over the playback and appearance.
+
+```jsx filename="app/ui/video.jsx"
+export function Video() {
+  return (
+    <video width="320" height="240" controls preload="none">
+      <source src="/path/to/video.mp4" type="video/mp4" />
+      <track
+        src="/path/to/captions.vtt"
+        kind="subtitles"
+        srcLang="en"
+        label="English"
+      />
+      Your browser does not support the video tag.
+    </video>
+  )
+}
+```
+
+### Common `<video>` tag attributes
+
+| Attribute     | Description                                                                                               | Example Value                        |
+| ------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `src`         | Specifies the source of the video file.                                                                   | `<video src="/path/to/video.mp4" />` |
+| `width`       | Sets the width of the video player.                                                                       | `<video width="320" />`              |
+| `height`      | Sets the height of the video player.                                                                      | `<video height="240" />`             |
+| `controls`    | If present, it displays the default set of playback controls.                                             | `<video controls />`                 |
+| `autoPlay`    | Automatically starts playing the video when the page loads. Note: Autoplay policies vary across browsers. | `<video autoPlay />`                 |
+| `loop`        | Loops the video playback.                                                                                 | `<video loop />`                     |
+| `muted`       | Mutes the audio by default. Often used with `autoPlay`.                                                   | `<video muted />`                    |
+| `preload`     | Specifies how the video is preloaded. Values: `none`, `metadata`, `auto`.                                 | `<video preload="none" />`           |
+| `playsInline` | Enables inline playback on iOS devices, often necessary for autoplay to work on iOS Safari.               | `<video playsInline />`              |
+
+> **Good to know**: When using the `autoPlay` attribute, it is important to also include the `muted` attribute to ensure the video plays automatically in most browsers and the `playsInline` attribute for compatibility with iOS devices.
+
+For a comprehensive list of video attributes, refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attributes).
+
+### Video best practices
+
+- **Fallback Content:** When using the `<video>` tag, include fallback content inside the tag for browsers that do not support video playback.
+- **Subtitles or Captions:** Include subtitles or captions for users who are deaf or hard of hearing. Utilize the [`<track>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) tag with your `<video>` elements to specify caption file sources.
+- **Accessible Controls:** Standard HTML5 video controls are recommended for keyboard navigation and screen reader compatibility. For advanced needs, consider third-party players like [react-player](https://github.com/cookpete/react-player) or [video.js](https://videojs.com/), which offer accessible controls and consistent browser experience.
+
+### `<iframe>`
+
+The HTML `<iframe>` tag allows you to embed videos from external platforms like YouTube or Vimeo.
+
+```jsx filename="app/page.jsx"
+export default function Page() {
+  return (
+    <iframe src="https://www.youtube.com/embed/19g66ezsKAg" allowFullScreen />
+  )
+}
+```
+
+### Common `<iframe>` tag attributes
+
+| Attribute         | Description                                                            | Example Value                          |
+| ----------------- | ---------------------------------------------------------------------- | -------------------------------------- |
+| `src`             | The URL of the page to embed.                                          | `<iframe src="https://example.com" />` |
+| `width`           | Sets the width of the iframe.                                          | `<iframe width="500" />`               |
+| `height`          | Sets the height of the iframe.                                         | `<iframe height="300" />`              |
+| `allowFullScreen` | Allows the iframe content to be displayed in full-screen mode.         | `<iframe allowFullScreen />`           |
+| `sandbox`         | Enables an extra set of restrictions on the content within the iframe. | `<iframe sandbox />`                   |
+| `loading`         | Optimize loading behavior (e.g., lazy loading).                        | `<iframe loading="lazy" />`            |
+| `title`           | Provides a title for the iframe to support accessibility.              | `<iframe title="Description" />`       |
+
+For a comprehensive list of iframe attributes, refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes).
+
+### Choosing a video embedding method
+
+There are two ways you can embed videos in your Next.js application:
+
+- **Self-hosted or direct video files:** Embed self-hosted videos using the `<video>` tag for scenarios requiring detailed control over the player's functionality and appearance. This integration method within Next.js allows for customization and control of your video content.
+- **Using video hosting services (YouTube, Vimeo, etc.):** For video hosting services like YouTube or Vimeo, you'll embed their iframe-based players using the `<iframe>` tag. While this method limits some control over the player, it offers ease of use and features provided by these platforms.
+
+Choose the embedding method that aligns with your application's requirements and the user experience you aim to deliver.
+
+### Embedding externally hosted videos
+
+To embed videos from external platforms, you can use Next.js to fetch the video information and React Suspense to handle the fallback state while loading.
+
+**1. Create a Server Component for video embedding**
+
+The first step is to create a [Server Component](https://nextjs.org/docs/app/building-your-application/rendering/server-components) that generates the appropriate iframe for embedding the video. This component will fetch the source URL for the video and render the iframe.
+
+```jsx filename="app/ui/video-component.jsx"
+export default async function VideoComponent() {
+  const src = await getVideoSrc()
+
+  return <iframe src={src} allowFullScreen />
+}
+```
+
+**2. Stream the video component using React Suspense**
+
+After creating the Server Component to embed the video, the next step is to [stream](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming) the component using [React Suspense](https://react.dev/reference/react/Suspense).
+
+```jsx filename="app/page.jsx"
+import { Suspense } from 'react'
+import VideoComponent from '../ui/VideoComponent.jsx'
+
+export default function Page() {
+  return (
+    <section>
+      <Suspense fallback={<p>Loading video...</p>}>
+        <VideoComponent />
+      </Suspense>
+      {/* Other content of the page */}
+    </section>
+  )
+}
+```
+
+> **Good to know**: When embedding videos from external platforms, consider the following best practices:
+>
+> - Ensure the video embeds are responsive. Use CSS to make the iframe or video player adapt to different screen sizes.
+> - Implement [strategies for loading videos](https://yoast.com/site-speed-tips-for-faster-video/) based on network conditions, especially for users with limited data plans.
+
+This approach results in a better user experience as it prevents the page from blocking, meaning the user can interact with the page while the video component streams in.
+
+For a more engaging and informative loading experience, consider using a loading skeleton as the fallback UI. So instead of showing a simple loading message, you can show a skeleton that resembles the video player like this:
+
+```jsx filename="app/page.jsx"
+import { Suspense } from 'react'
+import VideoComponent from '../ui/VideoComponent.jsx'
+import VideoSkeleton from '../ui/VideoSkeleton.jsx'
+
+export default function Page() {
+  return (
+    <section>
+      <Suspense fallback={<VideoSkeleton />}>
+        <VideoComponent />
+      </Suspense>
+      {/* Other content of the page */}
+    </section>
+  )
+}
+```
+
+## Self-hosted videos
+
+Self-hosting videos may be preferable for several reasons:
+
+- **Complete control and independence**: Self-hosting gives you direct management over your video content, from playback to appearance, ensuring full ownership and control, free from external platform constraints.
+- **Customization for specific needs**: Ideal for unique requirements, like dynamic background videos, it allows for tailored customization to align with design and functional needs.
+- **Performance and scalability considerations**: Choose storage solutions that are both high-performing and scalable, to support increasing traffic and content size effectively.
+- **Cost and integration**: Balance the costs of storage and bandwidth with the need for easy integration into your Next.js framework and broader tech ecosystem.
+
+### Using Vercel Blob for video hosting
+
+[Vercel Blob](https://vercel.com/docs/storage/vercel-blob?utm_source=next-site&utm_medium=docs&utm_campaign=next-website) offers an efficient way to host videos, providing a scalable cloud storage solution that works well with Next.js. Here's how you can host a video using Vercel Blob:
+
+**1. Uploading a video to Vercel Blob**
+
+In your Vercel dashboard, navigate to the "Storage" tab and select your [Vercel Blob](https://vercel.com/docs/storage/vercel-blob?utm_source=next-site&utm_medium=docs&utm_campaign=next-website) store. In the Blob table's upper-right corner, find and click the "Upload" button. Then, choose the video file you wish to upload. After the upload completes, the video file will appear in the Blob table.
+
+Alternatively, you can upload your video using a server action. For detailed instructions, refer to the Vercel documentation on [server-side uploads](https://vercel.com/docs/storage/vercel-blob/server-upload). Vercel also supports [client-side uploads](https://vercel.com/docs/storage/vercel-blob/client-upload). This method may be preferable for certain use cases.
+
+**2. Displaying the video in Next.js**
+
+Once the video is uploaded and stored, you can display it in your Next.js application. Here's an example of how to do this using the `<video>` tag and React Suspense:
+
+```jsx filename="app/page.jsx"
+import { Suspense } from 'react'
+import { list } from '@vercel/blob'
+
+export default function Page() {
+  return (
+    <Suspense fallback={<p>Loading video...</p>}>
+      <VideoComponent fileName="my-video.mp4" />
+    </Suspense>
+  )
+}
+
+async function VideoComponent({ fileName }) {
+  const { blobs } = await list({
+    prefix: fileName,
+    limit: 1,
+  })
+  const { url } = blobs[0]
+
+  return (
+    <video controls preload="none" aria-label="Video player">
+      <source src={url} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  )
+}
+```
+
+In this approach, the page uses the video's `@vercel/blob` URL to display the video using the `VideoComponent`. React Suspense is used to show a fallback until the video URL is fetched and the video is ready to be displayed.
+
+### Adding subtitles to your video
+
+If you have subtitles for your video, you can easily add them using the `<track>` element inside your `<video>` tag. You can fetch the subtitle file from [Vercel Blob](https://vercel.com/docs/storage/vercel-blob?utm_source=next-site&utm_medium=docs&utm_campaign=next-website) in a similar way as the video file. Here's how you can update the `<VideoComponent>` to include subtitles.
+
+```jsx filename="app/page.jsx"
+async function VideoComponent({ fileName }) {
+  const { blobs } = await list({
+    prefix: fileName,
+    limit: 2,
+  })
+  const { url } = blobs[0]
+  const { url: captionsUrl } = blobs[1]
+
+  return (
+    <video controls preload="none" aria-label="Video player">
+      <source src={url} type="video/mp4" />
+      <track src={captionsUrl} kind="subtitles" srcLang="en" label="English" />
+      Your browser does not support the video tag.
+    </video>
+  )
+}
+```
+
+By following this approach, you can effectively self-host and integrate videos into your Next.js applications.
+
+## Resources
+
+To continue learning more about video optimization and best practices, please refer to the following resources:
+
+- **Understanding video formats and codecs**: Choose the right format and codec, like MP4 for compatibility or WebM for web optimization, for your video needs. For more details, see [Mozilla's guide on video codecs](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs).
+- **Video compression**: Use tools like FFmpeg to effectively compress videos, balancing quality with file size. Learn about compression techniques at [FFmpeg's official website](https://www.ffmpeg.org/).
+- **Resolution and bitrate adjustment**: Adjust [resolution and bitrate](https://www.dacast.com/blog/bitrate-vs-resolution/#:~:text=The%20two%20measure%20different%20aspects,yield%20different%20qualities%20of%20video) based on the viewing platform, with lower settings for mobile devices.
+- **Content Delivery Networks (CDNs)**: Utilize a CDN to enhance video delivery speed and manage high traffic. When using some storage solutions, such as Vercel Blob, CDN functionality is automatically handled for you. [Learn more](https://vercel.com/docs/edge-network/overview?utm_source=next-site&utm_medium=docs&utm_campaign=next-website) about CDNs and their benefits.
+
+Explore these video streaming platforms for integrating video into your Next.js projects:
+
+### Open source `next-video` component
+
+- Provides a `<Video>` component for Next.js, compatible with various hosting services including [Vercel Blob](https://vercel.com/docs/storage/vercel-blob?utm_source=next-site&utm_medium=docs&utm_campaign=next-website), S3, Backblaze, and Mux.
+- [Detailed documentation](https://next-video.dev/docs) for using `next-video.dev` with different hosting services.
+
+### Cloudinary Integration
+
+- Official [documentation and integration guide](https://next.cloudinary.dev/) for using Cloudinary with Next.js.
+- Includes a `<CldVideoPlayer>` component for [drop-in video support](https://next.cloudinary.dev/cldvideoplayer/basic-usage).
+- Find [examples](https://github.com/cloudinary-community/cloudinary-examples/?tab=readme-ov-file#nextjs) of integrating Cloudinary with Next.js including [Adaptive Bitrate Streaming](https://github.com/cloudinary-community/cloudinary-examples/tree/main/examples/nextjs-cldvideoplayer-abr).
+- Other [Cloudinary libraries](https://cloudinary.com/documentation) including a Node.js SDK are also available.
+
+### Mux Video API
+
+- Mux provides a [starter template](https://github.com/muxinc/video-course-starter-kit) for creating a video course with Mux and Next.js.
+- Learn about Mux's recommendations for embedding [high-performance video for your Next.js application](https://www.mux.com/for/nextjs).
+- Explore an [example project](https://with-mux-video.vercel.app/) demonstrating Mux with Next.js.
+
+### Fastly
+
+- Learn more about integrating Fastly's solutions for [video on demand](https://www.fastly.com/products/streaming-media/video-on-demand) and streaming media into Next.js.
+
+### ImageKit.io Integration
+
+- Check out the [official quick start guide](https://imagekit.io/docs/integration/nextjs) for integrating ImageKit with Next.js.
+- The integration provides an `<IKVideo>` component, offering [seamless video support](https://imagekit.io/docs/integration/nextjs#rendering-videos).
+- You can also explore other [ImageKit libraries](https://imagekit.io/docs), such as the Node.js SDK, which is also available.This page outlines how to use videos with Next.js applications, showing how to store and display video files without affecting performance.
+The HTML [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) tag can embed self-hosted or directly served video content, allowing full control over the playback and appearance.
+The HTML `` tag allows you to embed videos from external platforms like YouTube or Vimeo.
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx_section_4
+Distance: 0.18365439772605896
+Type: section
+Title: How to set up a new Next.js project - Manual installation
+Description: 
+Metadata: {}
+Content: To manually create a new Next.js app, install the required packages:
+Open your `` file and add the following ``:
+These scripts refer to the different stages of developing an application:
+``: runs [/docs/app/api-reference/cli/next#next-dev-options](/docs/app/api-reference/cli/next#next-dev-options) to start Next.js in development mode.
+``: runs [/docs/app/api-reference/cli/next#next-build-options](/docs/app/api-reference/cli/next#next-build-options) to build the application for production usage.
+``: runs [/docs/app/api-reference/cli/next#next-start-options](/docs/app/api-reference/cli/next#next-start-options) to start a Next.js production server.
+``: runs [/docs/app/api-reference/cli/next#next-lint-options](/docs/app/api-reference/cli/next#next-lint-options) to set up Next.js' built-in ESLint configuration.
+
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_03_api_reference_06_cli_next_mdx
+Distance: 0.18273872137069702
+Type: document
+Title: next CLI
+Description: Learn how to run and build your application with the Next.js CLI.
+Metadata: {}
+Content: {/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+
+The Next.js CLI allows you to develop, build, start your application, and more.
+
+Basic usage:
+
+```bash filename="Terminal"
+npx next [command] [options]
+```
+
+## Reference
+
+The following options are available:
+
+| Options             | Description                        |
+| ------------------- | ---------------------------------- |
+| `-h` or `--help`    | Shows all available options        |
+| `-v` or `--version` | Outputs the Next.js version number |
+
+### Commands
+
+The following commands are available:
+
+| Command                                | Description                                                                                                                                                                                                                        |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`dev`](#next-dev-options)             | Starts Next.js in development mode with Hot Module Reloading, error reporting, and more.                                                                                                                                           |
+| [`build`](#next-build-options)         | Creates an optimized production build of your application. Displaying information about each route.                                                                                                                                |
+| [`start`](#next-start-options)         | Starts Next.js in production mode. The application should be compiled with `next build` first.                                                                                                                                     |
+| [`info`](#next-info-options)           | Prints relevant details about the current system which can be used to report Next.js bugs.                                                                                                                                         |
+| [`lint`](#next-lint-options)           | Runs ESLint for all files in the `/src`, `/app`, `/pages`, `/components`, and `/lib` directories. It also provides a guided setup to install any required dependencies if ESLint it is not already configured in your application. |
+| [`telemetry`](#next-telemetry-options) | Allows you to enable or disable Next.js' completely anonymous telemetry collection.                                                                                                                                                |
+
+> **Good to know**: Running `next` without a command is an alias for `next dev`.
+
+### `next dev` options
+
+`next dev` starts the application in development mode with Hot Module Reloading (HMR), error reporting, and more. The following options are available when running `next dev`:
+
+| Option                                   | Description                                                                                                                                          |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-h, --help`                             | Show all available options.                                                                                                                          |
+| `[directory]`                            | A directory in which to build the application. If not provided, current directory is used.                                                           |
+| `--turbopack`                            | Starts development mode using [Turbopack](/docs/app/api-reference/turbopack).                                                                        |
+| `-p` or `--port <port>`                  | Specify a port number on which to start the application. Default: 3000, env: PORT                                                                    |
+| `-H`or `--hostname <hostname>`           | Specify a hostname on which to start the application. Useful for making the application available for other devices on the network. Default: 0.0.0.0 |
+| `--experimental-https`                   | Starts the server with HTTPS and generates a self-signed certificate.                                                                                |
+| `--experimental-https-key <path>`        | Path to a HTTPS key file.                                                                                                                            |
+| `--experimental-https-cert <path>`       | Path to a HTTPS certificate file.                                                                                                                    |
+| `--experimental-https-ca <path>`         | Path to a HTTPS certificate authority file.                                                                                                          |
+| `--experimental-upload-trace <traceUrl>` | Reports a subset of the debugging trace to a remote HTTP URL.                                                                                        |
+
+### `next build` options
+
+`next build` creates an optimized production build of your application. The output displays information about each route. For example:
+
+```bash filename="Terminal"
+Route (app)                              Size     First Load JS
+┌ ○ /_not-found                          0 B               0 kB
+└ ƒ /products/[id]                       0 B               0 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+```
+
+- **Size**: The size of assets downloaded when navigating to the page client-side. The size for each route only includes its dependencies.
+- **First Load JS**: The size of assets downloaded when visiting the page from the server. The amount of JS shared by all is shown as a separate metric.
+
+Both of these values are [**compressed with gzip**](/docs/app/api-reference/config/next-config-js/compress). The first load is indicated by green, yellow, or red. Aim for green for performant applications.
+
+The following options are available for the `next build` command:
+
+| Option                             | Description                                                                                                                                   |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-h, --help`                       | Show all available options.                                                                                                                   |
+| `[directory]`                      | A directory on which to build the application. If not provided, the current directory will be used.                                           |
+| `-d` or `--debug`                  | Enables a more verbose build output. With this flag enabled additional build output like rewrites, redirects, and headers will be shown.      |
+|                                    |
+| `--profile`                        | Enables production [profiling for React](https://react.dev/reference/react/Profiler).                                                         |
+| `--no-lint`                        | Disables linting.                                                                                                                             |
+| `--no-mangling`                    | Disables [mangling](https://en.wikipedia.org/wiki/Name_mangling). This may affect performance and should only be used for debugging purposes. |
+| `--experimental-app-only`          | Builds only App Router routes.                                                                                                                |
+| `--experimental-build-mode [mode]` | Uses an experimental build mode. (choices: "compile", "generate", default: "default")                                                         |
+
+### `next start` options
+
+`next start` starts the application in production mode. The application should be compiled with [`next build`](#next-build-options) first.
+
+The following options are available for the `next start` command:
+
+| Option                                  | Description                                                                                                     |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `-h` or `--help`                        | Show all available options.                                                                                     |
+| `[directory]`                           | A directory on which to start the application. If no directory is provided, the current directory will be used. |
+| `-p` or `--port <port>`                 | Specify a port number on which to start the application. (default: 3000, env: PORT)                             |
+| `-H` or `--hostname <hostname>`         | Specify a hostname on which to start the application (default: 0.0.0.0).                                        |
+| `--keepAliveTimeout <keepAliveTimeout>` | Specify the maximum amount of milliseconds to wait before closing the inactive connections.                     |
+
+### `next info` options
+
+`next info` prints relevant details about the current system which can be used to report Next.js bugs when opening a [GitHub issue](https://github.com/vercel/next.js/issues). This information includes Operating System platform/arch/version, Binaries (Node.js, npm, Yarn, pnpm), package versions (`next`, `react`, `react-dom`), and more.
+
+The output should look like this:
+
+```bash filename="Terminal"
+Operating System:
+  Platform: darwin
+  Arch: arm64
+  Version: Darwin Kernel Version 23.6.0
+  Available memory (MB): 65536
+  Available CPU cores: 10
+Binaries:
+  Node: 20.12.0
+  npm: 10.5.0
+  Yarn: 1.22.19
+  pnpm: 9.6.0
+Relevant Packages:
+  next: 15.0.0-canary.115 // Latest available version is detected (15.0.0-canary.115).
+  eslint-config-next: 14.2.5
+  react: 19.0.0-rc
+  react-dom: 19.0.0
+  typescript: 5.5.4
+Next.js Config:
+  output: N/A
+```
+
+The following options are available for the `next info` command:
+
+| Option           | Description                                    |
+| ---------------- | ---------------------------------------------- |
+| `-h` or `--help` | Show all available options                     |
+| `--verbose`      | Collects additional information for debugging. |
+
+### `next lint` options
+
+`next lint` runs ESLint for all files in the `pages/`, `app/`, `components/`, `lib/`, and `src/` directories. It also provides a guided setup to install any required dependencies if ESLint is not already configured in your application.
+
+The following options are available for the `next lint` command:
+
+| Option                                                | Description                                                                                                   |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `[directory]`                                         | A base directory on which to lint the application. If not provided, the current directory will be used.       |
+| `-d, --dir, <dirs...>`                                | Include directory, or directories, to run ESLint.                                                             |
+| `--file, <files...>`                                  | Include file, or files, to run ESLint.                                                                        |
+| `--ext, [exts...]`                                    | Specify JavaScript file extensions. (default: [".js", ".mjs", ".cjs", ".jsx", ".ts", ".mts", ".cts", ".tsx"]) |
+| `-c, --config, <config>`                              | Uses this configuration file, overriding all other configuration options.                                     |
+| `--resolve-plugins-relative-to, <rprt>`               | Specify a directory where plugins should be resolved from.                                                    |
+| `--strict`                                            | Creates a `.eslintrc.json` file using the Next.js strict configuration.                                       |
+| `--rulesdir, <rulesdir...>`                           | Uses additional rules from this directory(s).                                                                 |
+| `--fix`                                               | Automatically fix linting issues.                                                                             |
+| `--fix-type <fixType>`                                | Specify the types of fixes to apply (e.g., problem, suggestion, layout).                                      |
+| `--ignore-path <path>`                                | Specify a file to ignore.                                                                                     |
+| `--no-ignore <path>`                                  | Disables the `--ignore-path` option.                                                                          |
+| `--quiet`                                             | Reports errors only.                                                                                          |
+| `--max-warnings [maxWarnings]`                        | Specify the number of warnings before triggering a non-zero exit code. (default: -1)                          |
+| `-o, --output-file, <outputFile>`                     | Specify a file to write report to.                                                                            |
+| `-f, --format, <format>`                              | Uses a specific output format.                                                                                |
+| `--no-inline-config`                                  | Prevents comments from changing config or rules.                                                              |
+| `--report-unused-disable-directives-severity <level>` | Specify severity level for unused eslint-disable directives. (choices: "error", "off", "warn")                |
+| `--no-cache`                                          | Disables caching.                                                                                             |
+| `--cache-location, <cacheLocation>`                   | Specify a location for cache.                                                                                 |
+| `--cache-strategy, [cacheStrategy]`                   | Specify a strategy to use for detecting changed files in the cache. (default: "metadata")                     |
+| `--error-on-unmatched-pattern`                        | Reports errors when any file patterns are unmatched.                                                          |
+| `-h, --help`                                          | Displays this message.                                                                                        |
+
+### `next telemetry` options
+
+Next.js collects **completely anonymous** telemetry data about general usage. Participation in this anonymous program is optional, and you can opt-out if you prefer not to share information.
+
+The following options are available for the `next telemetry` command:
+
+| Option       | Description                             |
+| ------------ | --------------------------------------- |
+| `-h, --help` | Show all available options.             |
+| `--enable`   | Enables Next.js' telemetry collection.  |
+| `--disable`  | Disables Next.js' telemetry collection. |
+
+Learn more about [Telemetry](/telemetry).
+
+## Examples
+
+### Changing the default port
+
+By default, Next.js uses `http://localhost:3000` during development and with `next start`. The default port can be changed with the `-p` option, like so:
+
+```bash filename="Terminal"
+next dev -p 4000
+```
+
+Or using the `PORT` environment variable:
+
+```bash filename="Terminal"
+PORT=4000 next dev
+```
+
+> **Good to know**: `PORT` cannot be set in `.env` as booting up the HTTP server happens before any other code is initialized.
+
+### Using HTTPS during development
+
+For certain use cases like webhooks or authentication, you can use [HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS) to have a secure environment on `localhost`. Next.js can generate a self-signed certificate with `next dev` using the `--experimental-https` flag:
+
+```bash filename="Terminal"
+next dev --experimental-https
+```
+
+With the generated certificate, the Next.js development server will exist at `https://localhost:3000`. The default port `3000` is used unless a port is specified with `-p`, `--port`, or `PORT`.
+
+You can also provide a custom certificate and key with `--experimental-https-key` and `--experimental-https-cert`. Optionally, you can provide a custom CA certificate with `--experimental-https-ca` as well.
+
+```bash filename="Terminal"
+next dev --experimental-https --experimental-https-key ./certificates/localhost-key.pem --experimental-https-cert ./certificates/localhost.pem
+```
+
+`next dev --experimental-https` is only intended for development and creates a locally trusted certificate with [`mkcert`](https://github.com/FiloSottile/mkcert). In production, use properly issued certificates from trusted authorities.
+
+> **Good to know**: When deploying to Vercel, HTTPS is [automatically configured](https://vercel.com/docs/security/encryption) for your Next.js application.
+
+### Configuring a timeout for downstream proxies
+
+When deploying Next.js behind a downstream proxy (e.g. a load-balancer like AWS ELB/ALB), it's important to configure Next's underlying HTTP server with [keep-alive timeouts](https://nodejs.org/api/http.html#http_server_keepalivetimeout) that are _larger_ than the downstream proxy's timeouts. Otherwise, once a keep-alive timeout is reached for a given TCP connection, Node.js will immediately terminate that connection without notifying the downstream proxy. This results in a proxy error whenever it attempts to reuse a connection that Node.js has already terminated.
+
+To configure the timeout values for the production Next.js server, pass `--keepAliveTimeout` (in milliseconds) to `next start`, like so:
+
+```bash filename="Terminal"
+next start --keepAliveTimeout 70000
+```
+
+### Passing Node.js arguments
+
+You can pass any [node arguments](https://nodejs.org/api/cli.html#cli_node_options_options) to `next` commands. For example:
+
+```bash filename="Terminal"
+NODE_OPTIONS='--throw-deprecation' next
+NODE_OPTIONS='-r esm' next
+NODE_OPTIONS='--inspect' next
+```{/* The content of this doc is shared between the app and pages router. You can use the `` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+The Next.js CLI allows you to develop, build, start your application, and more.
+Basic usage:
+`` starts the application in development mode with Hot Module Reloading (HMR), error reporting, and more. The following options are available when running ``:
+``Show all available options.``A directory in which to build the application. If not provided, current directory is used.``Starts development mode using [/docs/app/api-reference/turbopack](/docs/app/api-reference/turbopack).`` or ``Specify a port number on which to start the application. Default: 3000, env: PORT``or ``Specify a hostname on which to start the application. Useful for making the application available for other devices on the network. Default: 0.0.0.0``Starts the server with HTTPS and generates a self-signed certificate.``Path to a HTTPS key file.``Path to a HTTPS certificate file.``Path to a HTTPS certificate authority file.``Reports a subset of the debugging trace to a remote HTTP URL.
+`` creates an optimized production build of your application. The output displays information about each route. For example:
+Size: The size of assets downloaded when navigating to the page client-side. The size for each route only includes its dependencies.
+First Load JS: The size of assets downloaded when visiting the page from the server. The amount of JS shared by all is shown as a separate metric.
+Both of these values are [/docs/app/api-reference/config/next-config-js/compress](/docs/app/api-reference/config/next-config-js/compress). The first load is indicated by green, yellow, or red. Aim for green for performant applications.
+The following options are available for the `` command:
+``Show all available options.``A directory on which to build the application. If not provided, the current directory will be used.`` or ``Enables a more verbose build output. With this flag enabled additional build output like rewrites, redirects, and headers will be shown.``Enables production [https://react.dev/reference/react/Profiler](https://react.dev/reference/react/Profiler).``Disables linting.``Disables [https://en.wikipedia.org/wiki/Name_mangling](https://en.wikipedia.org/wiki/Name_mangling). This may affect performance and should only be used for debugging purposes.``Builds only App Router routes.``Uses an experimental build mode. (choices: "compile", "generate", default: "default")
+`` starts the application in production mode. The application should be compiled with [#next-build-options](#next-build-options) first.
+The following options are available for the `` command:
+`` or ``Show all available options.``A directory on which to start the application. If no directory is provided, the current directory will be used.`` or ``Specify a port number on which to start the application. (default: 3000, env: PORT)`` or ``Specify a hostname on which to start the application (default: 0.0.0.0).``Specify the maximum amount of milliseconds to wait before closing the inactive connections.
+`` prints relevant details about the current system which can be used to report Next.js bugs when opening a [https://github.com/vercel/next.js/issues](https://github.com/vercel/next.js/issues). This information includes Operating System platform/arch/version, Binaries (Node.js, npm, Yarn, pnpm), package versions (``, ``, ``), and more.
+The output should look like this:
+The following options are available for the `` command:
+`` or ``Show all available options``Collects additional information for debugging.
+`` runs ESLint for all files in the ``, ``, ``, ``, and `` directories. It also provides a guided setup to install any required dependencies if ESLint is not already configured in your application.
+The following options are available for the `` command:
+``A base directory on which to lint the application. If not provided, the current directory will be used.``Include directory, or directories, to run ESLint.``Include file, or files, to run ESLint.``Specify JavaScript file extensions. (default: [".js", ".mjs", ".cjs", ".jsx", ".ts", ".mts", ".cts", ".tsx"])``Uses this configuration file, overriding all other configuration options.``Specify a directory where plugins should be resolved from.``Creates a `` file using the Next.js strict configuration.``Uses additional rules from this directory(s).``Automatically fix linting issues.``Specify the types of fixes to apply (e.g., problem, suggestion, layout).``Specify a file to ignore.``Disables the `` option.``Reports errors only.``Specify the number of warnings before triggering a non-zero exit code. (default: -1)``Specify a file to write report to.``Uses a specific output format.``Prevents comments from changing config or rules.``Specify severity level for unused eslint-disable directives. (choices: "error", "off", "warn")``Disables caching.``Specify a location for cache.``Specify a strategy to use for detecting changed files in the cache. (default: "metadata")``Reports errors when any file patterns are unmatched.``Displays this message.
+Next.js collects completely anonymous telemetry data about general usage. Participation in this anonymous program is optional, and you can opt-out if you prefer not to share information.
+The following options are available for the `` command:
+``Show all available options.``Enables Next.js' telemetry collection.``Disables Next.js' telemetry collection.
+Learn more about [/telemetry](/telemetry).
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx
+Distance: 0.1817043274641037
+Type: document
+Title: How to set up a new Next.js project
+Description: Create a new Next.js application with the `create-next-app` CLI, and set up TypeScript, ESLint, and Module Path Aliases.
+Metadata: {}
+Content: {/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+
+## System requirements
+
+- [Node.js 18.18](https://nodejs.org/) or later.
+- macOS, Windows (including WSL), and Linux are supported.
+
+## Automatic installation
+
+We recommend starting a new Next.js app using [`create-next-app`](/docs/app/api-reference/cli/create-next-app), which sets up everything automatically for you. To create a project, run:
+
+```bash filename="Terminal"
+npx create-next-app@latest
+```
+
+On installation, you'll see the following prompts:
+
+```txt filename="Terminal"
+What is your project named? my-app
+Would you like to use TypeScript? No / Yes
+Would you like to use ESLint? No / Yes
+Would you like to use Tailwind CSS? No / Yes
+Would you like your code inside a `src/` directory? No / Yes
+Would you like to use App Router? (recommended) No / Yes
+Would you like to use Turbopack for `next dev`?  No / Yes
+Would you like to customize the import alias (`@/*` by default)? No / Yes
+What import alias would you like configured? @/*
+```
+
+After the prompts, [`create-next-app`](/docs/app/api-reference/cli/create-next-app) will create a folder with your project name and install the required dependencies.
+
+## Manual installation
+
+To manually create a new Next.js app, install the required packages:
+
+```bash filename="Terminal"
+npm install next@latest react@latest react-dom@latest
+```
+
+Open your `package.json` file and add the following `scripts`:
+
+```json filename="package.json"
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
+```
+
+These scripts refer to the different stages of developing an application:
+
+- `dev`: runs [`next dev`](/docs/app/api-reference/cli/next#next-dev-options) to start Next.js in development mode.
+- `build`: runs [`next build`](/docs/app/api-reference/cli/next#next-build-options) to build the application for production usage.
+- `start`: runs [`next start`](/docs/app/api-reference/cli/next#next-start-options) to start a Next.js production server.
+- `lint`: runs [`next lint`](/docs/app/api-reference/cli/next#next-lint-options) to set up Next.js' built-in ESLint configuration.
+
+<AppOnly>
+
+### Create the `app` directory
+
+Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+
+Create an `app` folder, then add a `layout.tsx` and `page.tsx` file. These will be rendered when the user visits the root of your application (`/`).
+
+<Image
+  alt="App Folder Structure"
+  srcLight="/docs/light/app-getting-started.png"
+  srcDark="/docs/dark/app-getting-started.png"
+  width="1600"
+  height="363"
+/>
+
+Create a [root layout](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required) inside `app/layout.tsx` with the required `<html>` and `<body>` tags:
+
+```tsx filename="app/layout.tsx" switcher
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+```jsx filename="app/layout.js" switcher
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+Finally, create a home page `app/page.tsx` with some initial content:
+
+```tsx filename="app/page.tsx" switcher
+export default function Page() {
+  return <h1>Hello, Next.js!</h1>
+}
+```
+
+```jsx filename="app/page.js" switcher
+export default function Page() {
+  return <h1>Hello, Next.js!</h1>
+}
+```
+
+> **Good to know**:
+>
+> - If you forget to create `layout.tsx`, Next.js will automatically create this file when running the development server with `next dev`.
+> - You can optionally use a [`src` directory](/docs/app/building-your-application/configuring/src-directory) in the root of your project to separate your application's code from configuration files.
+
+</AppOnly>
+
+<PagesOnly>
+
+### Create the `pages` directory
+
+Next.js uses file-system routing, which means the routes in your application are determined by how you structure your files.
+
+Create a `pages` directory at the root of your project. Then, add an `index.tsx` file inside your `pages` folder. This will be your home page (`/`):
+
+```tsx filename="pages/index.tsx" switcher
+export default function Page() {
+  return <h1>Hello, Next.js!</h1>
+}
+```
+
+```jsx filename="pages/index.js" switcher
+export default function Page() {
+  return <h1>Hello, Next.js!</h1>
+}
+```
+
+Next, add an `_app.tsx` file inside `pages/` to define the global layout. Learn more about the [custom App file](/docs/pages/building-your-application/routing/custom-app).
+
+```tsx filename="pages/_app.tsx" switcher
+import type { AppProps } from 'next/app'
+
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
+}
+```
+
+```jsx filename="pages/_app.js" switcher
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+```
+
+Finally, add a `_document.tsx` file inside `pages/` to control the initial response from the server. Learn more about the [custom Document file](/docs/pages/building-your-application/routing/custom-document).
+
+```tsx filename="pages/_document.tsx" switcher
+import { Html, Head, Main, NextScript } from 'next/document'
+
+export default function Document() {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+```
+
+```jsx filename="pages/_document.js" switcher
+import { Html, Head, Main, NextScript } from 'next/document'
+
+export default function Document() {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+```
+
+</PagesOnly>
+
+### Create the `public` folder (optional)
+
+You can optionally create a [`public` folder](/docs/app/building-your-application/optimizing/static-assets) at the root of your project to store static assets such as images, fonts, etc. Files inside `public` can then be referenced by your code starting from the base URL (`/`).
+
+## Run the development server
+
+1. Run `npm run dev` to start the development server.
+2. Visit `http://localhost:3000` to view your application.
+3. Edit the<AppOnly>`app/page.tsx`</AppOnly> <PagesOnly>`pages/index.tsx`</PagesOnly> file and save it to see the updated result in your browser.
+
+## Set up TypeScript
+
+> Minimum TypeScript version: `v4.5.2`
+
+Next.js comes with built-in TypeScript support. To add TypeScript to your project, rename a file to `.ts` / `.tsx`. Run `next dev`, Next.js will automatically install the necessary dependencies and add a `tsconfig.json` file with the recommended config options.
+
+<AppOnly>
+
+### IDE Plugin
+
+Next.js includes a custom TypeScript plugin and type checker, which VSCode and other code editors can use for advanced type-checking and auto-completion.
+
+You can enable the plugin in VS Code by:
+
+1. Opening the command palette (`Ctrl/⌘` + `Shift` + `P`)
+2. Searching for "TypeScript: Select TypeScript Version"
+3. Selecting "Use Workspace Version"
+
+<Image
+  alt="TypeScript Command Palette"
+  srcLight="/docs/light/typescript-command-palette.png"
+  srcDark="/docs/dark/typescript-command-palette.png"
+  width="1600"
+  height="637"
+/>
+
+Now, when editing files, the custom plugin will be enabled. When running `next build`, the custom type checker will be used.
+
+</AppOnly>
+
+See the [TypeScript configuration](/docs/app/api-reference/config/next-config-js/typescript) page for more information on how to use TypeScript in your project.
+
+## Set up ESLint
+
+Next.js comes with built-in ESLint, automatically installing the necessary packages and configuring the proper settings when you create a new project with `create-next-app`.
+
+To add ESLint to an existing project, add `next lint` as a script to `package.json`:
+
+```json filename="package.json"
+{
+  "scripts": {
+    "lint": "next lint"
+  }
+}
+```
+
+Then, run `npm run lint` and you will be guided through the installation and configuration process.
+
+```bash filename="Terminal"
+pnpm lint
+```
+
+You'll see a prompt like this:
+
+> ? How would you like to configure ESLint?
+>
+> ❯ Strict (recommended)  
+> Base  
+> Cancel
+
+- **Strict**: Includes Next.js' base ESLint configuration along with a stricter Core Web Vitals rule-set. This is the recommended configuration for developers setting up ESLint for the first time.
+- **Base**: Includes Next.js' base ESLint configuration.
+- **Cancel**: Does not include any ESLint configuration. Only select this option if you plan on setting up your own custom ESLint configuration.
+
+If either of the two configuration options are selected, Next.js will automatically install `eslint` and `eslint-config-next` as dependencies in your application and create an `.eslintrc.json` file in the root of your project that includes your selected configuration.
+
+You can now run `next lint` every time you want to run ESLint to catch errors. Once ESLint has been set up, it will also automatically run during every build (`next build`). Errors will fail the build, while warnings will not.
+
+See the [ESLint Plugin](/docs/app/api-reference/config/next-config-js/eslint) page for more information on how to configure ESLint in your project.
+
+## Set up Absolute Imports and Module Path Aliases
+
+Next.js has in-built support for the `"paths"` and `"baseUrl"` options of `tsconfig.json` and `jsconfig.json` files. These options allow you to alias project directories to absolute paths, making it easier to import modules. For example:
+
+```jsx
+// Before
+import { Button } from '../../../components/button'
+
+// After
+import { Button } from '@/components/button'
+```
+
+To configure absolute imports, add the `baseUrl` configuration option to your `tsconfig.json` or `jsconfig.json` file. For example:
+
+```json filename="tsconfig.json or jsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": "src/"
+  }
+}
+```
+
+In addition to configuring the `baseUrl` path, you can use the `"paths"` option to `"alias"` module paths.
+
+For example, the following configuration maps `@/components/*` to `components/*`:
+
+```json filename="tsconfig.json or jsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"]
+    }
+  }
+}
+```
+
+Each of the `"paths"` are relative to the `baseUrl` location. For example:
+
+```tsx filename="src/app/page.tsx" switcher
+import Button from '@/components/button'
+import '@/styles/styles.css'
+
+export default function HomePage() {
+  return (
+    <div>
+      <h1>Hello World</h1>
+      <Button />
+    </div>
+  )
+}
+```
+
+```jsx filename="src/app/page.js" switcher
+import Button from '@/components/button'
+import '@/styles/styles.css'
+
+export default function HomePage() {
+  return (
+    <div>
+      <h1>Hello World</h1>
+      <Button />
+    </div>
+  )
+}
+```{/* The content of this doc is shared between the app and pages router. You can use the `` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_01_getting_started_01_installation_mdx_section_3
+Distance: 0.17964604496955872
+Type: section
+Title: How to set up a new Next.js project - Automatic installation
+Description: 
+Metadata: {}
+Content: We recommend starting a new Next.js app using [/docs/app/api-reference/cli/create-next-app](/docs/app/api-reference/cli/create-next-app), which sets up everything automatically for you. To create a project, run:
+On installation, you'll see the following prompts:
+After the prompts, [/docs/app/api-reference/cli/create-next-app](/docs/app/api-reference/cli/create-next-app) will create a folder with your project name and install the required dependencies.
+
+Code: 

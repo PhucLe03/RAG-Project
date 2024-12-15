@@ -1,0 +1,125 @@
+ID: 15_1_0_errors_invalid_images_config_mdx_section_3
+Sparse Distance: 0
+Dense Distance: 0.5924986004829407
+Combined Score: 0.4739988803863526
+
+Type: section
+Title: Invalid `images` config - Useful Links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/building-your-application/optimizing/images](/docs/pages/building-your-application/optimizing/images)
+[/docs/pages/api-reference/components/image](/docs/pages/api-reference/components/image)
+
+Code Content: 
+ID: 15_1_0_errors_next_image_missing_loader_width_mdx_section_3
+Sparse Distance: 0
+Dense Distance: 0.5924986004829407
+Combined Score: 0.4739988803863526
+
+Type: section
+Title: Missing `width` in the URL Returned by the Loader Prop on `next/image` - Useful Links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/building-your-application/optimizing/images](/docs/pages/building-your-application/optimizing/images)
+[/docs/pages/api-reference/components/image](/docs/pages/api-reference/components/image)
+
+Code Content: 
+ID: 15_1_0_errors_next_image_missing_loader_mdx_section_3
+Sparse Distance: 0
+Dense Distance: 0.5924986004829407
+Combined Score: 0.4739988803863526
+
+Type: section
+Title: Missing `loader` Prop on `next/image` - Useful Links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/building-your-application/optimizing/images](/docs/pages/building-your-application/optimizing/images)
+[/docs/pages/api-reference/components/image](/docs/pages/api-reference/components/image)
+
+Code Content: 
+ID: 15_1_0_errors_sharp_version_avif_mdx_section_3
+Sparse Distance: 0
+Dense Distance: 0.5924986004829407
+Combined Score: 0.4739988803863526
+
+Type: section
+Title: Sharp Version Does Not Support AVIF - Useful Links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/building-your-application/optimizing/images](/docs/pages/building-your-application/optimizing/images)
+[/docs/pages/api-reference/components/image](/docs/pages/api-reference/components/image)
+
+Code Content: 
+ID: 15_1_0_errors_inline_script_id_mdx_section_4
+Sparse Distance: 0
+Dense Distance: 0.5921072363853455
+Combined Score: 0.4736857891082764
+
+Type: section
+Title: Inline script id - Useful links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/building-your-application/optimizing/scripts](/docs/pages/building-your-application/optimizing/scripts)
+
+Code Content: 
+ID: 15_1_0_errors_invalid_script_mdx_section_3
+Sparse Distance: 0
+Dense Distance: 0.5921072363853455
+Combined Score: 0.4736857891082764
+
+Type: section
+Title: Invalid Script - Useful Links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/building-your-application/optimizing/scripts](/docs/pages/building-your-application/optimizing/scripts)
+
+Code Content: 
+ID: 15_1_0_docs_01_app_02_building_your_application_06_optimizing_01_images_mdx_section_14
+Sparse Distance: 0
+Dense Distance: 0.5915603041648865
+Combined Score: 0.4732482433319092
+
+Type: section
+Title: Image Optimization - Other Properties
+Description: 
+Metadata: {}
+Text Content: [/docs/app/api-reference/components/image](/docs/app/api-reference/components/image)
+
+Code Content: 
+ID: 15_1_0_docs_01_app_03_api_reference_03_file_conventions_01_metadata_opengraph_image_mdx_section_11
+Sparse Distance: 0
+Dense Distance: 0.5880078673362732
+Combined Score: 0.47040629386901855
+
+Type: section
+Title: opengraph-image and twitter-image - Config exports
+Description: 
+Metadata: {}
+Text Content: You can optionally configure the image's metadata by exporting ``, ``, and `` variables from `` or `` route.
+[#alt](#alt)``[#size](#size)``[#contenttype](#contenttype)`` - [https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types#image_types](https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types#image_types)
+
+Code Content: 
+ID: 15_1_0_docs_01_app_03_api_reference_02_components_image_mdx_section_49
+Sparse Distance: 0
+Dense Distance: 0.5835028886795044
+Combined Score: 0.4668023109436035
+
+Type: section
+Title: <Image> - Background CSS
+Description: 
+Metadata: {}
+Text Content: You can even convert the `` string to the [https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set](https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set) CSS function to optimize a background image.
+
+Code Content: 
+ID: 15_1_0_errors_invalid_new_link_with_extra_anchor_mdx_section_3
+Sparse Distance: 0
+Dense Distance: 0.5826593637466431
+Combined Score: 0.4661274909973145
+
+Type: section
+Title: Invalid `<Link>` with `<a>` child - Useful Links
+Description: 
+Metadata: {}
+Text Content: [/docs/pages/api-reference/components/link](/docs/pages/api-reference/components/link)
+
+Code Content: 

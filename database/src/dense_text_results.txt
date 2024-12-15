@@ -1,0 +1,1090 @@
+ID: 15_1_0_docs_01_app_02_building_your_application_01_routing_13_route_handlers_mdx_section_9
+Distance: 0.6561114192008972
+Type: section
+Title: Route Handlers - Examples
+Description: 
+Metadata: {}
+Content: The following examples show how to combine Route Handlers with other Next.js APIs and features.
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_02_building_your_application_02_data_fetching_01_fetching_mdx
+Distance: 0.6241982579231262
+Type: document
+Title: Data Fetching and Caching
+Description: Learn best practices for fetching data on the server or client in Next.js.
+Metadata: {}
+Content: <details>
+  <summary>Examples</summary>
+
+- [Next.js Commerce](https://vercel.com/templates/next.js/nextjs-commerce)
+- [On-Demand ISR](https://on-demand-isr.vercel.app)
+- [Next.js Forms](https://github.com/vercel/next.js/tree/canary/examples/next-forms)
+
+</details>
+
+This guide will walk you through the basics of data fetching and caching in Next.js, providing practical examples and best practices.
+
+Here's a minimal example of data fetching in Next.js:
+
+```tsx filename="app/page.tsx" switcher
+export default async function Page() {
+  const data = await fetch('https://api.vercel.app/blog')
+  const posts = await data.json()
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```jsx filename="app/page.js" switcher
+export default async function Page() {
+  const data = await fetch('https://api.vercel.app/blog')
+  const posts = await data.json()
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+This example demonstrates a basic server-side data fetch using the `fetch` API in an asynchronous React Server Component.
+
+## Reference
+
+- [`fetch`](/docs/app/api-reference/functions/fetch)
+- React [`cache`](https://react.dev/reference/react/cache)
+- Next.js [`unstable_cache`](/docs/app/api-reference/functions/unstable_cache)
+
+## Examples
+
+### Fetching data on the server with the `fetch` API
+
+This component will fetch and display a list of blog posts. The response from `fetch` is not cached by default.
+
+```tsx filename="app/page.tsx" switcher
+export default async function Page() {
+  const data = await fetch('https://api.vercel.app/blog')
+  const posts = await data.json()
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```jsx filename="app/page.js" switcher
+export default async function Page() {
+  const data = await fetch('https://api.vercel.app/blog')
+  const posts = await data.json()
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+If you are not using any [Dynamic APIs](/docs/app/building-your-application/rendering/server-components#dynamic-rendering) anywhere else in this route, it will be prerendered during `next build` to a static page. The data can then be updated using [Incremental Static Regeneration](/docs/app/building-your-application/data-fetching/incremental-static-regeneration).
+
+To prevent the page from prerendering, you can add the following to your file:
+
+```js
+export const dynamic = 'force-dynamic'
+```
+
+However, you will commonly use functions like `cookies`, `headers`, or reading the incoming `searchParams` from the page props, which will automatically make the page render dynamically. In this case, you do _not_ need to explicitly use `force-dynamic`.
+
+### Fetching data on the server with an ORM or database
+
+This component will fetch and display a list of blog posts. The response from the database is not cached by default but could be with [additional configuration](#caching-data-with-an-orm-or-database).
+
+```tsx filename="app/page.tsx" switcher
+import { db, posts } from '@/lib/db'
+
+export default async function Page() {
+  const allPosts = await db.select().from(posts)
+  return (
+    <ul>
+      {allPosts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```jsx filename="app/page.js" switcher
+import { db, posts } from '@/lib/db'
+
+export default async function Page() {
+  const allPosts = await db.select().from(posts)
+  return (
+    <ul>
+      {allPosts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+If you are not using any [Dynamic APIs](/docs/app/building-your-application/rendering/server-components#dynamic-rendering) anywhere else in this route, it will be prerendered during `next build` to a static page. The data can then be updated using [Incremental Static Regeneration](/docs/app/building-your-application/data-fetching/incremental-static-regeneration).
+
+To prevent the page from prerendering, you can add the following to your file:
+
+```js
+export const dynamic = 'force-dynamic'
+```
+
+However, you will commonly use functions like `cookies`, `headers`, or reading the incoming `searchParams` from the page props, which will automatically make the page render dynamically. In this case, you do _not_ need to explicitly use `force-dynamic`.
+
+### Fetching data on the client
+
+We recommend first attempting to fetch data on the server-side.
+
+However, there are still cases where client-side data fetching makes sense. In these scenarios, you can manually call `fetch` in a `useEffect` (not recommended), or lean on popular React libraries in the community (such as [SWR](https://swr.vercel.app/) or [React Query](https://tanstack.com/query/latest)) for client fetching.
+
+```tsx filename="app/page.tsx" switcher
+'use client'
+
+import { useState, useEffect } from 'react'
+
+export function Posts() {
+  const [posts, setPosts] = useState(null)
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const res = await fetch('https://api.vercel.app/blog')
+      const data = await res.json()
+      setPosts(data)
+    }
+    fetchPosts()
+  }, [])
+
+  if (!posts) return <div>Loading...</div>
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```jsx filename="app/page.js" switcher
+'use client'
+
+import { useState, useEffect } from 'react'
+
+export function Posts() {
+  const [posts, setPosts] = useState(null)
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const res = await fetch('https://api.vercel.app/blog')
+      const data = await res.json()
+      setPosts(data)
+    }
+    fetchPosts()
+  }, [])
+
+  if (!posts) return <div>Loading...</div>
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### Caching data with an ORM or Database
+
+You can use the `unstable_cache` API to cache the response to allow pages to be prerendered when running `next build`.
+
+```tsx filename="app/page.tsx" switcher
+import { unstable_cache } from 'next/cache'
+import { db, posts } from '@/lib/db'
+
+const getPosts = unstable_cache(
+  async () => {
+    return await db.select().from(posts)
+  },
+  ['posts'],
+  { revalidate: 3600, tags: ['posts'] }
+)
+
+export default async function Page() {
+  const allPosts = await getPosts()
+
+  return (
+    <ul>
+      {allPosts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```jsx filename="app/page.js" switcher
+import { unstable_cache } from 'next/cache'
+import { db, posts } from '@/lib/db'
+
+const getPosts = unstable_cache(
+  async () => {
+    return await db.select().from(posts)
+  },
+  ['posts'],
+  { revalidate: 3600, tags: ['posts'] }
+)
+
+export default async function Page() {
+  const allPosts = await getPosts()
+
+  return (
+    <ul>
+      {allPosts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+This example caches the result of the database query for 1 hour (3600 seconds). It also adds the cache tag `posts` which can then be invalidated with [Incremental Static Regeneration](/docs/app/building-your-application/data-fetching/incremental-static-regeneration).
+
+### Reusing data across multiple functions
+
+Next.js uses APIs like `generateMetadata` and `generateStaticParams` where you will need to use the same data fetched in the `page`.
+
+If you are using `fetch`, requests can be [memoized](/docs/app/building-your-application/caching#request-memoization) by adding `cache: 'force-cache'`. This means you can safely call the same URL with the same options, and only one request will be made.
+
+> **Good to know:**
+>
+> - In previous versions of Next.js, using `fetch` would have a default `cache` value of `force-cache`. This changed in version 15, to a default of `cache: no-store`.
+
+```tsx filename="app/blog/[id]/page.tsx" switcher
+import { notFound } from 'next/navigation'
+
+interface Post {
+  id: string
+  title: string
+  content: string
+}
+
+async function getPost(id: string) {
+  const res = await fetch(`https://api.vercel.app/blog/${id}`, {
+    cache: 'force-cache',
+  })
+  const post: Post = await res.json()
+  if (!post) notFound()
+  return post
+}
+
+export async function generateStaticParams() {
+  const posts = await fetch('https://api.vercel.app/blog', {
+    cache: 'force-cache',
+  }).then((res) => res.json())
+
+  return posts.map((post: Post) => ({
+    id: String(post.id),
+  }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const post = await getPost(id)
+
+  return {
+    title: post.title,
+  }
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const post = await getPost(id)
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  )
+}
+```
+
+```jsx filename="app/blog/[id]/page.js" switcher
+import { notFound } from 'next/navigation'
+
+async function getPost(id) {
+  const res = await fetch(`https://api.vercel.app/blog/${id}`)
+  const post = await res.json()
+  if (!post) notFound()
+  return post
+}
+
+export async function generateStaticParams() {
+  const posts = await fetch('https://api.vercel.app/blog').then((res) =>
+    res.json()
+  )
+
+  return posts.map((post) => ({
+    id: String(post.id),
+  }))
+}
+
+export async function generateMetadata({ params }) {
+  const { id } = await params
+  const post = await getPost(id)
+
+  return {
+    title: post.title,
+  }
+}
+
+export default async function Page({ params }) {
+  const { id } = await params
+  const post = await getPost(id)
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  )
+}
+```
+
+If you are _not_ using `fetch`, and instead using an ORM or database directly, you can wrap your data fetch with the React `cache` function. This will de-duplicate and only make one query.
+
+```jsx
+import { cache } from 'react'
+import { db, posts, eq } from '@/lib/db' // Example with Drizzle ORM
+import { notFound } from 'next/navigation'
+
+export const getPost = cache(async (id) => {
+  const post = await db.query.posts.findFirst({
+    where: eq(posts.id, parseInt(id)),
+  })
+
+  if (!post) notFound()
+  return post
+})
+```
+
+### Revalidating cached data
+
+Learn more about revalidating cached data with [Incremental Static Regeneration](/docs/app/building-your-application/data-fetching/incremental-static-regeneration).
+
+## Patterns
+
+### Parallel and sequential data fetching
+
+When fetching data inside components, you need to be aware of two data fetching patterns: Parallel and Sequential.
+
+<Image
+  alt="Sequential and Parallel Data Fetching"
+  srcLight="/docs/light/sequential-parallel-data-fetching.png"
+  srcDark="/docs/dark/sequential-parallel-data-fetching.png"
+  width="1600"
+  height="525"
+/>
+
+- **Sequential**: requests in a component tree are dependent on each other. This can lead to longer loading times.
+- **Parallel**: requests in a route are eagerly initiated and will load data at the same time. This reduces the total time it takes to load data.
+
+#### Sequential data fetching
+
+If you have nested components, and each component fetches its own data, then data fetching will happen sequentially if those data requests are not [memoized](/docs/app/building-your-application/caching#request-memoization).
+
+There may be cases where you want this pattern because one fetch depends on the result of the other. For example, the `Playlists` component will only start fetching data once the `Artist` component has finished fetching data because `Playlists` depends on the `artistID` prop:
+
+```tsx filename="app/artist/[username]/page.tsx" switcher
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ username: string }>
+}) {
+  const { username } = await params
+  // Get artist information
+  const artist = await getArtist(username)
+
+  return (
+    <>
+      <h1>{artist.name}</h1>
+      {/* Show fallback UI while the Playlists component is loading */}
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* Pass the artist ID to the Playlists component */}
+        <Playlists artistID={artist.id} />
+      </Suspense>
+    </>
+  )
+}
+
+async function Playlists({ artistID }: { artistID: string }) {
+  // Use the artist ID to fetch playlists
+  const playlists = await getArtistPlaylists(artistID)
+
+  return (
+    <ul>
+      {playlists.map((playlist) => (
+        <li key={playlist.id}>{playlist.name}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+```jsx filename="app/artist/[username]/page.js" switcher
+export default async function Page({ params }) {
+  const { username } = await params
+  // Get artist information
+  const artist = await getArtist(username)
+
+  return (
+    <>
+      <h1>{artist.name}</h1>
+      {/* Show fallback UI while the Playlists component is loading */}
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* Pass the artist ID to the Playlists component */}
+        <Playlists artistID={artist.id} />
+      </Suspense>
+    </>
+  )
+}
+
+async function Playlists({ artistID }) {
+  // Use the artist ID to fetch playlists
+  const playlists = await getArtistPlaylists(artistID)
+
+  return (
+    <ul>
+      {playlists.map((playlist) => (
+        <li key={playlist.id}>{playlist.name}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+You can use [`loading.js`](/docs/app/building-your-application/routing/loading-ui-and-streaming) (for route segments) or [React `<Suspense>`](/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense) (for nested components) to show an instant loading state while React streams in the result.
+
+This will prevent the whole route from being blocked by data requests, and the user will be able to interact with the parts of the page that are ready.
+
+#### Parallel Data Fetching
+
+By default, layout and page segments are rendered in parallel. This means requests will be initiated in parallel.
+
+However, due to the nature of `async`/`await`, an awaited request inside the same segment or component will block any requests below it.
+
+To fetch data in parallel, you can eagerly initiate requests by defining them outside the components that use the data. This saves time by initiating both requests in parallel, however, the user won't see the rendered result until both promises are resolved.
+
+In the example below, the `getArtist` and `getAlbums` functions are defined outside the `Page` component and initiated inside the component using `Promise.all`:
+
+```tsx filename="app/artist/[username]/page.tsx" switcher
+import Albums from './albums'
+
+async function getArtist(username: string) {
+  const res = await fetch(`https://api.example.com/artist/${username}`)
+  return res.json()
+}
+
+async function getAlbums(username: string) {
+  const res = await fetch(`https://api.example.com/artist/${username}/albums`)
+  return res.json()
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ username: string }>
+}) {
+  const { username } = await params
+  const artistData = getArtist(username)
+  const albumsData = getAlbums(username)
+
+  // Initiate both requests in parallel
+  const [artist, albums] = await Promise.all([artistData, albumsData])
+
+  return (
+    <>
+      <h1>{artist.name}</h1>
+      <Albums list={albums} />
+    </>
+  )
+}
+```
+
+```jsx filename="app/artist/[username]/page.js" switcher
+import Albums from './albums'
+
+async function getArtist(username) {
+  const res = await fetch(`https://api.example.com/artist/${username}`)
+  return res.json()
+}
+
+async function getAlbums(username) {
+  const res = await fetch(`https://api.example.com/artist/${username}/albums`)
+  return res.json()
+}
+
+export default async function Page({ params }) {
+  const { username } = await params
+  const artistData = getArtist(username)
+  const albumsData = getAlbums(username)
+
+  // Initiate both requests in parallel
+  const [artist, albums] = await Promise.all([artistData, albumsData])
+
+  return (
+    <>
+      <h1>{artist.name}</h1>
+      <Albums list={albums} />
+    </>
+  )
+}
+```
+
+In addition, you can add a [Suspense Boundary](/docs/app/building-your-application/routing/loading-ui-and-streaming) to break up the rendering work and show part of the result as soon as possible.
+
+### Preloading Data
+
+Another way to prevent waterfalls is to use the _preload_ pattern by creating an utility function that you eagerly call above blocking requests. For example, `checkIsAvailable()` blocks `<Item/>` from rendering, so you can call `preload()` before it to eagerly initiate `<Item/>` data dependencies. By the time `<Item/>` is rendered, its data has already been fetched.
+
+Note that `preload` function doesn't block `checkIsAvailable()` from running.
+
+```tsx filename="components/Item.tsx" switcher
+import { getItem } from '@/utils/get-item'
+
+export const preload = (id: string) => {
+  // void evaluates the given expression and returns undefined
+  // https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void
+  void getItem(id)
+}
+export default async function Item({ id }: { id: string }) {
+  const result = await getItem(id)
+  // ...
+}
+```
+
+```jsx filename="components/Item.js" switcher
+import { getItem } from '@/utils/get-item'
+
+export const preload = (id) => {
+  // void evaluates the given expression and returns undefined
+  // https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void
+  void getItem(id)
+}
+export default async function Item({ id }) {
+  const result = await getItem(id)
+  // ...
+}
+```
+
+```tsx filename="app/item/[id]/page.tsx" switcher
+import Item, { preload, checkIsAvailable } from '@/components/Item'
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  // starting loading item data
+  preload(id)
+  // perform another asynchronous task
+  const isAvailable = await checkIsAvailable()
+
+  return isAvailable ? <Item id={id} /> : null
+}
+```
+
+```jsx filename="app/item/[id]/page.js" switcher
+import Item, { preload, checkIsAvailable } from '@/components/Item'
+
+export default async function Page({ params }) {
+  const { id } = await params
+  // starting loading item data
+  preload(id)
+  // perform another asynchronous task
+  const isAvailable = await checkIsAvailable()
+
+  return isAvailable ? <Item id={id} /> : null
+}
+```
+
+> **Good to know:** The "preload" function can also have any name as it's a pattern, not an API.
+
+#### Using React `cache` and `server-only` with the Preload Pattern
+
+You can combine the `cache` function, the `preload` pattern, and the `server-only` package to create a data fetching utility that can be used throughout your app.
+
+```ts filename="utils/get-item.ts" switcher
+import { cache } from 'react'
+import 'server-only'
+
+export const preload = (id: string) => {
+  void getItem(id)
+}
+
+export const getItem = cache(async (id: string) => {
+  // ...
+})
+```
+
+```js filename="utils/get-item.js" switcher
+import { cache } from 'react'
+import 'server-only'
+
+export const preload = (id) => {
+  void getItem(id)
+}
+
+export const getItem = cache(async (id) => {
+  // ...
+})
+```
+
+With this approach, you can eagerly fetch data, cache responses, and guarantee that this data fetching [only happens on the server](/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment).
+
+The `utils/get-item` exports can be used by Layouts, Pages, or other components to give them control over when an item's data is fetched.
+
+> **Good to know:**
+>
+> - We recommend using the [`server-only` package](/docs/app/building-your-application/rendering/composition-patterns#keeping-server-only-code-out-of-the-client-environment) to make sure server data fetching functions are never used on the client.
+
+### Preventing sensitive data from being exposed to the client
+
+We recommend using React's taint APIs, [`taintObjectReference`](https://react.dev/reference/react/experimental_taintObjectReference) and [`taintUniqueValue`](https://react.dev/reference/react/experimental_taintUniqueValue), to prevent whole object instances or sensitive values from being passed to the client.
+
+To enable tainting in your application, set the Next.js Config `experimental.taint` option to `true`:
+
+```js filename="next.config.js"
+module.exports = {
+  experimental: {
+    taint: true,
+  },
+}
+```
+
+Then pass the object or value you want to taint to the `experimental_taintObjectReference` or `experimental_taintUniqueValue` functions:
+
+```ts filename="app/utils.ts" switcher
+import { queryDataFromDB } from './api'
+import {
+  experimental_taintObjectReference,
+  experimental_taintUniqueValue,
+} from 'react'
+
+export async function getUserData() {
+  const data = await queryDataFromDB()
+  experimental_taintObjectReference(
+    'Do not pass the whole user object to the client',
+    data
+  )
+  experimental_taintUniqueValue(
+    "Do not pass the user's address to the client",
+    data,
+    data.address
+  )
+  return data
+}
+```
+
+```js filename="app/utils.js" switcher
+import { queryDataFromDB } from './api'
+import {
+  experimental_taintObjectReference,
+  experimental_taintUniqueValue,
+} from 'react'
+
+export async function getUserData() {
+  const data = await queryDataFromDB()
+  experimental_taintObjectReference(
+    'Do not pass the whole user object to the client',
+    data
+  )
+  experimental_taintUniqueValue(
+    "Do not pass the user's address to the client",
+    data,
+    data.address
+  )
+  return data
+}
+```
+
+```tsx filename="app/page.tsx" switcher
+import { getUserData } from './data'
+
+export async function Page() {
+  const userData = getUserData()
+  return (
+    <ClientComponent
+      user={userData} // this will cause an error because of taintObjectReference
+      address={userData.address} // this will cause an error because of taintUniqueValue
+    />
+  )
+}
+```
+
+```jsx filename="app/page.js" switcher
+import { getUserData } from './data'
+
+export async function Page() {
+  const userData = await getUserData()
+  return (
+    <ClientComponent
+      user={userData} // this will cause an error because of taintObjectReference
+      address={userData.address} // this will cause an error because of taintUniqueValue
+    />
+  )
+}
+```
+[https://vercel.com/templates/next.js/nextjs-commerce](https://vercel.com/templates/next.js/nextjs-commerce)
+[https://on-demand-isr.vercel.app](https://on-demand-isr.vercel.app)
+[https://github.com/vercel/next.js/tree/canary/examples/next-forms](https://github.com/vercel/next.js/tree/canary/examples/next-forms)
+
+This guide will walk you through the basics of data fetching and caching in Next.js, providing practical examples and best practices.
+Here's a minimal example of data fetching in Next.js:
+This example demonstrates a basic server-side data fetch using the `` API in an asynchronous React Server Component.
+
+Code: 
+
+
+ID: 15_1_0_errors_invalid_href_passed_mdx
+Distance: 0.6149760484695435
+Type: document
+Title: Invalid `href` passed to router
+Description: 
+Metadata: {}
+Content: ## Why This Error Occurred
+
+Next.js provides a router which can be utilized via a component imported via `next/link`, a wrapper `withRouter(Component)`, and now a hook `useRouter()`.
+When using any of these, it is expected they are only used for internal navigation, i.e. navigating between pages in the same Next.js application.
+
+Either you passed a non-internal `href` to a `next/link` component or you called `Router#push` or `Router#replace` with one.
+
+Invalid `href`s include external sites (https://google.com) and `mailto:` links. In the past, usage of these invalid `href`s could have gone unnoticed, but since they can cause unexpected behavior we now show a warning in development for them.
+
+## Possible Ways to Fix It
+
+Look for any usage of `next/link` or `next/router` that is being passed a non-internal `href` and replace them with either an anchor tag (`<a>`) or `window.location.href = YOUR_HREF`.
+
+## Useful Links
+
+- [Routing section in Documentation](/docs/pages/building-your-application/routing)
+Code: 
+
+
+ID: 15_1_0_errors_invalid_href_passed_mdx_section_1
+Distance: 0.6135925650596619
+Type: section
+Title: Invalid `href` passed to router - Why This Error Occurred
+Description: 
+Metadata: {}
+Content: Next.js provides a router which can be utilized via a component imported via ``, a wrapper ``, and now a hook ``.When using any of these, it is expected they are only used for internal navigation, i.e. navigating between pages in the same Next.js application.
+Either you passed a non-internal `` to a `` component or you called `` or `` with one.
+Invalid ``s include external sites (https://google.com) and `` links. In the past, usage of these invalid ``s could have gone unnoticed, but since they can cause unexpected behavior we now show a warning in development for them.
+
+Code: 
+
+
+ID: 15_1_0_errors_ignored_compiler_options_mdx_section_2
+Distance: 0.6084693074226379
+Type: section
+Title: `ignored-compiler-options` - Useful Links
+Description: 
+Metadata: {}
+Content: [/docs/architecture/nextjs-compiler](/docs/architecture/nextjs-compiler)
+
+Code: 
+
+
+ID: 15_1_0_docs_01_app_02_building_your_application_08_testing_02_jest_mdx_section_2
+Distance: 0.6025168895721436
+Type: section
+Title: Setting up Jest with Next.js - Quickstart
+Description: 
+Metadata: {}
+Content: You can use `` with the Next.js [https://github.com/vercel/next.js/tree/canary/examples/with-jest](https://github.com/vercel/next.js/tree/canary/examples/with-jest) example to quickly get started:
+
+Code: 
+
+
+ID: 15_1_0_errors_doc_crossorigin_deprecated_mdx_section_3
+Distance: 0.6013793349266052
+Type: section
+Title: `Head` or `NextScript` attribute `crossOrigin` is deprecated - Useful Links
+Description: 
+Metadata: {}
+Content: [https://github.com/vercel/next.js/issues/5674](https://github.com/vercel/next.js/issues/5674)
+
+Code: 
+
+
+ID: 15_1_0_errors_config_resolve_alias_mdx_section_3
+Distance: 0.5976607203483582
+Type: section
+Title: Invalid webpack resolve alias - Useful Links
+Description: 
+Metadata: {}
+Content: [https://github.com/vercel/next.js/issues/6681](https://github.com/vercel/next.js/issues/6681)
+
+Code: 
+
+
+ID: 15_1_0_errors_invalid_resolve_alias_mdx_section_3
+Distance: 0.5976607203483582
+Type: section
+Title: Invalid `webpack` resolve alias - Useful Links
+Description: 
+Metadata: {}
+Content: [https://github.com/vercel/next.js/issues/6681](https://github.com/vercel/next.js/issues/6681)
+
+Code: 
+
+
+ID: 15_1_0_docs_02_pages_02_building_your_application_02_rendering_02_static_site_generation_mdx
+Distance: 0.5965062379837036
+Type: document
+Title: Static Site Generation (SSG)
+Description: Use Static Site Generation (SSG) to pre-render pages at build time.
+Metadata: {}
+Content: <details>
+  <summary>Examples</summary>
+
+- [Agility CMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-agilitycms) ([Demo](https://next-blog-agilitycms.vercel.app/))
+- [Builder.io Example](https://github.com/vercel/next.js/tree/canary/examples/cms-builder-io) ([Demo](https://cms-builder-io.vercel.app/))
+- [ButterCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms) ([Demo](https://next-blog-buttercms.vercel.app/))
+- [Contentful Example](https://github.com/vercel/next.js/tree/canary/examples/cms-contentful) ([Demo](https://app-router-contentful.vercel.app/))
+- [Cosmic Example](https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic) ([Demo](https://next-blog-cosmic.vercel.app/))
+- [DatoCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-datocms) ([Demo](https://next-blog-datocms.vercel.app/))
+- [DotCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-dotcms) ([Demo](https://nextjs-dotcms-blog.vercel.app/))
+- [Drupal Example](https://github.com/vercel/next.js/tree/canary/examples/cms-drupal) ([Demo](https://cms-drupal.vercel.app/))
+- [Enterspeed Example](https://github.com/vercel/next.js/tree/canary/examples/cms-enterspeed) ([Demo](https://next-blog-demo.enterspeed.com/))
+- [GraphCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms) ([Demo](https://next-blog-graphcms.vercel.app/))
+- [Keystone Example](https://github.com/vercel/next.js/tree/canary/examples/cms-keystonejs-embedded) ([Demo](https://nextjs-keystone-demo.vercel.app/))
+- [Kontent.ai Example](https://github.com/vercel/next.js/tree/canary/examples/cms-kontent-ai) ([Demo](https://next-blog-kontent-ai.vercel.app/))
+- [Makeswift Example](https://github.com/vercel/next.js/tree/canary/examples/cms-makeswift) ([Demo](https://nextjs-makeswift-example.vercel.app/))
+- [Plasmic Example](https://github.com/vercel/next.js/tree/canary/examples/cms-plasmic) ([Demo](https://nextjs-plasmic-example.vercel.app/))
+- [Prepr Example](https://github.com/vercel/next.js/tree/canary/examples/cms-prepr) ([Demo](https://next-blog-prepr.vercel.app/))
+- [Prismic Example](https://github.com/vercel/next.js/tree/canary/examples/cms-prismic) ([Demo](https://next-blog-prismic.vercel.app/))
+- [Sanity Example](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity) ([Demo](https://next-blog.sanity.build/))
+- [Sitecore XM Cloud Example](https://github.com/vercel/next.js/tree/canary/examples/cms-sitecore-xmcloud) ([Demo](https://vercel-sitecore-xmcloud-demo.vercel.app/))
+- [Storyblok Example](https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok) ([Demo](https://next-blog-storyblok.vercel.app/))
+- [Strapi Example](https://github.com/vercel/next.js/tree/canary/examples/cms-strapi) ([Demo](https://next-blog-strapi.vercel.app/))
+- [TakeShape Example](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) ([Demo](https://next-blog-takeshape.vercel.app/))
+- [Tina Example](https://github.com/vercel/next.js/tree/canary/examples/cms-tina) ([Demo](https://cms-tina-example.vercel.app/))
+- [Umbraco Example](https://github.com/vercel/next.js/tree/canary/examples/cms-umbraco) ([Demo](https://nextjs-umbraco-sample-blog.vercel.app/))
+- [Umbraco Heartcore Example](https://github.com/vercel/next.js/tree/canary/examples/cms-umbraco-heartcore) ([Demo](https://next-blog-umbraco-heartcore.vercel.app/))
+- [Webiny Example](https://github.com/vercel/next.js/tree/canary/examples/cms-webiny) ([Demo](https://webiny-headlesscms-nextjs-example.vercel.app/))
+- [WordPress Example](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress) ([Demo](https://next-blog-wordpress.vercel.app/))
+- [Blog Starter Example](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) ([Demo](https://next-blog-starter.vercel.app/))
+- [Static Tweet (Demo)](https://react-tweet.vercel.app/)
+
+</details>
+
+If a page uses **Static Generation**, the page HTML is generated at **build time**. That means in production, the page HTML is generated when you run `next build`. This HTML will then be reused on each request. It can be cached by a CDN.
+
+In Next.js, you can statically generate pages **with or without data**. Let's take a look at each case.
+
+### Static Generation without data
+
+By default, Next.js pre-renders pages using Static Generation without fetching data. Here's an example:
+
+```jsx
+function About() {
+  return <div>About</div>
+}
+
+export default About
+```
+
+Note that this page does not need to fetch any external data to be pre-rendered. In cases like this, Next.js generates a single HTML file per page during build time.
+
+### Static Generation with data
+
+Some pages require fetching external data for pre-rendering. There are two scenarios, and one or both might apply. In each case, you can use these functions that Next.js provides:
+
+1. Your page **content** depends on external data: Use `getStaticProps`.
+2. Your page **paths** depend on external data: Use `getStaticPaths` (usually in addition to `getStaticProps`).
+
+#### Scenario 1: Your page content depends on external data
+
+**Example**: Your blog page might need to fetch the list of blog posts from a CMS (content management system).
+
+```jsx
+// TODO: Need to fetch `posts` (by calling some API endpoint)
+//       before this page can be pre-rendered.
+export default function Blog({ posts }) {
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+To fetch this data on pre-render, Next.js allows you to `export` an `async` function called `getStaticProps` from the same file. This function gets called at build time and lets you pass fetched data to the page's `props` on pre-render.
+
+```jsx
+export default function Blog({ posts }) {
+  // Render posts...
+}
+
+// This function gets called at build time
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
+}
+```
+
+To learn more about how `getStaticProps` works, check out the [Data Fetching documentation](/docs/pages/building-your-application/data-fetching/get-static-props).
+
+#### Scenario 2: Your page paths depend on external data
+
+Next.js allows you to create pages with **dynamic routes**. For example, you can create a file called `pages/posts/[id].js` to show a single blog post based on `id`. This will allow you to show a blog post with `id: 1` when you access `posts/1`.
+
+> To learn more about dynamic routing, check the [Dynamic Routing documentation](/docs/pages/building-your-application/routing/dynamic-routes).
+
+However, which `id` you want to pre-render at build time might depend on external data.
+
+**Example**: suppose that you've only added one blog post (with `id: 1`) to the database. In this case, you'd only want to pre-render `posts/1` at build time.
+
+Later, you might add the second post with `id: 2`. Then you'd want to pre-render `posts/2` as well.
+
+So your page **paths** that are pre-rendered depend on external data. To handle this, Next.js lets you `export` an `async` function called `getStaticPaths` from a dynamic page (`pages/posts/[id].js` in this case). This function gets called at build time and lets you specify which paths you want to pre-render.
+
+```jsx
+// This function gets called at build time
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://.../posts')
+  const posts = await res.json()
+
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map((post) => ({
+    params: { id: post.id },
+  }))
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+```
+
+Also in `pages/posts/[id].js`, you need to export `getStaticProps` so that you can fetch the data about the post with this `id` and use it to pre-render the page:
+
+```jsx
+export default function Post({ post }) {
+  // Render post...
+}
+
+export async function getStaticPaths() {
+  // ...
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const res = await fetch(`https://.../posts/${params.id}`)
+  const post = await res.json()
+
+  // Pass post data to the page via props
+  return { props: { post } }
+}
+```
+
+To learn more about how `getStaticPaths` works, check out the [Data Fetching documentation](/docs/pages/building-your-application/data-fetching/get-static-paths).
+
+### When should I use Static Generation?
+
+We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+
+You can use Static Generation for many types of pages, including:
+
+- Marketing pages
+- Blog posts and portfolios
+- E-commerce product listings
+- Help and documentation
+
+You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+
+On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+
+In cases like this, you can do one of the following:
+
+- Use Static Generation with **Client-side data fetching:** You can skip pre-rendering some parts of a page and then use client-side JavaScript to populate them. To learn more about this approach, check out the [Data Fetching documentation](/docs/pages/building-your-application/data-fetching/client-side).
+- Use **Server-Side Rendering:** Next.js pre-renders a page on each request. It will be slower because the page cannot be cached by a CDN, but the pre-rendered page will always be up-to-date. We'll talk about this approach below.
+[https://github.com/vercel/next.js/tree/canary/examples/cms-agilitycms](https://github.com/vercel/next.js/tree/canary/examples/cms-agilitycms) ([https://next-blog-agilitycms.vercel.app/](https://next-blog-agilitycms.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-builder-io](https://github.com/vercel/next.js/tree/canary/examples/cms-builder-io) ([https://cms-builder-io.vercel.app/](https://cms-builder-io.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms](https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms) ([https://next-blog-buttercms.vercel.app/](https://next-blog-buttercms.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-contentful](https://github.com/vercel/next.js/tree/canary/examples/cms-contentful) ([https://app-router-contentful.vercel.app/](https://app-router-contentful.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic](https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic) ([https://next-blog-cosmic.vercel.app/](https://next-blog-cosmic.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-datocms](https://github.com/vercel/next.js/tree/canary/examples/cms-datocms) ([https://next-blog-datocms.vercel.app/](https://next-blog-datocms.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-dotcms](https://github.com/vercel/next.js/tree/canary/examples/cms-dotcms) ([https://nextjs-dotcms-blog.vercel.app/](https://nextjs-dotcms-blog.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-drupal](https://github.com/vercel/next.js/tree/canary/examples/cms-drupal) ([https://cms-drupal.vercel.app/](https://cms-drupal.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-enterspeed](https://github.com/vercel/next.js/tree/canary/examples/cms-enterspeed) ([https://next-blog-demo.enterspeed.com/](https://next-blog-demo.enterspeed.com/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms](https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms) ([https://next-blog-graphcms.vercel.app/](https://next-blog-graphcms.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-keystonejs-embedded](https://github.com/vercel/next.js/tree/canary/examples/cms-keystonejs-embedded) ([https://nextjs-keystone-demo.vercel.app/](https://nextjs-keystone-demo.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-kontent-ai](https://github.com/vercel/next.js/tree/canary/examples/cms-kontent-ai) ([https://next-blog-kontent-ai.vercel.app/](https://next-blog-kontent-ai.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-makeswift](https://github.com/vercel/next.js/tree/canary/examples/cms-makeswift) ([https://nextjs-makeswift-example.vercel.app/](https://nextjs-makeswift-example.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-plasmic](https://github.com/vercel/next.js/tree/canary/examples/cms-plasmic) ([https://nextjs-plasmic-example.vercel.app/](https://nextjs-plasmic-example.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-prepr](https://github.com/vercel/next.js/tree/canary/examples/cms-prepr) ([https://next-blog-prepr.vercel.app/](https://next-blog-prepr.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-prismic](https://github.com/vercel/next.js/tree/canary/examples/cms-prismic) ([https://next-blog-prismic.vercel.app/](https://next-blog-prismic.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-sanity](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity) ([https://next-blog.sanity.build/](https://next-blog.sanity.build/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-sitecore-xmcloud](https://github.com/vercel/next.js/tree/canary/examples/cms-sitecore-xmcloud) ([https://vercel-sitecore-xmcloud-demo.vercel.app/](https://vercel-sitecore-xmcloud-demo.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok](https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok) ([https://next-blog-storyblok.vercel.app/](https://next-blog-storyblok.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-strapi](https://github.com/vercel/next.js/tree/canary/examples/cms-strapi) ([https://next-blog-strapi.vercel.app/](https://next-blog-strapi.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) ([https://next-blog-takeshape.vercel.app/](https://next-blog-takeshape.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-tina](https://github.com/vercel/next.js/tree/canary/examples/cms-tina) ([https://cms-tina-example.vercel.app/](https://cms-tina-example.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-umbraco](https://github.com/vercel/next.js/tree/canary/examples/cms-umbraco) ([https://nextjs-umbraco-sample-blog.vercel.app/](https://nextjs-umbraco-sample-blog.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-umbraco-heartcore](https://github.com/vercel/next.js/tree/canary/examples/cms-umbraco-heartcore) ([https://next-blog-umbraco-heartcore.vercel.app/](https://next-blog-umbraco-heartcore.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-webiny](https://github.com/vercel/next.js/tree/canary/examples/cms-webiny) ([https://webiny-headlesscms-nextjs-example.vercel.app/](https://webiny-headlesscms-nextjs-example.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress) ([https://next-blog-wordpress.vercel.app/](https://next-blog-wordpress.vercel.app/))
+[https://github.com/vercel/next.js/tree/canary/examples/blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) ([https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/))
+[https://react-tweet.vercel.app/](https://react-tweet.vercel.app/)
+
+If a page uses Static Generation, the page HTML is generated at build time. That means in production, the page HTML is generated when you run ``. This HTML will then be reused on each request. It can be cached by a CDN.
+In Next.js, you can statically generate pages with or without data. Let's take a look at each case.
+
+Code: 
