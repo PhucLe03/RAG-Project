@@ -45,14 +45,30 @@
 \contentsline {subsection}{\numberline {4.4.3}Feedback loop}{34}{subsection.4.4.3}%
 \contentsline {chapter}{\numberline {5}Initial Implementation}{35}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Data Structure Design}{35}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Data structure design}{36}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Fields in the Schema}{37}{subsection.5.1.2}%
 \contentsline {section}{\numberline {5.2}Data Preparation}{38}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Data Preprocessing}{38}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Database Setup}{39}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Deploying Milvus with Docker Compose}{39}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Installing PyMilvus}{40}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Creating Indices}{40}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Inserting Data into the Collection}{40}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Hybrid search implementation}{40}{subsection.5.4.5}%
 \contentsline {section}{\numberline {5.5}Local LLMs setup}{40}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Setup Ollama}{41}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Integration with the RAG System}{41}{subsection.5.5.2}%
 \contentsline {chapter}{\numberline {6}Evaluation plan}{42}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Evaluation metrics}{42}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Retriever metrics:}{42}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Generator metrics:}{42}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}System metrics:}{43}{subsection.6.1.3}%
 \contentsline {section}{\numberline {6.2}Evaluation methodology}{43}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Retriever evaluation:}{43}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Generator evaluation:}{43}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}System evaluation:}{43}{subsection.6.2.3}%
 \contentsline {chapter}{\numberline {7}Future plan}{44}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Overview}{44}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Current tasks: late December 2024}{44}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Upcoming tasks: January 2025 and Beyond}{44}{section.7.3}%
+\contentsline {chapter}{Bibliography}{46}{chapter*.46}%
