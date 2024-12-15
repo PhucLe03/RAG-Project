@@ -233,7 +233,7 @@ In this section, we provide an overview of the architecture of Transformer model
 
 % \subsection{Sequence-to-Sequence}
 
-\subsection{Transformer}
+\subsection{Transformer architecture}
 
 Transformer \cite{vaswani2017}, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output \cite{vaswani2017}. It has revolutionized natural language processing (NLP) by enabling parallel processing of sequences. Unlike recurrent architectures such as RNNs \cite{rumelhart1988rnn} or LSTMs \cite{lstm}, which process inputs sequentially and struggle with long-range dependencies, Transformers use self-attention mechanisms to focus on relevant parts of the input across the entire sequence simultaneously. This approach not only improves the ability to capture intricate relationships within the data but also drastically increases computational efficiency by enabling systems to handle tasks in parallel. The result is a model architecture that excels at tasks requiring a deep understanding of context, from machine translation to text generation, setting the foundation for state-of-the-art language models like GPT \cite{radford2018GPT}, BERT \cite{devlin2019bert}, and T5 \cite{raffel2023t5}.
 

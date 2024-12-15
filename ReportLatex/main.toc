@@ -16,12 +16,12 @@
 \contentsline {subsection}{\numberline {2.1.5}Retrieval}{11}{subsection.2.1.5}%
 \contentsline {subsection}{\numberline {2.1.6}Post-Retrieval}{12}{subsection.2.1.6}%
 \contentsline {section}{\numberline {2.2}Generator}{13}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Transformer}{13}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.1}Transformer architecture}{13}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Prompt engineering}{14}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Augmentation methods}{15}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Augmentation stage: Inference}{15}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Augmentation source: Structured data}{17}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Augmentation process}{17}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.3}Augmentation process}{19}{subsection.2.3.3}%
 \contentsline {chapter}{\numberline {3}Related works and tools}{20}{chapter.3}%
 \contentsline {section}{\numberline {3.1}RAG and LLMs in Coding Tasks}{20}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Retrieval Strategies}{20}{subsection.3.1.1}%
@@ -71,4 +71,3 @@
 \contentsline {section}{\numberline {7.1}Overview}{44}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Current tasks: late December 2024}{44}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Upcoming tasks: January 2025 and Beyond}{44}{section.7.3}%
-\contentsline {chapter}{Bibliography}{46}{chapter*.46}%
