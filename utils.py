@@ -16,25 +16,54 @@ DATA_PATH = "data"
 # Embeddings
 
 def get_embedding_function():
-    # embeddings = OllamaEmbeddings( model="qwen")
+    """
+    Returns an OllamaEmbeddings instance with the bge-m3 model, used for
+    computing vector embeddings of text chunks in the database.
+
+    Returns:
+        OllamaEmbeddings
+    """
     embeddings = OllamaEmbeddings( model="bge-m3")
     return embeddings
 
 # Database
 
-def load_documents():
+def load_documents() -> list[Document]:
+    """
+    Load markdown documents from the data directory.
+
+    Returns:
+        list[Document]: list of loaded documents
+    """
     loader = DirectoryLoader(DATA_PATH, glob="*.md")
     documents = loader.load()
     return documents
 
 
-def split_documents(documents: list[Document]):
+def split_documents(documents: list[Document], chunk_size: int = 800, chunk_overlap: int = 80) -> list[Document]:
+    """
+    Split a list of documents into chunks of text based on a RecursiveCharacterTextSplitter.
+
+    The RecursiveCharacterTextSplitter splits text into chunks of a given character length
+    (default: 800), with a given overlap (default: 80).
+
+    Args:
+        documents (list[Document]): The documents to split.
+        chunk_size (int): The number of characters in each chunk (default: 800).
+        chunk_overlap (int): The number of characters to overlap between chunks (default: 80).
+
+    Returns:
+        list[Document]: A list of documents, each containing a chunk of text from the original documents.
+    """
+    # Create a RecursiveCharacterTextSplitter instance with the given parameters.
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800, # number of characters
-        chunk_overlap=80,
-        length_function=len,
-        is_separator_regex=False,
+        chunk_size=chunk_size,  # number of characters
+        chunk_overlap=chunk_overlap,
+        length_function=len,  # use the built-in len() function to measure the length of the text
+        is_separator_regex=False,  # don't use regex to separate chunks
     )
+
+    # Split the documents into chunks using the text splitter.
     return text_splitter.split_documents(documents)
 
 
@@ -132,13 +161,13 @@ class RAGModel():
         context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
         return context_text
     
-    def query(self, query_text: str):
+    def query(self, query_text: str, show_context: bool = True):
         # Get context from query
         context_text = self.get_context(query_text)
-
-        print("Context:\n")
-        print(context_text)
-        print("\n#########")
+        if show_context:
+            print("Context:\n")
+            print(context_text)
+            print("\n#########")
 
         response = self.chain.invoke(
             {
