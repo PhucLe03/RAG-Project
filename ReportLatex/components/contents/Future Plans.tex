@@ -1,0 +1,202 @@
+\chapter{Future plan}
+
+\section{Overview}
+As of December 2024, the research tasks are nearing completion, and the transition to implementation is beginning.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\linewidth]{Images/Conclusion/future_plan_gantt.png}
+%     \vspace{0.35cm}
+%     \caption{Future plan}
+%     \label{fig:future-plan}
+% \end{figure}
+
+% \begin{figure}[tbp]
+%     \begin{center}
+    
+%     \begin{ganttchart}[y unit title=0.4cm,
+%     y unit chart=0.5cm,
+%     x unit=0.7cm,
+%     vgrid,hgrid, 
+%     % bar/.append style={fill=blue!40, align=left, text width=4cm, text left shift=0.2cm}, % Aligns text left
+%     % bar height=0.6,
+%     title label anchor/.style={below=-1.6ex},
+%     title left shift=.05,
+%     title right shift=-.05,
+%     title height=1,
+%     progress label text={},
+%     bar height=0.7,
+%     group right shift=0,
+%     group top shift=.6,
+%     group height=.3]{1}{16}
+%     %labels
+%     \gantttitle{2024}{8}
+%     \gantttitle{2025}{8} \\
+%     \gantttitle{Sep}{2} 
+%     \gantttitle{Oct}{2} 
+%     \gantttitle{Nov}{2} 
+%     \gantttitle{Dec}{2} 
+%     \gantttitle{Jan}{2} 
+%     \gantttitle{Feb}{2} 
+%     \gantttitle{Mar}{2} 
+%     \gantttitle{Apr}{2} \\
+%     %tasks
+%     \ganttgroup[progress=100]{Problem Definition}{1}{6} \\
+    
+%     \ganttbar[progress=100]{Defining the problem}{1}{2}\\
+%     \ganttbar[progress=100]{Preparing the background knowledge for the problem}{1}{4}\\
+
+%     \ganttgroup[progress=100]{Research}{1}{9} \\
+    
+%     \ganttbar[progress=100]{Researching related works}{1}{9}\\
+%     \ganttbar[progress=100]{Proposing an approach}{1}{4}\\
+%     \ganttbar[progress=100]{Defining evaluation metrics and test plan}{1}{4}\\
+    
+%     % \ganttbar{first task}{1}{2} \\
+%     % \ganttbar{task 2}{3}{8} \\
+%     % \ganttbar{task 3}{9}{10} \\
+%     % \ganttbar{task 4}{11}{15} \\
+%     % \ganttbar[progress=33]{task 5}{20}{22} \\
+%     % \ganttbar{task 6}{18}{19} \\
+%     % \ganttbar{task 7}{16}{18} \\
+%     % \ganttbar[progress=0]{task 8}{21}{24}
+    
+%     %relations 
+%     % \ganttlink{elem0}{elem1} 
+%     % \ganttlink{elem0}{elem3} 
+%     % \ganttlink{elem1}{elem2} 
+%     % \ganttlink{elem3}{elem4} 
+%     % \ganttlink{elem1}{elem5} 
+%     % \ganttlink{elem3}{elem5} 
+%     % \ganttlink{elem2}{elem6} 
+%     % \ganttlink{elem3}{elem6} 
+%     % \ganttlink{elem5}{elem7} 
+%     \end{ganttchart}
+%     \end{center}
+%     \caption{Gantt Chart}
+
+% \end{figure}
+
+% \begin{ganttchart}{1}{12}
+%   \gantttitle{2011}{12} \\
+%   \gantttitlelist{1,...,12}{1} \\
+%   \ganttgroup{Group 1}{1}{7} \\
+%   \ganttbar{Task 1}{1}{2} \\
+%   \ganttlinkedbar{Task 2}{3}{7} \ganttnewline
+%   \ganttmilestone{Milestone}{7} \ganttnewline
+%   \ganttbar{Final Task}{8}{12}
+%   \ganttlink{elem2}{elem3}
+%   \ganttlink{elem3}{elem4}
+% \end{ganttchart}
+
+
+
+% \hspace{-4cm}
+\begin{figure}[tbp]
+    % \begin{center}
+    \hspace*{-2cm} 
+    \begin{ganttchart}[
+        y unit title=0.4cm,
+        y unit chart=0.6cm,
+        x unit=0.6cm,
+        vgrid,
+        hgrid,
+        title label anchor/.style={below=-1.6ex},
+        title left shift=.05,
+        title right shift=-.05,
+        title height=1,
+        progress label text={},
+        bar height=0.6,
+        group right shift=0,
+        group top shift=.6,
+        group height=.3
+    ]{1}{16}
+    
+    % Year and Month Titles
+    \gantttitle{2024}{8}
+    \gantttitle{2025}{8} \\
+    \gantttitle{Sep}{2}
+    \gantttitle{Oct}{2}
+    \gantttitle{Nov}{2}
+    \gantttitle{Dec}{2}
+    \gantttitle{Jan}{2}
+    \gantttitle{Feb}{2}
+    \gantttitle{Mar}{2}
+    \gantttitle{Apr}{2} \\
+    
+    % Problem Definition Group
+    \ganttgroup[/pgfgantt/group/.style={},inline=false]{Problem Definition}{1}{4} \\
+    \ganttbar[bar/.append style={fill={dkgreen}}]{Defining the problem}{1}{2} \\
+    \ganttbar[bar/.append style={fill={dkgreen}}]{Preparing background knowledge for the problem}{1}{4} \\
+    
+    % Research Group
+    \ganttgroup[/pgfgantt/group/.style={},inline=false]{Research}{1}{6} \\
+    \ganttbar[bar/.append style={fill=cyan}]{Researching related works}{1}{6} \\
+    \ganttbar[bar/.append style={fill=cyan}]{Proposing an approach}{5}{6} \\
+    \ganttbar[bar/.append style={fill=cyan}]{Defining evaluation metrics and test plan}{5}{6} \\
+    \ganttbar[bar/.append style={fill=cyan}]{Initial Implementation}{3}{6} \\
+    % Implementation and Evaluation Group
+    \ganttgroup[/pgfgantt/group/.style={},inline=false]{Implementation and Evaluation}{5}{16} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Collecting and organizing dataset}{7}{10} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Preparing local LLM and embedding system}{5}{8} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Configuring vector database}{7}{10} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Implement query handling and prompt management}{7}{10} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Evaluating retriever and generator}{11}{12} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Intergrating into VSCode}{11}{14} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Implement user interface for interactions}{7}{10} \\
+    % \ganttbar[progress=10]{Implement user interface for interactions}{13}{14} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Evaluating the extension's performance}{11}{12} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Optimize the system}{13}{14} \\
+    \ganttbar[bar/.append style={fill={codepurple}}]{Deployment}{15}{16} \\
+    
+    % Final Report Group
+    \ganttgroup[/pgfgantt/group/.style={},inline=false]{Final Report}{9}{16} \\
+    \ganttbar[bar/.append style={fill=red}]{Writing final report}{9}{16} \\
+    
+    \end{ganttchart}
+    % \end{center}
+    \vspace{2mm}
+    \caption{Future plan}
+\end{figure}
+
+
+\section{Current tasks: late December 2024}
+
+Early development efforts will begin to validate the feasibility of the proposed approach. This includes the data curation, chunking, and setting up local LLM.
+
+\section{Upcoming tasks: January 2025 and Beyond}
+
+\begin{enumerate}
+    \item \textbf{Collecting and organizing the dataset (January 2025):}
+    Data collection and preprocessing will begin in January, focusing on ensuring dataset quality and relevance.
+
+    \item \textbf{Preparing local LLM and embedding system (January 2025):}
+    The local LLM and embedding system will be configured and tested to handle efficient information retrieval.
+
+    \item \textbf{Configuring the vector database (January 2025):}
+    A vector database will be set up to store and retrieve embeddings efficiently, enabling core retrieval functionalities.
+
+    \item \textbf{Implementing query handling and prompt management (February 2025):}
+    Mechanisms for processing user queries and managing prompts will be developed to ensure smooth user interactions.
+
+    \item \textbf{Evaluating retriever and generator (February 2025):}
+    The retrieval and generation components will be assessed for accuracy, efficiency, and performance.
+
+    \item \textbf{Integrating into VSCode (February 2025):}
+    The system will be integrated as an extension into VSCode to enhance developer usability and accessibility.
+
+    \item \textbf{Implementing user interface for interactions (March 2025):}
+    A user-friendly interface will be developed to facilitate seamless interaction between users and the system.
+
+    \item \textbf{Evaluating the extension's performance (March 2025):}
+    Comprehensive performance testing of the VSCode extension will be conducted to ensure reliability and usability.
+
+    \item \textbf{Optimizing the system (March 2025):}
+    System optimization efforts will focus on improving speed, accuracy, and overall user experience.
+
+    \item \textbf{Deployment (April 2025):}
+    The fully developed and optimized system will be deployed for production use.
+
+    \item \textbf{Writing final report (April 2025):}
+    A comprehensive report summarizing the research, development, evaluation, and findings will be prepared and submitted.
+\end{enumerate}

@@ -1,0 +1,111 @@
+\chapter{Evaluation plan}
+
+\section{Evaluation metrics}
+\subsection*{Retriever metrics:}
+\begin{itemize}
+    \item \textbf{Recall@K:}
+    Recall@K measures the proportion of relevant documents retrieved within the top $K$ results for a query.
+    \[
+    \text{Recall@K} = \frac{| \text{Relevant Documents} \cap \text{Retrieved Top K Documents} |}{|\text{Relevant Documents}|}
+    \]
+    where:
+    \begin{itemize}
+        \item $|\text{Relevant Documents}|$ is the total number of relevant documents for the query.
+        \item $| \text{Relevant Documents} \cap \text{Retrieved Top K Documents} |$ is the number of relevant documents retrieved in the top $K$ results.
+    \end{itemize}
+
+    \item \textbf{Precision@K:}
+    Precision@K evaluates the accuracy of the retrieved documents within the top $K$ results.
+    \[
+    \text{Precision@K} = \frac{| \text{Relevant Documents} \cap \text{Retrieved Top K Documents} |}{|\text{Retrieved Top K Documents}|}
+    \]
+    where:
+    \begin{itemize}
+        \item $|\text{Retrieved Top K Documents}|$ is the total number of documents retrieved in the top $K$ results.
+    \end{itemize}
+
+    \item \textbf{Latency:}
+    Latency measures the time taken to retrieve documents for a query.
+    \[
+    \text{Latency (ms)} = \text{Time when results are returned} - \text{Time when query is submitted}
+    \]
+
+    \item \textbf{Coverage:}
+    Coverage assesses the percentage of queries for which at least one relevant document is retrieved.
+    \[
+    \text{Coverage} = \frac{\text{Number of Queries with Relevant Results Retrieved}}{\text{Total Number of Queries}} \times 100
+    \]
+\end{itemize}
+
+\subsection*{Generator metrics:}
+\begin{itemize}
+    \item \textbf{ROUGE score:}
+    ROUGE evaluates the overlap between the generated text and reference outputs. For example, ROUGE-N is defined as:
+    \[
+    \text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
+    \]
+
+    \item \textbf{Relevance:}
+    Relevance is assessed manually by rating how well the generated outputs align with the intent of user queries. Scores are averaged across all queries:
+    \[
+    \text{Relevance} = \frac{\sum_{i=1}^{N} \text{Relevance Score for Query } i}{N}
+    \]
+
+    \item \textbf{Factual accuracy:}
+    Factual accuracy measures the percentage of generated outputs that are factually correct based on the retrieved data:
+    \[
+    \text{Factual accuracy} = \frac{\text{Number of Factually Correct Outputs}}{\text{Total Number of Outputs}} \times 100
+    \]
+
+    \item \textbf{Latency:}
+    Latency for the generator is calculated similarly to the retriever:
+    \[
+    \text{Latency (ms)} = \text{Time when output is generated} - \text{Time when retrieval is completed}
+    \]
+\end{itemize}
+
+\subsection*{System metrics:}
+\begin{itemize}
+    \item \textbf{Usability:}
+    Usability is evaluated through user feedback, typically using a Likert scale (e.g., 1–5). The overall usability score is averaged:
+    \[
+    \text{Usability} = \frac{\sum_{i=1}^{N} \text{User Rating for Task } i}{N}
+    \]
+
+    \item \textbf{Task success rate:}
+    Task success rate measures the percentage of tasks users complete successfully:
+    \[
+    \text{Task success rate} = \frac{\text{Number of Successfully Completed Tasks}}{\text{Total Number of Tasks}} \times 100
+    \]
+
+    \item \textbf{Integration latency:}
+    Integration latency measures the total response time of the system, from query input to output generation:
+    \[
+    \text{Integration latency (ms)} = \text{Time when output is delivered} - \text{Time when query is submitted}
+    \]
+\end{itemize}
+
+\section{Evaluation methodology}
+
+\subsection*{Retriever evaluation:}
+We will use the pre-defined dataset with known relevant results to benchmark the retriever's performance across query types:
+\begin{itemize}
+    \item \textbf{Simple queries:} Basic queries requiring straightforward retrieval of documents.
+    \item \textbf{Complex queries:} Multi-faceted queries involving multiple conditions or ambiguities.
+    \item \textbf{Context-dependent queries:} Queries that rely on contextual understanding of the current repository.
+\end{itemize}
+
+\subsection*{Generator evaluation:}
+Provide the generator with retriever outputs and evaluate the quality of generated content using:
+    \begin{itemize}
+        \item \textbf{Automatic metrics:} ROUGE scores to quantify similarity and overlap with reference outputs.
+        \item \textbf{Human evaluation:} Involve domain experts to rate the relevance, accuracy, and quality of generated outputs on a predefined scale.
+    \end{itemize}
+    
+    Include edge cases in testing, such as incomplete or ambiguous retriever outputs, to ensure the generator’s robustness.
+
+\subsection* {System evaluation:}
+Conduct controlled user testing sessions where participants use the VSCode extension to complete specific coding tasks.
+
+Gather qualitative feedback on the system’s usability and design through post-session interviews or open-ended survey questions.
+
