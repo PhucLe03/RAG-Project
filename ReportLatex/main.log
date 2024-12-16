@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  16 DEC 2024 09:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  16 DEC 2024 09:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2555,7 +2555,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
-Overfull \hbox (46.07185pt too wide) in paragraph at lines 95--158
+Overfull \hbox (46.92552pt too wide) in paragraph at lines 95--159
 []|  []
  []
 
@@ -2581,7 +2581,7 @@ ls''. In: \T1/cmr/m/it/10 arXiv preprint
 
 [49]
 
-Package caption Warning: Unused \captionsetup[sub] on input line 117.
+Package caption Warning: Unused \captionsetup[sub] on input line 118.
 See the caption package documentation for explanation.
 
 
@@ -2600,10 +2600,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46903 strings out of 473330
- 970218 string characters out of 5723877
- 2227829 words of memory out of 5000000
- 68917 multiletter control sequences out of 15000+600000
+ 46912 strings out of 473330
+ 970381 string characters out of 5723877
+ 2227983 words of memory out of 5000000
+ 68926 multiletter control sequences out of 15000+600000
  582507 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  109i,17n,162p,1548b,1665s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2636,7 +2636,7 @@ texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist
 e1/public/cm-super/sftt1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zap
 fchan/uzcmi8a.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb
 >
-Output written on main.pdf (56 pages, 2470439 bytes).
+Output written on main.pdf (56 pages, 2470551 bytes).
 PDF statistics:
  1337 PDF objects out of 1440 (max. 8388607)
  1134 compressed objects within 12 object streams
