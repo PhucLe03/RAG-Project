@@ -3580,6 +3580,46 @@
       \field{note}{Available at \url{https://www.researchgate.net/publication/341744935}}
       \field{title}{PASE: PostgreSQL Ultra-High-Dimensional Approximate Nearest Neighbor Search Extension}
     \endentry
+    \entry{Pennington2014GloVeGV}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=ab47b497d1b0cdaddd8594e4bd501ee5}{%
+           family={Pennington},
+           familyi={P\bibinitperiod},
+           given={Jeffrey},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d5670b2600fea169724521e252d9d09d}{%
+           family={Socher},
+           familyi={S\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=2214edb8305f7ccd7cdc310b3a8ae1b4}{%
+           family={Manning},
+           familyi={M\bibinitperiod},
+           given={Christopher\bibnamedelima D.},
+           giveni={C\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{077003808bf2e10b988df0fc99931a19}
+      \strng{fullhash}{077003808bf2e10b988df0fc99931a19}
+      \strng{fullhashraw}{077003808bf2e10b988df0fc99931a19}
+      \strng{bibnamehash}{077003808bf2e10b988df0fc99931a19}
+      \strng{authorbibnamehash}{077003808bf2e10b988df0fc99931a19}
+      \strng{authornamehash}{077003808bf2e10b988df0fc99931a19}
+      \strng{authorfullhash}{077003808bf2e10b988df0fc99931a19}
+      \strng{authorfullhashraw}{077003808bf2e10b988df0fc99931a19}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Conference on Empirical Methods in Natural Language Processing}
+      \field{title}{GloVe: Global Vectors for Word Representation}
+      \field{year}{2014}
+      \verb{urlraw}
+      \verb https://api.semanticscholar.org/CorpusID:1957433
+      \endverb
+      \verb{url}
+      \verb https://api.semanticscholar.org/CorpusID:1957433
+      \endverb
+    \endentry
     \entry{radford2018GPT}{inproceedings}{}{}
       \name{author}{2}{}{%
         {{hash=a812c46caad94fc8701be37871f303ba}{%
@@ -12725,6 +12765,85 @@
       \field{title}{LLM Hallucinations in Practical Code Generation: Phenomena, Mechanism, and Mitigation}
       \field{volume}{arXiv:2409.20550v1}
       \field{year}{2024}
+    \endentry
+    \entry{zhao2024retrievalaugmentedgenerationaigeneratedcontent}{misc}{}{}
+      \name{author}{10}{}{%
+        {{hash=b2334868da4d516a5378436ed331fdbc}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Penghao},
+           giveni={P\bibinitperiod}}}%
+        {{hash=86ce207e2a1efd3543c8f50866491a2a}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Hailin},
+           giveni={H\bibinitperiod}}}%
+        {{hash=3a33000f272afcae389e5bd4e93e32cd}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Qinhan},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=5090a9bc411cc7d6165a5bad7159fa14}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Zhengren},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=a141858f6d0074cda5b1e4d1c86f8c78}{%
+           family={Geng},
+           familyi={G\bibinitperiod},
+           given={Yunteng},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=4c2af0f2502756ef88874800bca0ef08}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Fangcheng},
+           giveni={F\bibinitperiod}}}%
+        {{hash=6ed7250c8206a02238c2bbe323cde792}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Ling},
+           giveni={L\bibinitperiod}}}%
+        {{hash=617c3dfefd9eb92b86137977ec96fa36}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Wentao},
+           giveni={W\bibinitperiod}}}%
+        {{hash=ed3d50682be1b60ad0b74dbf2a18717c}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Jie},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f6c0b53300ebf4c432dfa05ee736c54c}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Bin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{5ba72c99e4e6779d3b32b879af912aa5}
+      \strng{fullhash}{188d60dfdff513900c1272626f64ff2c}
+      \strng{fullhashraw}{188d60dfdff513900c1272626f64ff2c}
+      \strng{bibnamehash}{5ba72c99e4e6779d3b32b879af912aa5}
+      \strng{authorbibnamehash}{5ba72c99e4e6779d3b32b879af912aa5}
+      \strng{authornamehash}{5ba72c99e4e6779d3b32b879af912aa5}
+      \strng{authorfullhash}{188d60dfdff513900c1272626f64ff2c}
+      \strng{authorfullhashraw}{188d60dfdff513900c1272626f64ff2c}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{title}{Retrieval-Augmented Generation for AI-Generated Content: A Survey}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2402.19473
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2402.19473
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2402.19473
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
