@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.15)  15 DEC 2024 23:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  16 DEC 2024 09:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1724,24 +1724,24 @@ Package: blx-case-expl3 2024/03/21 v3.20 expl3 case changing code for biblatex
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
  (c:/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count597
@@ -1817,7 +1817,7 @@ Package: ninecolors 2022-02-13 v2022D Select colors with proper color contrast
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 19.
 (./main.out) (./main.out)
 \@outlinefile=\write8
 \openout8 = `main.out'.
@@ -1836,8 +1836,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 20.
-Package biblatex Info: Reference segment=0 on input line 20.
+Package biblatex Info: Reference section=0 on input line 19.
+Package biblatex Info: Reference segment=0 on input line 19.
 
 (./components/global/title.tex
 <Images/hcmut.png, id=300, 291.0072pt x 293.898pt>
@@ -1881,14 +1881,7 @@ texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./Images/hcmut.png>])
 
 [2
 
-] (./components/contents/Abstract.tex
-
-LaTeX Warning: Citation 'wang2021milvus' on page 3 undefined on input line 4.
-
-
-LaTeX Warning: Citation 'bai2023qwen' on page 3 undefined on input line 4.
-
-)
+] (./components/contents/Abstract.tex)
 
 [3
 
@@ -1916,14 +1909,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-
-LaTeX Warning: Citation 'chen2021openai_codex' on page 1 undefined on input lin
-e 8.
-
-
-LaTeX Warning: Citation 'gemini' on page 1 undefined on input line 8.
-
-<Images/Introduction/stackoverflow-trends-chart.png, id=414, 496.85625pt x 301.
+<Images/Introduction/stackoverflow-trends-chart.png, id=420, 496.85625pt x 301.
 125pt>
 File: Images/Introduction/stackoverflow-trends-chart.png Graphic file (type png
 )
@@ -1953,7 +1939,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Preliminaries/Retrieval-Augmented Generation Process.png, id=444, 996.7
+<Images/Preliminaries/Retrieval-Augmented Generation Process.png, id=452, 996.7
 2375pt x 433.62pt>
 File: Images/Preliminaries/Retrieval-Augmented Generation Process.png Graphic f
 ile (type png)
@@ -1966,69 +1952,19 @@ ocess.png  used on input line 7.
 [4
 
  <./Images/Preliminaries/Retrieval-Augmented Generation Process.png>]
-
-LaTeX Warning: Citation 'gao2023ragllmsurvey' on page 5 undefined on input line
- 23.
-
-
-LaTeX Warning: Citation 'kshirsagar2024chunking' on page 5 undefined on input l
-ine 27.
-
-
-LaTeX Warning: Citation 'gao2023ragllmsurvey' on page 5 undefined on input line
- 28.
-
-<Images/knowledge/indexing.png, id=451, 874.467pt x 172.9662pt>
+<Images/knowledge/indexing.png, id=462, 874.467pt x 172.9662pt>
 File: Images/knowledge/indexing.png Graphic file (type png)
 <use Images/knowledge/indexing.png>
 Package pdftex.def Info: Images/knowledge/indexing.png  used on input line 33.
 (pdftex.def)             Requested size: 393.50652pt x 77.83406pt.
 
-LaTeX Warning: Citation 'devlin2019bert' on page 5 undefined on input line 43.
-
-
-LaTeX Warning: Citation 'reimers-2019-sentence-bert' on page 5 undefined on inp
-ut line 43.
-
-
-LaTeX Warning: Citation 'mikolov2013efficient' on page 5 undefined on input lin
-e 47.
-
-
-LaTeX Warning: Citation 'devlin2019bert' on page 5 undefined on input line 49.
-
-
 
 [5 <./Images/knowledge/indexing.png>]
-
-LaTeX Warning: Citation 'reimers-2019-sentence-bert' on page 6 undefined on inp
-ut line 51.
-
-
-LaTeX Warning: Citation 'douze2024faiss' on page 6 undefined on input line 53.
-
-
-LaTeX Warning: Citation 'kulkarni2024rag' on page 6 undefined on input line 64.
-
-
-
-LaTeX Warning: Citation 'kulkarni2024rag' on page 6 undefined on input line 64.
-
-
-
-LaTeX Warning: Citation 'malkov2018hnsw' on page 6 undefined on input line 72.
-
-<Images/Preliminaries/hnsw.png, id=462, 417.2388pt x 352.6776pt>
+<Images/Preliminaries/hnsw.png, id=488, 417.2388pt x 352.6776pt>
 File: Images/Preliminaries/hnsw.png Graphic file (type png)
 <use Images/Preliminaries/hnsw.png>
 Package pdftex.def Info: Images/Preliminaries/hnsw.png  used on input line 83.
 (pdftex.def)             Requested size: 182.09486pt x 153.91936pt.
-
-LaTeX Warning: Citation 'malkov2018hnsw' on page 6 undefined on input line 85.
-
-
-LaTeX Warning: Citation 'malkov2018hnsw' on page 6 undefined on input line 85.
-
 
 
 [6] (./components/contents/hnsw_algo/insert.tex
@@ -2052,17 +1988,8 @@ extendCandidates\T1/cmr/m/n/10 ,
 
 [9] (./components/contents/hnsw_algo/knn.tex)
 
-LaTeX Warning: Citation 'gao2023ragllmsurvey' on page 10 undefined on input lin
-e 111.
-
-
-
 [10]
-
-LaTeX Warning: Citation 'gao2023ragllmsurvey' on page 11 undefined on input lin
-e 113.
-
-<Images/Preliminaries/Query_Rewriting.png, id=505, 1001.99344pt x 582.67688pt>
+<Images/Preliminaries/Query_Rewriting.png, id=537, 1001.99344pt x 582.67688pt>
 File: Images/Preliminaries/Query_Rewriting.png Graphic file (type png)
 <use Images/Preliminaries/Query_Rewriting.png>
 Package pdftex.def Info: Images/Preliminaries/Query_Rewriting.png  used on inpu
@@ -2072,12 +1999,6 @@ t line 117.
 Underfull \hbox (badness 10000) in paragraph at lines 113--120
 
  []
-
-
-LaTeX Warning: Citation 'li2023santa' on page 11 undefined on input line 122.
-
-
-LaTeX Warning: Citation 'chen2024bge' on page 11 undefined on input line 166.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 171--173
@@ -2102,64 +2023,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--219
  []
 
 
-LaTeX Warning: Citation 'yoon2024compact' on page 12 undefined on input line 22
-0.
-
-
 
 [12]
 
-LaTeX Warning: Citation 'gao2023ragllmsurvey' on page 13 undefined on input lin
-e 226.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 13 undefined on input line 230.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 13 undefined on input line 238.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 13 undefined on input line 238.
-
-
-LaTeX Warning: Citation 'rumelhart1988rnn' on page 13 undefined on input line 2
-38.
-
-
-LaTeX Warning: Citation 'lstm' on page 13 undefined on input line 238.
-
-
-LaTeX Warning: Citation 'radford2018GPT' on page 13 undefined on input line 238
-.
-
-
-LaTeX Warning: Citation 'devlin2019bert' on page 13 undefined on input line 238
-.
-
-
-LaTeX Warning: Citation 'raffel2023t5' on page 13 undefined on input line 238.
-
-
-LaTeX Warning: Citation 'he2016residualcon' on page 13 undefined on input line 
-242.
-
-
-LaTeX Warning: Citation 'ba2016layernorm' on page 13 undefined on input line 24
-2.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 13 undefined on input line 242.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 13 undefined on input line 243.
-
-
-
 [13]
-
-LaTeX Warning: Citation 'vaswani2017' on page 14 undefined on input line 256.
-
-<Images/Preliminaries/transformers/scale-dot-attention.png, id=524, 184.5294pt 
+<Images/Preliminaries/transformers/scale-dot-attention.png, id=585, 184.5294pt 
 x 347.8596pt>
 File: Images/Preliminaries/transformers/scale-dot-attention.png Graphic file (t
 ype png)
@@ -2167,13 +2035,7 @@ ype png)
 Package pdftex.def Info: Images/Preliminaries/transformers/scale-dot-attention.
 png  used on input line 271.
 (pdftex.def)             Requested size: 92.26447pt x 173.92937pt.
-
-LaTeX Warning: Citation 'vaswani2017' on page 14 undefined on input line 273.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 14 undefined on input line 273.
-
-<Images/Preliminaries/transformers/multi-head-attention.png, id=525, 408.5664pt
+<Images/Preliminaries/transformers/multi-head-attention.png, id=588, 408.5664pt
  x 433.1382pt>
 File: Images/Preliminaries/transformers/multi-head-attention.png Graphic file (
 type png)
@@ -2182,45 +2044,15 @@ Package pdftex.def Info: Images/Preliminaries/transformers/multi-head-attention
 .png  used on input line 289.
 (pdftex.def)             Requested size: 163.42366pt x 173.25221pt.
 
-LaTeX Warning: Citation 'vaswani2017' on page 14 undefined on input line 291.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 14 undefined on input line 291.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: Citation 'surveypromptengineering' on page 14 undefined on input
- line 298.
 
 
 
 [14 <./Images/Preliminaries/transformers/scale-dot-attention.png>]
 
-LaTeX Warning: Citation 'fewshot' on page 15 undefined on input line 300.
-
-
-LaTeX Warning: Citation 'fewshot' on page 15 undefined on input line 301.
-
-
-LaTeX Warning: Citation 'fewshot' on page 15 undefined on input line 302.
-
-
-LaTeX Warning: Citation 'chainofthought' on page 15 undefined on input line 303
-.
-
-
-LaTeX Warning: Citation 'ram2023incontext' on page 15 undefined on input line 3
-20.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 15 undefined on input line 328.
-
-
-
 [15 <./Images/Preliminaries/transformers/multi-head-attention.png>]
-<Images/Preliminaries/Inference stage.png, id=543, 943.27406pt x 500.62032pt>
+<Images/Preliminaries/Inference stage.png, id=617, 943.27406pt x 500.62032pt>
 File: Images/Preliminaries/Inference stage.png Graphic file (type png)
 <use Images/Preliminaries/Inference stage.png>
 Package pdftex.def Info: Images/Preliminaries/Inference stage.png  used on inpu
@@ -2228,12 +2060,8 @@ t line 366.
 (pdftex.def)             Requested size: 364.19667pt x 193.28558pt.
 
 
-[16]
-
-LaTeX Warning: Citation 'wang2023knowledgpt' on page 17 undefined on input line
- 373.
-
-<Images/Preliminaries/Augmentation with structured data.png, id=550, 965.85844p
+[16 <./Images/Preliminaries/Inference stage.png>]
+<Images/Preliminaries/Augmentation with structured data.png, id=627, 965.85844p
 t x 504.38437pt>
 File: Images/Preliminaries/Augmentation with structured data.png Graphic file (
 type png)
@@ -2242,23 +2070,6 @@ Package pdftex.def Info: Images/Preliminaries/Augmentation with structured data
 .png  used on input line 377.
 (pdftex.def)             Requested size: 364.19667pt x 190.19035pt.
 
-LaTeX Warning: Citation 'wang2023knowledgpt' on page 17 undefined on input line
- 379.
-
-
-LaTeX Warning: Citation 'wang2023knowledgpt' on page 17 undefined on input line
- 379.
-
-
-LaTeX Warning: Citation 'asai2023selfrag' on page 17 undefined on input line 43
-5.
-
-
-
-[17 <./Images/Preliminaries/Inference stage.png> <./Images/Preliminaries/Augmen
-tation with structured data.png>]
-
-[18]
 Underfull \hbox (badness 8189) in paragraph at lines 446--446
 []|\T1/cmr/m/n/10 {\T1/cmr/bx/n/10 fully sup-ported\T1/cmr/m/n/10 , par-tially
  []
@@ -2269,59 +2080,25 @@ Overfull \hbox (0.51015pt too wide) in paragraph at lines 440--450
  []
 
 
-LaTeX Warning: Citation 'asai2023selfrag' on page 19 undefined on input line 45
-0.
 
+[17 <./Images/Preliminaries/Augmentation with structured data.png>]
 
-LaTeX Warning: Citation 'asai2023selfrag' on page 19 undefined on input line 45
-0.
+[18])
 
-)
-
-[19] (./components/contents/Related work and tool.tex
+[19] (./components/contents/Related works and tools.tex
 Chapter 3.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-
-LaTeX Warning: Citation 'brown2020' on page 20 undefined on input line 7.
-
-
-LaTeX Warning: Citation 'he2024' on page 20 undefined on input line 7.
-
-<Images/Related work and tool/BM25.png, id=579, 782.925pt x 439.6425pt>
+<Images/Related work and tool/BM25.png, id=664, 782.925pt x 439.6425pt>
 File: Images/Related work and tool/BM25.png Graphic file (type png)
 <use Images/Related work and tool/BM25.png>
 Package pdftex.def Info: Images/Related work and tool/BM25.png  used on input l
 ine 11.
 (pdftex.def)             Requested size: 364.19667pt x 204.51215pt.
-
-LaTeX Warning: Citation 'reimers-2019-sentence-bert' on page 20 undefined on in
-put line 16.
-
-
-LaTeX Warning: Citation 'malkov2018hnsw' on page 20 undefined on input line 16.
-
-
-
-LaTeX Warning: Citation 'bernhardsson_annoy' on page 20 undefined on input line
- 16.
-
-
-LaTeX Warning: Citation 'jafari2021lsh' on page 20 undefined on input line 16.
-
-
-LaTeX Warning: Citation 'he2024' on page 20 undefined on input line 16.
-
-
-Underfull \hbox (badness 5091) in paragraph at lines 16--17
-[]\T1/cmr/bx/n/10 Dense Re-trieval Meth-ods\T1/cmr/m/n/10 : Lever-ag-ing se-man
--tic em-bed-dings, dense re-trieval tools like
- []
-
-<Images/Related work and tool/LSH.png, id=580, 910.90312pt x 468.24937pt>
+<Images/Related work and tool/LSH.png, id=670, 910.90312pt x 468.24937pt>
 File: Images/Related work and tool/LSH.png Graphic file (type png)
 <use Images/Related work and tool/LSH.png>
 Package pdftex.def Info: Images/Related work and tool/LSH.png  used on input li
@@ -2332,45 +2109,24 @@ ne 27.
 [20
 
  <./Images/Related work and tool/BM25.png>]
-
-LaTeX Warning: Citation 'wu2024' on page 21 undefined on input line 32.
-
-<Images/Related work and tool/Repoformer.png, id=587, 1420.55719pt x 688.07062p
+<Images/Related work and tool/Repoformer.png, id=682, 1420.55719pt x 688.07062p
 t>
 File: Images/Related work and tool/Repoformer.png Graphic file (type png)
 <use Images/Related work and tool/Repoformer.png>
 Package pdftex.def Info: Images/Related work and tool/Repoformer.png  used on i
 nput line 36.
 (pdftex.def)             Requested size: 455.24411pt x 220.50206pt.
-
-LaTeX Warning: Citation 'wu2024' on page 21 undefined on input line 38.
-
-
-LaTeX Warning: Citation 'wu2024' on page 21 undefined on input line 38.
-
-
-LaTeX Warning: Citation 'tan2024' on page 21 undefined on input line 41.
-
-<Images/Related work and tool/ProCC.png, id=588, 1285.05093pt x 807.7678pt>
+<Images/Related work and tool/ProCC.png, id=686, 1285.05093pt x 807.7678pt>
 File: Images/Related work and tool/ProCC.png Graphic file (type png)
 <use Images/Related work and tool/ProCC.png>
 Package pdftex.def Info: Images/Related work and tool/ProCC.png  used on input 
 line 45.
 (pdftex.def)             Requested size: 455.24411pt x 286.16179pt.
 
-LaTeX Warning: Citation 'tan2024' on page 21 undefined on input line 47.
-
-
-LaTeX Warning: Citation 'tan2024' on page 21 undefined on input line 47.
-
-
 
 [21 <./Images/Related work and tool/LSH.png> <./Images/Related work and tool/Re
 poformer.png>]
-
-LaTeX Warning: Citation 'chen2024bge' on page 22 undefined on input line 51.
-
-<Images/Related work and tool/Characters of M3-Embedding.png, id=597, 1186.4325
+<Images/Related work and tool/Characters of M3-Embedding.png, id=700, 1186.4325
 pt x 572.89032pt>
 File: Images/Related work and tool/Characters of M3-Embedding.png Graphic file 
 (type png)
@@ -2378,47 +2134,17 @@ File: Images/Related work and tool/Characters of M3-Embedding.png Graphic file
 Package pdftex.def Info: Images/Related work and tool/Characters of M3-Embeddin
 g.png  used on input line 55.
 (pdftex.def)             Requested size: 455.24411pt x 219.82478pt.
-
-LaTeX Warning: Citation 'chen2024bge' on page 22 undefined on input line 56.
-
-
-LaTeX Warning: Citation 'chen2024bge' on page 22 undefined on input line 56.
-
-
-LaTeX Warning: Citation 'radford2019' on page 22 undefined on input line 61.
-
-
-LaTeX Warning: Citation 'roziere2023code' on page 22 undefined on input line 61
-.
-
-
-Underfull \hbox (badness 1158) in paragraph at lines 61--62
-[]\T1/cmr/bx/n/10 Generative Pre-trained Trans-form-ers\T1/cmr/m/n/10 : LLMs li
-ke GPT-2 [[]] and Code Llama
- []
-
-<Images/Related work and tool/llama2.png, id=598, 1357.4715pt x 390.258pt>
+<Images/Related work and tool/llama2.png, id=705, 1357.4715pt x 390.258pt>
 File: Images/Related work and tool/llama2.png Graphic file (type png)
 <use Images/Related work and tool/llama2.png>
 Package pdftex.def Info: Images/Related work and tool/llama2.png  used on input
  line 65.
 (pdftex.def)             Requested size: 455.24411pt x 130.87569pt.
 
-LaTeX Warning: Citation 'roziere2023code' on page 22 undefined on input line 66
-.
-
-
-LaTeX Warning: Citation 'roziere2023code' on page 22 undefined on input line 66
-.
-
-
 
 [22 <./Images/Related work and tool/ProCC.png> <./Images/Related work and tool/
 Characters of M3-Embedding.png>]
-
-LaTeX Warning: Citation 'hostnik2024' on page 23 undefined on input line 69.
-
-<Images/Related work and tool/snippet additional metadata.png, id=607, 877.0265
+<Images/Related work and tool/snippet additional metadata.png, id=719, 877.0265
 7pt x 357.58594pt>
 File: Images/Related work and tool/snippet additional metadata.png Graphic file
  (type png)
@@ -2426,21 +2152,8 @@ File: Images/Related work and tool/snippet additional metadata.png Graphic file
 Package pdftex.def Info: Images/Related work and tool/snippet additional metada
 ta.png  used on input line 73.
 (pdftex.def)             Requested size: 455.24411pt x 185.61836pt.
-
-LaTeX Warning: Citation 'hostnik2024' on page 23 undefined on input line 75.
-
-
-LaTeX Warning: Citation 'hostnik2024' on page 23 undefined on input line 75.
-
-
-LaTeX Warning: Citation 'hui2024qwen2.5' on page 23 undefined on input line 78.
-
-
-
-LaTeX Warning: Citation 'bai2023qwen' on page 23 undefined on input line 78.
-
 <Images/Related work and tool/The three-stage training pipeline for Qwen2.5-Cod
-er.png, id=608, 773.89125pt x 337.26pt>
+er.png, id=724, 773.89125pt x 337.26pt>
 File: Images/Related work and tool/The three-stage training pipeline for Qwen2.
 5-Coder.png Graphic file (type png)
 <use Images/Related work and tool/The three-stage training pipeline for Qwen2.5
@@ -2448,28 +2161,7 @@ File: Images/Related work and tool/The three-stage training pipeline for Qwen2.
 Package pdftex.def Info: Images/Related work and tool/The three-stage training 
 pipeline for Qwen2.5-Coder.png  used on input line 82.
 (pdftex.def)             Requested size: 455.24411pt x 198.395pt.
-
-LaTeX Warning: Citation 'hostnik2024' on page 23 undefined on input line 84.
-
-
-LaTeX Warning: Citation 'hostnik2024' on page 23 undefined on input line 84.
-
-
-LaTeX Warning: Citation 'zhang2023repocoder' on page 23 undefined on input line
- 89.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
-[]\T1/cmr/bx/n/10 Repository-Level Code Com-ple-tion\T1/cmr/m/n/10 : Tools like
- Re-po-former and Re-poCoder
- []
-
-
-
-[23 <./Images/Related work and tool/llama2.png> <./Images/Related work and tool
-/snippet additional metadata.png> <./Images/Related work and tool/The three-sta
-ge training pipeline for Qwen2.5-Coder.png>]
-<Images/Related work and tool/RepoCoder.png, id=619, 663.98062pt x 493.0922pt>
+<Images/Related work and tool/RepoCoder.png, id=728, 663.98062pt x 493.0922pt>
 File: Images/Related work and tool/RepoCoder.png Graphic file (type png)
 <use Images/Related work and tool/RepoCoder.png>
 Package pdftex.def Info: Images/Related work and tool/RepoCoder.png  used on in
@@ -2477,23 +2169,10 @@ put line 93.
 (pdftex.def)             Requested size: 364.19667pt x 270.46419pt.
 
 
-LaTeX Warning: Citation 'zhang2023repocoder' on page 24 undefined on input line
- 95.
-
-
-LaTeX Warning: Citation 'zhang2023repocoder' on page 24 undefined on input line
- 95.
-
-
-LaTeX Warning: Citation 'he2024' on page 24 undefined on input line 98.
-
-
-LaTeX Warning: Citation 'zhang2024' on page 24 undefined on input line 100.
-
-
-LaTeX Warning: Citation 'sachdev2018' on page 24 undefined on input line 106.
-
-<Images/Related work and tool/stackoverflow-trends-chart.png, id=622, 662.475pt
+[23 <./Images/Related work and tool/llama2.png> <./Images/Related work and tool
+/snippet additional metadata.png> <./Images/Related work and tool/The three-sta
+ge training pipeline for Qwen2.5-Coder.png>]
+<Images/Related work and tool/stackoverflow-trends-chart.png, id=748, 662.475pt
  x 401.5pt>
 File: Images/Related work and tool/stackoverflow-trends-chart.png Graphic file 
 (type png)
@@ -2504,7 +2183,7 @@ t.png  used on input line 110.
 
 
 [24 <./Images/Related work and tool/RepoCoder.png>]
-<Images/Related work and tool/NCS evaluation results.png, id=631, 639.89063pt x
+<Images/Related work and tool/NCS evaluation results.png, id=759, 639.89063pt x
  356.83313pt>
 File: Images/Related work and tool/NCS evaluation results.png Graphic file (typ
 e png)
@@ -2514,50 +2193,8 @@ g  used on input line 117.
 (pdftex.def)             Requested size: 409.71692pt x 228.48131pt.
 
 
-LaTeX Warning: Citation 'sachdev2018' on page 25 undefined on input line 119.
-
-
-LaTeX Warning: Citation 'sachdev2018' on page 25 undefined on input line 119.
-
-
-LaTeX Warning: Citation 'svyatkovskiy2020' on page 25 undefined on input line 1
-22.
-
-
-LaTeX Warning: Citation 'bruch2009' on page 25 undefined on input line 122.
-
-
-Underfull \hbox (badness 2865) in paragraph at lines 122--123
-[]\T1/cmr/bx/n/10 Code Com-ple-tion and Sug-ges-tion Sys-tems\T1/cmr/m/n/10 : I
-n-tel-li-gent tools like In-tel-li-Code Com-pose
- []
-
-
-LaTeX Warning: Citation 'lewis2020' on page 25 undefined on input line 124.
-
-
-
 [25 <./Images/Related work and tool/stackoverflow-trends-chart.png> <./Images/R
 elated work and tool/NCS evaluation results.png>]
-
-LaTeX Warning: Citation 'mitra2017' on page 26 undefined on input line 129.
-
-
-Underfull \hbox (badness 1502) in paragraph at lines 129--130
-[]\T1/cmr/bx/n/10 Embedding-Based Re-trieval\T1/cmr/m/n/10 : Tools like NCS em-
-ploy word em-bed-dings, TF-IDF weight-ing
- []
-
-
-LaTeX Warning: Citation 'bruch2009' on page 26 undefined on input line 134.
-
-
-LaTeX Warning: Citation 'vaswani2017' on page 26 undefined on input line 136.
-
-
-LaTeX Warning: Citation 'sachdev2018' on page 26 undefined on input line 141.
-
-
 Underfull \hbox (badness 3872) in paragraph at lines 153--154
 []|\T1/cmr/m/n/10 Retrieves code snip-pets
  []
@@ -2643,10 +2280,6 @@ Overfull \hbox (19.54721pt too wide) in paragraph at lines 148--173
  []
 
 
-LaTeX Warning: Citation 'svyatkovskiy2020' on page 26 undefined on input line 1
-78.
-
-
 
 [26]
 Underfull \hbox (badness 3679) in paragraph at lines 190--191
@@ -2723,8 +2356,8 @@ Overfull \hbox (19.54721pt too wide) in paragraph at lines 185--215
  [][] 
  []
 
-<Images/Related work and tool/Code Snippet and Completion suggestion.png, id=65
-7, 1123.19624pt x 657.95813pt>
+<Images/Related work and tool/Code Snippet and Completion suggestion.png, id=80
+0, 1123.19624pt x 657.95813pt>
 File: Images/Related work and tool/Code Snippet and Completion suggestion.png G
 raphic file (type png)
 <use Images/Related work and tool/Code Snippet and Completion suggestion.png>
@@ -2746,7 +2379,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Approach/fine_tuning_process_diagram.png, id=666, 1057.9525pt x 626.34p
+<Images/Approach/fine_tuning_process_diagram.png, id=809, 1057.9525pt x 626.34p
 t>
 File: Images/Approach/fine_tuning_process_diagram.png Graphic file (type png)
 <use Images/Approach/fine_tuning_process_diagram.png>
@@ -2768,7 +2401,7 @@ Overfull \hbox (7.5472pt too wide) in paragraph at lines 43--66
 [28
 
  <./Images/Approach/fine_tuning_process_diagram.png>]
-<Images/Approach/The nature of Fine-Tuning and RAG.png, id=675, 818.30719pt x 5
+<Images/Approach/The nature of Fine-Tuning and RAG.png, id=818, 818.30719pt x 5
 05.13719pt>
 File: Images/Approach/The nature of Fine-Tuning and RAG.png Graphic file (type 
 png)
@@ -2780,171 +2413,88 @@ Package pdftex.def Info: Images/Approach/The nature of Fine-Tuning and RAG.png
 
 [29 <./Images/Approach/The nature of Fine-Tuning and RAG.png>]
 
-LaTeX Warning: Citation 'chen2024bge' on page 30 undefined on input line 88.
-
-
-LaTeX Warning: Citation 'bm25' on page 30 undefined on input line 88.
-
-
-LaTeX Warning: Citation 'mdpr' on page 30 undefined on input line 88.
-
-
-LaTeX Warning: Citation 'mcontriever' on page 30 undefined on input line 88.
-
-
-LaTeX Warning: Citation 'wang2024e5' on page 30 undefined on input line 88.
-
-
-LaTeX Warning: Citation 'wang2024e5_improve' on page 30 undefined on input line
- 88.
-
-
-LaTeX Warning: Citation 'miracl' on page 30 undefined on input line 88.
-
-
-LaTeX Warning: Citation 'chen2024bge' on page 30 undefined on input line 113.
-
-
-LaTeX Warning: Citation 'chen2024bge' on page 30 undefined on input line 113.
-
-
-LaTeX Warning: Citation 'bai2023qwen' on page 30 undefined on input line 123.
-
-
-LaTeX Warning: Citation 'llama' on page 30 undefined on input line 123.
-
-
-LaTeX Warning: Citation 'llama2' on page 30 undefined on input line 123.
-
-
-LaTeX Warning: Citation 'baichuan2' on page 30 undefined on input line 123.
-
-
-
 [30]
 Overfull \hbox (8.20659pt too wide) in paragraph at lines 131--150
  [][] 
  []
 
+<Images/Implement/rag_pipeline.png, id=861, 828.2142pt x 484.209pt>
+File: Images/Implement/rag_pipeline.png Graphic file (type png)
+<use Images/Implement/rag_pipeline.png>
+Package pdftex.def Info: Images/Implement/rag_pipeline.png  used on input line 
+169.
+(pdftex.def)             Requested size: 372.69295pt x 217.89203pt.
 
-LaTeX Warning: Citation 'bai2023qwen' on page 31 undefined on input line 150.
 
-
-LaTeX Warning: Citation 'bai2023qwen' on page 31 undefined on input line 150.
-
-<Images/Approach/Documentation page example.png, id=694, 1445.4pt x 813.0375pt>
+[31]
+<Images/Approach/Documentation page example.png, id=867, 1445.4pt x 813.0375pt>
 
 File: Images/Approach/Documentation page example.png Graphic file (type png)
 <use Images/Approach/Documentation page example.png>
 Package pdftex.def Info: Images/Approach/Documentation page example.png  used o
-n input line 168.
+n input line 187.
 (pdftex.def)             Requested size: 455.24411pt x 256.07095pt.
 
 
-[31]
+[32 <./Images/Implement/rag_pipeline.png> <./Images/Approach/Documentation page
+ example.png>]
 
-[32 <./Images/Approach/Documentation page example.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
 []|\T1/cmr/bx/n/10 Billion-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
 \T1/cmr/bx/n/10 Scale
  []
 
 
-Overfull \hbox (2.0669pt too wide) in paragraph at lines 250--250
+Overfull \hbox (2.0669pt too wide) in paragraph at lines 269--269
 []|\T1/cmr/bx/n/10 Dynamic
  []
 
 
-Overfull \hbox (2.23459pt too wide) in paragraph at lines 250--250
+Overfull \hbox (2.23459pt too wide) in paragraph at lines 269--269
 []|\T1/cmr/bx/n/10 Attribute
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
 []|\T1/cmr/bx/n/10 Multi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--250
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
 \T1/cmr/bx/n/10 Vector
  []
 
 
-Overfull \hbox (0.94287pt too wide) in paragraph at lines 250--250
+Overfull \hbox (0.94287pt too wide) in paragraph at lines 269--269
 []|\T1/cmr/bx/n/10 Distributed
  []
 
 
-LaTeX Warning: Citation 'douze2024faiss' on page 33 undefined on input line 251
-.
-
-
-LaTeX Warning: Citation 'johnson2017similarity' on page 33 undefined on input l
-ine 251.
-
-
-LaTeX Warning: Citation 'ChenW18' on page 33 undefined on input line 252.
-
-
-LaTeX Warning: Citation 'elasticsearch' on page 33 undefined on input line 253.
-
-
-
-LaTeX Warning: Citation 'li2019visualsearch' on page 33 undefined on input line
- 254.
-
-
-LaTeX Warning: Citation 'li2019design' on page 33 undefined on input line 254.
-
-
-LaTeX Warning: Citation 'wei2020analyticdbv' on page 33 undefined on input line
- 255.
-
-
-LaTeX Warning: Citation 'pase2020' on page 33 undefined on input line 256.
-
-
-LaTeX Warning: Citation 'wang2021milvus' on page 33 undefined on input line 258
-.
-
-
-Overfull \hbox (150.72157pt too wide) in paragraph at lines 248--260
+Overfull \hbox (33.27942pt too wide) in paragraph at lines 267--279
 [][] 
  []
 
 
 
-[33]
+[34])
 
-LaTeX Warning: Citation 'gpt4' on page 34 undefined on input line 297.
-
-
-LaTeX Warning: Citation 'llama' on page 34 undefined on input line 297.
-
-)
-
-[34] (./components/contents/Initial Implementation.tex
+[35] (./components/contents/Initial implementation.tex
 Chapter 5.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Implement/rag_pipeline.png, id=720, 828.2142pt x 484.209pt>
-File: Images/Implement/rag_pipeline.png Graphic file (type png)
-<use Images/Implement/rag_pipeline.png>
-Package pdftex.def Info: Images/Implement/rag_pipeline.png  used on input line 
-8.
-(pdftex.def)             Requested size: 372.69295pt x 217.89203pt.
 
 
-[35
+[36
 
- <./Images/Implement/rag_pipeline.png>]
+]
 Underfull \hbox (badness 4505) in paragraph at lines 56--56
 []|\T1/cmr/m/n/10 Data type: Boolean (\T1/cmtt/m/n/10 true \T1/cmr/m/n/10 or
  []
@@ -2956,7 +2506,7 @@ Underfull \hbox (badness 2096) in paragraph at lines 59--59
 
 
 
-[36]
+[37]
 Underfull \hbox (badness 7433) in paragraph at lines 109--109
 []|\T1/cmr/m/n/10 The raw text con-tent
  []
@@ -2973,18 +2523,18 @@ Underfull \hbox (badness 3769) in paragraph at lines 126--126
 
 
 
-[37]
+[38]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 178.
 
 
-[38]
-
 [39]
 
-[40])
+[40]
 
-[41] (./components/contents/Evaluation Plan.tex
+[41])
+
+[42] (./components/contents/Evaluation plan.tex
 Chapter 6.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2993,11 +2543,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[42
+[43
 
 ])
 
-[43] (./components/contents/Future Plans.tex
+[44] (./components/contents/Conclusion and future works.tex
 Chapter 7.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -3005,54 +2555,58 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
-Overfull \hbox (32.74178pt too wide) in paragraph at lines 97--160
+Overfull \hbox (46.07185pt too wide) in paragraph at lines 95--158
 []|  []
  []
 
 )
 
-[44
+[45
 
 ]
 
-[45]
+[46]
 
-LaTeX Warning: Empty bibliography on input line 58.
+[47
 
+]
+Underfull \hbox (badness 3009) in paragraph at lines 57--57
+[]\T1/cmr/m/n/10 O. Ram et al. ``In-Context Retrieval-Augmented Lan-guage Mod-e
+ls''. In: \T1/cmr/m/it/10 arXiv preprint
+ []
+
+
+
+[48]
+
+[49]
 
 Package caption Warning: Unused \captionsetup[sub] on input line 117.
 See the caption package documentation for explanation.
 
 
+
+[50] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: A4442775B77AB0A3DC7929A5D36312C0;11501.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                main
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Checksum: D5660D09234098D476B5D3566E516227;11598.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46598 strings out of 473330
- 958894 string characters out of 5723877
- 1793399 words of memory out of 5000000
- 68679 multiletter control sequences out of 15000+600000
+ 46903 strings out of 473330
+ 970218 string characters out of 5723877
+ 2227829 words of memory out of 5000000
+ 68917 multiletter control sequences out of 15000+600000
  582507 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 109i,17n,162p,1422b,1647s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 109i,17n,162p,1548b,1665s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dis
@@ -3067,24 +2621,25 @@ live/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
 st/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/t
 ype1/public/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/publi
 c/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super
-/sfbx2488.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.
-pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/te
-xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2024
-/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive/2024/texmf-dis
-t/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/ty
-pe1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public
-/cm-super/sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/
-sfrm1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.p
-fb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftc1000.pfb><c:/tex
-live/2024/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb><c:/texlive/2024/
-texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb><c:/texlive/2024/texmf-dist
-/fonts/type1/public/cm-super/sftt1000.pfb><c:/texlive/2024/texmf-dist/fonts/typ
-e1/urw/zapfchan/uzcmi8a.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfdin
-g/uzdr.pfb>
-Output written on main.pdf (51 pages, 2422685 bytes).
+/sfbx2488.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1000.
+pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb><c:/te
+xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2024
+/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2024/texmf-dis
+t/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive/2024/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public
+/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/
+sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.p
+fb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/tex
+live/2024/texmf-dist/fonts/type1/public/cm-super/sftc1000.pfb><c:/texlive/2024/
+texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist
+/fonts/type1/public/cm-super/sftt0800.pfb><c:/texlive/2024/texmf-dist/fonts/typ
+e1/public/cm-super/sftt1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zap
+fchan/uzcmi8a.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb
+>
+Output written on main.pdf (56 pages, 2470439 bytes).
 PDF statistics:
- 1013 PDF objects out of 1200 (max. 8388607)
- 835 compressed objects within 9 object streams
- 239 named destinations out of 1000 (max. 500000)
+ 1337 PDF objects out of 1440 (max. 8388607)
+ 1134 compressed objects within 12 object streams
+ 306 named destinations out of 1000 (max. 500000)
  727 words of extra memory for PDF output out of 10000 (max. 10000000)
 

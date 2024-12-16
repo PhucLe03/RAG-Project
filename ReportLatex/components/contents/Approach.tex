@@ -154,6 +154,25 @@ QWEN                & 1.8B           & 44.6           & 54.7           & 21.2   
 
 \section{Main architecture}
 
+Our RAG system is designed to leverage external knowledge sources to enhance the performance and contextual understanding of LLMs. The architecture consists of the following main components:
+
+\begin{itemize} 
+  \item \textbf{Vector database:} Stores the Next.js documentation in an optimized vector format to enable efficient semantic retrieval. 
+  \item \textbf{Retriever:} Accepts the user query sent from the VS Code extension and retrieves the most relevant documents from the vector database. 
+  \item \textbf{Augmentation:} Combines the user query and retrieved documents to construct a context-rich prompt, including relevant context and additional questions, and forwards it to the generator. 
+  \item \textbf{Generator:} Receives the augmented prompt and utilizes the local LLM to generate accurate and contextually relevant responses. 
+\end{itemize}
+
+\begin{figure}[H]
+	\vspace{2pt}
+	\centering
+	\includegraphics[scale=0.45]{Images/Implement/rag_pipeline.png}
+	\vspace{5mm}
+	\caption{Our RAG architecture design}
+\end{figure}
+
+
+
 \subsection{Local Vector Storage}
 
 The vector storage component is a fundamental part of our system, enabling efficient retrieval of embedded data for the user. Since our primary dataset consists of documentation from the Next.js framework, it inherently contains a combination of both structured and unstructured data:
@@ -300,3 +319,5 @@ Even the most advanced models, such as GPT-4 \cite{gpt4} or local LLMs like LLaM
 
     \item Reinforcement Learning from Human Feedback (RLHF): RLHF is employed to align the model's outputs with user preferences and ethical guidelines. By introducing a reward system based on user feedback, the model learns to prioritize accuracy, clarity, and helpfulness. This method ensures that the system adapts to the specific needs of the developer community.
 \end{itemize}
+
+
