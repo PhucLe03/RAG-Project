@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  16 DEC 2024 09:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  16 DEC 2024 09:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -836,9 +836,6 @@ LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
 (c:/texlive/2024/texmf-dist/tex/latex/psnfss/upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
-(c:/texlive/2024/texmf-dist/tex/latex/parskip/parskip.sty
-Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
-)
 (c:/texlive/2024/texmf-dist/tex/latex/pgfgantt/pgfgantt.sty
 Package: pgfgantt 2024/06/19 v5.0a Draw Gantt diagrams with TikZ
 
@@ -1974,8 +1971,7 @@ put line 2.
 
 [7 <./Images/Preliminaries/hnsw.png>]
 (./components/contents/hnsw_algo/search_layer.tex)
-
-[8] (./components/contents/hnsw_algo/sel_nei_sim.tex)
+(./components/contents/hnsw_algo/sel_nei_sim.tex)
 (./components/contents/hnsw_algo/sel_nei_heu.tex
 Underfull \hbox (badness 10000) in paragraph at lines 2--2
 []\T1/cmr/bx/n/10 Algorithm 4 \T1/cmr/m/n/10 SELECT-NEIGHBORS-HEURISTIC($\OML/c
@@ -1986,10 +1982,10 @@ extendCandidates\T1/cmr/m/n/10 ,
 
 )
 
-[9] (./components/contents/hnsw_algo/knn.tex)
+[8] (./components/contents/hnsw_algo/knn.tex)
 
-[10]
-<Images/Preliminaries/Query_Rewriting.png, id=537, 1001.99344pt x 582.67688pt>
+[9]
+<Images/Preliminaries/Query_Rewriting.png, id=533, 1001.99344pt x 582.67688pt>
 File: Images/Preliminaries/Query_Rewriting.png Graphic file (type png)
 <use Images/Preliminaries/Query_Rewriting.png>
 Package pdftex.def Info: Images/Preliminaries/Query_Rewriting.png  used on inpu
@@ -2007,7 +2003,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 171--173
 
 
 
-[11 <./Images/Preliminaries/Query_Rewriting.png>]
+[10 <./Images/Preliminaries/Query_Rewriting.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 182--184
 
  []
@@ -2024,10 +2020,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
 
 
-[12]
+[11]
 
-[13]
-<Images/Preliminaries/transformers/scale-dot-attention.png, id=585, 184.5294pt 
+[12]
+<Images/Preliminaries/transformers/scale-dot-attention.png, id=580, 184.5294pt 
 x 347.8596pt>
 File: Images/Preliminaries/transformers/scale-dot-attention.png Graphic file (t
 ype png)
@@ -2035,7 +2031,7 @@ ype png)
 Package pdftex.def Info: Images/Preliminaries/transformers/scale-dot-attention.
 png  used on input line 271.
 (pdftex.def)             Requested size: 92.26447pt x 173.92937pt.
-<Images/Preliminaries/transformers/multi-head-attention.png, id=588, 408.5664pt
+<Images/Preliminaries/transformers/multi-head-attention.png, id=583, 408.5664pt
  x 433.1382pt>
 File: Images/Preliminaries/transformers/multi-head-attention.png Graphic file (
 type png)
@@ -2049,19 +2045,16 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[14 <./Images/Preliminaries/transformers/scale-dot-attention.png>]
+[13 <./Images/Preliminaries/transformers/scale-dot-attention.png>]
 
-[15 <./Images/Preliminaries/transformers/multi-head-attention.png>]
-<Images/Preliminaries/Inference stage.png, id=617, 943.27406pt x 500.62032pt>
+[14 <./Images/Preliminaries/transformers/multi-head-attention.png>]
+<Images/Preliminaries/Inference stage.png, id=613, 943.27406pt x 500.62032pt>
 File: Images/Preliminaries/Inference stage.png Graphic file (type png)
 <use Images/Preliminaries/Inference stage.png>
 Package pdftex.def Info: Images/Preliminaries/Inference stage.png  used on inpu
 t line 366.
 (pdftex.def)             Requested size: 364.19667pt x 193.28558pt.
-
-
-[16 <./Images/Preliminaries/Inference stage.png>]
-<Images/Preliminaries/Augmentation with structured data.png, id=627, 965.85844p
+<Images/Preliminaries/Augmentation with structured data.png, id=615, 965.85844p
 t x 504.38437pt>
 File: Images/Preliminaries/Augmentation with structured data.png Graphic file (
 type png)
@@ -2070,6 +2063,8 @@ Package pdftex.def Info: Images/Preliminaries/Augmentation with structured data
 .png  used on input line 377.
 (pdftex.def)             Requested size: 364.19667pt x 190.19035pt.
 
+
+[15 <./Images/Preliminaries/Inference stage.png>]
 Underfull \hbox (badness 8189) in paragraph at lines 446--446
 []|\T1/cmr/m/n/10 {\T1/cmr/bx/n/10 fully sup-ported\T1/cmr/m/n/10 , par-tially
  []
@@ -2081,24 +2076,24 @@ Overfull \hbox (0.51015pt too wide) in paragraph at lines 440--450
 
 
 
-[17 <./Images/Preliminaries/Augmentation with structured data.png>]
+[16 <./Images/Preliminaries/Augmentation with structured data.png>]
 
-[18])
+[17])
 
-[19] (./components/contents/Related works and tools.tex
+[18] (./components/contents/Related works and tools.tex
 Chapter 3.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Related work and tool/BM25.png, id=664, 782.925pt x 439.6425pt>
+<Images/Related work and tool/BM25.png, id=659, 782.925pt x 439.6425pt>
 File: Images/Related work and tool/BM25.png Graphic file (type png)
 <use Images/Related work and tool/BM25.png>
 Package pdftex.def Info: Images/Related work and tool/BM25.png  used on input l
 ine 11.
 (pdftex.def)             Requested size: 364.19667pt x 204.51215pt.
-<Images/Related work and tool/LSH.png, id=670, 910.90312pt x 468.24937pt>
+<Images/Related work and tool/LSH.png, id=665, 910.90312pt x 468.24937pt>
 File: Images/Related work and tool/LSH.png Graphic file (type png)
 <use Images/Related work and tool/LSH.png>
 Package pdftex.def Info: Images/Related work and tool/LSH.png  used on input li
@@ -2106,17 +2101,17 @@ ne 27.
 (pdftex.def)             Requested size: 364.19667pt x 187.21782pt.
 
 
-[20
+[19
 
  <./Images/Related work and tool/BM25.png>]
-<Images/Related work and tool/Repoformer.png, id=682, 1420.55719pt x 688.07062p
+<Images/Related work and tool/Repoformer.png, id=678, 1420.55719pt x 688.07062p
 t>
 File: Images/Related work and tool/Repoformer.png Graphic file (type png)
 <use Images/Related work and tool/Repoformer.png>
 Package pdftex.def Info: Images/Related work and tool/Repoformer.png  used on i
 nput line 36.
 (pdftex.def)             Requested size: 455.24411pt x 220.50206pt.
-<Images/Related work and tool/ProCC.png, id=686, 1285.05093pt x 807.7678pt>
+<Images/Related work and tool/ProCC.png, id=682, 1285.05093pt x 807.7678pt>
 File: Images/Related work and tool/ProCC.png Graphic file (type png)
 <use Images/Related work and tool/ProCC.png>
 Package pdftex.def Info: Images/Related work and tool/ProCC.png  used on input 
@@ -2124,9 +2119,9 @@ line 45.
 (pdftex.def)             Requested size: 455.24411pt x 286.16179pt.
 
 
-[21 <./Images/Related work and tool/LSH.png> <./Images/Related work and tool/Re
+[20 <./Images/Related work and tool/LSH.png> <./Images/Related work and tool/Re
 poformer.png>]
-<Images/Related work and tool/Characters of M3-Embedding.png, id=700, 1186.4325
+<Images/Related work and tool/Characters of M3-Embedding.png, id=696, 1186.4325
 pt x 572.89032pt>
 File: Images/Related work and tool/Characters of M3-Embedding.png Graphic file 
 (type png)
@@ -2134,7 +2129,7 @@ File: Images/Related work and tool/Characters of M3-Embedding.png Graphic file
 Package pdftex.def Info: Images/Related work and tool/Characters of M3-Embeddin
 g.png  used on input line 55.
 (pdftex.def)             Requested size: 455.24411pt x 219.82478pt.
-<Images/Related work and tool/llama2.png, id=705, 1357.4715pt x 390.258pt>
+<Images/Related work and tool/llama2.png, id=701, 1357.4715pt x 390.258pt>
 File: Images/Related work and tool/llama2.png Graphic file (type png)
 <use Images/Related work and tool/llama2.png>
 Package pdftex.def Info: Images/Related work and tool/llama2.png  used on input
@@ -2142,9 +2137,9 @@ Package pdftex.def Info: Images/Related work and tool/llama2.png  used on input
 (pdftex.def)             Requested size: 455.24411pt x 130.87569pt.
 
 
-[22 <./Images/Related work and tool/ProCC.png> <./Images/Related work and tool/
+[21 <./Images/Related work and tool/ProCC.png> <./Images/Related work and tool/
 Characters of M3-Embedding.png>]
-<Images/Related work and tool/snippet additional metadata.png, id=719, 877.0265
+<Images/Related work and tool/snippet additional metadata.png, id=715, 877.0265
 7pt x 357.58594pt>
 File: Images/Related work and tool/snippet additional metadata.png Graphic file
  (type png)
@@ -2153,7 +2148,7 @@ Package pdftex.def Info: Images/Related work and tool/snippet additional metada
 ta.png  used on input line 73.
 (pdftex.def)             Requested size: 455.24411pt x 185.61836pt.
 <Images/Related work and tool/The three-stage training pipeline for Qwen2.5-Cod
-er.png, id=724, 773.89125pt x 337.26pt>
+er.png, id=720, 773.89125pt x 337.26pt>
 File: Images/Related work and tool/The three-stage training pipeline for Qwen2.
 5-Coder.png Graphic file (type png)
 <use Images/Related work and tool/The three-stage training pipeline for Qwen2.5
@@ -2161,7 +2156,7 @@ File: Images/Related work and tool/The three-stage training pipeline for Qwen2.
 Package pdftex.def Info: Images/Related work and tool/The three-stage training 
 pipeline for Qwen2.5-Coder.png  used on input line 82.
 (pdftex.def)             Requested size: 455.24411pt x 198.395pt.
-<Images/Related work and tool/RepoCoder.png, id=728, 663.98062pt x 493.0922pt>
+<Images/Related work and tool/RepoCoder.png, id=724, 663.98062pt x 493.0922pt>
 File: Images/Related work and tool/RepoCoder.png Graphic file (type png)
 <use Images/Related work and tool/RepoCoder.png>
 Package pdftex.def Info: Images/Related work and tool/RepoCoder.png  used on in
@@ -2169,10 +2164,10 @@ put line 93.
 (pdftex.def)             Requested size: 364.19667pt x 270.46419pt.
 
 
-[23 <./Images/Related work and tool/llama2.png> <./Images/Related work and tool
+[22 <./Images/Related work and tool/llama2.png> <./Images/Related work and tool
 /snippet additional metadata.png> <./Images/Related work and tool/The three-sta
 ge training pipeline for Qwen2.5-Coder.png>]
-<Images/Related work and tool/stackoverflow-trends-chart.png, id=748, 662.475pt
+<Images/Related work and tool/stackoverflow-trends-chart.png, id=744, 662.475pt
  x 401.5pt>
 File: Images/Related work and tool/stackoverflow-trends-chart.png Graphic file 
 (type png)
@@ -2182,8 +2177,8 @@ t.png  used on input line 110.
 (pdftex.def)             Requested size: 455.24411pt x 275.9019pt.
 
 
-[24 <./Images/Related work and tool/RepoCoder.png>]
-<Images/Related work and tool/NCS evaluation results.png, id=759, 639.89063pt x
+[23 <./Images/Related work and tool/RepoCoder.png>]
+<Images/Related work and tool/NCS evaluation results.png, id=755, 639.89063pt x
  356.83313pt>
 File: Images/Related work and tool/NCS evaluation results.png Graphic file (typ
 e png)
@@ -2193,7 +2188,7 @@ g  used on input line 117.
 (pdftex.def)             Requested size: 409.71692pt x 228.48131pt.
 
 
-[25 <./Images/Related work and tool/stackoverflow-trends-chart.png> <./Images/R
+[24 <./Images/Related work and tool/stackoverflow-trends-chart.png> <./Images/R
 elated work and tool/NCS evaluation results.png>]
 Underfull \hbox (badness 3872) in paragraph at lines 153--154
 []|\T1/cmr/m/n/10 Retrieves code snip-pets
@@ -2280,8 +2275,6 @@ Overfull \hbox (19.54721pt too wide) in paragraph at lines 148--173
  []
 
 
-
-[26]
 Underfull \hbox (badness 3679) in paragraph at lines 190--191
 []|\T1/cmr/m/n/10 Provides real-time code
  []
@@ -2356,8 +2349,11 @@ Overfull \hbox (19.54721pt too wide) in paragraph at lines 185--215
  [][] 
  []
 
-<Images/Related work and tool/Code Snippet and Completion suggestion.png, id=80
-0, 1123.19624pt x 657.95813pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<Images/Related work and tool/Code Snippet and Completion suggestion.png, id=78
+5, 1123.19624pt x 657.95813pt>
 File: Images/Related work and tool/Code Snippet and Completion suggestion.png G
 raphic file (type png)
 <use Images/Related work and tool/Code Snippet and Completion suggestion.png>
@@ -2371,7 +2367,9 @@ Overfull \hbox (22.76358pt too wide) in paragraph at lines 219--221
 
 )
 
-[27 <./Images/Related work and tool/Code Snippet and Completion suggestion.png>
+[25]
+
+[26 <./Images/Related work and tool/Code Snippet and Completion suggestion.png>
 ] (./components/contents/Approach.tex
 Chapter 4.
 
@@ -2379,7 +2377,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Approach/fine_tuning_process_diagram.png, id=809, 1057.9525pt x 626.34p
+<Images/Approach/fine_tuning_process_diagram.png, id=805, 1057.9525pt x 626.34p
 t>
 File: Images/Approach/fine_tuning_process_diagram.png Graphic file (type png)
 <use Images/Approach/fine_tuning_process_diagram.png>
@@ -2398,10 +2396,10 @@ Overfull \hbox (7.5472pt too wide) in paragraph at lines 43--66
 
 
 
-[28
+[27
 
  <./Images/Approach/fine_tuning_process_diagram.png>]
-<Images/Approach/The nature of Fine-Tuning and RAG.png, id=818, 818.30719pt x 5
+<Images/Approach/The nature of Fine-Tuning and RAG.png, id=814, 818.30719pt x 5
 05.13719pt>
 File: Images/Approach/The nature of Fine-Tuning and RAG.png Graphic file (type 
 png)
@@ -2411,14 +2409,14 @@ Package pdftex.def Info: Images/Approach/The nature of Fine-Tuning and RAG.png
 (pdftex.def)             Requested size: 318.66948pt x 196.71751pt.
 
 
-[29 <./Images/Approach/The nature of Fine-Tuning and RAG.png>]
+[28 <./Images/Approach/The nature of Fine-Tuning and RAG.png>]
 
-[30]
+[29]
 Overfull \hbox (8.20659pt too wide) in paragraph at lines 131--150
  [][] 
  []
 
-<Images/Implement/rag_pipeline.png, id=861, 828.2142pt x 484.209pt>
+<Images/Implement/rag_pipeline.png, id=857, 828.2142pt x 484.209pt>
 File: Images/Implement/rag_pipeline.png Graphic file (type png)
 <use Images/Implement/rag_pipeline.png>
 Package pdftex.def Info: Images/Implement/rag_pipeline.png  used on input line 
@@ -2426,8 +2424,8 @@ Package pdftex.def Info: Images/Implement/rag_pipeline.png  used on input line
 (pdftex.def)             Requested size: 372.69295pt x 217.89203pt.
 
 
-[31]
-<Images/Approach/Documentation page example.png, id=867, 1445.4pt x 813.0375pt>
+[30]
+<Images/Approach/Documentation page example.png, id=862, 1445.4pt x 813.0375pt>
 
 File: Images/Approach/Documentation page example.png Graphic file (type png)
 <use Images/Approach/Documentation page example.png>
@@ -2436,10 +2434,10 @@ n input line 187.
 (pdftex.def)             Requested size: 455.24411pt x 256.07095pt.
 
 
-[32 <./Images/Implement/rag_pipeline.png> <./Images/Approach/Documentation page
+[31 <./Images/Implement/rag_pipeline.png> <./Images/Approach/Documentation page
  example.png>]
 
-[33]
+[32]
 Underfull \hbox (badness 10000) in paragraph at lines 269--269
 []|\T1/cmr/bx/n/10 Billion-
  []
@@ -2481,9 +2479,9 @@ Overfull \hbox (33.27942pt too wide) in paragraph at lines 267--279
 
 
 
-[34])
+[33])
 
-[35] (./components/contents/Initial implementation.tex
+[34] (./components/contents/Initial implementation.tex
 Chapter 5.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2492,7 +2490,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[36
+[35
 
 ]
 Underfull \hbox (badness 4505) in paragraph at lines 56--56
@@ -2506,7 +2504,7 @@ Underfull \hbox (badness 2096) in paragraph at lines 59--59
 
 
 
-[37]
+[36]
 Underfull \hbox (badness 7433) in paragraph at lines 109--109
 []|\T1/cmr/m/n/10 The raw text con-tent
  []
@@ -2523,18 +2521,18 @@ Underfull \hbox (badness 3769) in paragraph at lines 126--126
 
 
 
-[38]
+[37]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 178.
 
 
+[38]
+
 [39]
 
-[40]
+[40])
 
-[41])
-
-[42] (./components/contents/Evaluation plan.tex
+[41] (./components/contents/Evaluation plan.tex
 Chapter 6.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2543,11 +2541,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[43
+[42
 
 ])
 
-[44] (./components/contents/Conclusion and future works.tex
+[43] (./components/contents/Conclusion and future works.tex
 Chapter 7.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2561,13 +2559,13 @@ Overfull \hbox (46.92552pt too wide) in paragraph at lines 95--159
 
 )
 
-[45
+[44
 
 ]
 
-[46]
+[45]
 
-[47
+[46
 
 ]
 Underfull \hbox (badness 3009) in paragraph at lines 57--57
@@ -2577,16 +2575,16 @@ ls''. In: \T1/cmr/m/it/10 arXiv preprint
 
 
 
+[47]
+
 [48]
 
-[49]
-
-Package caption Warning: Unused \captionsetup[sub] on input line 118.
+Package caption Warning: Unused \captionsetup[sub] on input line 117.
 See the caption package documentation for explanation.
 
 
 
-[50] 
+[49] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -2600,13 +2598,13 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46912 strings out of 473330
- 970381 string characters out of 5723877
- 2227983 words of memory out of 5000000
- 68926 multiletter control sequences out of 15000+600000
+ 46874 strings out of 473330
+ 969488 string characters out of 5723877
+ 2228834 words of memory out of 5000000
+ 68892 multiletter control sequences out of 15000+600000
  582507 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 109i,17n,162p,1548b,1665s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 109i,17n,162p,1548b,1677s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dis
@@ -2636,10 +2634,10 @@ texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist
 e1/public/cm-super/sftt1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zap
 fchan/uzcmi8a.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb
 >
-Output written on main.pdf (56 pages, 2470551 bytes).
+Output written on main.pdf (55 pages, 2471075 bytes).
 PDF statistics:
- 1337 PDF objects out of 1440 (max. 8388607)
- 1134 compressed objects within 12 object streams
- 306 named destinations out of 1000 (max. 500000)
+ 1333 PDF objects out of 1440 (max. 8388607)
+ 1131 compressed objects within 12 object streams
+ 305 named destinations out of 1000 (max. 500000)
  727 words of extra memory for PDF output out of 10000 (max. 10000000)
 
