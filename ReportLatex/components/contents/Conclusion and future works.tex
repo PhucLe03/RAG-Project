@@ -2,23 +2,35 @@
 
 \section{Conclusion}
 
-Our works began in early September 2024, we choose the problem to tackle with based on our interest and familiar domain. The problem defining phase started with how we can utilize the LLMs to help us with develop a rapidly changing framework with newest guideline. On the other side, we did research about on the background knowledge. We with began with reading surveys about RAG \cite{zhao2024retrievalaugmentedgenerationaigeneratedcontent, gao2023ragllmsurvey} and then dwell in RAG's main components:
+Our work began in early September 2024, where we selected the problem to address based on our interests and familiarity with the domain. The problem definition phase focused on exploring how we can utilize LLMs to facilitate the development of a rapidly evolving framework while adhering to the latest guidelines. Concurrently, we conducted research on background knowledge. 
+
+We started by reading surveys on RAG systems \cite{zhao2024retrievalaugmentedgenerationaigeneratedcontent, gao2023ragllmsurvey} and delved into its core components:
+
 \begin{itemize}
-	\item Retriever: 
-	Begin with how can we represent the data to semantically searchable, the BGE-M3 \cite{chen2024bge} have the exact answer, for our intended language English, multiple searh method from sparse, dense, multiple vectors to hybrid search combine all of them.
-	After that we must decide to facilitate the search process, we read about the Knns, and its drawback mainly on the scaling factor, it can't function on a large database. We then decide to choose HNSW \cite{malkov2018hnsw} to mitigate this problem by an acceptable trade off of accuracy with a much more scalable way to search vector.
-	\item Generator:
-	We started with the Transformer architecture \cite{vaswani2017} laid the foundation for LLMs, which is basically a decoder only transformer, and then choose Qwen \cite{bai2023qwen} to be our model for generate text and code for the system.
+	\item \textbf{Retriever:} 
+	We began by determining how to represent data for semantic search. BGE-M3 \cite{chen2024bge} emerged as a suitable choice for English, supporting multiple search methods including sparse, dense, multi-vector, and hybrid search. To facilitate the search process efficiently, we studied KNN and its limitations, particularly regarding scalability in large databases. To address this, we adopted HNSW \cite{malkov2018hnsw}, which offers a balanced trade-off between accuracy and scalability for vector search.
+	
+	\item \textbf{Generator:}
+	For the generator, we built upon the Transformer architecture \cite{vaswani2017}, which serves as the foundation for LLMs, decoder-only transformer. We opted for Qwen \cite{bai2023qwen} as our model for generating text and code within the system.
 \end{itemize}
 
-After knowing the foundation we research on how the augmentation can be utilized, first we need to decide which stage we want to augment, we decide to do this in the inference stage as in RALM \cite{ram2023incontext}, in a nutshell this stage is before the prompt going into the LLMs, we will inject the documentation content into the prompt by simply concate the string. The augmentation source is about the data used for augmentation since our data is documentation of the Nextjs framework, which mean it contain both structured (the way that the documentation is organized) and unstructured data, the code, we decide to follow KnowledGPT framework \cite{wang2023knowledgpt} to organize the like a knowlege base but also we support semantic search for unstructured data. About the augmentation process, we use adaptive methods to decide whether we need to get the external information to generate approriate answer for the user using reflection tokens like in SELF-RAG \cite{asai2023selfrag}.
+Following this foundation, we investigated how augmentation could be integrated. We chose to augment the system during the inference stage, inspired by RALM \cite{ram2023incontext}. In essence, this stage occurs before the prompt is passed into the LLM, where we inject documentation content into the prompt via string concatenation. 
 
-Later with the suggestion of our supervisors, we decide with serve our approach to the problem in a form of a VSCode extension, we research about related tools going through them based their funtionality retrieval mechanisms, code generation capabilities, integration within development process. After spending time comparing them, we decide that our solution will be run entire locally on the user machine, with limited resource and see how it will perform compare with the existed cloudbased and paid solution like Github
+The augmentation source consists of structured and unstructured data derived from the Next.js documentation. The structured data pertains to the organization of the documentation, while the unstructured data includes code samples. To manage this data effectively, we adopted the KnowledgeGPT framework \cite{wang2023knowledgpt}, organizing the data into a knowledge base while supporting semantic search for unstructured content. For the augmentation process, we applied adaptive methods to determine when external information is necessary to generate accurate answers, utilizing reflection tokens as implemented in SELF-RAG \cite{asai2023selfrag}.
 
-After that, begin to finalize our approach and design a high level architecture \ref{RAG-architecture} and then decide to use Milvus \cite{wang2021milvus} as our database, because of its open source nature and comprehensive SDK.
+Based on our supervisors' suggestions, we decided to deliver our solution as a VSCode extension. To inform this decision, we analyzed related tools by examining their retrieval mechanisms, code generation capabilities, and integration within the development process. After a thorough comparison, we decided that our solution would run entirely locally on the user’s machine, focusing on performance with limited resources. This approach allows us to evaluate our solution against existing cloud-based, paid alternatives like GitHub Copilot\footnote{GitHub Copilot - \url{https://copilot.github.com/}}.
 
-We then do initial implementation for our system, began with data preparation, identify the source, we get the data from the Nextjs framework official github repo, and implement code to preprocess the markdown data, embed and add to the database. Finally a demonstration script that can take a string and return relevant document in the database, this do not include the prompt engineering and advanced retrieval mechanism.
+Subsequently, we finalized our approach and designed a high-level architecture (Figure~\ref{fig:RAG-architecture}). For the database, we chose Milvus \cite{wang2021milvus} due to its open-source nature and comprehensive SDK support.
 
+We proceeded with the initial implementation of the system, starting with data preparation. This involved identifying the data source, extracting content from the official Next.js GitHub repository, and implementing preprocessing scripts to clean and process markdown files. We then embedded the data and stored it in the database. As a preliminary milestone, we developed a demonstration script capable of taking an input string and retrieving relevant documents from the database. This phase did not yet include prompt engineering or advanced retrieval mechanisms.
+
+We then outlined our evaluation strategy, which focuses on two key components:
+\begin{enumerate}
+	\item Evaluating the RAG components: retriever and generator performance.
+	\item Testing the VSCode extension as a software product.
+\end{enumerate}
+
+Report writing began in October 2024, based on slides prepared for weekly supervisor meetings. We continued to write and refine the report following feedback and guidance from our supervisors.
 
 
 % \begin{figure}[H]

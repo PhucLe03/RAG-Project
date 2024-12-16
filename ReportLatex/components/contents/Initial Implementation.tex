@@ -10,13 +10,13 @@ For this implementation, we specifically prepared the data for version 15.1.0 of
 % 	\caption{Our RAG architecture design}
 % \end{figure}
 
-\section{Data structure design}
+\section{Database design}
 
 Before delving into the structure and preparation of the data, it is important to discuss the data source. Naturally, the official documentation pages of the Next.js framework were our first consideration. Upon examination, the HTML files of the documentation were found to be well-formed and extractable. However, a critical limitation emerged: the official documentation does not maintain a comprehensive version history. The version selection section often changes its listed versions, making it unreliable for our intended use case.
 
 Our goal is to provide users with the ability to select their current framework version and the version they wish to upgrade or downgrade to. This feature requires reliable and comprehensive documentation for all versions.
 
-Fortunately, we discovered a more reliable data source: the official GitHub repository of the Next.js framework. This repository contains all versions of the framework's documentation in markdown format. These markdown files include useful metadata, explicit sections, and well-organized code snippets, making them ideal for our use case.
+Fortunately, we identified a more reliable data source: the official GitHub repository of the Next.js framework. This repository provides comprehensive documentation for all versions of the framework in markdown format. These markdown files are well-structured, containing valuable metadata, clearly defined sections, and organized code snippets, making them perfectly suited for our use case. The stable release of version 15.1.0 alone includes 578 markdown files. To ensure broad compatibility, we plan to support versions from 13.0.0 to 15.1.0, encompassing 95 stable versions. Canary versions are excluded from our dataset, as their changes are eventually consolidated in the corresponding stable releases.
 
 \subsection{Data structure design}
 
@@ -75,7 +75,7 @@ This single collection will store all data, including documents, sections, and c
 	\item A \textbf{code snippet}: Represents a code example belonging to a section.
 \end{itemize}
 
-\subsection{Fields in the Schema}
+\subsection{Fields in the schema}
 
 \textbf{Primary scalar fields}
 \begin{table}[H]
@@ -105,12 +105,12 @@ This single collection will store all data, including documents, sections, and c
 	\centering
 	\begin{tabular}{lp{4cm}p{5cm}}
 		\hline
-		\textbf{Field name}                 & \textbf{Index}                  & \textbf{.}          \\ \hline
+		\textbf{Field name}                 & \textbf{Description}                  & \textbf{.}          \\ \hline
 		\texttt{text\_content}      &  The raw text content (e.g., document or section body). \\ \hline
 		\texttt{code\_content}      &  The actual code snippet (only for entries of type \texttt{code\_snippet}). \\ \hline
 		& 
 	\end{tabular}
-	\caption{Caption}
+	\caption{Text field in the schema.}
 	\label{tab:my_label}
 \end{table}
 
@@ -125,7 +125,7 @@ This single collection will store all data, including documents, sections, and c
 		\texttt{dense\_text\_content}       & \texttt{HNSW}                   & Cosine Similarity (Dimension: 1024) \\ \hline
 		\texttt{dense\_code\_snippet}       & \texttt{HNSW}                   & Cosine Similarity (Dimension: 1024) \\ \hline
 	\end{tabular}
-	\caption{Embedding Vectors in the Schema.}
+	\caption{Embedding vectors in the schema.}
 \end{table}
 
 \textbf{Partitioning}
@@ -133,7 +133,7 @@ This single collection will store all data, including documents, sections, and c
 
 This field is used to partition entries by \texttt{version}. Partitioning aligns with Milvus's capability for managing partitions, ensuring efficient queries when users specify the framework version.
 
-\section{Data Preparation}
+\section{Data preparation}
 
 As described in the previous section, our primary data source is the GitHub repository of the Next.js framework. Initially, we developed a crawler that recursively navigated and downloaded resources from the \texttt{docs} and \texttt{errors} folders of the repository. However, this approach faced significant limitations due to GitHub's API rate limits. After careful evaluation, we adopted a more efficient and native method to retrieve data directly from the GitHub repository.
 
@@ -175,7 +175,7 @@ Once the data was acquired and organized, the next critical step was preprocessi
 	The metadata fields, such as \texttt{title}, \texttt{description}, and \texttt{nav\_title}, were extracted from markdown files using the \texttt{frontmatter} library. Additional metadata, such as \texttt{related} links, was included if available. Each document was assigned a unique \texttt{entry\_id} to enable hierarchical referencing within the schema.
 	
 	Example code for generating a unique entry ID:
-	\begin{lstlisting}[language=Python, caption=Generating Unique Entry IDs]
+	\begin{lstlisting}[language=Python, caption=Generating unique entry IDs]
 		def generate_entry_id(file_path):
 		relative_path = os.path.relpath(file_path)
 		entry_id = re.sub(r'[^a-zA-Z0-9]', '_', relative_path)
@@ -207,7 +207,7 @@ Once the data was acquired and organized, the next critical step was preprocessi
 The \texttt{parse\_markdown\_sections} function, implemented using \texttt{mistletoe}, played a central role in these steps by iterating over the document tokens to extract structured information. For instance, a document with headings, paragraphs, and code blocks was transformed into hierarchical sections with associated metadata and content.
 
 Example of parsing and organizing code snippets:
-\begin{lstlisting}[language=Python, caption=Code Snippet Parsing]
+\begin{lstlisting}[language=Python, caption=Code snippet parsing]
 	if isinstance(token, CodeFence):
 	code_info = {
 		"code": token.children[0].content if token.children else "",
@@ -215,8 +215,8 @@ Example of parsing and organizing code snippets:
 		"filename": filename,
 		"switcher": switcher
 	}
-	current_section["code_snippets"].append(code_info)
 \end{lstlisting}
+% current_section["code_snippets"].append(code_info)
 
 \begin{itemize}
 	\item \textbf{Embedding generation:} 
@@ -281,7 +281,7 @@ The hybrid search function was implemented as a prototype to illustrate the retr
 	\item \textbf{Combining results:}
 	The results from sparse and dense searches are merged using \texttt{entry\_id} as the common key. A combined score is calculated for each entry:
 	\[
-	\text{Combined Score} = (\text{Sparse Distance} \times \text{Sparse Weight}) + (\text{Dense Distance} \times \text{Dense Weight})
+	\text{Combined score} = (\text{Sparse distance} \times \text{Sparse weight}) + (\text{Dense distance} \times \text{Dense weight})
 	\]
 	If an entry is missing in either result, its corresponding distance is set to zero.
 	

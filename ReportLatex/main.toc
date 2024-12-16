@@ -38,38 +38,41 @@
 \contentsline {section}{\numberline {4.1}Fine-tuning vs. RAG}{28}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Fine-tuning}{28}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.1.2}Comparison between fine-tuning and RAG}{29}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Rationale for Choosing RAG}{29}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.3}Rationale for choosing RAG}{29}{subsection.4.1.3}%
 \contentsline {section}{\numberline {4.2}Why BGE-M3?}{30}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Why Qwen?}{30}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Main architecture}{31}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Local Vector Storage}{33}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.1}Local vector storage}{33}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}VSCode integration}{35}{subsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.4.3}Feedback loop}{36}{subsection.4.4.3}%
-\contentsline {chapter}{\numberline {5}Initial Implementation}{37}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Data Structure Design}{37}{section.5.1}%
+\contentsline {chapter}{\numberline {5}Initial implementation}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Database design}{37}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Data structure design}{37}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Fields in the Schema}{38}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}Data Preparation}{39}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Data Preprocessing}{40}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Database Setup}{41}{section.5.4}%
+\contentsline {subsection}{\numberline {5.1.2}Fields in the schema}{38}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Data preparation}{39}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Data preprocessing}{40}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Database setup}{41}{section.5.4}%
 \contentsline {subsection}{\numberline {5.4.1}Deploying Milvus with Docker Compose}{41}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Installing PyMilvus}{41}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Creating Indices}{41}{subsection.5.4.3}%
-\contentsline {subsection}{\numberline {5.4.4}Inserting Data into the Collection}{42}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.3}Creating indices}{41}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Inserting data into the Collection}{42}{subsection.5.4.4}%
 \contentsline {subsection}{\numberline {5.4.5}Hybrid search implementation}{42}{subsection.5.4.5}%
 \contentsline {section}{\numberline {5.5}Local LLMs setup}{42}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Setup Ollama}{42}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Integration with the RAG System}{43}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.2}Integration with the RAG system}{42}{subsection.5.5.2}%
 \contentsline {chapter}{\numberline {6}Evaluation plan}{44}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Evaluation metrics}{44}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Retriever metrics:}{44}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Generator metrics:}{44}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}System metrics:}{45}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Evaluation methodology}{45}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Retriever evaluation:}{45}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Generator evaluation:}{45}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Application testing:}{45}{subsection.6.2.3}%
-\contentsline {chapter}{\numberline {7}Conclusion and future works}{47}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusion}{47}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Upcoming works: January 2025 and beyond}{48}{section.7.2}%
-\contentsline {chapter}{Bibliography}{50}{chapter*.47}%
+\contentsline {subsection}{\numberline {6.1.1}Retriever metrics}{44}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Generator metrics}{45}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Evaluation methodology}{46}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Retriever evaluation}{46}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Generator evaluation}{46}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Test plans}{46}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Unit testing}{46}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Integration testing}{46}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}System testing}{46}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}Performance testing}{47}{subsection.6.3.4}%
+\contentsline {chapter}{\numberline {7}Conclusion and future works}{48}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusion}{48}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Upcoming works: January 2025 and beyond}{49}{section.7.2}%
+\contentsline {chapter}{Bibliography}{51}{chapter*.48}%
