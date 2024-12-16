@@ -1,0 +1,56 @@
+\chapter{Test plans:}
+Since our RAG model will be integrated into a VSCode extension, we will utilize VSCode's support for running and debugging tests through integration tests. The system's performance will be evaluated using the following methods:
+\section{Unit testing:} Validate individual functions and components of the extension.
+\begin{itemize}
+    \item \textbf{Focus areas:} Thoroughly test all utility functions such as data parsers, format converters, and validators. Ensure all API calls return expected results and handle errors gracefully. Verify that data processing components correctly transform input data into the desired output format. Additionally, confirm the correctness of the generated output for a variety of given inputs, including edge cases.
+    \item \textbf{Methods:} Write unit tests using Mocha or Jest to ensure each function behaves as expected. Mock the VS Code API to isolate and test individual components without dependencies.
+    \item \textbf{Example:}
+    \begin{lstlisting}
+        import * as assert from 'assert';
+
+        suite('Unit Tests', () => {
+          test('Utility Function Test', () => {
+            const result = myUtilityFunction(2, 3);
+            assert.strictEqual(result, 5);
+          });
+        });
+    \end{lstlisting}
+\end{itemize}
+
+\section{Integration testing:} Ensure proper interaction between extension components and the VS Code environment.
+\begin{itemize}
+    \item \textbf{Focus areas:} Validate commands and features exposed by the extension. Ensure that commands are correctly registered and executed, and that features such as code completion, linting, and formatting work as intended. Test the extension in a simulated VS Code instance to verify its behavior in a real-world scenario.
+    \item \textbf{Methods:} Use the @vscode/test-electron API for integration testing. Write integration tests to simulate user interactions with the extension. For example, test the execution of commands, the response to user inputs, and the interaction with the VS Code UI and then configure launch.json to enable debugging of integration tests.
+    \item \textbf{Example:}
+    \begin{lstlisting}
+        import * as vscode from 'vscode';
+        import * as assert from 'assert';
+
+        suite('Integration Tests', () => {
+            test('Command Registration Test', async () => {
+                const registeredCommands = await vscode.commands.getCommands();
+                assert.ok(registeredCommands.includes('myExtension.helloWorld'));
+            });
+        });
+    \end{lstlisting}
+\end{itemize}
+
+\section{System testing:} Test the extension as a whole to evaluate its usability and performance in real scenarios.
+\begin{itemize}
+    \item \textbf{Focus areas:} Perform tasks end-to-end, like activating commands or editing files. Check interaction with third-party extensions, if applicable.
+    \item \textbf{Methods:} Run tests using both the Stable and Insiders editions of VS Code. Leverage sample projects to replicate typical user workflows, and include system testing tasks in your tasks.json configuration.
+\end{itemize}
+
+\section{Performance testing:} Assess the extension’s speed, resource usage, and responsiveness.
+\begin{itemize}
+    \item \textbf{Focus areas:}
+        \begin{itemize}
+            \item Measure activation time and execution of commands.
+            \item Monitor memory and CPU usage during operations.
+            \item Evaluate response times under different network speeds to simulate various user environments.
+            \item Load test the extension under normal and peak conditions to analyze its behavior.
+            \item Conduct stress tests to identify breaking points when pushed beyond normal workloads during peak times.
+            \item Assess recovery mechanisms and evaluate how the extension handles high load or failure events, ensuring it can recover gracefully.
+        \end{itemize}
+    \item \textbf{Methods:} Use performance monitoring tools and built-in VS Code performance diagnostics. Profile heavy operations using the VS Code Performance Profiler. Simulate different network conditions and user workflows for comprehensive testing.
+\end{itemize}

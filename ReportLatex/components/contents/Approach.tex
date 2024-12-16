@@ -29,7 +29,7 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
     \includegraphics[width=0.7\textwidth]{Images/Approach/fine_tuning_process_diagram.png}
     
     % [Caption for LOF]{Real caption\footnotemark}
-    \caption{Fine-Tuning Process (RAG vs Fine-Tuning: A Comparative Analysis of LLM Learning Techniques\protect\footnotemark ).}
+    \caption{Fine-tuning process (RAG vs Fine-Tuning: A Comparative Analysis of LLM Learning Techniques\protect\footnotemark ).}
     \label{fig:fine_tuning_process}
 \end{figure}
 
@@ -63,7 +63,7 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
         Adaptability & Less adaptable, requiring retraining for new information. & Easily adapts to new data and dynamic environments. \\
         \hline
     \end{tabular}
-    \caption{Comparison of Fine-Tuning and Retrieval-Augmented Generation}
+    \caption{Comparison of fine-tuning and RAG}
 \end{table}
 
 \begin{figure}[H]
@@ -71,13 +71,13 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
     \includegraphics[width=0.7\textwidth]{Images/Approach/The nature of Fine-Tuning and RAG.png}
     
     \vspace{3mm}
-    \caption{The nature of Fine-Tuning and RAG (Fine-tuning vs. RAG: Understanding the Difference\protect\footnotemark ).}
+    \caption{The nature of fine-tuning and RAG (Fine-tuning vs. RAG: Understanding the Difference\protect\footnotemark ).}
 \end{figure}
 
 \footnotetext{\url{https://finetunedb.com/blog/fine-tuning-vs-rag/}}
 
 
-\subsection{Rationale for Choosing RAG}
+\subsection{Rationale for choosing RAG}
 
 \textbf{Minimize hallucinations:} RAG provides real-time access to the latest documentation and programming guidelines, ensuring that code suggestions are current and precise without the need for extensive retraining.
 
@@ -178,10 +178,11 @@ In this architecture, the input is the user's query, and the output is the corre
 The proposed RAG system is designed to address the key issues outlined in the problem statement by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems:
 
 \begin{enumerate}
-  \item Time-Consuming Searches
+  \item \textbf{Time-consuming searches}
 \end{enumerate}
 
 \textbf{Problem}: Developers spend excessive time manually searching through forums like StackOverflow or through vast and scattered Next.js documentation to find specific information.
+\vspace{2mm}
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -192,10 +193,11 @@ The proposed RAG system is designed to address the key issues outlined in the pr
 
 \begin{enumerate}
   \setcounter{enumi}{1}
-  \item Lack of Context-Aware Assistance
+  \item \textbf{Lack of context-aware assistance}
 \end{enumerate}
 
 \textbf{Problem}: Retrieved information often lacks sufficient context, leaving developers to manually piece together fragmented answers.
+\vspace{2mm}
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -205,10 +207,11 @@ The proposed RAG system is designed to address the key issues outlined in the pr
 
 \begin{enumerate}
   \setcounter{enumi}{2}
-  \item Workflow Disruption
+  \item \textbf{Workflow disruption}
 \end{enumerate}
 
 \textbf{Problems}: Switching between the code editor and external documentation disrupts the developer's workflow, reducing productivity.
+\vspace{2mm}
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -218,10 +221,11 @@ The proposed RAG system is designed to address the key issues outlined in the pr
 
 \begin{enumerate}
   \setcounter{enumi}{3}
-  \item Inconsistent Support from Existing Tools
+  \item \textbf{Inconsistent support from existing tools}
 \end{enumerate}
 
 \textbf{Problem}: Traditional tools like keyword-based search engines fail to handle nuanced queries or provide tailored, actionable solutions.
+\vspace{2mm}
 
 \textbf{Solutions}:
 \begin{itemize}
@@ -303,13 +307,13 @@ This example demonstrates a basic server-side data fetch using the `fetch` API i
 Milvus is our chosen vector database for storing embedded data in the system. This decision is based on several compelling reasons:
 
 \begin{itemize}
-    \item \textbf{Open Source:} 
+    \item \textbf{Open source:} 
     Milvus is an open-source database, perfectly aligning with our vision of delivering a free, open-source, distributed code assistance tool for VSCode. Its open nature encourages transparency and community contributions.
 
-    \item \textbf{Support for Structured and Unstructured Data:} 
+    \item \textbf{Support for structured and unstructured data:} 
     The nature of our dataset, comprising both structured metadata (e.g., documentation sections, categories) and unstructured content (e.g., textual descriptions, code snippets), makes Milvus an ideal choice. Structured data benefits from attribute-based filtering, allowing users to narrow their queries to specific documentation sections. Meanwhile, unstructured data, such as free-form text and code snippets, is embedded into high-dimensional vectors for similarity-based retrieval.
 
-    \item \textbf{Comprehensive SDK and Model Support:} 
+    \item \textbf{Comprehensive SDK and model support:} 
     Milvus's SDK seamlessly integrates with our chosen embedding model, BGE-M3, for generating high-quality embeddings. It also supports the HNSW algorithm for efficient indexing of unstructured data. This compatibility with our preferred methods ensures smooth implementation and reliable performance.
 
     \item \textbf{Scalability:} 
@@ -373,7 +377,7 @@ Even the most advanced models, such as GPT-4 \cite{gpt4} or local LLMs like LLaM
 \begin{itemize}
     \item Human-in-the-Loop (HITL) Feedback: Users interacting with the VSCode extension provide explicit feedback on the relevance and accuracy of responses, particularly for sensitive or complex queries. For example, when a user submits a query with a code snippet, they can flag issues such as incorrect logic, incomplete explanations, or unhelpful suggestions. These inputs are used to refine the model's understanding and response generation iteratively.
 
-    \item Reinforcement Learning from Human Feedback (RLHF): RLHF is employed to align the model's outputs with user preferences and ethical guidelines. By introducing a reward system based on user feedback, the model learns to prioritize accuracy, clarity, and helpfulness. This method ensures that the system adapts to the specific needs of the developer community.
+    \item Reinforcement learning from human feedback (RLHF): RLHF is employed to align the model's outputs with user preferences and ethical guidelines. By introducing a reward system based on user feedback, the model learns to prioritize accuracy, clarity, and helpfulness. This method ensures that the system adapts to the specific needs of the developer community.
 \end{itemize}
 
 

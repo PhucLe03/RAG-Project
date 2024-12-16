@@ -11,7 +11,14 @@ Our works began in early September 2024, we choose the problem to tackle with ba
 	We started with the Transformer architecture \cite{vaswani2017} laid the foundation for LLMs, which is basically a decoder only transformer, and then choose Qwen \cite{bai2023qwen} to be our model for generate text and code for the system.
 \end{itemize}
 
-Later with the suggestion of our supervisor, we decide with serve our approach to the problem in a form of a VSCode extension, we research about related tools going through them based their funtionality retrieval mechanisms, code generation capabilities, integration within development process.
+After knowing the foundation we research on how the augmentation can be utilized, first we need to decide which stage we want to augment, we decide to do this in the inference stage as in RALM \cite{ram2023incontext}, in a nutshell this stage is before the prompt going into the LLMs, we will inject the documentation content into the prompt by simply concate the string. The augmentation source is about the data used for augmentation since our data is documentation of the Nextjs framework, which mean it contain both structured (the way that the documentation is organized) and unstructured data, the code, we decide to follow KnowledGPT framework \cite{wang2023knowledgpt} to organize the like a knowlege base but also we support semantic search for unstructured data. About the augmentation process, we use adaptive methods to decide whether we need to get the external information to generate approriate answer for the user using reflection tokens like in SELF-RAG \cite{asai2023selfrag}.
+
+Later with the suggestion of our supervisors, we decide with serve our approach to the problem in a form of a VSCode extension, we research about related tools going through them based their funtionality retrieval mechanisms, code generation capabilities, integration within development process. After spending time comparing them, we decide that our solution will be run entire locally on the user machine, with limited resource and see how it will perform compare with the existed cloudbased and paid solution like Github
+
+After that, begin to finalize our approach and design a high level architecture \ref{RAG-architecture} and then decide to use Milvus \cite{wang2021milvus} as our database, because of its open source nature and comprehensive SDK.
+
+We then do initial implementation for our system, began with data preparation, identify the source, we get the data from the Nextjs framework official github repo, and implement code to preprocess the markdown data, embed and add to the database. Finally a demonstration script that can take a string and return relevant document in the database, this do not include the prompt engineering and advanced retrieval mechanism.
+
 
 
 % \begin{figure}[H]
