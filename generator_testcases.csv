@@ -1,0 +1,1400 @@
+context	question	result
+"
+## Creating a page
+
+A **page** is UI that is rendered on a specific route. To create a page, add a [`page` file](/docs/app/api-reference/file-conventions/page) inside the `app` directory and default export a React component. For example, to create an index page (`/`):
+
+<Image
+  alt=""page.js special file""
+  srcLight=""/docs/light/page-special-file.png""
+  srcDark=""/docs/dark/page-special-file.png""
+  width=""1600""
+  height=""282""
+  />
+
+```tsx filename=""app/page.tsx"" switcher
+export default function Page() {
+  return <h1>Hello Next.js!</h1>
+}
+```
+
+```jsx filename=""app/page.js"" switcher
+export default function Page() {
+  return <h1>Hello Next.js!</h1>
+}
+```
+"	How to create a Next.js page?	"To create a Next.js page, you can follow these steps:
+
+1. Create a new directory for your Next.js page, e.g., `my-next-js-page`.
+
+2. Inside the newly created directory, navigate to the `pages` folder in the `app` directory, e.g., `/app/pages`.
+
+3. Create a new file called `index.js` inside the `pages` folder, e.g., `/app/pages/index.js`.
+
+4. In the `index.js` file, import Next.js and the necessary dependencies (e.g., `@babel/runtime` for ES6 support), then create a basic page structure with a `h1` element, a `p` element, and an empty `div` element, enclosed within an opening `div` element with a class of ""root"", as follows:
+
+```javascript
+import React from 'react';
+import { Container } from 'omg';
+import { createHash } from 'bcryptjs';
+
+// Step 1: Define the Next.js page structure
+const PageStructure = () => {
+  return (
+    <Container className=""root"">
+      <h1>Page Structure</h1>
+      <p>A basic React page structure with a `h1` element, a `p` element, and an empty `div` element, enclosed within an opening `div` element with a class of ""root"", as follows:</p>
+    </Container className=""root"">
+  );
+};
+
+// Step 2: Create the Next.js page
+export default function App({ Component }) {
+  return (
+    <PageStructure />
+  );
+}
+
+// Step 3: Set up bcryptjs for secure password hashing
+const hashSecret = createHash('sha256', 'randomstring' ));
+
+// Step 4: Call the `App` component and pass a `pageProps` object containing the Next.js page structure props, as follows:
+```
+{ Component }
+```"
+"
+## Creating a layout
+
+A layout is UI that is **shared** between multiple pages. On navigation, layouts preserve state, remain interactive, and do not rerender.
+
+You can define a layout by default exporting a React component from a [`layout` file](/docs/app/api-reference/file-conventions/layout). The component should accept a `children` prop which can be a page or another [layout](#nesting-layouts).
+
+For example, to create a layout that accepts your index page as child, add a `layout` file inside the `app` directory:
+
+<Image
+  alt=""layout.js special file""
+  srcLight=""/docs/light/layout-special-file.png""
+  srcDark=""/docs/dark/layout-special-file.png""
+  width=""1600""
+  height=""363""
+/>
+
+```tsx filename=""app/layout.tsx"" switcher
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang=""en"">
+      <body>
+        {/* Layout UI */}
+        {/* Place children where you want to render a page or nested layout */}
+        <main>{children}</main>
+      </body>
+    </html>
+  )
+}
+```
+
+```jsx filename=""app/layout.js"" switcher
+export default function DashboardLayout({ children }) {
+  return (
+    <html lang=""en"">
+      <body>
+        {/* Layout UI */}
+        {/* Place children where you want to render a page or nested layout */}
+        <main>{children}</main>
+      </body>
+    </html>
+  )
+}
+```
+
+The layout above is called a [root layout](/docs/app/api-reference/file-conventions/layout#root-layouts) because it's defined at the root of the `app` directory. The root layout is **required** and must contain `html` and `body` tags.
+"	How to create a Next.js layout?	"Creating a Next.js layout involves several steps, outlined below:
+
+1. **Install dependencies**: First, you need to install the required tools for creating Next.js layouts.
+
+```bash
+npm install @zeit/next/dist-cli --save-dev
+```
+
+2. **Create a new directory**: Next, create a new `next` theme directory within your project root directory (`src`) using the following command:
+
+```bash
+mkdir -p src/next
+cd src/next
+yarn init next@zeit/next --template=next.js
+```
+
+This command will create a new `next` theme directory in the `src/next` directory, and then initialize it with Next.js. This will create an empty Next.js project with the current directory as its root.
+
+3. **Create pages**: Once you have created the new theme directory, you can start creating pages within your Next.js application using HTML templates.
+
+Here's a basic example of how to create a Next.js page called `index.html` and then use it in an empty Next.js project:
+
+1. **Create a new directory**: Open your terminal or command prompt window and navigate into the `src` directory by running the following command:
+```bash
+cd src/
+```
+
+This command will change the current working directory (CD) to the `src` directory.
+
+2. **Create an empty Next.js project**: Navigate back to your terminal or command prompt window, and then type ""npx create-next-app my-app"" in your terminal or command prompt window.
+
+This command will use Node.js to run the `create-next-app` command, which generates a new `Next.js` project based on the given template.
+
+The `create-next-app` command will generate an empty `Next.js` project with a single page called `index.html`. This file will serve as your primary Next.js page in your application.
+
+3. **Test the pages**: Once you have created your empty `Next.js` project, you can test the pages by navigating to them within the `src` directory using the following command:
+```bash
+cd src/
+```
+
+This command will navigate back to the `src` directory of your `Next.js` project.
+
+After navigating to the `index.html` page within the `src` directory of your `Next.js` project, you should be able to view and test the content of the `index.html` page within the `src` directory of your `Next.js` project.
+
+Note: The `create-next-app` command will generate an empty `Next.js` project with a single page called `index.html`. This file will serve as your primary Next.js page in your application."
+"
+## Handling static assets
+
+You can store static files, like images and fonts, under a folder called `public` in the root directory. Files inside `public` can then be referenced by your code starting from the base URL (`/`).
+
+<Image
+  alt=""Folder structure showing app and public folders""
+  srcLight=""/docs/light/public-folder.png""
+  srcDark=""/docs/dark/public-folder.png""
+  width=""1600""
+  height=""282""
+/>
+
+## Optmizing images
+
+The Next.js [`<Image>`](/docs/app/building-your-application/optimizing/images) component extends the HTML `<img>` element to provide:
+
+- **Size optimization:** Automatically serving correctly sized images for each device, using modern image formats like WebP and AVIF.
+- **Visual stability:** Preventing [layout shift](https://web.dev/articles/cls) automatically when images are loading.
+- **Faster page loads:** Only loading images when they enter the viewport using native browser lazy loading, with optional blur-up placeholders.
+- **Asset flexibility:** Resizing images on-demand, even images stored on remote servers.
+
+To start using `<Image>`, import it from `next/image` and render it within your component.
+
+```tsx filename=""app/page.tsx"" switcher
+import Image from 'next/image'
+
+export default function Page() {
+  return <Image src="""" alt="""" />
+}
+```
+
+```jsx filename=""app/page.js"" switcher
+import Image from 'next/image'
+
+export default function Page() {
+  return <Image src="""" alt="""" />
+}
+```
+
+The `src` property can be a [local](#local-images) or [remote](#remote-images) image.
+
+### Local images
+
+To use a local image, `import` your `.jpg`, `.png`, or `.webp` image files from your [`public` folder](#handling-static-assets).
+
+```tsx filename=""app/page.tsx"" switcher
+import Image from 'next/image'
+import profilePic from './me.png'
+
+export default function Page() {
+  return (
+    <Image
+      src={profilePic}
+      alt=""Picture of the author""
+      // width={500} automatically provided
+      // height={500} automatically provided
+      // blurDataURL=""data:..."" automatically provided
+      // placeholder=""blur"" // Optional blur-up while loading
+    />
+  )
+}
+```
+
+```jsx filename=""app/page.js"" switcher
+import Image from 'next/image'
+import profilePic from './me.png'
+
+export default function Page() {
+  return (
+    <Image
+      src={profilePic}
+      alt=""Picture of the author""
+      // width={500} automatically provided
+      // height={500} automatically provided
+      // blurDataURL=""data:..."" automatically provided
+      // placeholder=""blur"" // Optional blur-up while loading
+    />
+  )
+}
+```
+
+Next.js will automatically determine the intrinsic [`width`](/docs/app/api-reference/components/image#width) and [`height`](/docs/app/api-reference/components/image#height) of your image based on the imported file. These values are used to determine the image ratio and prevent [Cumulative Layout Shift](https://web.dev/articles/cls) while your image is loading.
+
+### Remote images
+
+To use a remote image, you can provide a URL string for the `src` property.
+
+```tsx filename=""app/page.ts"" switcher
+import Image from 'next/image'
+
+export default function Page() {
+  return (
+    <Image
+      src=""https://s3.amazonaws.com/my-bucket/profile.png""
+      alt=""Picture of the author""
+      width={500}
+      height={500}
+    />
+  )
+}
+```
+
+```jsx filename=""app/page.js"" switcher
+import Image from 'next/image'
+
+export default function Page() {
+  return (
+    <Image
+      src=""https://s3.amazonaws.com/my-bucket/profile.png""
+      alt=""Picture of the author""
+      width={500}
+      height={500}
+    />
+  )
+}
+```
+
+Since Next.js does not have access to remote files during the build process, you'll need to provide the [`width`](/docs/app/api-reference/components/image#width), [`height`](/docs/app/api-reference/components/image#height) and optional [`blurDataURL`](/docs/app/api-reference/components/image#blurdataurl) props manually. The `width` and `height` attributes are used to infer the correct aspect ratio of image and avoid layout shift from the image loading in.
+
+Then, to safely allow images from remote servers, you need to define a list of supported URL patterns in [`next.config.js`](/docs/app/api-reference/config/next-config-js). Be as specific as possible to prevent malicious usage. For example, the following configuration will only allow images from a specific AWS S3 bucket:
+
+```ts filename=""next.config.ts"" switcher
+import { NextConfig } from 'next'
+
+const config: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.com',
+        port: '',
+        pathname: '/my-bucket/**',
+        search: '',
+      },
+    ],
+  },
+}
+
+export default config
+```
+
+```js filename=""next.config.js"" switcher
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.com',
+        port: '',
+        pathname: '/my-bucket/**',
+        search: '',
+      },
+    ],
+  },
+}
+```
+"	How to use <Image> in Next.js?	"To use an `<Image>` element in Next.js, you need to follow these steps:
+
+1. Install Next.js and the required dependencies, such as `<next/lesscss></next/lesscss>` for the `<Image>` element.
+
+2. Create a new file called `styles.css` inside your Next.js project directory (e.g., `./src` or `your-nextjs-app directory`) and add the following code to customize your Next.js theme:
+```javascript
+// Custom styles for images
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* Additional styles */
+```
+
+Note that you need to import the `<Image>` element from the `components` directory (e.g., `./src/components`) in your `styles.css` file, before using it in your Next.js application.
+You can also create an `@import` rule in your `styles.css` file to reference the imported `<Image>` element. Here's an example of an `@import` rule in a `styles.css` file:
+```css
+@import url('https://nextjs.org/docs/custom-assets/images/image.png?Expires=2023-11-19T17:58Z&OSSAccessKeyId=b6g3f6xkzjgnf&Signature=default') format('image/png');
+```
+
+This `@import` rule references an image file from the Next.js custom assets directory, using the provided values such as the `Expires` field with a date in 2023-11-19T17:58Z, and the `OSSAccessKeyId` field with b6g3f6xkzjgnf. The `Signature` field is set to the value of `'default'``.
+Note that you need to include this `@import` rule in your CSS file for it to work correctly.
+You can also create an `@media query` rule in your CSS file for it to work correctly. Here's an example of an `@media query` rule in a CSS file:
+```css
+@media (max-width: 768px)) {
+  /* Use max-width: 768px media query to conditionally display elements based on the device screen size */
+}
+```
+
+This `@media query` rule uses the `max-width` attribute with a value of 768px, which means that the media query will only apply to screens with a width of 768px. The media query itself consists of an opening curly brace `{` followed by a `@media` keyword and a closing curly brace `}`.
+Note that you need to include this `@media query` rule in your CSS file for it to work correctly.
+You can also create an `@include` rule in your CSS file for it to work correctly. Here's an example of an `@include` rule in a CSS file:
+```css
+/* Use @include comment to conditionally include an external stylesheet */
+@include styles.css;
+```
+
+This `@include` rule uses the `@include comment` keyword, which is used to specify whether a given comment should be included or excluded from the compiled CSS.
+Note that you need to include this `@include` rule in your CSS file for it to work correctly.
+You can also create an `@keyframes` rule in your CSS file for it to work correctly. Here's an example of an `@keyframes` rule in a CSS file:
+```css
+/* Use @keyframes rule comment to conditionally apply a different keyframe animation function when applied to an element with the 'animated' class attribute value set to true */
+@keyframes bounce {
+  0% { top: 0 } }
+```
+
+This `@keyframes` rule uses the `@keyframes` keyword, which is used to specify whether a given keyframe animation function should be applied to an element with the `animated` class attribute value set to true.
+Note that you need to include this `@keyframes` rule in your CSS file for it to work correctly."
+"
+## Optimizing fonts
+
+The [`next/font`](/docs/app/api-reference/components/font) module automatically optimizes your fonts and removes external network requests for improved privacy and performance.
+
+It includes **built-in automatic self-hosting** for _any_ font file. This means you can optimally load web fonts with no layout shift.
+
+To start using `next/font`, import it from [`next/font/local`](#local-fonts) or [`next/font/google`](#google-fonts), call it as a function with the appropriate options, and set the `className` of the element you want to apply the font to. For example:
+
+```tsx filename=""app/layout.tsx"" highlight={1,3-5,9} switcher
+import { Geist } from 'next/font/google'
+
+const geist = Geist({
+  subsets: ['latin'],
+})
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang=""en"" className={geist.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+```jsx filename=""app/layout.js"" highlight={1,3-5,9} switcher
+import { Geist } from 'next/font/google'
+
+const geist = Geist({
+  subsets: ['latin'],
+})
+
+export default function Layout({ children }) {
+  return (
+    <html className={geist.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### Google fonts
+
+You can automatically self-host any Google Font. Fonts are included in the deployment and served from the same domain as your deployment, meaning no requests are sent to Google by the browser when the user visits your site.
+
+To start using a Google Font, import your chosen font from `next/font/google`:
+
+```tsx filename=""app/layout.tsx"" switcher
+import { Geist } from 'next/font/google'
+
+const geist = Geist({
+  subsets: ['latin'],
+})
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang=""en"" className={geist.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+```jsx filename=""app/layout.js"" switcher
+import { Geist } from 'next/font/google'
+
+const geist = Geist({
+  subsets: ['latin'],
+})
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang=""en"" className={geist.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+We recommend using [variable fonts](https://fonts.google.com/variablefonts) for the best performance and flexibility. But if you can't use a variable font, you will **need to specify a weight**:
+
+```tsx filename=""app/layout.tsx"" switcher
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+})
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang=""en"" className={roboto.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+```jsx filename=""app/layout.js"" highlight={1,3-5,9} switcher
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+})
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang=""en"" className={roboto.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### Local fonts
+
+To use a local font, import your font from `next/font/local` and specify the `src` of your local font file in the [`public` folder](#handling-static-assets).
+
+```tsx filename=""app/layout.tsx"" switcher
+import localFont from 'next/font/local'
+
+const myFont = localFont({
+  src: './my-font.woff2',
+})
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang=""en"" className={myFont.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+```jsx filename=""app/layout.js"" switcher
+import localFont from 'next/font/local'
+
+const myFont = localFont({
+  src: './my-font.woff2',
+})
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang=""en"" className={myFont.className}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+If you want to use multiple files for a single font family, `src` can be an array:
+
+```js
+const roboto = localFont({
+  src: [
+    {
+      path: './Roboto-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './Roboto-Italic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './Roboto-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: './Roboto-BoldItalic.woff2',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+})
+```
+"	How to use fonts in NextJS?	"To use fonts in Next.js, you need to follow these steps:
+
+1. Install necessary packages for font usage. In Node.js, you can install the `font` package by running:
+```
+npm install font
+```
+
+If you're using React and want to use a local font server like Google Fonts, you'll need to install the `@googlefonts/webfontloader` package. Here's how to install it in your Next.js project:
+
+```javascript
+npm install @googlefonts/webfontloader --save-dev
+```
+
+Once you have installed the `@googlefonts/webfontloader` package, you can use fonts from Google Fonts in your Next.js application. You can do this by setting up a custom font server on your local machine that can serve fonts from Google Fonts.
+Here's an example of how to set up a custom font server on your local machine that can serve fonts from Google Fonts:
+```bash
+# Step 1: Install Node.js and npm (Node Package Manager)
+npm install nodejs npm
+
+# Step 2: Create a new directory for your custom font server
+mkdir -p custom-font-server
+
+# Step 3: Download the Google Fonts webfont loader file into your custom font server directory
+wget https://raw.githubusercontent.com/tuomas/webfontloader/master/webfontloader-loader.js --no-check-certificate
+
+# Step 4: Copy the Google Fonts webfont loader file from your custom font server directory to a local fonts directory on your machine
+cp `custom-font-server/webfontloader-loader.js` /usr/local/share/webfonts/
+
+# Step 5: Set up a `fontconfig` configuration to configure your custom font server. You can do this by creating a new `fontconfig` configuration file in your custom font server directory, and then setting the `fontconfig-servers` option value to your custom font server directory path.
+```
+cat /usr/local/share/webfonts/your/custom-font-server.conf | sudo tee -a /etc/fontconfig/servers
+[custom-font-server.conf]
+fontconfig-servers = /path/to/custom-font-server
+
+# Step 6: Restart the `fontconfig` daemon to apply any changes made in the previous step.
+sudo systemctl restart fontconfig
+```"
+"
+## Index routes
+
+The router will automatically route files named `index` to the root of the directory.
+
+- `pages/index.js` → `/`
+- `pages/blog/index.js` → `/blog`
+
+## Nested routes
+
+The router supports nested files. If you create a nested folder structure, files will automatically be routed in the same way still.
+
+- `pages/blog/first-post.js` → `/blog/first-post`
+- `pages/dashboard/settings/username.js` → `/dashboard/settings/username`
+
+## Pages with Dynamic Routes
+
+Next.js supports pages with dynamic routes. For example, if you create a file called `pages/posts/[id].js`, then it will be accessible at `posts/1`, `posts/2`, etc.
+
+> To learn more about dynamic routing, check the [Dynamic Routing documentation](/docs/pages/building-your-application/routing/dynamic-routes).
+"	How to setup routes in NextJS?	"To set up routes in Next.js, you need to follow these steps:
+
+1. Install `@next/router` package:
+   ```bash
+   npm install @next/router
+   ```
+
+2. Create a `pages/_app/index.js` file in your Next.js project directory (e.g., `/my-app` or `/public/my-app`). This file serves as the entry point for your Next.js application, and it defines how files in your nested folder structure should be accessed.
+
+3. In the `pages/_app/index.js` file, import the `@next/router` package and use its methods to set up routes.
+
+Here's an example implementation of setting up routes in Next.js:
+
+```javascript
+import { useRouter } } from '@next/router';
+
+const router = useRouter();
+
+export function App() {
+  const routePath = '/blog/[id].js';
+  const routeName = 'posts';
+  const routeObject = () => ({
+    id: parseInt(routePath.split('/')[1]])),
+    path: routePath,
+    name: routeName
+  });
+  
+  return (
+    <div>
+      <h1>{routeObject()}</h1>
+      {/* Routes */}
+      <ul>
+        {/* Post Route */}
+        <li><a href={`/posts/[id].js`}>{routeObject()[0]]}</a></li>
+        {/* Blog Route */}
+        <li><a href={`/blog/[id].js`}>{routeObject()[2]]}</a></li>
+      </ul>
+    </div>
+  );
+}
+```
+
+This implementation defines three routes in your `App.js` file. These routes are hierarchical, with each route representing a nested folder structure.
+
+Here's an example of how you might access one of the routes defined above:
+
+```javascript
+import { useRouter } } from '@next/router';
+
+const router = useRouter();
+
+// Access the first post route object (i.e., `/posts/1.js`))
+const firstPostRouteObject = router.route('posts', [1]]).value;
+
+// Example usage:
+console.log(`Accessing first post route object: ${firstPostRouteObject}`));
+```
+
+This example demonstrates how you can access one of the routes defined above using the `useRouter()` hook provided by Next.js. The `useRouter()` hook returns an instance of `Router`, which you can use to access one of the routes defined above."
+"
+When you don't know the exact segment names ahead of time and want to create routes from dynamic data, you can use Dynamic Segments that are filled in at request time or [prerendered](/docs/pages/building-your-application/data-fetching/get-static-paths) at build time.
+
+## Convention
+
+A Dynamic Segment can be created by wrapping a file or folder name in square brackets: `[segmentName]`. For example, `[id]` or `[slug]`.
+
+Dynamic Segments can be accessed from [`useRouter`](/docs/pages/api-reference/functions/use-router).
+
+## Example
+
+For example, a blog could include the following route `pages/blog/[slug].js` where `[slug]` is the Dynamic Segment for blog posts.
+
+```jsx
+import { useRouter } from 'next/router'
+
+export default function Page() {
+  const router = useRouter()
+  return <p>Post: {router.query.slug}</p>
+}
+```
+
+| Route                  | Example URL | `params`        |
+| ---------------------- | ----------- | --------------- |
+| `pages/blog/[slug].js` | `/blog/a`   | `{ slug: 'a' }` |
+| `pages/blog/[slug].js` | `/blog/b`   | `{ slug: 'b' }` |
+| `pages/blog/[slug].js` | `/blog/c`   | `{ slug: 'c' }` |
+
+## Catch-all Segments
+
+Dynamic Segments can be extended to **catch-all** subsequent segments by adding an ellipsis inside the brackets `[...segmentName]`.
+
+For example, `pages/shop/[...slug].js` will match `/shop/clothes`, but also `/shop/clothes/tops`, `/shop/clothes/tops/t-shirts`, and so on.
+
+| Route                     | Example URL   | `params`                    |
+| ------------------------- | ------------- | --------------------------- |
+| `pages/shop/[...slug].js` | `/shop/a`     | `{ slug: ['a'] }`           |
+| `pages/shop/[...slug].js` | `/shop/a/b`   | `{ slug: ['a', 'b'] }`      |
+| `pages/shop/[...slug].js` | `/shop/a/b/c` | `{ slug: ['a', 'b', 'c'] }` |
+
+## Optional Catch-all Segments
+
+Catch-all Segments can be made **optional** by including the parameter in double square brackets: `[[...segmentName]]`.
+
+For example, `pages/shop/[[...slug]].js` will **also** match `/shop`, in addition to `/shop/clothes`, `/shop/clothes/tops`, `/shop/clothes/tops/t-shirts`.
+
+The difference between **catch-all** and **optional catch-all** segments is that with optional, the route without the parameter is also matched (`/shop` in the example above).
+
+| Route                       | Example URL   | `params`                    |
+| --------------------------- | ------------- | --------------------------- |
+| `pages/shop/[[...slug]].js` | `/shop`       | `{ slug: undefined }`       |
+| `pages/shop/[[...slug]].js` | `/shop/a`     | `{ slug: ['a'] }`           |
+| `pages/shop/[[...slug]].js` | `/shop/a/b`   | `{ slug: ['a', 'b'] }`      |
+| `pages/shop/[[...slug]].js` | `/shop/a/b/c` | `{ slug: ['a', 'b', 'c'] }` |
+"	How to setup dynamic routes in NextJS?	"In NextJS, you can create dynamic routes by using the `match()` method of the `Router` component. Here are the steps to set up dynamic routes in NextJS:
+
+1. Create a new file called `pages/[slug].js` and add the following code:
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+    <ul>
+      <li>Home: /home</li>
+      <li>About Us: /about-us</li>
+      <li>Contact Us: /contact-us</li>
+      <li>Blog: /blog/[[slug]]]</li>
+    </ul>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+    <ul>
+      <li>Home: /home</li>
+      <li>About Us: /about-us</li>
+      <li>Contact Us: /contact-us</li>
+      <li>Blog: /blog/[[slug]]]]</li>
+    </ul>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+    <ul>
+      <li>Home: /home</li>
+      <li>About Us: /about-us</li>
+      <li>Contact Us: /contact-us</li>
+      <li>Blog: /blog/[[slug]]]]</li>
+    </ul>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+    <ul>
+      <li>Home: /home</li>
+      <li>About Us: /about-us</li>
+      <li>Contact Us: /contact-us</li>
+      <li>Blog: /blog/[[slug]]]]</li>
+    </ul>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+    <ul>
+      <li>Home: /home</li>
+      <li>About Us: /about-us</li>
+      <li>Contact Us: /contact-us</li>
+      <li>Blog: /blog/[[slug]]]]</li>
+    </ul>
+  );
+}
+
+// Render the Dynamic Route component
+export default DynamicRoute;
+```
+
+In this example, we have created a new file called `pages/[slug].js` and added the following code:
+
+```javascript
+import { useRouter } } from 'next/router';
+
+function DynamicRoute({ router }) {
+  return (
+    <p>Dynamic Route: {router.query[0]}} </p>
+    <ul>
+      <li>Home: /home</li>
+      <li>About Us: /about-us</li>
+      <li>Contact Us: /contact-us</li>
+      <li>Blog: /blog/[[slug]]]]</li>
+    </ul>
+  );
+}
+
+// Render the Dynamic Route component"
+"
+Fast refresh is a React feature integrated into Next.js that allows you live reload the browser page while maintaining temporary client-side state when you save changes to a file. It's enabled by default in all Next.js applications on **9.4 or newer**. With Fast Refresh enabled, most edits should be visible within a second.
+
+## How It Works
+
+- If you edit a file that **only exports React component(s)**, Fast Refresh will
+  update the code only for that file, and re-render your component. You can edit
+  anything in that file, including styles, rendering logic, event handlers, or
+  effects.
+- If you edit a file with exports that _aren't_ React components, Fast Refresh
+  will re-run both that file, and the other files importing it. So if both
+  `Button.js` and `Modal.js` import `theme.js`, editing `theme.js` will update
+  both components.
+- Finally, if you **edit a file** that's **imported by files outside of the
+  React tree**, Fast Refresh **will fall back to doing a full reload**. You
+  might have a file which renders a React component but also exports a value
+  that is imported by a **non-React component**. For example, maybe your
+  component also exports a constant, and a non-React utility file imports it. In
+  that case, consider migrating the constant to a separate file and importing it
+  into both files. This will re-enable Fast Refresh to work. Other cases can
+  usually be solved in a similar way.
+
+## Error Resilience
+
+### Syntax Errors
+
+If you make a syntax error during development, you can fix it and save the file
+again. The error will disappear automatically, so you won't need to reload the
+app. **You will not lose component state**.
+
+### Runtime Errors
+
+If you make a mistake that leads to a runtime error inside your component,
+you'll be greeted with a contextual overlay. Fixing the error will automatically
+dismiss the overlay, without reloading the app.
+
+Component state will be retained if the error did not occur during rendering. If
+the error did occur during rendering, React will remount your application using
+the updated code.
+
+If you have [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
+in your app (which is a good idea for graceful failures in production), they
+will retry rendering on the next edit after a rendering error. This means having
+an error boundary can prevent you from always getting reset to the root app
+state. However, keep in mind that error boundaries shouldn't be _too_ granular.
+They are used by React in production, and should always be designed
+intentionally.
+
+## Limitations
+
+Fast Refresh tries to preserve local React state in the component you're
+editing, but only if it's safe to do so. Here's a few reasons why you might see
+local state being reset on every edit to a file:
+
+- Local state is not preserved for class components (only function components
+  and Hooks preserve state).
+- The file you're editing might have _other_ exports in addition to a React
+  component.
+- Sometimes, a file would export the result of calling a higher-order component
+  like `HOC(WrappedComponent)`. If the returned component is a
+  class, its state will be reset.
+- Anonymous arrow functions like `export default () => <div />;` cause Fast Refresh to not preserve local component state. For large codebases you can use our [`name-default-component` codemod](/docs/pages/building-your-application/upgrading/codemods#name-default-component).
+
+As more of your codebase moves to function components and Hooks, you can expect
+state to be preserved in more cases.
+
+## Tips
+
+- Fast Refresh preserves React local state in function components (and Hooks) by
+  default.
+- Sometimes you might want to _force_ the state to be reset, and a component to
+  be remounted. For example, this can be handy if you're tweaking an animation
+  that only happens on mount. To do this, you can add `// @refresh reset`
+  anywhere in the file you're editing. This directive is local to the file, and
+  instructs Fast Refresh to remount components defined in that file on every
+  edit.
+- You can put `console.log` or `debugger;` into the components you edit during
+  development.
+- Remember that imports are case sensitive. Both fast and full refresh can fail,
+  when your import doesn't match the actual filename.
+  For example, `'./header'` vs `'./Header'`.
+
+## Fast Refresh and Hooks
+
+When possible, Fast Refresh attempts to preserve the state of your component
+between edits. In particular, `useState` and `useRef` preserve their previous
+values as long as you don't change their arguments or the order of the Hook
+calls.
+
+Hooks with dependencies—such as `useEffect`, `useMemo`, and `useCallback`—will
+_always_ update during Fast Refresh. Their list of dependencies will be ignored
+while Fast Refresh is happening.
+
+For example, when you edit `useMemo(() => x * 2, [x])` to
+`useMemo(() => x * 10, [x])`, it will re-run even though `x` (the dependency)
+has not changed. If React didn't do that, your edit wouldn't reflect on the
+screen!
+
+Sometimes, this can lead to unexpected results. For example, even a `useEffect`
+with an empty array of dependencies would still re-run once during Fast Refresh.
+
+However, writing code resilient to occasional re-running of `useEffect` is a good practice even
+without Fast Refresh. It will make it easier for you to introduce new dependencies to it later on
+and it's enforced by [React Strict Mode](/docs/pages/api-reference/config/next-config-js/reactStrictMode),
+which we highly recommend enabling.
+"	What is Fast Refresh in NextJS?	"Fast refresh (FC) in Next.js refers to the mechanism used by React components to persist changes made to those components between renders.
+
+The basic idea behind FC is that it uses a caching mechanism that allows the component state to be stored locally within the component's instance. This means that if a component state needs to be persisted across subsequent renders, it can simply use the cached component state to avoid re-rendering the component and losing its updated state.
+
+Fast refresh mechanism in Next.js can be achieved by several approaches:
+
+1. **Use hooks with caching mechanisms**:
+   In this approach, React uses hooks with caching mechanisms, such as `useEffect` and `useState`.
+     ```javascript
+     import { useState, useEffect } from 'react';
+     // Define state for component
+     const componentState = useState(() => {/* Do something here */}));
+
+```
+This approach involves using hooks with caching mechanisms, such as `useEffect` and `useState`. These hooks allow React to persist changes made to a component instance between renders. This means that if a component state needs to be persisted across subsequent renders, it can simply use the cached component state to avoid re-rendering the component and losing its updated state.
+
+Fast refresh mechanism in Next.js can be achieved by several approaches:
+
+1. **Use `useRef` hook with caching mechanism**:
+   In this approach, React uses the `useRef` hook with caching mechanism, such as `useRef`s. These hooks allow React to persist changes made to a component instance between renders.
+     ```javascript
+     import { useRef } from 'react';
+     // Define state for component
+     const componentState = useRef(() => {/* Do something here */})));
+
+```
+This approach involves using the `useRef` hook with caching mechanism, such as `useRef`s. These hooks allow React to persist changes made to a component instance between renders.
+     ```javascript
+     import { useRef } from 'react';
+     // Define state for component
+     const componentState = useRef(() => {/* Do something here */})));
+
+```
+This approach involves using the `useRef` hook with caching mechanism, such as `useRef`s. These hooks allow React to persist changes made to a component instance between renders.
+     ```javascript
+     import { useRef } from 'react';
+     // Define state for component
+     const componentState = useRef(() => {/* Do something here */})));
+
+```
+This approach involves using the `useRef` hook with caching mechanism, such as `useRef`s. These hooks allow React to persist changes made to a component instance between renders.
+     ```javascript
+     import { useRef } from 'react';
+     // Define state for component
+     const componentState = useRef(() => {/* Do something here */}));  // create an ref with the value of component state."
+"
+---
+title: 404.js Cannot Have getInitialProps
+description: This document provides an understanding of the ""404.js Cannot Have getInitialProps"" error in Next.js and offers solutions to fix it.
+---
+
+## Why This Error Occurred
+
+The ""404.js Cannot Have `getInitialProps`"" error usually occurs when either `getInitialProps` or `getServerSideProps` is used in your `404.js` page. The `404.js` page in Next.js is designed to be static to ensure consistent performance.
+
+## Possible Ways to Fix It
+
+Adding `getInitialProps` or `getServerSideProps` to your `404.js` page will cause it to be rendered on the server-side.
+
+To fix this error, you should remove `getInitialProps` from your `404.js` page. Additionally, ensure that no Higher-Order Components (HOCs) used in the `404.js` page are attaching `getInitialProps`.
+
+If your `404.js` page requires data fetching, we recommend incrementally adopting the App Router and the [`not-found`](/docs/app/api-reference/file-conventions/not-found) file, which does support fetching data before displaying the 404 page.
+
+## Useful Links
+
+- [Automatic Static Optimization](/docs/pages/building-your-application/rendering/automatic-static-optimization) - Learn more about how Next.js automatically optimizes your pages for better performance.
+- [`not-found`](/docs/app/api-reference/file-conventions/not-found)
+"	Why do I get 404 NextJS error?	"The ""404 NextJS error"" occurs when you try to access a Next.js page that does not exist in the client-side application (SPA). This can happen if you are trying to access a page that is defined using the `getInitialProps` function or the `server-render` method provided by Next.js.
+
+The `getInitialProps` function of Next.js generates an object containing information about your app, such as the title, description, and API key. When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page.
+This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar. The maximum length for this property is limited to 2048 bytes (16KB).
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an object containing information about your app, such as the title, description, and API key.
+
+When you try to access a Next.js page that does not exist in the client-side application, the `getInitialProps` function is called to generate an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js.
+This `api-key` property will typically be used in conjunction with the `getInitialProps` function of Next.js, which generates an initial object for the page. This generated object typically includes the following properties:
+
+  * `title`: This property contains the name of your page, which will be displayed in the browser's title bar.
+
+  * `description`: This property contains a brief description of your page, which will be displayed in the browser's address bar.
+
+  * `api-key`: This property contains an API key assigned to your page by Next.js. The exact format for this property may vary depending on the specific implementation of Next.js."
+"
+---
+title: No Document Import in Page
+---
+
+> Prevent importing `next/document` outside of `pages/_document.js`.
+
+## Why This Error Occurred
+
+`next/document` was imported in a page outside of `pages/_document.js` (or `pages/_document.tsx` if you are using TypeScript). This can cause unexpected issues in your application.
+
+## Possible Ways to Fix It
+
+Only import and use `next/document` within `pages/_document.js` (or `pages/_document.tsx`) to override the default `Document` component:
+
+```jsx filename=""pages/_document.js""
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+
+class MyDocument extends Document {
+  //...
+}
+
+export default MyDocument
+```
+
+## Useful Links
+
+- [Custom Document](/docs/pages/building-your-application/routing/custom-document)
+"	Why do I get No Document Import in Page?	"The `No Document Import in Page` error occurs when you try to import a custom document from a page other than `_document.jsx`. This can happen if the custom document imports an element that is not defined in your current page.
+
+Here are the steps you can follow to fix the `No Document Import in Page` error:
+
+1. Check that the custom document is imported correctly in the custom document file.
+2. Verify that the custom document does not import elements that are not defined in your current page.
+3. If the custom document imports elements that are not defined in your current page, you will need to modify the custom document so that it imports only elements that are defined in your current page.
+
+Here is an example of a modified custom document file that imports only elements that are defined in your current page:
+
+```jsx filename=""pages/_document.jsx"" importElement=""custom-element"" exportDefaultElement=""custom-element"">
+  <head>
+    <!-- Head content goes here -->
+    
+  </head>
+  
+  <body>
+    <!-- Body content goes here -->
+    
+  </body>
+</template>
+```
+
+In this example, the modified `custom-element` imported in the custom document file is used instead of the default `Document` component.
+
+By modifying the custom document file to import only elements that are defined in your current page, you can avoid importing elements that may cause unexpected issues in your application."
+"
+---
+title: No Sync Scripts
+---
+
+> Prevent synchronous scripts.
+
+## Why This Error Occurred
+
+A synchronous script was used which can impact your webpage performance.
+
+## Possible Ways to Fix It
+
+### Script component (recommended)
+
+```jsx filename=""pages/index.js""
+import Script from 'next/script'
+
+function Home() {
+  return (
+    <div class=""container"">
+      <Script src=""https://third-party-script.js""></Script>
+      <div>Home Page</div>
+    </div>
+  )
+}
+
+export default Home
+```
+
+### Use `async` or `defer`
+
+```html
+<script src=""https://third-party-script.js"" async />
+<script src=""https://third-party-script.js"" defer />
+```
+
+## Useful Links
+
+- [Efficiently load third-party JavaScript](https://web.dev/efficiently-load-third-party-javascript/)
+
+"	Why do I get No Sync Scripts?	"No sync scripts error occurs when you try to use synchronous code on a Next.js application.
+
+Synchronous code involves blocking the execution of subsequent script components until they complete their respective tasks. This approach can lead to performance issues, especially in cases where multiple asynchronous script components are trying to access and modify shared data.
+
+In a Next.js application with synchronous scripts, the developer may inadvertently access or modify shared data using synchronous scripts, leading to errors and poor performance.
+
+To resolve the No sync Scripts error in your Next.js application, you can try the following solutions:
+
+1. **Prevent synchronous code in the first script component only.**
+   - Replace `Script` with `React.StrictMode` if you want to use React's stricter mode for preventing synchronous code.
+   - In the `Home` component:
+     ```jsx filename=""pages/index.js"""">
+       <script src=""https://third-party-Script.js"" defer /> {/* To prevent synchronous code */}
+       <div>Home Page</div>
+     </script>
+     // Instead of using Script component
+     // Replace with React.StrictMode component
+     // In the `Home` component:
+     ```jsx filename=""pages/index.js"""">
+       <React.StrictMode component=""root""}>
+         <div>Home Page</div>
+       </React.StrictMode component=""root */}
+   - Add the following code in the `Home` component to prevent synchronous scripts in all script components, including `Script` and `React.StrictMode` components:
+
+```jsx filename=""pages/index.js"""">
+    <script src=""https://third-Party-Script.js"" defer  /> {/* To prevent synchronous scripts in all script components */}
+        <div>Home Page</div>
+     </script>
+```
+
+This code will ensure that the `Home` component is using `React.StrictMode` component only, preventing synchronous scripts in all script components.
+
+Once you have successfully applied these solutions to your Next.js application, you should be able to prevent synchronous scripts in all script components, ensuring optimal performance of your web application."
+"
+---
+title: '`url` is deprecated'
+---
+
+## Why This Error Occurred
+
+In versions prior to 6.x the `url` property got magically injected into every `Page` component (every page inside the `pages` directory).
+
+The reason this is going away is that we want to make things very predictable and explicit. Having a magical url property coming out of nowhere doesn't aid that goal.
+
+> **Note**: ⚠️ In some cases using React Dev Tools may trigger this warning even if you do not reference `url` anywhere in your code. Try temporarily disabling the extension and see if the warning persists.
+
+## Possible Ways to Fix It
+
+Since Next 5 we provide a way to explicitly inject the Next.js router object into pages and all their descending components.
+The `router` property that is injected will hold the same values as `url`, like `pathname`, `asPath`, and `query`.
+
+Here's an example of using `withRouter`:
+
+```jsx filename=""pages/index.js""
+import { withRouter } from 'next/router'
+
+class Page extends React.Component {
+  render() {
+    const { router } = this.props
+    console.log(router)
+    return <div>{router.pathname}</div>
+  }
+}
+
+export default withRouter(Page)
+```
+
+We provide a codemod (a code to code transformation) to automatically change the `url` property usages to `withRouter`.
+
+You can find this codemod and instructions on how to run it here: [Use `withRouter`](/docs/pages/building-your-application/upgrading/codemods#url-to-withrouter)
+"	Why do I get `url` is deprecated and how to fix it?	"You are experiencing a warning message in React, ""url"" is deprecated, when you try to use the `url` property directly inside of your components, React will throw this error because the `url` property is no longer available in your component due to the deprecation notice.
+To fix this warning, you need to ensure that the `url` property is always being used correctly and safely within your component.
+Here are some steps you can follow to fix this warning:
+
+  1. Ensure that you have set up the `withRouter` feature for your React application. This feature allows you to create custom components with a `withRouter` decorator, which in turn renders the `withRouter` component and all its descendents.
+  2. Within your custom component with the `withRouter` decorator, ensure that you are using the correct `url` property value within your component. For example, if you have created a custom component called `MyComponent` with a `withRouter` decorator, make sure that you are defining the `url` property value within the `MyComponent` component like this:
+```jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      url: '/path/to/page'
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <Link href={this.state.url} exact>Page Title</Link>
+      </div>
+    );
+  }
+}
+
+export default MyComponent;
+```
+
+In the above example, we are defining the `url` property value within the `MyComponent` component using the `Link` component. The `Link` component accepts a `href` propertie value that specifies the URL of the target page, and when it receives an `href` propertie value that specifies the URL of the target page, it will render the target page at the specified URL.
+```"
+"
+---
+title: Missing webpack config
+---
+
+## Why This Error Occurred
+
+The value returned from the custom `webpack` function in your `next.config.js` was undefined. This can occur from the initial config value not being returned.
+
+## Possible Ways to Fix It
+
+Make sure to return the `webpack` config from your custom `webpack` function in your `next.config.js`
+
+```js filename=""next.config.js""
+module.exports = {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Note: we provide webpack above so you should not `require` it
+    // Perform customizations to webpack config
+    config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//))
+
+    // Important: return the modified config
+    return config
+  },
+}
+```
+
+## Useful Links
+
+- [Custom webpack config Documentation](/docs/pages/api-reference/config/next-config-js/webpack)
+"	Why do I get Missing webpack config?	"You are getting ""Missing webpack config"" error in your `next. config. js` file, which is causing issues with your project's build process.
+
+There could be several reasons why you're seeing this error. Here are a few potential causes:
+
+1. Incorrect configuration options: The `webpack.config.js` file should contain the configuration settings for your project. If there are any incorrect or missing configuration options in your `webpack.config.js` file, you will get the ""Missing webpack config"" error.
+
+2. Incorrect module import path: In your `next.config.js` file, you may be using incorrect module import paths, which is causing issues with your build process.
+
+If you're importing modules from different directories or packages, you'll need to make sure that the correct module import path is used in your `next.config.js` file. If you use incorrect module import paths, you will get an error message indicating that the required module cannot be found using the specified module import path.
+
+To fix this issue, make sure that the correct module import path is used in your `next.config.js` file. To do this, follow these steps:
+
+1. Open your `next.config.js` file.
+2. Locate the section where you're importing modules from different directories or packages. This section usually starts with ""import { ... } from <module-name>"".""
+3. Check if you're using incorrect module import paths in your `import { ... } from <module-name>""`. If so, make sure that the correct module import path is used in your `import { ... } from <module-name>""`.
+4. Save your changes to your `next.config.js` file.
+5. Restart your development environment to apply the changes made to your `next.config.js` file.
+
+By following these steps and ensuring that you're using correct module import paths in your `import { ... } from <module-name>""`, you should be able to resolve the ""Missing webpack config"" error in your `next.config.js` file."
