@@ -1,0 +1,477 @@
+entry_ids,context,question,answer
+3 5,"For example, a blog could include the following route app/blog/[slug]/page.js where [slug] is the Dynamic Segment for blog posts.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export default async function Page({
+ params,
+}: {
+ params: Promise<{ slug: string }>
+}) {
+ const slug = (await params).slug
+ return <div>My Post: {slug}</div>
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export default async function Page({ params }) {
+ const slug = (await params).slug
+ return <div>My Post: {slug}</div>
+}
+```
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/blog/[slug]/page.js | /blog/a | { slug: 'a' } |
+| app/blog/[slug]/page.js | /blog/b | { slug: 'b' } |
+| app/blog/[slug]/page.js | /blog/c | { slug: 'c' } |
+See the generateStaticParams() page to learn how to generate the params for the segment.
+
+
+The generateStaticParams function can be used in combination with dynamic route segments to statically generate routes at build time instead of on-demand at request time.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export async function generateStaticParams() {
+ const posts = await fetch('https://.../posts').then((res) => res.json())
+
+ return posts.map((post) => ({
+ slug: post.slug,
+ }))
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export async function generateStaticParams() {
+ const posts = await fetch('https://.../posts').then((res) => res.json())
+
+ return posts.map((post) => ({
+ slug: post.slug,
+ }))
+}
+```
+The primary benefit of the generateStaticParams function is its smart retrieval of data. If content is fetched within the generateStaticParams function using a fetch request, the requests are automatically memoized. This means a fetch request with the same arguments across multiple generateStaticParams, Layouts, and Pages will only be made once, which decreases build times.
+Use the migration guide if you are migrating from the pages directory.
+See generateStaticParams server function documentation for more information and advanced use cases.
+
+
+	",How to setup dynamic routes in Next.js?,"To set up dynamic routes in Next.js, you can follow these steps:
+
+1. Create a new file called `next.config.js` in the root directory of your Next.js project.
+
+```javascript
+module.exports = {
+ // Set the base URL for your app
+ baseURL: process.env.BASE_URL,
+ // Define a route that maps to a specific page in your app
+ routes: [
+ { path: '/page', component: PageComponent } ],
+ // Enable dynamic routing by default in your Next.js project
+ dynamicRoutesEnabledByDefault: true
+};
+```
+
+2. In the `next.config.js` file, create an object called `pages` that maps to a specific page in your app.
+
+```javascript
+const pages = {
+ '/page1': PageComponent1,
+ '/page2': PageComponent2,
+ '/page3': PageComponent3,
+ '/page4': PageComponent4,
+};
+
+module.exports = {
+ baseURL: process.env.BASE_URL,
+ routes: pages,
+ dynamicRoutesEnabledByDefault: true
+};
+```
+
+3. In the `PageComponent.js` file, create a basic component that displays information about a specific page in your app.
+
+```javascript
+export default class PageComponent extends React.Component {
+ constructor(props) {
+ super(props);
+ this.state = { slug: props.params.slug } };
+ render() {
+ return (
+ <div className=""page container"">
+ <h2>{this.props.children.props.title}}</h2>
+ <p>{this.props.children.props.description}</p>
+ <button onClick={() => this.setState({ slug: props.params.slug }) }}>Edit</button>
+ <p>{this.props.children.props.readCount} times read</p>
+ </div>
+ );
+ }
+}
+```
+
+4. In the `App.js` file, import the `next.config.js` file and use its dynamic routes functionality.
+
+```javascript
+import { NextConfig } } from 'next'
+
+const withDynamicRoutes = config => {
+ config.plugins.push({
+ name: 'dynamicroutes',
+ async resolve() {
+ // Check if a page slug is provided as the dynamic route prop.
+ const pageSlugProp = 'page';
+ 
+ // Fetch a specific page object in response to the page slug prop.
+ const pageObject = await fetch(`/pages/${pageSlugProp}}`).then((res) => res.json())['data'] || undefined;
+ 
+ // Check if the specific page object is available in response to the page slug prop.
+ if (pageObject) {
+ // Generate a dynamic route component based on the provided page slug prop, and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ // Check if the specific page object is available in response to the page slug prop.
+ else if (pageObject)) {
+ // Generate a dynamic route component based on the provided page slug prop and return it as the output of the `withDynamicRoutes` function.
+ const dynamicRouteComponent = (
+ <div className=""dynamic-route-container"">
+ {/* Render the dynamic page component based on the provided page slug prop */}
+ </div>
+ )
+ }
+ // Return the dynamically generated route component
+ return dynamicRouteComponent;
+ }
+}
+```
+
+In this example, we're using a Next.js app to generate the dynamic route components. The `dynamicRouteComponent` variable is returned by the `withDynamicRoutes` function that generates the component based on the provided page slug prop.
+Note: In order for this code to work with Next.js, you'll need to set up your server and configure it to use Next.js. This process typically involves installing Next.js and setting up any necessary API keys or OAuth tokens.
+For more detailed information about how to set up a Next.js app and configure it to use the dynamic route components generated by this code, please refer to the official Next.js documentation. Additionally, you may find helpful resources such as tutorials, guides, and forums dedicated to Next.js, helping you learn and get started with Next.js.
+번역결과
+
+이 코드는 Next.js 앹에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게 구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 앹의 편리 구현에 대한 다음 설명을 시작합니다.
+
+이 코드는 Next.js 앹에 생성되는 디자인 레이어-component을 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게 구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 앹의 편리 구현에 대한 다음 설명을 시작합니다.
+
+이 코드는 Next.js 앹에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 앹의 편리 구현에 대한 다음 설명을 시작니다.
+
+이 코드는 Next.js 앹에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 액의 편리 구현에 대한 다음 설명을 시작니다.
+
+이 코드는 Next.js 액에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 액의 편리 구현에 대한 다음 설명을 시작니다.
+
+이 코드는 Next.js 액에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 액의 편리 구현에 대한 다음 설명을 시작니다.
+
+이 코드는 Next.js 액에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 액의 편리 구현에 대한 다음 설명을 시작니다.
+
+이 코드는 Next.js 액에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음으로, Next.js 액의 편리 구현에 대한 다음 설명을 시작니다.
+
+이 코드는 Next.js 액에 생성되는 디자인 레이어-component를 반환하는 데 사용됩니다.
+Next.js는 서버와 인터페이스를 통해 편리하게구현할 수 있는 JavaScript库입니다. 다음과 같은 예제를 제공하여 다음 설명을 시작하겠습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// 创建一个简单的按钮组件
+class SimpleButton extends React.Component {
+ constructor(props) {
+ super(props);
+ this.state = { clicked: false } };
+ }
+
+ handleClick() {
+ this.setState({ clicked: true }) });
+ }
+
+ render() {
+ return (
+ <button onClick={this.handleClick.bind(this)}} disabled=""disabled"">Simple Button</button>
+ );
+ }
+}
+
+// 创建一个简单的按钮组件并渲染
+const buttonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+));
+
+// 创建一个简单的测试用例
+test('renders a simple button component', () => {
+ // Create a new SimpleButton component
+ const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 만드는 JavaScript 프로그램을 생성합니다.
+다음은 생성된 JavaScript 프로그램입니다. 이 코드에서 SimpleButton 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+ ));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+ ));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+ ));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+ ));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+ ));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```
+
+위 코드를 실행하면 다음과 같이 라이브러리인 `Next.js` 앱의 `SimpleButton` 레이어를 생성하는 JavaScript 함수를 포함하고 있습니다.
+
+```jsx
+import { render, fireEvent } from '@testing-library/react';
+
+// Create a new SimpleButton component
+const simpleButtonComponent = (
+<div className=""container"">
+<button onClick={() => { this.setState({ clicked: true }) }} disabled=""disabled"">Simple Button</button>
+</div>
+ ));
+
+// Render the test case and verify that it renders a simple button component
+render(simpleButtonComponent), () => {
+ // Verify that the component rendered has the state variable 'clicked' set to true
+ expect(simpleButtonComponent.state('clicked')).toBe(true));
+});
+```"

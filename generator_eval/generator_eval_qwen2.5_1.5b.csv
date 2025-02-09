@@ -1,0 +1,138 @@
+entry_ids,context,question,answer
+3 5,"For example, a blog could include the following route app/blog/[slug]/page.js where [slug] is the Dynamic Segment for blog posts.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const slug = (await params).slug
+  return <div>My Post: {slug}</div>
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export default async function Page({ params }) {
+  const slug = (await params).slug
+  return <div>My Post: {slug}</div>
+}
+```
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/blog/[slug]/page.js | /blog/a | { slug: 'a' } |
+| app/blog/[slug]/page.js | /blog/b | { slug: 'b' } |
+| app/blog/[slug]/page.js | /blog/c | { slug: 'c' } |
+See the generateStaticParams() page to learn how to generate the params for the segment.
+
+
+The generateStaticParams function can be used in combination with dynamic route segments to statically generate routes at build time instead of on-demand at request time.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+The primary benefit of the generateStaticParams function is its smart retrieval of data. If content is fetched within the generateStaticParams function using a fetch request, the requests are automatically memoized. This means a fetch request with the same arguments across multiple generateStaticParams, Layouts, and Pages will only be made once, which decreases build times.
+Use the migration guide if you are migrating from the pages directory.
+See generateStaticParams server function documentation for more information and advanced use cases.
+
+
+",How to setup dynamic routes in Next.js?,"To set up dynamic routes in Next.js, you can follow these steps:
+
+1. Define a route using the `[slug]` syntax, where `slug` is an optional segment that will be used as part of your URL.
+
+Example:
+```tsx filename=""app/[slug].page.tsx"" switcher
+import type { Metadata } from 'next'
+
+export const metadata = {
+  title: 'Your Title',
+}
+
+const Page = () => {
+  return <div>My Post: {params.slug}</div>
+}
+
+export default Page
+```
+
+2. The `[slug]` syntax creates a route for each value of the `slug` parameter.
+
+Example:
+```plaintext
+/app/blog/a/page.tsx | /blog/a/page.js | /blog/a/page.tsx | /blog/a/page.js |
+/app/blog/b/page.tsx | /blog/b/page.js | /blog/b/page.tsx | /blog/b/page.js |
+/app/blog/c/page.tsx | /blog/c/page.js | /blog/c/page.tsx | /blog/c/page.js |
+```
+
+3. You can also define a route using the `app/[slug]/page.tsx` format.
+
+Example:
+```tsx filename=""app/[slug].page.tsx"" switcher
+import type { Metadata } from 'next'
+
+export const metadata = {
+  title: 'Your Title',
+}
+
+const Page = () => {
+  return <div>My Post: {params.slug}</div>
+}
+
+export default Page
+```
+
+4. For more control, you can use the `generateStaticParams` function to generate data for routes ahead of time.
+
+Example:
+```tsx filename=""app/[slug]/page.tsx"" switcher
+import type { Metadata } from 'next'
+
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
+const Page = () => {
+  const params = useStaticProps()
+  return <div>My Post: {params.slug}</div>
+}
+
+export default Page
+```
+
+5. You can also generate routes on demand using the `generate` function within pages, components, and layouts.
+
+Example:
+```tsx filename=""app/[slug]/page.tsx"" switcher
+import type { Data } from 'next'
+
+const Page = ({ params }: { slug: string }) => {
+  return <div>My Post: {params.slug}</div>
+}
+
+export async function generate() {
+  const res = await fetch('https://.../posts').then((res) => res.json())
+  return res.map((post) => ({
+    id: post.id,
+    title: post.title,
+    content: post.content,
+  }))
+}
+```
+
+By following these steps, you can easily set up dynamic routes in Next.js for your application."

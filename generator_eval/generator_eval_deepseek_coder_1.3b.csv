@@ -1,0 +1,64 @@
+entry_ids,context,question,answer
+3 5,"For example, a blog could include the following route app/blog/[slug]/page.js where [slug] is the Dynamic Segment for blog posts.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const slug = (await params).slug
+  return <div>My Post: {slug}</div>
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export default async function Page({ params }) {
+  const slug = (await params).slug
+  return <div>My Post: {slug}</div>
+}
+```
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/blog/[slug]/page.js | /blog/a | { slug: 'a' } |
+| app/blog/[slug]/page.js | /blog/b | { slug: 'b' } |
+| app/blog/[slug]/page.js | /blog/c | { slug: 'c' } |
+See the generateStaticParams() page to learn how to generate the params for the segment.
+
+
+The generateStaticParams function can be used in combination with dynamic route segments to statically generate routes at build time instead of on-demand at request time.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+The primary benefit of the generateStaticParams function is its smart retrieval of data. If content is fetched within the generateStaticParams function using a fetch request, the requests are automatically memoized. This means a fetch request with the same arguments across multiple generateStaticParams, Layouts, and Pages will only be made once, which decreases build times.
+Use the migration guide if you are migrating from the pages directory.
+See generateStaticParams server function documentation for more information and advanced use cases.
+
+
+",How to setup dynamic routes in Next.js?,"In Next.js (which is based on React), we can set up a route that uses variables like `[slug]` from the URL, which would be used as an identifier for our data fetching logic or whatever else you want your page to do with it. 
+
+Here's how:
+
+1. **Create dynamic routes in Next.js** - You can create a file at app/blog (or any other directory) called [slug].tsx, and put the following code inside that filename:
+```javascript title=""app/blog/[...slug].tsx"" switcher 
+export default function BlogPost({ params }) {   // you might need to adjust this based on how your data is structured. e.g., if it's an id in a CMS or similar, use 'params'.id instead of '.name', etc..    } )     return <div>My Post:  {slug}</div> 
+```
+This code will run at build time and generate static paths for each post. For example if you have posts with the slugs `a` ,  `b`,  ``c'', it'll create pages /blog/a/, blog/ b, etc., that render this component correctly when navigating to these URLs in development mode or on production (in case of deploying).
+ 2. **Generate Static Path Params** - In your `[...slug].tsx` file you can create a function called generateStaticParams:  
+```javascript title=""app/blog/[...slug].tsx"" switcher    export async function getStaticPaths() {  const res = await fetch('https://....').then(res => res.json()); return res.map((post) =>  ({ params: { slug: post.id }}))
+```     this code will be used at build time to pre-generate all the paths, and your app can then use these generated path names for routing in `getStaticProps` or other similar methods instead of fetching data on demand like above example shows how you would with fetch requests inside generate static params.  In case if slug are not dynamic i.e., they already defined as a constant at the top level, simply pass them to getStaticPaths function and it will work same way in next step where we want all our data fetching on client side or server-side when using `getServerSideProps` instead of fetch requests inside generate static params 
+    Note: Next.js does not support dynamic routes with query strings directly, so you would have to use the [...slug] pattern in your URLs if there are any parameters that should be passed on request time (not at build-time). You can also pass these as props using getStaticProps or other similar methods depending upon requirement.
+"
