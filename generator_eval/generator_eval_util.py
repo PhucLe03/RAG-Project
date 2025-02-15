@@ -3,17 +3,34 @@ import json
 import re
 import pandas
 
+
 change_json_pattern = r"\'[^\'\"]*?\'\: \'[^\'\"]*?\'"
 change_code_json_pattern = r"\"code\"\: \'[^\'\"]*?\',"
+href_pattern = r"href=\"[^\'\"]*?\""
+code_sign = '"code": '
 
 def json_reformat(code: str):
+    code = code.replace('"Content-Type": "application/json"', "Content-Type: application/json")
     for match in re.finditer(change_json_pattern, code):
         found = match.group().replace("'", '"')
         code = code.replace(match.group(), found)
+        code = code.replace("\\'next/link\\'", "next/link")
+        code = code.replace("\\'next/server\\'", "next/server")
         code = code.replace("'code': ", '"code": ')
+        code = code.replace('"code": \'', '"code": "')
+        code = code.replace('"code":\'', '"code":"')
+        code = code.replace('"Content-Type": "application/json"', "\'Content-Type\': \'application/json\'")
+        code = code.replace("', \"language\":", "\", \"language\":")
         code = code.replace("'switcher': ", '"switcher": ')
+    for match in re.finditer(href_pattern, code):
+        found = match.group().replace("\"", "\'")
+        code = code.replace(match.group(), found)
     for match in re.finditer(change_code_json_pattern, code):
-        found = match.group().replace("'", '"')
+        found = match.group().replace("\'", "\"")
+        found = match.group().replace("'", "\"")
+        found = match.group().replace('"code": \'', '"code": "')
+        found = match.group().replace('"code":\'', '"code":"')
+        found = match.group().replace("',", '",')
         code = code.replace(match.group(), found)
     return code
 
@@ -21,6 +38,8 @@ def parse_code_content(code_content: str):
     code_content = json_reformat(code_content)
     # write to temp.json
     code_content = code_content.replace("\n", "\\n")
+    # code_content = code_content.replace('\"', '\\"')
+    # code_content = code_content.replace("\'", "\\'")
     code_content = code_content.replace("True", "true")
     code_content = code_content.replace("False", "false")
     with open("temp.json", "w") as f:
@@ -56,7 +75,7 @@ def get_retrieved_data(df: pandas.DataFrame, list_of_chunk_idx: list[int]) -> st
     retrieved_data = ""
 
     for chunk in list_of_chunks:
-    # print(chunk['code_content'])
+        # print(chunk['code_content'])
         code_content_json = parse_code_content(chunk['code_content'])
         original_chunk = place_snippets_in_text(chunk['text_content'], code_content_json)
         retrieved_data += original_chunk
