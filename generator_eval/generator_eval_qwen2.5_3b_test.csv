@@ -1,0 +1,1247 @@
+entry_ids,context,question,answer
+0 1,"In the app directory, nested folders are normally mapped to URL paths. However, you can mark a folder as a Route Group to prevent the folder from being included in the route's URL path.
+This allows you to organize your route segments and project files into logical groups without affecting the URL path structure.
+Route groups are useful for:
+- Organizing routes into groups e.g. by site section, intent, or team.
+- Enabling nested layouts in the same route segment level:
+- Creating multiple nested layouts in the same segment, including multiple root layouts
+- Adding a layout to a subset of routes in a common segment
+- Adding a loading skeleton to specific route in a common segment
+A route group can be created by wrapping a folder's name in parenthesis: (folderName)
+
+
+### Organize routes without affecting the URL path
+To organize routes without affecting the URL, create a group to keep related routes together. The folders in parenthesis will be omitted from the URL (e.g. (marketing) or (shop).
+<Image
+alt=""Organizing Routes with Route Groups""
+srcLight=""/docs/light/route-group-organisation.png""
+srcDark=""/docs/dark/route-group-organisation.png""
+width=""1600""
+height=""930""
+/>
+Even though routes inside (marketing) and (shop) share the same URL hierarchy, you can create a different layout for each group by adding a layout.js file inside their folders.
+<Image
+alt=""Route Groups with Multiple Layouts""
+srcLight=""/docs/light/route-group-multiple-layouts.png""
+srcDark=""/docs/dark/route-group-multiple-layouts.png""
+width=""1600""
+height=""768""
+/>
+### Opting specific segments into a layout
+To opt specific routes into a layout, create a new route group (e.g. (shop)) and move the routes that share the same layout into the group (e.g. account and cart). The routes outside of the group will not share the layout (e.g. checkout).
+<Image
+alt=""Route Groups with Opt-in Layouts""
+srcLight=""/docs/light/route-group-opt-in-layouts.png""
+srcDark=""/docs/dark/route-group-opt-in-layouts.png""
+width=""1600""
+height=""930""
+/>
+### Opting for loading skeletons on a specific route
+To apply a loading skeleton via a loading.js file to a specific route, create a new route group (e.g., /(overview)) and then move your loading.tsx inside that route group.
+<Image
+alt=""Folder structure showing a loading.tsx and a page.tsx inside the route group""
+srcLight=""/docs/light/route-group-loading.png""
+srcDark=""/docs/dark/route-group-loading.png""
+width=""1600""
+height=""444""
+/>
+Now, the loading.tsx file will only apply to your dashboard → overview page instead of all your dashboard pages without affecting the URL path structure.
+### Creating multiple root layouts
+To create multiple root layouts, remove the top-level layout.js file, and add a layout.js file inside each route group. This is useful for partitioning an application into sections that have a completely different UI or experience. The <html> and <body> tags need to be added to each root layout.
+<Image
+alt=""Route Groups with Multiple Root Layouts""
+srcLight=""/docs/light/route-group-multiple-root-layouts.png""
+srcDark=""/docs/dark/route-group-multiple-root-layouts.png""
+width=""1600""
+height=""687""
+/>
+In the example above, both (marketing) and (shop) have their own root layout.
+
+------
+> Good to know:
+> - The naming of route groups has no special significance other than for organization. They do not affect the URL path.
+> - Routes that include a route group should not resolve to the same URL path as other routes. For example, since route groups don't affect URL structure, (marketing)/about/page.js and (shop)/about/page.js would both resolve to /about and cause an error.
+> - If you use multiple root layouts without a top-level layout.js file, your home page.js file should be defined in one of the route groups, For example: app/(marketing)/page.js.
+> - Navigating across multiple root layouts will cause a full page load (as opposed to a client-side navigation). For example, navigating from /cart that uses app/(shop)/layout.js to /blog that uses app/(marketing)/layout.js will cause a full page load. This only applies to multiple root layouts.
+
+
+",How to use Route Group?,"To use Route Groups in Next.js, you can wrap the folder name with parentheses `(folderName)` where `folderName` is the name of your directory or route segment.
+
+Here are some ways to effectively use Route Groups:
+
+1. **Organize routes without affecting the URL path**: Create a group by wrapping your folders in parentheses to keep related routes together and prevent them from being included in the URL path structure. For example, `(marketing)` or `(shop)`. This way, these groups remain logically grouped but do not appear in the URLs.
+
+2. **Create multiple nested layouts for a common segment**: You can add different layouts within the same route segment level by creating new route groups to contain specific routes with their own layout files. For instance, you could have `(marketing)/account` and `(marketing)/cart` share the same URL path but use different layouts.
+
+3. **Opt specific routes into a single layout**: To apply the same layout to multiple related routes within the same segment, create a new route group by wrapping those specific folders in parentheses (e.g., `(shop)`) and add a layout file inside this group. The `account` and `cart` pages under `(shop)` can share one layout.
+
+4. **Apply loading skeletons on individual routes**: For certain routes within an existing group, you can introduce a loading skeleton by creating a route group for just that specific route or set of routes (e.g., `/overview`). Then place the `loading.tsx` file inside this newly created route group to provide custom loading state until the component is fully rendered.
+
+5. **Use multiple root layouts**: To create separate, distinct UIs within your app, you can remove the top-level layout.js and add new layout files within each of your route groups. This way, different parts of your application have their own unique root layouts. Make sure to include `<html>` and `<body>` tags in each root layout for proper HTML structure.
+
+By using Route Groups effectively, you can manage complex nested routing structures without affecting the URL path hierarchy, enhance organization within your project files, and improve the overall user experience by customizing views as needed."
+2 3 4,"When you don't know the exact segment names ahead of time and want to create routes from dynamic data, you can use Dynamic Segments that are filled in at request time or prerendered at build time.
+A Dynamic Segment can be created by wrapping a folder's name in square brackets: [folderName]. For example, [id] or [slug].
+Dynamic Segments are passed as the params prop to layout, page, route, and generateMetadata functions.
+
+
+For example, a blog could include the following route app/blog/[slug]/page.js where [slug] is the Dynamic Segment for blog posts.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const slug = (await params).slug
+  return <div>My Post: {slug}</div>
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export default async function Page({ params }) {
+  const slug = (await params).slug
+  return <div>My Post: {slug}</div>
+}
+```
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/blog/[slug]/page.js | /blog/a | { slug: 'a' } |
+| app/blog/[slug]/page.js | /blog/b | { slug: 'b' } |
+| app/blog/[slug]/page.js | /blog/c | { slug: 'c' } |
+See the generateStaticParams() page to learn how to generate the params for the segment.
+
+
+- Since the params prop is a promise. You must use async/await or React's use function to access the values.
+- In version 14 and earlier, params was a synchronous prop. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+- Dynamic Segments are equivalent to Dynamic Routes in the pages directory.
+
+
+",How to use Dynamic Routes?,"Dynamic Routes in Next.js allow for routes that include dynamic segments, which get filled in at request time or prerendered during build. These segments are typically wrapped in square brackets like this: [segmentName]. For example, a blog route might be structured as `/blog/[slug]/page.js`, where `[slug]` is the Dynamic Segment used to generate routes for individual blog posts.
+
+Here's how you can set up and use these Dynamic Routes:
+
+### 1. Setting Up a Route
+
+To create a route using Dynamic Segments like `[id]` or `[slug]`, you would typically place your page files in a directory that corresponds to the dynamic segment value. For instance, if you have blog posts with unique URLs based on their slug (`[slug]`), you might have routes structured similarly:
+
+```tsx
+// app/blog/[slug]/page.tsx (or .js)
+export default async function Page({ params }) {
+  const { slug } = params;
+  return <div>My Post: {slug}</div>;
+}
+```
+
+### 2. Accessing Dynamic Segments
+
+The `params` prop in the Next.js page component is a promise for synchronous values and a regular object for asynchronous values (which you need to handle with async/await). For older versions of Next.js, you can still access these segments synchronously.
+
+For example, to render the dynamic segment `[slug]`, you would extract it from `params`:
+
+```tsx
+// app/blog/[slug]/page.tsx
+import { useRouter } from 'next/router';
+
+export default function Page() {
+  const router = useRouter();
+  
+  // Extract the slug using async/await if needed (Next.js 15+)
+  const slug = await (router.query.slug || '').trim();
+
+  return (
+    <div>My Post: {slug}</div>
+  );
+}
+```
+
+Alternatively, you could use React's `useParams` hook for simpler access in Next.js 13 and later:
+
+```tsx
+// app/blog/[slug]/page.tsx
+import { useParams } from 'next/router';
+
+export default function Page() {
+  const params = useParams();
+
+  return (
+    <div>My Post: {params.slug}</div>
+  );
+}
+```
+
+### 3. Generating Params
+
+If you need to dynamically generate the routes for these Dynamic Segments, like when dealing with a list of blog posts or similar, you can use `generateStaticParams()`. This method generates an array of objects that are passed as `params` to your page component.
+
+For instance:
+
+```tsx
+// app/blog/[slug]/page.tsx
+import { generateStaticParams } from 'next/dist/shared/lib/utils';
+
+export default async function Page({ params }) {
+  const posts = await fetch('/api/posts').then((res) => res.json());
+  
+  return (
+    <div>
+      {posts.map(({ id, title }) => (
+        <a key={id} href={`/blog/${encodeURIComponent(id)}`}>
+          {title}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+// API route for fetching posts
+export async function generateStaticParams() {
+  const posts = await fetch('/api/posts').then((res) => res.json());
+  
+  return posts.map(({ id }) => ({
+    params: {
+      slug: encodeURIComponent(id),
+    },
+  }));
+}
+```
+
+### Summary
+
+- **Dynamic Routes**: These are routes that include dynamic segments. For example, `/blog/[slug]`.
+- **Accessing Dynamic Segments**:
+  - Use `params` prop in your page component.
+  - Handle asynchronous values with `async/await`.
+  - Use the `useParams` hook for simplicity in Next.js 13 and later.
+
+Remember to generate dynamic segment params either statically or dynamically as needed."
+5,"The generateStaticParams function can be used in combination with dynamic route segments to statically generate routes at build time instead of on-demand at request time.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+The primary benefit of the generateStaticParams function is its smart retrieval of data. If content is fetched within the generateStaticParams function using a fetch request, the requests are automatically memoized. This means a fetch request with the same arguments across multiple generateStaticParams, Layouts, and Pages will only be made once, which decreases build times.
+Use the migration guide if you are migrating from the pages directory.
+See generateStaticParams server function documentation for more information and advanced use cases.
+
+
+",How to generate static params in Dynamic Routes?,"To generate static parameters (static routes) in dynamic Next.js routes, you can utilize the `generateStaticParams` function. This function is particularly useful when your route includes a dynamic segment, such as `[slug]`.
+
+Here's how you can use it:
+
+1. **Define the Dynamic Route:** In your Next.js application, define the dynamic route path, such as `/blog/[slug]/page`. 
+
+2. **Implement `generateStaticParams`:** Inside the file corresponding to this dynamic route (e.g., `/app/blog/[slug]/page.tsx` or `/app/blog/[slug]/page.js`), you should implement the `generateStaticParams` function. This function is called by Next.js during the static generation process, and it returns an array of objects that will be used as parameters for each route.
+
+Here's a template example based on the provided context:
+
+```tsx
+// app/blog/[slug]/page.tsx
+
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+
+In this example:
+- The `generateStaticParams` function makes a request to the backend (`fetch`) for fetching data (in this case, JSON from an API endpoint).
+- It maps over the fetched data and returns an array of objects that will be used as static routes. Each object has a `slug`, which corresponds to the dynamic segment `[slug]`.
+
+When these routes are generated at build time, they will use the URLs like `/blog/slug/` where `slug` is replaced with the actual post slug.
+
+This setup ensures that each route is only fetched once during build time, optimizing performance and reducing server load."
+6 7,"Dynamic Segments can be extended to catch-all subsequent segments by adding an ellipsis inside the brackets [...folderName].
+For example, app/shop/[...slug]/page.js will match /shop/clothes, but also /shop/clothes/tops, /shop/clothes/tops/t-shirts, and so on.
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/shop/[...slug]/page.js | /shop/a | { slug: ['a'] } |
+| app/shop/[...slug]/page.js | /shop/a/b | { slug: ['a', 'b'] } |
+| app/shop/[...slug]/page.js | /shop/a/b/c | { slug: ['a', 'b', 'c'] } |
+
+
+Catch-all Segments can be made optional by including the parameter in double square brackets: [[...folderName]].
+For example, app/shop/[[...slug]]/page.js will also match /shop, in addition to /shop/clothes, /shop/clothes/tops, /shop/clothes/tops/t-shirts.
+The difference between catch-all and optional catch-all segments is that with optional, the route without the parameter is also matched (/shop in the example above).
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/shop/[[...slug]]/page.js | /shop | { slug: undefined } |
+| app/shop/[[...slug]]/page.js | /shop/a | { slug: ['a'] } |
+| app/shop/[[...slug]]/page.js | /shop/a/b | { slug: ['a', 'b'] } |
+| app/shop/[[...slug]]/page.js | /shop/a/b/c | { slug: ['a', 'b', 'c'] } |
+
+
+",How to use catch-all statements in Dynamic Routes?,"Catch-all segments in dynamic routes can be used to match any number of subsequent segments. They allow you to capture all the parts of a URL that come after the initial part, but before the route handler is applied.
+
+Here are two ways to implement catch-all segments in Next.js:
+
+1. **Using Dynamic Segments with Ellipsis**:
+   - You can use `Dynamic Segments` by adding an ellipsis (`[...]`) inside the brackets for each segment you want to capture.
+   
+   Example: `app/shop/[...slug]/page.js`
+   - This route will match URLs like `/shop/a`, `/shop/a/b`, `/shop/clothes/tops/t-shirts`, etc. Here, `[...slug]` is a catch-all that captures all subsequent segments after `/shop/`.
+
+2. **Using Optional Catch-All with Double Square Brackets**:
+   - To make the segments optional (allowing for routes like `/shop` to match), you can use `[[...folderName]]` instead of just `[...folderName]`.
+   
+   Example: `app/shop/[[...slug]]/page.js`
+   - In this route, if there are no subsequent segments after `/shop`, the `slug` parameter will be set to `undefined`. This is useful when you want a route like `/shop` to work.
+
+### Summary
+
+- Use dynamic segments with an ellipsis (`[...]`) for flexible matching of any number of segments.
+- Use optional catch-all with double square brackets (like `[[...folderName]]`) to make the initial part of the path optional, allowing routes without subsequent segments to still match successfully."
+8,"When using TypeScript, you can add types for params depending on your configured route segment.
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  return <h1>My Page</h1>
+}
+```
+```jsx filename=""app/blog/[slug]/page.js"" switcher
+export default async function Page({ params }) {
+  return <h1>My Page</h1>
+}
+```
+| Route | params Type Definition |
+| :--- | :--- |
+| app/blog/[slug]/page.js | { slug: string } |
+| app/shop/[...slug]/page.js | { slug: string[] } |
+| app/shop/[[...slug]]/page.js | { slug?: string[] } |
+| app/[categoryId]/[itemId]/page.js | { categoryId: string, itemId: string } |
+> Good to know: This may be done automatically by the TypeScript plugin in the future.
+
+
+",How to use implement Dynamic Routes in TypeScript?,"Implementing dynamic routes with TypeScript involves defining types for your route segments. In Next.js, when you define a page that handles dynamic routes like `/blog/[slug]`, you can use these route segments as parameters within your function component.
+
+Here’s how you can handle the example provided:
+
+### Example Code:
+```tsx filename=""app/blog/[slug]/page.tsx"" switcher
+import { useRouter } from 'next/router';
+
+export default async function Page({ params }) {
+  const router = useRouter();
+  
+  if (!params || !params.slug) {
+    return <h1>Invalid slug</h1>;
+  }
+
+  console.log(params.slug); // logs the valid slug segment
+
+  return (
+    <div>
+      <p>The post is about {params.slug}</p>
+      <button onClick={() => router.push('/')}>Go Home</button>
+    </div>
+  );
+}
+```
+
+### Explanation:
+- **Parameters**: The `Page` function component receives a `params` object as an argument. This `params` object contains all the route segments that were requested.
+  
+- **Type Definition**: In your TypeScript types, you define what each segment should be based on your configured routes.
+
+  For example, in `/blog/[slug]`, `[slug]` would be of type `string`.
+
+### Example Types:
+```tsx
+// app/blog/[slug]/page.tsx
+
+import { NextRouter } from 'next/router';
+
+export default async function Page({ params }: { params: Record<string, string | undefined> }) {
+  const router = useRouter();
+  
+  if (!params || !params.slug) {
+    return <h1>Invalid slug</h1>;
+  }
+
+  console.log(params.slug); // logs the valid slug segment
+
+  return (
+    <div>
+      <p>The post is about {params.slug}</p>
+      <button onClick={() => router.push('/')}>Go Home</button>
+    </div>
+  );
+}
+```
+
+### Dynamic Route Handling:
+- **Route Definitions**: Define your routes in `next.config.js` or using the `appDir` approach.
+  
+- **Function Component**: Use `params` to access dynamic segments.
+
+- **Type Safety**: TypeScript helps with type definitions, ensuring that you handle route parameters correctly.
+
+By following this pattern, you can ensure that your app is both performant and safe against incorrect routing."
+9 10 11,"Parallel Routes allows you to simultaneously or conditionally render one or more pages within the same layout. They are useful for highly dynamic sections of an app, such as dashboards and feeds on social sites.
+For example, considering a dashboard, you can use parallel routes to simultaneously render the team and analytics pages:
+<Image
+alt=""Parallel Routes Diagram""
+srcLight=""/docs/light/parallel-routes.png""
+srcDark=""/docs/dark/parallel-routes.png""
+width=""1600""
+height=""942""
+/>
+Parallel routes are created using named slots. Slots are defined with the @folder convention. For example, the following file structure defines two slots: @analytics and @team:
+<Image
+alt=""Parallel Routes File-system Structure""
+srcLight=""/docs/light/parallel-routes-file-system.png""
+srcDark=""/docs/dark/parallel-routes-file-system.png""
+width=""1600""
+height=""687""
+/>
+Slots are passed as props to the shared parent layout. For the example above, the component in app/layout.js now accepts the @analytics and @team slots props, and can render them in parallel alongside the children prop:
+```tsx filename=""app/layout.tsx"" switcher
+export default function Layout({
+  children,
+  team,
+  analytics,
+}: {
+  children: React.ReactNode
+  analytics: React.ReactNode
+  team: React.ReactNode
+}) {
+  return (
+    <>
+      {children}
+      {team}
+      {analytics}
+    </>
+  )
+}
+```
+```jsx filename=""app/layout.js"" switcher
+export default function Layout({ children, team, analytics }) {
+  return (
+    <>
+      {children}
+      {team}
+      {analytics}
+    </>
+  )
+}
+```
+However, slots are not route segments and do not affect the URL structure. For example, for /@analytics/views, the URL will be /views since @analytics is a slot. Slots are combined with the regular Page component to form the final page associated with the route segment. Because of this, you cannot have separate static and dynamic slots at the same route segment level. If one slot is dynamic, all slots at that level must be dynamic.
+> Good to know:
+> - The children prop is an implicit slot that does not need to be mapped to a folder. This means app/page.js is equivalent to app/@children/page.js.
+
+
+By default, Next.js keeps track of the active state (or subpage) for each slot. However, the content rendered within a slot will depend on the type of navigation:
+- Soft Navigation: During client-side navigation, Next.js will perform a partial render, changing the subpage within the slot, while maintaining the other slot's active subpages, even if they don't match the current URL.
+- Hard Navigation: After a full-page load (browser refresh), Next.js cannot determine the active state for the slots that don't match the current URL. Instead, it will render a default.js file for the unmatched slots, or 404 if default.js doesn't exist.
+> Good to know:
+> - The 404 for unmatched routes helps ensure that you don't accidentally render a parallel route on a page that it was not intended for.
+### default.js
+You can define a default.js file to render as a fallback for unmatched slots during the initial load or full-page reload.
+Consider the following folder structure. The @team slot has a /settings page, but @analytics does not.
+<Image
+alt=""Parallel Routes unmatched routes""
+srcLight=""/docs/light/parallel-routes-unmatched-routes.png""
+srcDark=""/docs/dark/parallel-routes-unmatched-routes.png""
+width=""1600""
+height=""930""
+/>
+When navigating to /settings, the @team slot will render the /settings page while maintaining the currently active page for the @analytics slot.
+On refresh, Next.js will render a default.js for @analytics. If default.js doesn't exist, a 404 is rendered instead.
+Additionally, since children is an implicit slot, you also need to create a default.js file to render a fallback for children when Next.js cannot recover the active state of the parent page.
+### useSelectedLayoutSegment(s)
+Both useSelectedLayoutSegment and useSelectedLayoutSegments accept a parallelRoutesKey parameter, which allows you to read the active route segment within a slot.
+```tsx filename=""app/layout.tsx"" switcher
+'use client'
+
+import { useSelectedLayoutSegment } from 'next/navigation'
+
+export default function Layout({ auth }: { auth: React.ReactNode }) {
+  const loginSegment = useSelectedLayoutSegment('auth')
+  // ...
+}
+```
+```jsx filename=""app/layout.js"" switcher
+'use client'
+
+import { useSelectedLayoutSegment } from 'next/navigation'
+
+export default function Layout({ auth }) {
+  const loginSegment = useSelectedLayoutSegment('auth')
+  // ...
+}
+```
+When a user navigates to app/@auth/login (or /login in the URL bar), loginSegment will be equal to the string ""login"".
+
+
+### Conditional Routes
+You can use Parallel Routes to conditionally render routes based on certain conditions, such as user role. For example, to render a different dashboard page for the /admin or /user roles:
+<Image
+alt=""Conditional routes diagram""
+srcLight=""/docs/light/conditional-routes-ui.png""
+srcDark=""/docs/dark/conditional-routes-ui.png""
+width=""1600""
+height=""898""
+/>
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+```
+```jsx filename=""app/dashboard/layout.js"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({ user, admin }) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+```
+### Tab Groups
+You can add a layout inside a slot to allow users to navigate the slot independently. This is useful for creating tabs.
+For example, the @analytics slot has two subpages: /page-views and /visitors.
+<Image
+alt=""Analytics slot with two subpages and a layout""
+srcLight=""/docs/light/parallel-routes-tab-groups.png""
+srcDark=""/docs/dark/parallel-routes-tab-groups.png""
+width=""1600""
+height=""768""
+/>
+Within @analytics, create a layout file to share the tabs between the two pages:
+```tsx filename=""app/@analytics/layout.tsx"" switcher
+import Link from next/link
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <nav>
+        <Link href='/page-views'>Page Views</Link>
+        <Link href='/visitors'>Visitors</Link>
+      </nav>
+      <div>{children}</div>
+    </>
+  )
+}
+```
+```jsx filename=""app/@analytics/layout.js"" switcher
+import Link from next/link
+
+export default function Layout({ children }) {
+  return (
+    <>
+      <nav>
+        <Link href='/page-views'>Page Views</Link>
+        <Link href='/visitors'>Visitors</Link>
+      </nav>
+      <div>{children}</div>
+    </>
+  )
+}
+```
+### Modals
+Parallel Routes can be used together with Intercepting Routes to create modals that support deep linking. This allows you to solve common challenges when building modals, such as:
+- Making the modal content shareable through a URL.
+- Preserving context when the page is refreshed, instead of closing the modal.
+- Closing the modal on backwards navigation rather than going to the previous route.
+- Reopening the modal on forwards navigation.
+Consider the following UI pattern, where a user can open a login modal from a layout using client-side navigation, or access a separate /login page:
+<Image
+alt=""Parallel Routes Diagram""
+srcLight=""/docs/light/parallel-routes-auth-modal.png""
+srcDark=""/docs/dark/parallel-routes-auth-modal.png""
+width=""1600""
+height=""687""
+/>
+To implement this pattern, start by creating a /login route that renders your main login page.
+<Image
+alt=""Parallel Routes Diagram""
+srcLight=""/docs/light/parallel-routes-modal-login-page.png""
+srcDark=""/docs/dark/parallel-routes-modal-login-page.png""
+width=""1600""
+height=""768""
+/>
+```tsx filename=""app/login/page.tsx"" switcher
+import { Login } from '@/app/ui/login'
+
+export default function Page() {
+  return <Login />
+}
+```
+```jsx filename=""app/login/page.js"" switcher
+import { Login } from '@/app/ui/login'
+
+export default function Page() {
+  return <Login />
+}
+```
+Then, inside the @auth slot, add default.js file that returns null. This ensures that the modal is not rendered when it's not active.
+```tsx filename=""app/@auth/default.tsx"" switcher
+export default function Default() {
+  return null
+}
+```
+```jsx filename=""app/@auth/default.js"" switcher
+export default function Default() {
+  return null
+}
+```
+Inside your @auth slot, intercept the /login route by updating the /(.)login folder. Import the <Modal> component and its children into the /(.)login/page.tsx file:
+```tsx filename=""app/@auth/(.)login/page.tsx"" switcher
+import { Modal } from '@/app/ui/modal'
+import { Login } from '@/app/ui/login'
+
+export default function Page() {
+  return (
+    <Modal>
+      <Login />
+    </Modal>
+  )
+}
+```
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+0```
+> Good to know:
+> - The convention used to intercept the route, e.g. (.), depends on your file-system structure. See Intercepting Routes convention.
+> - By separating the <Modal> functionality from the modal content (<Login>), you can ensure any content inside the modal, e.g. forms, are Server Components. See Interleaving Client and Server Components for more information.
+#### Opening the modal
+Now, you can leverage the Next.js router to open and close the modal. This ensures the URL is correctly updated when the modal is open, and when navigating backwards and forwards.
+To open the modal, pass the @auth slot as a prop to the parent layout and render it alongside the children prop.
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+1```
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+2```
+When the user clicks the <Link>, the modal will open instead of navigating to the /login page. However, on refresh or initial load, navigating to /login will take the user to the main login page.
+#### Closing the modal
+You can close the modal by calling router.back() or by using the Link component.
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+3```
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+4```
+When using the Link component to navigate away from a page that shouldn't render the @auth slot anymore, we need to make sure the parallel route matches to a component that returns null. For example, when navigating back to the root page, we create a @auth/page.tsx component:
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+5```
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+6```
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+7```
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+8```
+Or if navigating to any other page (such as /foo, /foo/bar, etc), you can use a catch-all slot:
+```tsx filename=""app/dashboard/layout.tsx"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({
+  user,
+  admin,
+}: {
+  user: React.ReactNode
+  admin: React.ReactNode
+}) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+9```
+```jsx filename=""app/dashboard/layout.js"" switcher
+import { checkUserRole } from '@/lib/auth'
+
+export default function Layout({ user, admin }) {
+  const role = checkUserRole()
+  return role === 'admin' ? admin : user
+}
+0```
+> Good to know:
+> - We use a catch-all route in our @auth slot to close the modal because of the behavior described in Active state and navigation. Since client-side navigations to a route that no longer match the slot will remain visible, we need to match the slot to a route that returns null to close the modal.
+> - Other examples could include opening a photo modal in a gallery while also having a dedicated /photo/[id] page, or opening a shopping cart in a side modal.
+> - View an example of modals with Intercepted and Parallel Routes.
+### Loading and Error UI
+Parallel Routes can be streamed independently, allowing you to define independent error and loading states for each route:
+<Image
+alt=""Parallel routes enable custom error and loading states""
+srcLight=""/docs/light/parallel-routes-cinematic-universe.png""
+srcDark=""/docs/dark/parallel-routes-cinematic-universe.png""
+width=""1600""
+height=""1218""
+/>
+See the Loading UI and Error Handling documentation for more information.
+
+
+",How to use Parallel Routes?,"To use Parallel Routes effectively, you need to understand and implement several key concepts:
+
+### 1. Understanding Parallel Routes
+Parallel Routes allow different routes within a single page application (SPA) to be treated as separate routes with their own routing logic, component rendering, and navigation.
+
+### 2. Setting Up the Routing Structure
+1. **Create Separate Route Components**: Each route needs its own corresponding component that handles specific URL paths.
+2. **Use `next/link` or `next/router` for Navigation**: Instead of using a single router instance per page, you will have multiple instances based on your routes.
+
+### 3. Implementing Parallel Routes in Code
+1. **Set Up Routing with `next.config.js`**:
+   ```javascript
+   const path = require('path');
+
+   module.exports = {
+     async headers() {
+       return [
+         { key: 'Content-Security-Policy', value: `default-src 'self'` },
+         { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+         { key: 'X-XSS-Protection', value: '1; mode=block' }
+       ];
+     },
+     trailingSlash: true,
+     async rewrites() {
+       return [
+         // Define routes
+         ({ asPath }) => (path.resolve('/home') === path.parse(asPath).dir ? `/` : null),
+         ({ asPath }) => (path.resolve('/about') === path.parse(asPath).dir ? '/about' : null)
+       ];
+     }
+   };
+   ```
+
+2. **Create Separate Route Components**:
+   - `pages/home.js`
+   ```javascript
+   import React from 'react';
+
+   const Home = () => {
+     return (
+       <div>
+         This is the home page.
+       </div>
+     );
+   };
+
+   export default Home;
+   ```
+   
+   - `pages/about.js`
+   ```javascript
+   import React from 'react';
+ 
+   const About = () => {
+     return (
+       <div>
+         This is the about page.
+       </div>
+     );
+   };
+   
+   export default About;
+   ```
+
+3. **Handle Navigation with Next Router**:
+   - In your main `App.js` or `pages/_app.js`
+   ```javascript
+   import { useRouter } from 'next/router';
+
+   function MyApp({ Component, pageProps }) {
+     const router = useRouter();
+ 
+     // Logic to determine which component should be rendered based on URL
+     if (router.pathname === '/about') {
+       return <About {...pageProps} />;
+     }
+ 
+     return <Component {...pageProps} />;
+   }
+
+   export default MyApp;
+   ```
+
+### 4. Error Handling and Loading States
+- **Custom Error UI**: Define custom error components that can be used when a route encounters an error.
+- **Loading States**: Use loading indicators or animations to show while data is being fetched.
+
+### 5. Best Practices
+- **Active State Navigation**: Ensure routes are activated correctly for navigation.
+- **Catch-all Routes**: For handling unexpected cases, use catch-all routes that return null.
+- **Performance Optimization**: Be mindful of performance implications and ensure that loading states do not block user interaction excessively.
+
+By following these steps, you can effectively utilize Parallel Routes in Next.js to create dynamic and efficient single-page applications."
+12 13,"Intercepting routes allows you to load a route from another part of your application within the current layout. This routing paradigm can be useful when you want to display the content of a route without the user switching to a different context.
+For example, when clicking on a photo in a feed, you can display the photo in a modal, overlaying the feed. In this case, Next.js intercepts the /photo/123 route, masks the URL, and overlays it over /feed.
+<Image
+alt=""Intercepting routes soft navigation""
+srcLight=""/docs/light/intercepting-routes-soft-navigate.png""
+srcDark=""/docs/dark/intercepting-routes-soft-navigate.png""
+width=""1600""
+height=""617""
+/>
+However, when navigating to the photo by clicking a shareable URL or by refreshing the page, the entire photo page should render instead of the modal. No route interception should occur.
+<Image
+alt=""Intercepting routes hard navigation""
+srcLight=""/docs/light/intercepting-routes-hard-navigate.png""
+srcDark=""/docs/dark/intercepting-routes-hard-navigate.png""
+width=""1600""
+height=""604""
+/>
+Intercepting routes can be defined with the (..) convention, which is similar to relative path convention ../ but for segments.
+You can use:
+- (.) to match segments on the same level
+- (..) to match segments one level above
+- (..)(..) to match segments two levels above
+- (...) to match segments from the root app directory
+For example, you can intercept the photo segment from within the feed segment by creating a (..)photo directory.
+<Image
+alt=""Intercepting routes folder structure""
+srcLight=""/docs/light/intercepted-routes-files.png""
+srcDark=""/docs/dark/intercepted-routes-files.png""
+width=""1600""
+height=""604""
+/>
+> Note that the (..) convention is based on route segments, not the file-system.
+
+
+### Modals
+Intercepting Routes can be used together with Parallel Routes to create modals. This allows you to solve common challenges when building modals, such as:
+- Making the modal content shareable through a URL.
+- Preserving context when the page is refreshed, instead of closing the modal.
+- Closing the modal on backwards navigation rather than going to the previous route.
+- Reopening the modal on forwards navigation.
+Consider the following UI pattern, where a user can open a photo modal from a gallery using client-side navigation, or navigate to the photo page directly from a shareable URL:
+<Image
+alt=""Intercepting routes modal example""
+srcLight=""/docs/light/intercepted-routes-modal-example.png""
+srcDark=""/docs/dark/intercepted-routes-modal-example.png""
+width=""1600""
+height=""976""
+/>
+In the above example, the path to the photo segment can use the (..) matcher since @modal is a slot and not a segment. This means that the photo route is only one segment level higher, despite being two file-system levels higher.
+See the Parallel Routes documentation for a step-by-step example, or see our image gallery example.
+> Good to know:
+> - Other examples could include opening a login modal in a top navbar while also having a dedicated /login page, or opening a shopping cart in a side modal.
+
+
+",How to use Intercepting Routes in Next.js?,"In Next.js, Intercepting Routes can be used to load routes from another part of your application within the current layout. This is particularly useful for scenarios where you want to display content without switching to a different context. Here are some key points on how to implement Intercepting Routes:
+
+1. **Intercepted Routes Convention**: Interception is achieved using the (..) convention, which works similarly to relative paths but for route segments.
+
+2. **Using (.) for Segments at the Same Level**: You can match segments directly by using (.), such as intercepting photos within a feed segment.
+
+3. **Using (..) for One Level Up**: To intercept from higher up in your app, use (..). For example, to intercept photos from the feed segment, you would create a (..)photo directory.
+
+4. **Using (..)(..) for Two Levels Up**: If you need to intercept at two levels above, combine with (..), e.g., (..)(..)photos.
+
+5. **Matching From Root Directory**: To match content from the root of your application, use (...).
+
+6. **Combining with Parallel Routes**: Intercepting routes can be used alongside Parallel Routes for creating modals or handling specific UI patterns such as sharing a modal via a URL and preserving context during page refreshes.
+
+For detailed examples and further information, you should refer to our documentation on both [Intercepting Routes](https://nextjs.org/docs/app/building/routing#intercepted-routes) and [Parallel Routes](https://nextjs.org/docs/app/building/routing/parallel-routes)."
+17,"{/* The content of this doc is shared between the app and pages router. You can use the <PagesOnly>Content</PagesOnly> component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+Middleware allows you to run code before a request is completed. Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+Middleware runs before cached content and routes are matched. See Matching Paths for more details.
+Integrating Middleware into your application can lead to significant improvements in performance, security, and user experience. Some common scenarios where Middleware is particularly effective include:
+- Authentication and Authorization: Ensure user identity and check session cookies before granting access to specific pages or API routes.
+- Server-Side Redirects: Redirect users at the server level based on certain conditions (e.g., locale, user role).
+- Path Rewriting: Support A/B testing, feature rollouts, or legacy paths by dynamically rewriting paths to API routes or pages based on request properties.
+- Bot Detection: Protect your resources by detecting and blocking bot traffic.
+- Logging and Analytics: Capture and analyze request data for insights before processing by the page or API.
+- Feature Flagging: Enable or disable features dynamically for seamless feature rollouts or testing.
+Recognizing situations where middleware may not be the optimal approach is just as crucial. Here are some scenarios to be mindful of:
+- Complex Data Fetching and Manipulation: Middleware is not designed for direct data fetching or manipulation, this should be done within Route Handlers or server-side utilities instead.
+- Heavy Computational Tasks: Middleware should be lightweight and respond quickly or it can cause delays in page load. Heavy computational tasks or long-running processes should be done within dedicated Route Handlers.
+- Extensive Session Management: While Middleware can manage basic session tasks, extensive session management should be managed by dedicated authentication services or within Route Handlers.
+- Direct Database Operations: Performing direct database operations within Middleware is not recommended. Database interactions should be done within Route Handlers or server-side utilities.
+
+
+",When to use middleware in Next.js?,"Middleware in Next.js can be particularly effective in the following scenarios:
+
+1. **Authentication and Authorization**: Ensure user identity by checking session cookies before granting access to specific pages or API routes.
+2. **Server-Side Redirects**: Handle redirects at the server level based on certain conditions such as locale, user role, or other parameters.
+3. **Path Rewriting**: Dynamically rewrite paths to API routes or pages for A/B testing, feature rollouts, or legacy path support.
+4. **Bot Detection**: Detect and block bot traffic by integrating middleware specifically designed to handle these types of requests.
+5. **Logging and Analytics**: Capture request data for insights before processing it further within the page or API logic.
+6. **Feature Flagging**: Dynamically enable or disable features for feature rollouts or testing.
+
+It's important to note that while middleware can offer significant performance, security, and user experience improvements in these areas, there are also situations where using middleware may not be optimal. These include complex data fetching and manipulation, heavy computational tasks, extensive session management, and direct database operations, which should ideally be handled by dedicated Route Handlers or server-side utilities."
+20,"Middleware will be invoked for every route in your project. Given this, it's crucial to use matchers to precisely target or exclude specific routes. The following is the execution order:
+- headers from next.config.js
+- redirects from next.config.js
+- Middleware (rewrites, redirects, etc.)
+- beforeFiles (rewrites) from next.config.js
+- Filesystem routes (public/, _next/static/, pages/, app/, etc.)
+- afterFiles (rewrites) from next.config.js
+- Dynamic Routes (/blog/[slug])
+- fallback (rewrites) from next.config.js
+There are two ways to define which paths Middleware will run on:
+- Custom matcher config
+- Conditional statements
+### Matcher
+matcher allows you to filter Middleware to run on specific paths.
+```js filename=""middleware.js""
+export const config = {
+  matcher: '/about/:path*',
+}
+```
+You can match a single path or multiple paths with an array syntax:
+```js filename=""middleware.js""
+export const config = {
+  matcher: ['/about/:path*', '/dashboard/:path*'],
+}
+```
+The matcher config allows full regex so matching like negative lookaheads or character matching is supported. An example of a negative lookahead to match all except specific paths can be seen here:
+```js filename=""middleware.js""
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+  ],
+}
+```
+You can also bypass Middleware for certain requests by using the missing or has arrays, or a combination of both:
+```js filename=""middleware.js""
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    {
+      source:
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+      ],
+    },
+
+    {
+      source:
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+      has: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+      ],
+    },
+
+    {
+      source:
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+      has: [{ type: 'header', key: 'x-present' }],
+      missing: [{ type: 'header', key: 'x-missing', value: 'prefetch' }],
+    },
+  ],
+}
+```
+> Good to know: The matcher values need to be constants so they can be statically analyzed at build-time. Dynamic values such as variables will be ignored.
+Configured matchers:
+- MUST start with /
+- Can include named parameters: /about/:path matches /about/a and /about/b but not /about/a/c
+- Can have modifiers on named parameters (starting with :): /about/:path* matches /about/a/b/c because * is zero or more. ? is zero or one and + one or more
+- Can use regular expression enclosed in parenthesis: /about/(.*) is the same as /about/:path*
+Read more details on path-to-regexp documentation.
+> Good to know: For backward compatibility, Next.js always considers /public as /public/index. Therefore, a matcher of /public/:path will match.
+### Conditional Statements
+```ts filename=""middleware.ts"" switcher
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/about')) {
+    return NextResponse.rewrite(new URL('/about-2', request.url))
+  }
+
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.rewrite(new URL('/dashboard/user', request.url))
+  }
+}
+```
+```js filename=""middleware.js"" switcher
+import { NextResponse } from 'next/server'
+
+export function middleware(request) {
+  if (request.nextUrl.pathname.startsWith('/about')) {
+    return NextResponse.rewrite(new URL('/about-2', request.url))
+  }
+
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.rewrite(new URL('/dashboard/user', request.url))
+  }
+}
+```
+
+
+",How to use Middleware matcher?,"To use the `matcher` in Next.js for defining which paths a middleware should run on, you can configure it within your middleware file. The configuration specifies patterns that match URLs where the middleware will be applied. Here are two ways to define these configurations:
+
+### Using Custom Matcher Config
+
+You can specify exactly what paths should trigger the middleware using a custom matcher config as shown below:
+
+```js
+export const config = {
+  // Specifying single path with regex syntax
+  matcher: '/about/:path*',
+
+  // Or specifying multiple paths with an array syntax
+  // matcher: ['/about/:path*', '/dashboard/:path*'],
+
+  // Using full regex for more complex matching logic, including negative lookaheads
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+  ],
+}
+```
+
+### Using Conditional Statements
+
+You can also conditionally apply the middleware based on whether a specific path is being requested. This approach uses conditional checks within your middleware function:
+
+```ts
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/about')) {
+    return NextResponse.rewrite(new URL('/about-2', request.url))
+  }
+
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.rewrite(new URL('/dashboard/user', request.url))
+  }
+}
+```
+
+Or in JavaScript:
+
+```js
+export function middleware(request) {
+  if (request.nextUrl.pathname.startsWith('/about')) {
+    return NextResponse.rewrite(new URL('/about-2', request.url))
+  }
+
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.rewrite(new URL('/dashboard/user', request.url))
+  }
+}
+```
+
+### Summary
+
+Both approaches allow you to control which paths your middleware is applied to. The `matcher` approach leverages a custom configuration object with patterns, making it more declarative and easier for complex regex matching. The conditional statements provide a more imperative way of handling requests where specific conditions trigger the middleware behavior.
+
+Choose the method that best fits your needs based on how you want to define which paths are served by the middleware."
+25,"In v13.1 of Next.js two additional flags were introduced for middleware, skipMiddlewareUrlNormalize and skipTrailingSlashRedirect to handle advanced use cases.
+skipTrailingSlashRedirect disables Next.js redirects for adding or removing trailing slashes. This allows custom handling inside middleware to maintain the trailing slash for some paths but not others, which can make incremental migrations easier.
+```js filename=""next.config.js""
+module.exports = {
+  skipTrailingSlashRedirect: true,
+}
+```
+```js filename=""middleware.js""
+const legacyPrefixes = ['/docs', '/blog']
+
+export default async function middleware(req) {
+  const { pathname } = req.nextUrl
+
+  if (legacyPrefixes.some((prefix) => pathname.startsWith(prefix))) {
+    return NextResponse.next()
+  }
+
+  // apply trailing slash handling
+  if (
+    !pathname.endsWith('/') &&
+    !pathname.match(/((?!\.well-known(?:\/.*)?)(?:[^/]+\/)*[^/]+\.\w+)/)
+  ) {
+    return NextResponse.redirect(
+      new URL(`${req.nextUrl.pathname}/`, req.nextUrl)
+    )
+  }
+}
+```
+skipMiddlewareUrlNormalize allows for disabling the URL normalization in Next.js to make handling direct visits and client-transitions the same. In some advanced cases, this option provides full control by using the original URL.
+```js filename=""next.config.js""
+module.exports = {
+  skipMiddlewareUrlNormalize: true,
+}
+```
+```js filename=""middleware.js""
+export default async function middleware(req) {
+  const { pathname } = req.nextUrl
+
+  // GET /_next/data/build-id/hello.json
+
+  console.log(pathname)
+  // with the flag this now /_next/data/build-id/hello.json
+  // without the flag this would be normalized to /hello
+}
+```
+
+
+",What are middleware flags?,"Middleware flags in Next.js are configuration options that allow developers to customize and control how middleware functions operate. Two additional middleware flags introduced in v13.1 of Next.js were:
+
+1. **skipTrailingSlashRedirect**: This flag disables the automatic redirect behavior for handling trailing slashes, which means that any custom logic or redirection needs to be handled manually inside the middleware. It allows for controlling whether a trailing slash is added or removed on certain paths.
+
+2. **skipMiddlewareUrlNormalize**: This flag disables URL normalization in Next.js, making it easier to handle direct visits and client transitions consistently without automatic normalization. This can be useful when you need full control over how URLs are processed and handled within your middleware functions."
+27,"Middleware currently only supports APIs compatible with the Edge runtime. APIs exclusive to Node.js are unsupported.
+
+
+",What are middleware runtime compatibles?,"Middleware in Next.js is currently supported by APIs that are compatible with the Edge runtime, which is based on the JavaScript engine used by the browser's Edge. This means that for middleware to work seamlessly within a Next.js application, the API functions or logic it executes must be designed to run in this environment."
+28,"| Version | Changes |
+| :--- | :--- |
+| v13.1.0 | Advanced Middleware flags added |
+| v13.0.0 | Middleware can modify request headers, response headers, and send responses |
+| v12.2.0 | Middleware is stable, please see the upgrade guide |
+| v12.0.9 | Enforce absolute URLs in Edge Runtime (PR) |
+| v12.0.0 | Middleware (Beta) added |
+
+
+",What is the history of middleware?,"The history of middleware in Next.js can be summarized as follows:
+
+- **v12.0.0**: The concept of Middleware was introduced as a beta feature.
+  
+- **v12.2.0**: The stability of Middleware was marked, and an upgrade guide was provided.
+
+- **v12.0.9**: Middleware enforcement for absolute URLs in the Edge Runtime (PR) was implemented.
+
+- **v13.0.0**: Full support for modifying request headers, response headers, and sending responses through middleware was introduced.
+
+- **v13.1.0**: Advanced features related to middleware were added with the introduction of advanced middleware flags."
