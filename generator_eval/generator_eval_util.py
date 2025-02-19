@@ -34,18 +34,22 @@ def json_reformat(code: str):
         code = code.replace(match.group(), found)
     return code
 
+import ast
+
 def parse_code_content(code_content: str):
-    code_content = json_reformat(code_content)
-    # write to temp.json
-    code_content = code_content.replace("\n", "\\n")
-    # code_content = code_content.replace('\"', '\\"')
-    # code_content = code_content.replace("\'", "\\'")
-    code_content = code_content.replace("True", "true")
-    code_content = code_content.replace("False", "false")
-    with open("temp.json", "w") as f:
-        f.write(code_content)
-    code_content_json = json.loads(code_content)
-    return code_content_json
+    parsed_data = ast.literal_eval(code_content)
+    return parsed_data
+    # code_content = json_reformat(code_content)
+    # # write to temp.json
+    # code_content = code_content.replace("\n", "\\n")
+    # # code_content = code_content.replace('\"', '\\"')
+    # # code_content = code_content.replace("\'", "\\'")
+    # code_content = code_content.replace("True", "true")
+    # code_content = code_content.replace("False", "false")
+    # with open("temp.json", "w") as f:
+    #     f.write(code_content)
+    # code_content_json = json.loads(code_content)
+    # return code_content_json
 
 def place_snippets_in_text(text_content: str, code_content_json: list) -> str:
     # return text_content + code_content_json
@@ -76,8 +80,8 @@ def get_retrieved_data(df: pandas.DataFrame, list_of_chunk_idx: list[int]) -> st
 
     for chunk in list_of_chunks:
         # print(chunk['code_content'])
-        code_content_json = parse_code_content(chunk['code_content'])
-        original_chunk = place_snippets_in_text(chunk['text_content'], code_content_json)
+        code_content_list = parse_code_content(chunk['code_content'])
+        original_chunk = place_snippets_in_text(chunk['text_content'], code_content_list)
         retrieved_data += original_chunk
         retrieved_data += "\n\n"
     return retrieved_data
