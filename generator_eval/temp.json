@@ -1,1 +1,1 @@
-[{"code": "export async function generateStaticParams() {\n  const posts = await fetch('https://.../posts').then((res) => res.json())\n\n  return posts.map((post) => ({\n    slug: post.slug,\n  }))\n}\n", "language": "tsx", "filename": "app/blog/[slug]/page.tsx", "switcher": true}, {"code": "export async function generateStaticParams() {\n  const posts = await fetch('https://.../posts').then((res) => res.json())\n\n  return posts.map((post) => ({\n    slug: post.slug,\n  }))\n}\n", "language": "jsx", "filename": "app/blog/[slug]/page.js", "switcher": true}]
+[]
