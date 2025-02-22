@@ -1,0 +1,12 @@
+Model	TC1	TC2	TC3	TC4	TC5	TC6	TC7	TC8	TC9	TC10	TC11	TC12	TC13	TC14
+qwen:1.8	"0,6"	"0,2"	"0,2"	"0,1"	"0,1"	"0,1"	"0,2"	"0,05"	0	"0,95"	"0,2"	1	"0,4"	0
+qwen:4b	"0,8"	"0,8"	"0,2"	"0,9"	"0,6"	"0,7"	"0,99"	"0,1"	NaN	"0,95"	"0,8"	1	1	0
+qwen2.5:0.5b										0	"0,8"	1	"0,8"	"0,8"
+qwen2.5:1.5b														
+qwen2.5:3b														
+qwen2.5-coder:1.5b														
+llama3.2:3b														
+mistral:7b														
+mistrallite:7b														
+codegemma:2b														
+deepseek-r1:1.5b														
