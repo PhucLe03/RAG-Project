@@ -1,0 +1,152 @@
+Below are 15 sample test cases. Each test case includes a unique identifier, a documentation “context” chunk (a representative excerpt from NextJS docs), an “expected_input” that serves as the reference summary for that chunk, and additional attributes (such as the ROUGE metric focus or a brief description) that can help guide evaluation.
+
+```json
+[
+  {
+    "id": "TC1",
+    "context": "NextJS is a React framework for production, providing a hybrid of static and server-side rendering, smart bundling, route pre-fetching, and more.",
+    "expected_input": "NextJS enhances React with server-side rendering, static generation, and advanced performance optimizations for production.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1/ROUGE-L",
+      "description": "General overview of NextJS features."
+    }
+  },
+  {
+    "id": "TC2",
+    "context": "The file-based routing system in NextJS allows developers to create pages simply by adding files to the pages directory.",
+    "expected_input": "NextJS employs a file-based routing mechanism where pages are generated from files in the pages directory.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "description": "Highlights file-based routing."
+    }
+  },
+  {
+    "id": "TC3",
+    "context": "NextJS supports dynamic routing by using brackets in file names to create dynamic URL paths.",
+    "expected_input": "Dynamic routing in NextJS is implemented using bracket notation in file names for variable URL segments.",
+    "attributes": {
+      "rouge_metric": "ROUGE-2",
+      "notes": "Focus on dynamic route creation."
+    }
+  },
+  {
+    "id": "TC4",
+    "context": "getStaticProps is a NextJS function used to fetch data at build time, enabling static generation of pages.",
+    "expected_input": "NextJS uses getStaticProps to fetch data during build time for static page generation.",
+    "attributes": {
+      "rouge_metric": "ROUGE-L",
+      "length": "short",
+      "category": "data fetching"
+    }
+  },
+  {
+    "id": "TC5",
+    "context": "getServerSideProps is utilized in NextJS to fetch data on every request, which is ideal for dynamic content rendering.",
+    "expected_input": "For dynamic content, NextJS employs getServerSideProps to fetch data on each request.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "category": "data fetching",
+      "description": "Contrasts static and dynamic data fetching."
+    }
+  },
+  {
+    "id": "TC6",
+    "context": "NextJS allows developers to create API routes within the pages/api directory, enabling the use of serverless functions in applications.",
+    "expected_input": "API routes in NextJS, located in pages/api, enable serverless functions.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "description": "Covers NextJS API routing capabilities."
+    }
+  },
+  {
+    "id": "TC7",
+    "context": "Built-in support for CSS and Sass is available in NextJS, along with compatibility for any CSS-in-JS library.",
+    "expected_input": "NextJS supports built-in CSS/Sass and integrates well with CSS-in-JS libraries.",
+    "attributes": {
+      "rouge_metric": "ROUGE-2",
+      "notes": "Evaluates styling support."
+    }
+  },
+  {
+    "id": "TC8",
+    "context": "One of the core features of NextJS is automatic image optimization, which improves performance by optimizing images on the fly.",
+    "expected_input": "NextJS automatically optimizes images to boost performance.",
+    "attributes": {
+      "rouge_metric": "ROUGE-L",
+      "performance": "high",
+      "description": "Focuses on image optimization feature."
+    }
+  },
+  {
+    "id": "TC9",
+    "context": "NextJS supports internationalized routing, enabling developers to build applications that support multiple languages out of the box.",
+    "expected_input": "Internationalized routing in NextJS allows for multi-language support by default.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "notes": "Highlights i18n capabilities."
+    }
+  },
+  {
+    "id": "TC10",
+    "context": "Custom Document and App components in NextJS allow developers to override the default HTML structure and manage app initialization.",
+    "expected_input": "NextJS permits customization of its HTML structure via custom Document and App components.",
+    "attributes": {
+      "rouge_metric": "ROUGE-2",
+      "component": "customization",
+      "description": "Emphasizes extensibility of core components."
+    }
+  },
+  {
+    "id": "TC11",
+    "context": "NextJS has built-in support for TypeScript, allowing developers to incorporate static typing seamlessly into their projects.",
+    "expected_input": "TypeScript support is built into NextJS, enabling seamless static typing.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "language": "TypeScript",
+      "description": "Focuses on language integration."
+    }
+  },
+  {
+    "id": "TC12",
+    "context": "Automatic code splitting in NextJS improves application performance by splitting the code into smaller, more manageable bundles.",
+    "expected_input": "NextJS boosts performance through automatic code splitting into smaller bundles.",
+    "attributes": {
+      "rouge_metric": "ROUGE-L",
+      "optimization": "code splitting",
+      "notes": "Evaluates optimization techniques."
+    }
+  },
+  {
+    "id": "TC13",
+    "context": "NextJS offers a plugin system that extends its functionality with minimal configuration, allowing for powerful customization.",
+    "expected_input": "A robust plugin system in NextJS facilitates feature extension with minimal configuration.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "extension": "plugin support",
+      "description": "Highlights extensibility through plugins."
+    }
+  },
+  {
+    "id": "TC14",
+    "context": "Environment variables in NextJS enable secure configuration management, ensuring that different environments are properly isolated.",
+    "expected_input": "NextJS uses environment variables to manage secure configuration across various environments.",
+    "attributes": {
+      "rouge_metric": "ROUGE-1",
+      "security": "configuration",
+      "notes": "Emphasizes secure practices."
+    }
+  },
+  {
+    "id": "TC15",
+    "context": "Incremental Static Regeneration (ISR) in NextJS allows static pages to be updated after deployment without rebuilding the entire site.",
+    "expected_input": "ISR in NextJS permits updating static pages post-deployment without a full rebuild.",
+    "attributes": {
+      "rouge_metric": "ROUGE-2",
+      "update": "incremental regeneration",
+      "description": "Focus on dynamic updating of static content."
+    }
+  }
+]
+```
+
+Each test case can be fed into a ROUGE evaluation pipeline where the “context” is the source text and “expected_input” is the reference summary. Additional attributes (like the specific ROUGE metric or category) help fine-tune or document what aspect is being evaluated.

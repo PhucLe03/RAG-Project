@@ -1,0 +1,62 @@
+[
+    {
+        "id": "TC1",
+        "answer": " Routing in Next.js works by correlating files within the `pages` directory to routes. Each file in this folder contributes to a route based on its filename. For instance, a file named `pages/about.js` generates a route accessible at the URL `/about`."
+    },
+    {
+        "id": "TC2",
+        "answer": " In Next.js, Static Site Generation (SSG) is a method that generates HTML pages at build time based on data fetched from various sources. This approach provides improved performance because the server only needs to return pre-built HTML files instead of dynamically generating them for each request.\n\nDuring the build process, Next.js executes functions like `getStaticProps` and `getStaticPaths`. The `getStaticProps` function fetches data from an API or any other data source and returns an object with the generated props to be passed as properties to the page component. On the other hand, `getStaticPaths` generates an array of paths for each page that should be pre-rendered at build time.\n\nOnce the build process is complete, Next.js serves these pre-built HTML pages directly from the server or CDN, without needing to make additional API calls or execute any JavaScript on the client-side to generate the content. This results in faster load times and improved SEO performance since search engine crawlers can easily index the static HTML files.\n\nIn essence, SSG in Next.js allows you to create fast, SEO-friendly, and highly-performant static sites while still having the flexibility to fetch data dynamically at build time using functions like `getStaticProps` and `getStaticPaths`."
+    },
+    {
+        "id": "TC3",
+        "answer": " Server-Side Rendering (SSR) in Next.js is a method that generates HTML on the server instead of the client. This is done using the `getServerSideProps` function, which allows you to fetch data before the page is rendered and served to the user. By doing so, you can create dynamic pages with always up-to-date content. In simple terms, it means that Next.js generates your pages on the server at request time, providing a fast and SEO-friendly user experience."
+    },
+    {
+        "id": "TC4",
+        "answer": " In Next.js, dynamic routing is established using bracket notation in file names. To create a dynamic route, create a file with square brackets around the variable name in the appropriate directory under `pages`. For example, if you want to create a dynamic route for posts, create a file named `[id].js` in the `pages/posts` directory. Any routes that match the pattern `/posts/something` will be handled by this file."
+    },
+    {
+        "id": "TC5",
+        "answer": " Deployment options for Next.js include exporting a static website if all pages use Static Site Generation (SSG), or deploying it to a Node.js server. Platforms like Vercel offer seamless deployment, as they can automatically detect Next.js projects."
+    },
+    {
+        "id": "TC6",
+        "answer": " Incremental Static Regeneration (ISR) is a Next.js feature that enables updating existing pages in the background as traffic flows to them. This means that statically exported pages can be dynamically updated, combining the benefits of both static and dynamic rendering. ISR allows for faster initial load times while still providing up-to-date content."
+    },
+    {
+        "id": "TC7",
+        "answer": " In Next.js, images are optimized through the built-in `Image` component. This process involves reducing file sizes and generating multiple sizes for responsive design. The optimization is automatic when you use the `next/image` import to render your images. This feature helps ensure that your website loads quickly, providing a better user experience."
+    },
+    {
+        "id": "TC8",
+        "answer": " To create an API endpoint using Next.js, you need to follow these steps:\n\n1. Create a new file in the `pages/api` directory. For instance, if you want to create an API endpoint for users, you should name your file as `pages/api/users.js`.\n\n2. Within this file, define and export your API route function which handles HTTP requests (GET, POST, PUT, DELETE). This function will automatically map to the corresponding endpoint (in this case, `/api/users`).\n\nHere's an example of a simple Next.js API route:\n\n```javascript\n// pages/api/users.js\n\nexport default function handler(req, res) {\n  res.status(200).json({ name: 'John Doe' })\n}\n```\n\nWith this setup, when you make a request to `/api/users`, it will return the JSON data: `{ name: 'John Doe' }`."
+    },
+    {
+        "id": "TC9",
+        "answer": " The `<Head>` component in Next.js is used to add elements to the `<head>` of a page, which includes meta tags, titles, scripts, and other necessary components for Search Engine Optimization (SEO) and improved user experience."
+    },
+    {
+        "id": "TC10",
+        "answer": " TypeScript integration in Next.js happens automatically when you rename your JavaScript files to `.ts` or `.tsx`. When you run `next dev`, Next.js will install the necessary dependencies for TypeScript and configure it for you, allowing you to start using TypeScript within your Next.js project seamlessly."
+    },
+    {
+        "id": "TC11",
+        "answer": " The `<Link>` component in Next.js is used to provide client-side transitions between routes while prefetching content in the background. Its primary purpose is to improve performance and create a smoother, single-page app experience by managing navigation efficiently."
+    },
+    {
+        "id": "TC12",
+        "answer": " In Next.js, the `_app.js` file serves as a wrapper for every Page component. Its primary purpose is to provide consistency across your application by allowing you to apply global styling, keep state, or wrap all pages with global providers (like Redux store). Essentially, it allows you to customize the default behavior of Next.js's App component and ensure that your chosen components are present on every page."
+    },
+    {
+        "id": "TC13",
+        "answer": " In Next.js, code splitting is handled automatically at the route level. This means that your JavaScript (JS) code will be split into smaller bundles corresponding to each route defined in your application. The purpose of this approach is to reduce initial load times and optimize performance for users. As a result, when a user navigates to a new page or route, only the necessary bundle(s) are loaded rather than the entire application, leading to faster load times and improved user experience."
+    },
+    {
+        "id": "TC14",
+        "answer": " In Next.js, environment variables are loaded from `.env` files. These variables can be accessed based on whether they are prefixed with `NEXT_PUBLIC_`. Variables without this prefix remain accessible only on the server-side, while those with this prefix become available in the browser as well."
+    },
+    {
+        "id": "TC15",
+        "answer": " In Next.js, the `_document.js` file is responsible for creating a custom HTML structure and providing custom <head> elements for each page. On the other hand, the `_app.js` file allows you to extend or change the default component behavior of your application across all pages. While `_document.js` operates at the level of individual pages' HTML structure, `_app.js` affects the layout and structure of the overall application."
+    }
+]

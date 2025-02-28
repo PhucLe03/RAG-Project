@@ -1,0 +1,62 @@
+[
+    {
+        "id": "TC1",
+        "answer": "In Next.js, routing is enabled by creating pages within the `pages` directory. Each file inside this directory corresponds to a specific route based on its filename. For instance, if you have a file named `about.js` within the `pages` directory, it creates a route accessible at `/about`. This means that Next.js will automatically generate URLs for your routes using the file names as identifiers.\n\nTo summarize, the `pages` directory in Next.js enables routing based on the file names of its contents."
+    },
+    {
+        "id": "TC2",
+        "answer": "I'd be happy to explain Static Site Generation (SSG) in Next.js!\n\nStatic Site Generation (SSG) is a feature in Next.js that allows you to generate pages at build time, rather than rendering them dynamically on each request. This approach improves performance by reducing the number of requests made to your server.\n\nHere's how it works:\n\nWhen you enable SSG in Next.js, your application is built at build time, and static HTML files are generated for each page. These static HTML files contain all the necessary data and markup, including server-side rendered (SSR) components.\n\nAt build time, Next.js uses functions like `getStaticProps` and `getStaticPaths` to fetch data and create HTML for your pages. `getStaticProps` is used to generate the content of each page, while `getStaticPaths` is used to determine which pages need to be generated statically.\n\nWhen a user requests one of these statically generated pages, Next.js serves up the corresponding HTML file directly from the server. Since the page has already been built and generated at build time, there's no need for further processing or rendering, resulting in faster page loads and reduced latency.\n\nBy leveraging SSG, you can enjoy better performance, improved SEO, and easier maintenance for your Next.js applications!"
+    },
+    {
+        "id": "TC3",
+        "answer": "In Next.js, Server-Side Rendering (SSR) is enabled by using the `getServerSideProps` function. It allows you to pre-render your pages on the server, so that the client receives a fully rendered page with dynamic data on every request.\n\nThis means that when a user requests a page in your application, Next.js fetches any necessary data on the server before sending it to the client's web browser. This can result in faster page loads and an always-up-to-date experience for users.\n\nBy using SSR, you can create dynamic pages with server-side rendered content, making your applications feel more responsive and engaging!"
+    },
+    {
+        "id": "TC4",
+        "answer": "In Next.js, dynamic routes are set up using bracket notation in file names. For example, creating a file named `[id].js` in the `pages/posts` directory means any route matching `/posts/something` will be handled by that file. This allows you to create flexible and dynamic routing without having to rewrite URLs in every page component."
+    },
+    {
+        "id": "TC5",
+        "answer": "The deployment options for Next.js are:\n\n1. Exporting a static website (if all pages use Server-Side Generation (SSG))\n2. Deploying to a Node.js server"
+    },
+    {
+        "id": "TC6",
+        "answer": "Incremental Static Regeneration (ISR) is a feature in Next.js that enables you to update existing pages by re-rendering them in the background as traffic flows to them, combining the benefits of static and dynamic rendering."
+    },
+    {
+        "id": "TC7",
+        "answer": "In Next.js, images are optimized using the `next/image` component. When you use this component to display an image, it automatically optimizes the image by reducing its file size and generating multiple sizes for responsive design.\n\nHere's a brief overview of how it works:\n\n1. The `next/image` component is used in your React components to display images.\n2. The `next/image` component checks if the image has already been optimized by Next.js's image optimization process.\n3. If the image hasn't been optimized, Next.js generates multiple sizes for the image (e.g., 100x100, 200x200, etc.) and stores them in a cache.\n4. The `next/image` component then selects the optimal size of the image based on its current viewport width or height, using a technique called \"lazy loading\".\n5. Next.js uses a combination of techniques like compression, caching, and format conversion to reduce the file size of the images.\n\nBy optimizing images in this way, Next.js reduces the number of requests made by your application to load images, resulting in faster page loads and improved performance.\n\nI hope that helps! Let me know if you have any further questions."
+    },
+    {
+        "id": "TC8",
+        "answer": "To create an API endpoint using Next.js, you can simply place your API code inside the `pages/api` directory.\n\nFor example, let's say you want to create a new API endpoint at `/api/greetings`. You would simply create a new file called `greetings.js` inside the `pages/api` directory, and define your API route inside that file."
+    },
+    {
+        "id": "TC9",
+        "answer": "In Next.js, the `<Head>` component from `next/head` is used to add elements to the `<head>` of a page, such as meta tags, titles, and scripts that are necessary for SEO and improved user experience."
+    },
+    {
+        "id": "TC10",
+        "answer": "Next.js supports TypeScript out of the box, which means you can easily convert your JavaScript files to TypeScript (`.ts` or `.tsx`) and take advantage of its type safety features. When you run `next dev`, Next.js automatically installs the required dependencies and configures TypeScript for you, making it a seamless experience for developers who prefer or need TypeScript in their project."
+    },
+    {
+        "id": "TC11",
+        "answer": "The purpose of the `<Link>` component in Next.js is to provide client-side transitions between routes, prefetching content in the background to enhance performance and create a smoother, single-page app experience."
+    },
+    {
+        "id": "TC12",
+        "answer": "In Next.js, the `_app.js` file plays a crucial role as it serves as a container for global providers and layouts that are shared across all pages. This allows you to centralize state and design elements, ensuring consistency across your application."
+    },
+    {
+        "id": "TC13",
+        "answer": "In Next.js, code splitting is handled automatically at the route level. This means that Next.js will split your code into separate chunks based on the routes you define in your application.\n\nWhen you create a new page or API route, Next.js generates a separate bundle for it. These bundles are loaded dynamically as the user navigates to different pages. This allows you to optimize your application's performance by reducing the amount of code that needs to be loaded upfront.\n\nFor example, if you have a blog with multiple pages, each page would have its own separate bundle. When the user visits the home page, only the bundle for the home page is loaded. As they navigate to other pages (e.g., about us or contact), the corresponding bundles are loaded dynamically.\n\nThis approach enables your application to load faster and more efficiently, as only the necessary code is loaded at any given time."
+    },
+    {
+        "id": "TC14",
+        "answer": "In Next.js, environment variables are loaded from `.env` files by default. Variables that start with `NEXT_PUBLIC_` can be accessed both on the server and in the browser. On the other hand, variables without this prefix remain server-side only, meaning they won't be accessible in the browser."
+    },
+    {
+        "id": "TC15",
+        "answer": "In Next.js, `_document.js` differs from `_app.js` in that it is used to override the global document structure. While `_app.js` is used to render the application's UI and provides a way to wrap your app with common components like layout or navigation, `_document.js` is used to customize the HTML and body tags for every page.\n\nWith `_document.js`, you can add custom meta tags, and write custom HTML that will be injected into every page."
+    }
+]

@@ -1,0 +1,62 @@
+[
+    {
+        "id": "TC1",
+        "answer": "In Next.js, routing is handled through the `pages` directory. Each JavaScript file placed within this directory corresponds to a unique route based on its filename. For instance, creating a file named `about.js` inside the `pages` folder will generate a route that can be accessed at `/about`. This system simplifies the setup and management of routes for your application."
+    },
+    {
+        "id": "TC2",
+        "answer": "In Next.js, Static Site Generation (SSG) is a technique where pages are pre-rendered into static HTML files at build time. This approach leverages functions like `getStaticProps` and `getStaticPaths`. The `getStaticProps` function fetches data for the page and returns an object that includes the data to be used in the component. When using SSG, Next.js generates these pages during the build process, creating static HTML files that are served directly by the web server when requested.\n\nThe `getStaticPaths` function is utilized to specify dynamic paths at which SSG should generate static HTML files. It returns an object containing an array of paths and a boolean indicating whether there's fallback support for handling non-existent paths.\n\nBy using SSG, Next.js pages can offer improved performance due to the reduced server load when serving pre-rendered content and faster initial loading times compared to server-side rendering (SSR) or client-side rendering."
+    },
+    {
+        "id": "TC3",
+        "answer": "In Next.js, Server-Side Rendering (SSR) is facilitated by using the `getServerSideProps` function. This function enables you to fetch data on every request made to the server, which ensures that your pages are dynamic and always up-to-date with the latest information before being sent to users."
+    },
+    {
+        "id": "TC4",
+        "answer": "In Next.js, dynamic routing is achieved by using bracket notation (`[param]`) in file names within the `pages` directory. For example, creating a file named `[id].js` inside the `pages/posts` directory will match and handle any URL path starting with `/posts/` followed by any identifier (like `/posts/something`). This allows for handling multiple routes without manually creating files for each possible route."
+    },
+    {
+        "id": "TC5",
+        "answer": "When deploying a Next.js application, you have two main options:\n\n1. **Static Site Generation (SSG):** If your application uses Static Site Generation for all pages, you can deploy it as a static website.\n2. **Server-side Rendering with Node.js:** You can also deploy the application to a Node.js server.\n\nAdditionally, platforms like Vercel provide automatic detection and deployment of Next.js projects, making the process straightforward."
+    },
+    {
+        "id": "TC6",
+        "answer": "Incremental Static Regeneration (ISR) is a Next.js feature that enables updating pre-rendered pages automatically when they receive requests, ensuring fresh content without sacrificing performance. It allows for the background re-generation of static page content triggered by user visits, blending the advantages of both static and server-side rendering methods."
+    },
+    {
+        "id": "TC7",
+        "answer": "In Next.js, images are optimized using the built-in `Image` component from the `next/image` module. When you use this component to include an image in your application, Next.js automatically performs several optimizations:\n\n1. **Responsive Images**: It generates multiple sizes of each image based on the device screen size and layout context, allowing for efficient loading.\n2. **File Size Reduction**: The images are optimized to reduce file sizes without significantly compromising quality, which improves load times.\n3. **Lazy Loading**: By default, Next.js' `Image` component includes lazy loading, meaning images only start loading when they enter the viewport.\n\nTo use this feature, you need to import and utilize the `next/image` component in your application code. Here is a basic example of how to include an optimized image:\n\n```javascript\nimport Image from 'next/image';\n\nfunction Home() {\n  return (\n    <div>\n      <Image src=\"/images/example.jpg\" alt=\"Example Image\" width={500} height={300} />\n    </div>\n  );\n}\n```\n\nIn this example, `src` specifies the path to the image file, and `width` and `height` attributes are used to inform Next.js about the dimensions of the image container, which helps in rendering the appropriate image size."
+    },
+    {
+        "id": "TC8",
+        "answer": "To create an API endpoint using Next.js, you simply need to place a file inside the `pages/api` directory. The name of this file will define the route for your API endpoint relative to the base `/api` path.\n\nFor example:\n- If you create a file named `users.js` in the `pages/api` directory, the API endpoint would be available at `/api/users`.\n- Similarly, if you have a file called `auth/login.js`, then it maps to an endpoint at `/api/auth/login`.\n\nYour API route handler can use JavaScript or TypeScript and should export a function as its default export. This function will receive an object containing HTTP request information (such as headers, method, body) and is expected to return a response object or JSON data."
+    },
+    {
+        "id": "TC9",
+        "answer": "In Next.js, the `<Head>` component from `next/head` enables you to add elements to the `<head>` of a page, such as meta tags, titles, and scripts that are necessary for SEO and improved user experience."
+    },
+    {
+        "id": "TC10",
+        "answer": "In Next.js, integrating TypeScript is straightforward. You can simply rename your JavaScript files to have a `.ts` or `.tsx` extension. Once renamed, when you start your development server using `next dev`, Next.js will automatically handle the installation of necessary dependencies and configuration for TypeScript support. This allows you to write type-safe code directly in your Next.js application without needing additional setup beyond renaming your file extensions."
+    },
+    {
+        "id": "TC11",
+        "answer": "The `<Link>` component in Next.js is used to provide client-side navigation with smooth transitions between pages. It also prefetches content in the background for linked routes, which enhances performance and creates a more seamless user experience similar to that of a single-page application (SPA)."
+    },
+    {
+        "id": "TC12",
+        "answer": "In Next.js, the custom `_app.js` file serves as a top-level component that wraps all pages in an application. This enables developers to add common functionality like state management and layout consistency across multiple pages by wrapping them with global providers or layouts inside this file."
+    },
+    {
+        "id": "TC13",
+        "answer": "In Next.js, code splitting is managed automatically by the framework to optimize your application's performance. Specifically, Next.js splits code at the route level, which means that when you have different routes (like `/pageA` and `/pageB`), each of these pages will be bundled separately.\n\nThis approach ensures that only the necessary code for a specific page is loaded initially when navigating to it. As a result, initial load times are reduced because users do not need to download all of your application's JavaScript upfront. Instead, they receive just what is needed for the current route, and additional content will be fetched as needed.\n\nThis automatic route-based code splitting helps in creating efficient and fast web applications by minimizing the size of each page bundle, thereby improving performance metrics such as Time To Interactive (TTI) and First Contentful Paint (FCP)."
+    },
+    {
+        "id": "TC14",
+        "answer": "In Next.js, environment variables are typically stored in a file named `.env`. These variables are automatically loaded during development and production. To make an environment variable available on the client side (browser), you should prefix it with `NEXT_PUBLIC_`. Variables without this prefix are only accessible server-side and not exposed to the browser for security reasons."
+    },
+    {
+        "id": "TC15",
+        "answer": "The `_document.js` and `_app.js` files in Next.js serve different purposes:\n\n- **_document.js**: This file allows you to customize the `<html>`, `<head>`, and `<body>` tags that are rendered for all pages. It's typically used for global HTML setup, including setting up meta tags or customizing the head section of your document.\n\n- **_app.js** (or `_app.tsx`): This file is where you can wrap every page to add custom functionality like layout components, data fetching, error handling, and more. You use it when you need to implement global behavior that affects all pages in your application, such as a common header or footer across all routes.\n\nIn summary:\n- Use `_document.js` for customizing the document structure (HTML tags).\n- Use `_app.js` for customizing page-level rendering logic and adding global layout components."
+    }
+]

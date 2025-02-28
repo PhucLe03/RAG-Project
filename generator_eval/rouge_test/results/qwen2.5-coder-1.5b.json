@@ -1,0 +1,62 @@
+[
+    {
+        "id": "TC1",
+        "answer": "Routing in Next.js is handled using files in the `pages` directory. Each file corresponds to a route, and the file name becomes the path component of that route. For instance, `pages/about.js` maps to `/about`. This structure allows for clean URLs and easy navigation between pages within your application."
+    },
+    {
+        "id": "TC2",
+        "answer": "Static Site Generation (SSG) in Next.js allows pages to be generated at build time. It uses functions like `getStaticProps` and `getStaticPaths` to fetch data and create HTML for improved performance. This approach ensures that the static files are ready before the server is started, which speeds up the initial load of your website."
+    },
+    {
+        "id": "TC3",
+        "answer": "Server-Side Rendering (SSR) in Next.js is implemented using the `getServerSideProps` function, which allows you to fetch data on every request. This enables dynamic and always up-to-date pages."
+    },
+    {
+        "id": "TC4",
+        "answer": "In Next.js, dynamic routing is enabled by using bracket notation in file names. For example, to create a page that can display posts based on their unique identifiers (IDs), you would create a file named `[id].js` in the `pages/posts` directory. This setup allows any route like `/posts/123` to be handled by the corresponding `[id].js` file, allowing for flexible and scalable content delivery."
+    },
+    {
+        "id": "TC5",
+        "answer": "When deploying a Next.js application, there are two primary methods available:\n\n1. **Static Website Generation (SSG)**:\n   - All pages in your Next.js app use Server-Side Rendering (SSR) or Dynamic Static Generation (DSG).\n   - This ensures that all pages are rendered on the server before being sent to the client.\n   - The resulting website can be hosted as a static site using platforms like GitHub Pages, Netlify, Vercel, etc.\n\n2. **Serverless Hosting**:\n   - Next.js apps can be deployed directly to a Node.js server like Heroku or AWS Lambda without needing a dedicated domain.\n   - This is ideal for smaller projects and those who prefer a more traditional server-side architecture.\n   - The application runs on the server, which handles all request routing, data fetching, and rendering.\n\nBoth deployment options offer different trade-offs in terms of performance, scalability, and ease of use."
+    },
+    {
+        "id": "TC6",
+        "answer": "Incremental Static Regeneration is a feature in Next.js that enables you to dynamically update pages based on changes without having to re-render them completely from scratch. It works by generating pages incrementally as they are accessed, which improves performance and user experience by reducing the initial load time of static pages. This technique allows for a hybrid approach where parts of the page can remain static while other parts are rendered in the background using server-side rendering (SSR)."
+    },
+    {
+        "id": "TC7",
+        "answer": "In Next.js, images are optimized using the built-in Image component, which automatically compresses the images to reduce their file size without significantly affecting quality. This feature is particularly useful for responsive design and mobile applications where optimizing images ensures a good user experience by maintaining high visual quality at different screen sizes. The `next/image` import allows you to specify various parameters such as width, height, placeholder, loading strategy, breakpoints, and more, which help in fine-tuning the image display according to specific requirements."
+    },
+    {
+        "id": "TC8",
+        "answer": "To create an API endpoint using Next.js, follow these steps:\n\n1. Create a new file inside the `pages/api` directory. The filename should match the URL you want to expose for your API.\n\n2. In the new file, define the route handler as an asynchronous function that returns a response. You can use any HTTP method supported by Next.js (e.g., GET, POST, PUT, DELETE) and any appropriate data format (e.g., JSON).\n\n3. Use the `fetch` API or other HTTP libraries to interact with your database or perform other necessary operations.\n\n4. Return the response from your function as a JSON object. The response should include status codes (200 for success, 500 for errors), headers, and a body containing the data you want to return.\n\n5. Test your API endpoint using tools like Postman or by accessing it through a web browser if the server is running locally.\n\nHere's an example of what your `pages/api/users.js` file might look like:\n\n```javascript\n// pages/api/users.js\n\nexport default async function handler(req, res) {\n  // Simulate fetching data from a database\n  const users = [\n    { id: 1, name: 'John Doe' },\n    { id: 2, name: 'Jane Smith' }\n  ];\n\n  try {\n    // Send the response with status code 200 and JSON data\n    res.status(200).json({ success: true, users });\n  } catch (error) {\n    // Send an error response if something goes wrong\n    res.status(500).json({ success: false, message: 'Internal Server Error' });\n  }\n}\n```\n\nNow you can access your API endpoint at `/api/users` and retrieve the list of users in JSON format."
+    },
+    {
+        "id": "TC9",
+        "answer": "The `<Head>` component in Next.js is used to add elements to the `<head>` of a page, which is essential for SEO (Search Engine Optimization) and improving the user experience. This includes meta tags like `title`, `description`, `keywords`, and scripts that are critical for rendering content correctly. The `<Head>` component allows developers to manage these metadata dynamically in their Next.js applications."
+    },
+    {
+        "id": "TC10",
+        "answer": "To integrate TypeScript into Next.js, you first need to create your project with TypeScript enabled using the following command:\n\n```bash\nnpx create-next-app@latest my-project --typescript\n```\n\nThis command sets up a new Next.js project with TypeScript included. After creating the project, Next.js automatically installs the necessary dependencies and configures TypeScript for you.\n\nHere\u2019s how it works:\n\n1. **TypeScript Installation**: During the installation process, TypeScript is installed as a dependency in your project. This ensures that all TypeScript files are recognized by Next.js.\n\n2. **TypeScript Configuration**: The `next.config.ts` file is created automatically to configure TypeScript settings. This file contains configurations such as module resolution, paths for types, and more.\n\n3. **File Extension Conversion**: When you create or edit `.js` files in your project, Next.js will automatically convert them to `.ts` or `.tsx`. The conversion happens at runtime, so there is no need to manually change the file extension when editing your TypeScript code.\n\n4. **Type Safety Checks**: TypeScript provides static type checking, which helps catch errors early in the development process before running the app. This ensures that your code is more reliable and easier to maintain.\n\n5. **Support for JSX**: With `.tsx` files, you can use JSX directly in your components, enhancing the expressive power of your Next.js applications.\n\nBy following these steps, you can leverage TypeScript's benefits when working with Next.js, improving both development efficiency and the overall quality of your application."
+    },
+    {
+        "id": "TC11",
+        "answer": "The `<Link>` component in Next.js is used to create hyperlinks that navigate between different pages in a React application. It provides client-side transitions between routes, prefetching content in the background, and enhances performance and creates a smoother, single-page app experience."
+    },
+    {
+        "id": "TC12",
+        "answer": "The `_app.js` file in Next.js plays a crucial role by serving as the base component for every page in your application. It provides a consistent layout and state that is accessible throughout the site, including props passed from parent components and data fetched asynchronously. This setup is particularly useful for managing navigation, authentication, or global configurations that need to be available across all pages."
+    },
+    {
+        "id": "TC13",
+        "answer": "In Next.js, code splitting is handled through its `pages` directory. The files within this directory are automatically split into smaller bundles based on the route hierarchy of your application. This process helps in reducing initial load times and optimizing performance by loading only the necessary parts of the app at a time. When a user navigates to different routes, Next.js dynamically loads the required components or chunks, which are then rendered and displayed in the browser."
+    },
+    {
+        "id": "TC14",
+        "answer": "Environment variables in Next.js are used to configure your application at runtime. They can be set in several ways:\n\n1. **`.env` Files**:\n   - `.env` files are used to store sensitive information such as API keys, database credentials, or other configuration settings that should not be hard-coded into your codebase.\n   - Variables prefixed with `NEXT_PUBLIC_` are accessible in the browser and can be directly injected into HTML by Next.js during development.\n\n2. **Process.env**:\n   - The `process.env` object provides an easy way to access these environment variables within server-side JavaScript code. This is particularly useful for accessing sensitive data at runtime, such as database credentials or API keys.\n   - Environment variables prefixed with `NEXT_PUBLIC_` are available in the browser and can be injected into HTML by Next.js during development.\n\n3. **Config Files**:\n   - You can also configure your application using config files like `.env.local`, `.env.production`, etc., which provide separate settings for different environments.\n   - Environment variables prefixed with `NEXT_PUBLIC_` are available in the browser and can be injected into HTML by Next.js during development.\n\n4. **System Environment Variables**:\n   - Environment variables set on the server or the operating system can also be accessed through the Node.js global object, such as `process.env`.\n\nUnderstanding how environment variables work in Next.js is crucial for configuring your application effectively and ensuring that sensitive information remains secure."
+    },
+    {
+        "id": "TC15",
+        "answer": " `_document.js` differs from `_app.js` in Next.js by providing more control over the document structure. Specifically, `_document.js` allows customization of HTML and body tags, as well as meta tags for every page. This is particularly useful for adding custom styles or scripts to the entire application without modifying each component individually. Additionally, `_document.js` can be used to set global attributes or behaviors that affect all pages, such as the viewport settings or title tags."
+    }
+]

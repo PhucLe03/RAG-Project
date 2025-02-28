@@ -1,0 +1,62 @@
+[
+    {
+        "id": "TC1",
+        "answer": "Routing with the `pages` directory in Next.js is as follows:\n\n1. The `pages` directory within Next.js contains files corresponding to routes.\n\n2. Each file within the `pages` directory corresponds to a route based on its file name. \n\n3. For example, `pages/about.js` creates a route accessible at `/about`."
+    },
+    {
+        "id": "TC2",
+        "answer": "Static Site Generation (SSG) refers to the process of generating static websites, instead of dynamic ones. In the context of Next.js, SSG is implemented through a combination of functions like `getStaticProps` and `getStaticPaths`. These functions fetch data at build time, which in turn allows for improved performance and faster page loads."
+    },
+    {
+        "id": "TC3",
+        "answer": "Next.js provides Server-Side Rendering (SSR) in its functionality.\nServer-Side Rendering refers to the process of rendering a web page on the server-side before sending it to the client. This allows the client to view the web page as soon as it is sent from the server."
+    },
+    {
+        "id": "TC4",
+        "answer": "Dynamic routing is supported in Next.js by using bracket notation in file names.\nFor example, creating a file named `[id].js` in the `pages/posts` directory means any route matching `/posts/something` will be handled by that file.\nNext.js supports dynamic routing by using bracket notation"
+    },
+    {
+        "id": "TC5",
+        "answer": "Next.js has two deployment options:\n\n1. Exporting a static website: This option is used when all pages of the website use Static Site Generation (SSG). In this case, exporting a static website will provide a faster loading experience.\n\n2. Deploying it to a Node.js server: In this option, you would deploy your Next.js app to a Node.js server. This approach allows for greater customization and control over your deployment process.\n\nIn summary, Next.js offers two deployment options:\n\n1. Exporting a static website\n2. Deploying it to a Node.js server"
+    },
+    {
+        "id": "TC6",
+        "answer": "Incremental Static Regeneration (ISR) is a Next.js feature that allows you to update existing pages by re-rendering them in the background as traffic flows to them.\nThis feature combines the benefits of static and dynamic rendering."
+    },
+    {
+        "id": "TC7",
+        "answer": "Next.js can automatically optimize images via the built-in Image component. This feature relies on the `next/image` import. When an image is requested, Next.js uses the Image component to generate multiple sizes for responsive design. These generated sizes include the original size and different sizes based on aspect ratio, resolution, and other factors. By using this automated optimization of images in Next.js, developers can reduce file sizes, improve page load times, and enhance the overall user experience."
+    },
+    {
+        "id": "TC8",
+        "answer": "To create an API endpoint using Next.js, follow these steps:\n\n1. In the pages/api directory of your Next.js project.\n2. Create a new file in the directory by following this syntax for creating a file:\n```javascript\nimport React from 'react';\nconst Users = () => {\n  return (\n    <div>\n      <h3>Users</h3>\n      <form method=\"POST\">\n        {fields.map(field => (\n          <label key={field.id} htmlFor={field.fieldId} {...field.props}>\n            {field.value}\n          </label>\n        )))}}\n        <button type=\"submit\">Submit</button>\n      </form>\n    </div>\n  );\n};\nconst UsersComponent = () => {\n  return (\n    <div>\n      <h3>Users</h3>\n      { Users() }\n    </div>\n  );\n};\nexport default UsersComponent;\n```\n\n\n3. In the pages/api directory of your Next.js project.\n4. Create a new file in the directory by following this syntax for creating a file:\n```javascript\nimport React from 'react';\nconst Categories = () => {\n  return (\n    <div>\n      <h3>Categories</h3>\n      { Categories() }\n    </div>\n  );\n};\nconst CategoriesComponent = () => {\n  return (\n    <div>\n      <h3>Categories</h3>\n      { Categories() }\n    </div>\n  );\n};\nexport default CategoriesComponent;\n```\n\n\n5. In the pages/api directory of your Next.js project.\n6. Create a new file in the directory by following this syntax for creating a file:\n```javascript\nimport React from 'react';\nconst UsersByCategory = () => {\n  return (\n    <div>\n      <h3>Users By Category</h3>\n      { UsersByCategory() }\n    </div>\n  );\n};\nconst UsersByCategoryComponent = () => {\n  return (\n    <div>\n      <h3>Users By Category</h3>\n      { UsersByCategory() }\n    </div>\n  );\n};\nexport default UsersByCategoryComponent;\n```\n\n\n7. In the pages/api directory of your Next.js project.\n8. Create a new file in the directory by following this syntax for creating a file:\n```javascript\nimport React from 'react';\nconst CategoriesList = () => {\n  return (\n    <div>\n      <h3>Categories List</h  > \n      { CategoriesList() } \n    </div>\n  );\n};\nconst CategoriesListComponent = () => {\n  return (\n    <div>\n      <h3>Categories List</h  > \n      { CategoriesListComponent() } \n    </div>\n  );\n};\nexport default CategoriesListComponent;\n```\n\n\n9. In the pages/api directory of your Next.js project.\n10. Create a new file in the directory by following this syntax for creating a file:\n```javascript\nimport React from 'react';\nconst UsersList = () => {\n  return (\n    <div>\n      <h3>Users List</h  > \n      { UsersList() } \n    </div>\n  );\n};\nconst UsersListComponent = () => {\n  return (\n    <div>\n      <h3>Users List</h  > \n      { UsersListComponent() } \n    </div>\n  );\n};\nexport default UsersListComponent;\n```"
+    },
+    {
+        "id": "TC9",
+        "answer": "In Next.js, the `<Head>` component from `next/head` enables you to add elements to the `<head>`\n\n```"
+    },
+    {
+        "id": "TC10",
+        "answer": "TypeScript is integrated into Next.js out of the box. When you convert your JavaScript files to `.ts` or `.tsx`, Next.js will automatically install the required dependencies and configure TypeScript for you."
+    },
+    {
+        "id": "TC11",
+        "answer": "The `<Link>` component in Next.js provides client-side transitions between routes, prefetching content in the background, enhancing performance and creating a smoother, single-page app experience."
+    },
+    {
+        "id": "TC12",
+        "answer": " `_app.js` is a custom file used in Next.js to keep state or layout consistent across pages. It allows for global providers or layouts to be wrapped around all pages."
+    },
+    {
+        "id": "TC13",
+        "answer": "Code splitting is handled automatically by Next.js. When a user navigates to a specific route, Next.js splits the code at that route level, creating smaller bundles.\n\nThis code splitting reduces initial load times and optimizes performance for users."
+    },
+    {
+        "id": "TC14",
+        "answer": "In Next.js, environment variables are loaded from `.env` files by default. Variables prefixed with `NEXT_PUBLIC_` become accessible in the browser, while others remain server- side only."
+    },
+    {
+        "id": "TC15",
+        "answer": "The main difference between `_document.js` and `_app.js` is that the former is used to override the default structure of a Next.js application, while the latter is the main entry point for any Next.js application, and it serves as the base for all other components in an application."
+    }
+]

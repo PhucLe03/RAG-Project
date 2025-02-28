@@ -1,0 +1,62 @@
+[
+    {
+        "id": "TC1",
+        "answer": "Next.js provides a special \"pages\" folder for routing. Each file within this folder corresponds to a route based on its file name, where the file name is used as the route's URL. For example, pages/about.js creates a route accessible at /about."
+    },
+    {
+        "id": "TC2",
+        "answer": "In Next.js, SSG refers to the process of generating entire web pages at build time. To do this, Next.js uses functions like `getStaticProps` and `getStaticPaths`. These functions fetch data and create HTML for improved performance. "
+    },
+    {
+        "id": "TC3",
+        "answer": "In Next.js, server-side rendering (SSR) is an implementation strategy that allows you to fetch data on every request. SSR can be useful when creating dynamic and always up-to-date pages. This functionality is provided by the `getServerSideProps` function in Next.js."
+    },
+    {
+        "id": "TC4",
+        "answer": "In short, Next.js allows you to create dynamic routes by using bracket notation in file names. The format for this is \"pages/[dynamic_route]\" and can be used for any route matching /posts/something. "
+    },
+    {
+        "id": "TC5",
+        "answer": "Next.js offers two deployment options - exporting a static website and deploying it to a Node.js server."
+    },
+    {
+        "id": "TC6",
+        "answer": "Incremental Static Regeneration, or ISR, allows pages to be updated in the background as traffic flows to them while they are being rendered by Next.js. This feature combines the benefits of static and dynamic rendering."
+    },
+    {
+        "id": "TC7",
+        "answer": "Next.js uses the built-in Image component to optimize images. When an image is imported using the next/image library, Next.js automatically reduces file sizes and generates multiple sizes for responsive design. This feature relies on the next/image import."
+    },
+    {
+        "id": "TC8",
+        "answer": "To create an API endpoint in Next.js, you can use the `GET`, `POST`, `PUT`, or `DELETE` methods provided by Express. These methods allow you to perform CRUD (create, read, update, and delete) operations on your API endpoints.\n\nFor example, if you want to create a new user, you can send a `POST` request to the `/api/users` endpoint with the user's data in the body of the request. This will trigger the function in the `pages/api/users.js` file, which can then use the Express methods to perform the desired operation on the database.\n\nTo summarize, creating an API endpoint in Next.js involves:\n\n1. Creating a new folder called `pages/api` inside your Next.js project.\n2. Inside this folder, create a new JavaScript file for each API endpoint you want to create (e.g., `pages/api/users.js`).\n3. Use the Express methods (`GET`, `POST`, `PUT`, or `DELETE`) provided by Next.js to perform CRUD operations on your API endpoints.\n4. Test your API endpoints using a tool like Postman or cURL."
+    },
+    {
+        "id": "TC9",
+        "answer": "\nNext.js's `<Head>` component allows you to add elements like meta tags, titles, and scripts necessary for SEO and improved user experience to the `<head>` of a page."
+    },
+    {
+        "id": "TC10",
+        "answer": "Next.js supports TypeScript out of the box, which means that you can write your pages in TypeScript instead of JavaScript. This allows you to take advantage of many of TypeScript's benefits, such as better type checking and more robust object-oriented programming features. When you run `next dev`, Next.js will automatically install the required dependencies and configure TypeScript for you."
+    },
+    {
+        "id": "TC11",
+        "answer": "The purpose of the `<Link>` component is to provide client-side transitions between routes while prefetching content in the background."
+    },
+    {
+        "id": "TC12",
+        "answer": "To summarize, the custom `_app.js` file is a commonly used pattern in Next.js to keep state and layout consistent across all pages. It's a great way to wrap all pages with global providers or layouts."
+    },
+    {
+        "id": "TC13",
+        "answer": "Next.js handles code splitting by automatically creating smaller bundle files based on routes."
+    },
+    {
+        "id": "TC14",
+        "answer": "In Next.js, environment variables are loaded from `.env` files by default. Variables prefixed with `NEXT_PUBLIC_` become accessible in the browser, while others remain server-side only."
+    },
+    {
+        "id": "TC15",
+        "answer": "The answer is _document.js differs from _app.js in the following ways:\n\n1. `_document.js` has its own lifecycle methods, such as `getStaticProps`, which are not available in `_app.js`. These methods allow you to define how data is fetched and rendered for each page.\n2. `_document.js` allows custom HTML and `<body>` tags, as well as custom meta tags for every page. This means that you can add your own HTML elements and attributes to the document head or body, and also define custom meta tags like title, description, or keywords.\n3. `_document.js` is executed before rendering the component tree, while `_app.js` is executed after the components have been rendered. This means that in `_document.js`, you can define how the initial HTML markup should look, while in `_app.js`, you can define the layout and structure of your app.\n\nIn summary, `_document.js` allows for more control over the HTML and meta tags of each page, while `_app.js` provides a way to customize the layout and structure of the component tree."
+    }
+]

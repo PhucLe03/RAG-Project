@@ -1,0 +1,191 @@
+Below are 15 sample test cases you can use to evaluate ROUGE scores for LLM outputs. Each test case includes a **context** (drawn from fictitious “chunks” of Next.js documentation), an **expected_input** (the prompt/query a user might provide), and a **reference_summary** (the ground-truth or ideal short answer/summary). You can modify or expand them as needed to fit your evaluation process.
+
+---
+
+### Test Case 1
+**Context**  
+> Next.js provides a special `pages` directory for routing. Each file within the `pages` folder corresponds to a route based on its file name. For example, `pages/about.js` creates a route accessible at `/about`.
+
+**Expected Input**  
+> Summarize how routing works with the `pages` directory in Next.js.
+
+**Reference Summary**  
+> Next.js automatically sets up routes based on the file structure in the `pages` directory. Each file becomes a route that matches its filename.
+
+---
+
+### Test Case 2
+**Context**  
+> Static Site Generation (SSG) in Next.js allows pages to be generated at build time. It uses functions like `getStaticProps` and `getStaticPaths` to fetch data and create HTML for improved performance.
+
+**Expected Input**  
+> Explain what Static Site Generation (SSG) means in Next.js and how it works.
+
+**Reference Summary**  
+> SSG means Next.js pre-renders pages during the build process. Using `getStaticProps` and `getStaticPaths`, you fetch data and generate static HTML ahead of time, improving load performance.
+
+---
+
+### Test Case 3
+**Context**  
+> Server-Side Rendering (SSR) in Next.js is implemented using the `getServerSideProps` function. It allows you to fetch data on every request, enabling dynamic and always up-to-date pages.
+
+**Expected Input**  
+> Please provide a short explanation of Server-Side Rendering in Next.js.
+
+**Reference Summary**  
+> SSR with Next.js uses `getServerSideProps` to fetch data at request time, ensuring pages are rendered dynamically with the latest data before being sent to the client.
+
+---
+
+### Test Case 4
+**Context**  
+> Next.js supports dynamic routing by using bracket notation in file names. For instance, creating a file named `[id].js` in the `pages/posts` directory means any route matching `/posts/something` will be handled by that file.
+
+**Expected Input**  
+> Summarize how dynamic routes are set up in Next.js.
+
+**Reference Summary**  
+> To set up dynamic routes in Next.js, you create a page file using bracket parameters like `[id].js`. Routes matching the parameter replace the bracketed section.
+
+---
+
+### Test Case 5
+**Context**  
+> When deploying a Next.js app, you can either export a static website (if all pages use SSG) or deploy it to a Node.js server. Platforms like Vercel offer seamless deployment, detecting Next.js projects automatically.
+
+**Expected Input**  
+> Summarize the deployment options for Next.js.
+
+**Reference Summary**  
+> You can export static builds for completely static sites or deploy Next.js on a Node server for SSR. Many hosting providers, like Vercel, support Next.js with minimal configuration.
+
+---
+
+### Test Case 6
+**Context**  
+> Next.js supports Incremental Static Regeneration (ISR), which allows you to update existing pages by re-rendering them in the background as traffic flows to them. This feature combines the benefits of static and dynamic rendering.
+
+**Expected Input**  
+> Could you give a concise overview of Incremental Static Regeneration?
+
+**Reference Summary**  
+> ISR periodically regenerates static pages in the background, allowing pages to stay fresh without a full rebuild. This merges static performance with dynamic updates.
+
+---
+
+### Test Case 7
+**Context**  
+> Next.js can automatically optimize images via the built-in Image component, which reduces file sizes and generates multiple sizes for responsive design. This feature relies on the `next/image` import.
+
+**Expected Input**  
+> Explain how images are optimized in Next.js.
+
+**Reference Summary**  
+> The `next/image` component automatically handles image sizing, lazy loading, and optimization. It delivers smaller, more responsive images to improve performance.
+
+---
+
+### Test Case 8
+**Context**  
+> API routes in Next.js let you build an API inside the `pages/api` directory. Each file in this folder maps to an endpoint. For instance, `pages/api/users.js` becomes `/api/users`.
+
+**Expected Input**  
+> Summarize how to create an API endpoint using Next.js.
+
+**Reference Summary**  
+> Placing a file in `pages/api` creates a corresponding endpoint. Each file exports a request handler, letting you build serverless functions within your Next.js app.
+
+---
+
+### Test Case 9
+**Context**  
+> In Next.js, the `<Head>` component from `next/head` enables you to add elements to the `<head>` of a page, such as meta tags, titles, and scripts that are necessary for SEO and improved user experience.
+
+**Expected Input**  
+> What is `<Head>` used for in Next.js?
+
+**Reference Summary**  
+> The `next/head` `<Head>` component lets you add and manage `<head>` content like page titles, meta tags, and scripts for better SEO and control.
+
+---
+
+### Test Case 10
+**Context**  
+> Next.js supports TypeScript out of the box. You can convert your JavaScript files to `.ts` or `.tsx`, and when you run `next dev`, Next.js will automatically install the required dependencies and configure TypeScript for you.
+
+**Expected Input**  
+> Provide a brief explanation of how TypeScript is integrated into Next.js.
+
+**Reference Summary**  
+> Next.js automatically configures TypeScript if it detects `.ts` or `.tsx` files in your project. It sets up the necessary dependencies and handles type checking in development.
+
+---
+
+### Test Case 11
+**Context**  
+> The Next.js `<Link>` component provides client-side transitions between routes, prefetching content in the background. It enhances performance and creates a smoother, single-page app experience.
+
+**Expected Input**  
+> Summarize the purpose of the `<Link>` component in Next.js.
+
+**Reference Summary**  
+> `<Link>` performs client-side routing and can prefetch pages, improving navigation speed and creating a seamless user experience.
+
+---
+
+### Test Case 12
+**Context**  
+> A common pattern in Next.js is to use the custom `_app.js` file to keep state or layout consistent across pages. It allows you to wrap all pages with global providers or layouts.
+
+**Expected Input**  
+> Briefly describe the role of `_app.js` in Next.js.
+
+**Reference Summary**  
+> `_app.js` is a special file where you can initialize pages, apply global styles, and manage layout or state. It wraps every page in Next.js.
+
+---
+
+### Test Case 13
+**Context**  
+> Next.js automatically splits code at the route level, creating smaller bundles. This code splitting reduces initial load times and optimizes performance for users.
+
+**Expected Input**  
+> Explain how code splitting is handled in Next.js.
+
+**Reference Summary**  
+> Next.js automatically splits your JavaScript bundle based on routes, so only the relevant code for a route is loaded, improving performance.
+
+---
+
+### Test Case 14
+**Context**  
+> Environment variables in Next.js are loaded from `.env` files by default. Variables prefixed with `NEXT_PUBLIC_` become accessible in the browser, while others remain server-side only.
+
+**Expected Input**  
+> Summarize how environment variables work in Next.js.
+
+**Reference Summary**  
+> By default, Next.js loads variables from `.env` files. Variables starting with `NEXT_PUBLIC_` are exposed to the client; others stay server-side for security.
+
+---
+
+### Test Case 15
+**Context**  
+> You can override the default Next.js Document structure by creating a `_document.js` file. This allows custom HTML and <body> tags, as well as custom meta tags for every page.
+
+**Expected Input**  
+> How does `_document.js` differ from `_app.js` in Next.js?
+
+**Reference Summary**  
+> `_document.js` customizes the overall HTML structure, whereas `_app.js` manages shared components, state, or layouts that wrap individual pages.
+
+---
+
+**How to Use These Test Cases for ROUGE Evaluation**  
+1. Present the **context** and **expected_input** to your LLM.  
+2. Collect the LLM’s generated answer.  
+3. Compare the generated answer to the **reference_summary** using ROUGE metrics (ROUGE-1, ROUGE-2, ROUGE-L, etc.).  
+4. Assess how closely the model’s output matches the reference in terms of overlapping words/phrases.  
+
+Feel free to adjust the wording or details of each test case to match your exact use case.
