@@ -21,7 +21,7 @@ prompt = PromptTemplate.from_template(template)
 
 parser = StrOutputParser()
 
-scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
+scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rouge3', 'rougeL'], use_stemmer=True)
 
 class ROUGE:
     def __init__(self):
@@ -70,16 +70,30 @@ class ROUGE:
         rouge1_precision = []
         rouge1_recall = []
         rouge1_fmeasure = []
+        rouge2_precision = []
+        rouge2_recall = []
+        rouge2_fmeasure = []
+        rouge3_precision = []
+        rouge3_recall = []
+        rouge3_fmeasure = []
         rougeL_precision = []
         rougeL_recall = []
         rougeL_fmeasure = []
         for item in self.merged_data:
             score = scorer.score(item["answer"], item["reference_summary"])
             rouge1 = score['rouge1']
+            rouge2 = score['rouge2']
+            rouge3 = score['rouge3']
             rougeL = score['rougeL']
             rouge1_precision.append(rouge1[0])
             rouge1_recall.append(rouge1[1])
             rouge1_fmeasure.append(rouge1[2])
+            rouge2_precision.append(rouge2[0])
+            rouge2_recall.append(rouge2[1])
+            rouge2_fmeasure.append(rouge2[2])
+            rouge3_precision.append(rouge3[0])
+            rouge3_recall.append(rouge3[1])
+            rouge3_fmeasure.append(rouge3[2])
             rougeL_precision.append(rougeL[0])
             rougeL_recall.append(rougeL[1])
             rougeL_fmeasure.append(rougeL[2])
@@ -87,6 +101,12 @@ class ROUGE:
         avg_rouge1_precision = sum(rouge1_precision) / len(rouge1_precision)
         avg_rouge1_recall = sum(rouge1_recall) / len(rouge1_recall)
         avg_rouge1_fmeasure = sum(rouge1_fmeasure) / len(rouge1_fmeasure)
+        avg_rouge2_precision = sum(rouge2_precision) / len(rouge2_precision)
+        avg_rouge2_recall = sum(rouge2_recall) / len(rouge2_recall)
+        avg_rouge2_fmeasure = sum(rouge2_fmeasure) / len(rouge2_fmeasure)
+        avg_rouge3_precision = sum(rouge3_precision) / len(rouge3_precision)
+        avg_rouge3_recall = sum(rouge3_recall) / len(rouge3_recall)
+        avg_rouge3_fmeasure = sum(rouge3_fmeasure) / len(rouge3_fmeasure)
         avg_rougeL_precision = sum(rougeL_precision) / len(rougeL_precision)
         avg_rougeL_recall = sum(rougeL_recall) / len(rougeL_recall)
         avg_rougeL_fmeasure = sum(rougeL_fmeasure) / len(rougeL_fmeasure)
@@ -105,6 +125,16 @@ class ROUGE:
                 "precision": avg_rouge1_precision,
                 "recall": avg_rouge1_recall,
                 "fmeasure": avg_rouge1_fmeasure
+            },
+            "rouge2": {
+                "precision": avg_rouge2_precision,
+                "recall": avg_rouge2_recall,
+                "fmeasure": avg_rouge2_fmeasure
+            },
+            "rouge3": {
+                "precision": avg_rouge3_precision,
+                "recall": avg_rouge3_recall,
+                "fmeasure": avg_rouge3_fmeasure
             },
             "rougeL": {
                 "precision": avg_rougeL_precision,
