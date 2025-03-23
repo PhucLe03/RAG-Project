@@ -92,28 +92,24 @@ The strength of BGE-M3 lies in its ability to unify dense retrieval, sparse retr
 In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, ensuring that only the most relevant and semantically precise information is retrieved from the vector database. By leveraging BGE-M3’s advanced capabilities, we aim to enhance the overall effectiveness of the RAG system by improving the quality and relevance of the retrieved context, thus contributing to more accurate and contextually appropriate responses.
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{l c}
-\hline
-\textbf{Model}               & \textbf{Avg Score} \\ \hline
-\multicolumn{2}{l}{\textbf{Baselines}} \\ \hline
-BM25                         & 31.9               \\
-mDPR                         & 41.8               \\
-mContriever                  & 43.1               \\
-mE5\textsubscript{large}     & 66.6               \\
-E5\textsubscript{mistral-7b} & 63.4               \\
-OpenAI-3                     & 54.9               \\ \hline
-\multicolumn{2}{l}{\textbf{M3-Embedding}} \\ \hline
-Dense                        & 69.2               \\
-Sparse                       & 53.9               \\
-Multi-vector                 & 70.5               \\
-Dense+Sparse                 & 70.4               \\
-All                          & \textbf{71.5}      \\ \hline
-\end{tabular}
-\caption{Comparison of BGE-M3 embeddings with baseline models for multi-lingual retrieval performance on the MIRACL dataset \cite{chen2024bge}.}
-\label{tab:bge_m3_comparison}
+	\centering
+	\begin{tabular}{l c}
+		\hline
+		\textbf{Model}               & \textbf{Avg Score} \\ \hline
+		\multicolumn{2}{l}{\textbf{Baselines}} \\ \hline
+		BM25 \cite{bm25}                         & 31.9               \\
+		E5\textsubscript{mistral-7b} \cite{wang2024e5_improve} & 63.4               \\
+		OpenAI-3                     & 54.9               \\ \hline
+		\multicolumn{2}{l}{\textbf{M3-Embedding}} \cite{chen2024bge} \\ \hline
+		Dense                        & 69.2               \\
+		Sparse                       & 53.9               \\
+		Multi-vector                 & 70.5               \\
+		Dense+Sparse                 & 70.4               \\
+		All                          & \textbf{71.5}      \\ \hline
+	\end{tabular}
+	\caption{Comparison of BGE-M3 embeddings with baseline models for multi-lingual retrieval performance on the MIRACL dataset \cite{chen2024bge}.}
+	\label{tab:bge_m3_comparison_filtered}
 \end{table}
-
 
 \section{Why Qwen?}
 
@@ -126,6 +122,7 @@ The decision to integrate Qwen into our RAG pipeline stems from its balance of e
 
 This comparative analysis provides valuable insights into Qwen’s strengths and limitations, illustrating its potential as an effective and efficient solution when paired with external retrieval mechanisms in RAG-based applications.
 
+
 \begin{table}[ht]
 \centering
 \begin{tabular}{l c c c c c c c c}
@@ -133,13 +130,13 @@ This comparative analysis provides valuable insights into Qwen’s strengths and
 \textbf{Model}      & \textbf{Params} & \textbf{MMLU} & \textbf{C-Eval} & \textbf{GSM8K} & \textbf{MATH} & \textbf{HumanEval} & \textbf{MBPP} & \textbf{BBH} \\ 
                     &                 & \textbf{5-shot} & \textbf{5-shot} & \textbf{8-shot} & \textbf{4-shot} & \textbf{0-shot}    & \textbf{3-shot} & \textbf{3-shot} \\ \hline
 
-Baichuan2           & 7B             & 54.7           & 56.3           & 24.6           & 5.6           & 18.3               & 24.2          & 41.6          \\
+Baichuan2            & 7B             & 54.7           & 56.3           & 24.6           & 5.6           & 18.3               & 24.2          & 41.6          \\
                     & 13B            & 59.5           & 59.0           & 52.8           & 10.1          & 17.1               & 30.2          & 49.0          \\ \hline
-LLaMA               & 7B             & 35.6           & 27.3           & 11.0           & 2.9           & 12.8               & 17.7          & 33.5          \\
+LLaMA              & 7B             & 35.6           & 27.3           & 11.0           & 2.9           & 12.8               & 17.7          & 33.5          \\
                     & 13B            & 47.7           & 31.8           & 20.3           & 4.2           & 15.8               & 22.0          & 37.9          \\
                     & 33B            & 58.7           & 37.5           & 42.3           & 7.1           & 21.7               & 30.2          & 50.0          \\
                     & 65B            & 63.7           & 40.4           & 54.4           & 10.6          & 23.7               & 37.7          & 58.4          \\ \hline
-Llama 2             & 7B             & 46.8           & 32.5           & 16.7           & 3.3           & 12.8               & 20.8          & 38.2          \\
+Llama 2              & 7B             & 46.8           & 32.5           & 16.7           & 3.3           & 12.8               & 20.8          & 38.2          \\
                     & 13B            & 55.0           & 41.4           & 29.6           & 5.0           & 18.9               & 30.3          & 45.6          \\
                     & 34B            & 62.6           & 42.6           & 42.2           & 6.2           & 22.6               & 33.0          & 44.1          \\
                     & 70B            & 69.8           & 50.1           & 63.6           & 13.5          & 29.9               & 45.0          & 64.9          \\ \hline
@@ -151,6 +148,21 @@ QWEN                & 1.8B           & 44.6           & 54.7           & 21.2   
 \label{table:qwen}
 \end{table}
 
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{l c c c c}
+		\hline
+		\textbf{Model}      & \textbf{Params} & \textbf{HumanEval} & \textbf{MATH} & \textbf{GSM8K} \\ 
+		&                 & \textbf{0-shot}    & \textbf{4-shot} & \textbf{8-shot} \\ \hline
+		Baichuan 2 \cite{baichuan2}           & 7B             & 18.3               & 5.6           & 24.6           \\ \hline
+		LLaMA \cite{llama}               & 7B             & 12.8               & 2.9           & 11.0           \\ \hline
+		Llama 2 \cite{llama2}           & 7B             & 12.8               & 3.3           & 16.7           \\ \hline
+		QWEN \cite{bai2023qwen}               & 1.8B           & 17.1               & 5.6           & 21.2           \\
+		\hline
+	\end{tabular}
+	\caption{Performance comparison of Qwen 1.8B and other 7B models on selected benchmarks.}
+	\label{table:qwen_filtered}
+\end{table}
 
 \section{Main architecture}
 

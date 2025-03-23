@@ -75,4 +75,4 @@
 \contentsline {chapter}{\numberline {7}Conclusion and future works}{48}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Conclusion}{48}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Upcoming works: January 2025 and beyond}{49}{section.7.2}%
-\contentsline {chapter}{Bibliography}{51}{chapter*.48}%
+\contentsline {chapter}{Bibliography}{51}{chapter*.49}%
