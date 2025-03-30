@@ -76,3 +76,6 @@
 \contentsline {section}{\numberline {7.1}Conclusion}{48}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Upcoming works: January 2025 and beyond}{49}{section.7.2}%
 \contentsline {chapter}{Bibliography}{51}{chapter*.49}%
+\contentsline {chapter}{Appendices}{55}{section*.50}%
+\contentsline {chapter}{\numberline {A}Interface of the RAGGIN Extension}{56}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}Test Results}{57}{appendix.1.B}%

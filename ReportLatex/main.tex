@@ -31,13 +31,13 @@ $\indent$ PhD Nguyen An Khuong \hspace{1cm} (Supervisor) \\
 %\thispagestyle{empty}
 \pagenumbering{roman} 
 
-\input{components/contents/Declaration}
+\input{components/contents/0.Declaration}
 \newpage
 
-\input{components/contents/Acknowledgements}
+\input{components/contents/0.Acknowledgements}
 \newpage
 
-\input{components/contents/Abstract}
+\input{components/contents/0.Abstract}
 \newpage
 
 \tableofcontents
@@ -46,19 +46,25 @@ $\indent$ PhD Nguyen An Khuong \hspace{1cm} (Supervisor) \\
 
 \pagenumbering{arabic} 
 
-\input{components/contents/Introduction}
+\input{components/contents/1.Introduction}
 \newpage
-\input{components/contents/Preliminary}
+\input{components/contents/2.Preliminary}
 \newpage
-\input{components/contents/Related works and tools}
+\input{components/contents/3.Related works and tools}
 \newpage
-\input{components/contents/Approach}
+\input{components/contents/4.Approach}
 \newpage
-\input{components/contents/Initial implementation}
+\input{components/contents/5.Implementation}
 \newpage
-\input{components/contents/Evaluation plan}
+\input{components/contents/6.Evaluation}
 \newpage
-\input{components/contents/Conclusion and future works}
+\input{components/contents/7.Conclusion}
 \newpage
 \printbibliography[heading=bibintoc]
+\newpage
+\begin{appendices}
+\input{components/contents/A.Interface}
+\newpage
+\input{components/contents/A.TestResults}
+\end{appendices}
 \end{document}
