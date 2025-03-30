@@ -29,11 +29,12 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
     \includegraphics[width=0.7\textwidth]{Images/Approach/fine_tuning_process_diagram.png}
     
     % [Caption for LOF]{Real caption\footnotemark}
-    \caption{Fine-tuning process (RAG vs Fine-Tuning: A Comparative Analysis of LLM Learning Techniques\protect\footnotemark ).}
+    \vspace*{4mm}
+    \caption{Fine-tuning process\protect\footnotemark.}
     \label{fig:fine_tuning_process}
 \end{figure}
 
-\footnotetext{\url{https://addepto.com/blog/rag-vs-fine-tuning-a-comparative-analysis-of-llm-learning-techniques/}}
+\footnotetext{RAG vs Fine-Tuning: A Comparative Analysis of LLM Learning Techniques - \url{https://addepto.com/blog/rag-vs-fine-tuning-a-comparative-analysis-of-llm-learning-techniques/}}
 
 \subsection{Comparison between fine-tuning and RAG}
 
@@ -71,10 +72,10 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
     \includegraphics[width=0.7\textwidth]{Images/Approach/The nature of Fine-Tuning and RAG.png}
     
     \vspace{3mm}
-    \caption{The nature of fine-tuning and RAG (Fine-tuning vs. RAG: Understanding the Difference\protect\footnotemark ).}
+    \caption{The nature of fine-tuning and RAG\protect\footnotemark.}
 \end{figure}
 
-\footnotetext{\url{https://finetunedb.com/blog/fine-tuning-vs-rag/}}
+\footnotetext{Fine-tuning vs. RAG: Understanding the Difference - \url{https://finetunedb.com/blog/fine-tuning-vs-rag/}}
 
 
 \subsection{Rationale for choosing RAG}
@@ -108,7 +109,7 @@ In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, en
 		All                          & \textbf{71.5}      \\ \hline
 	\end{tabular}
 	\caption{Comparison of BGE-M3 embeddings with baseline models for multi-lingual retrieval performance on the MIRACL dataset \cite{chen2024bge}.}
-	\label{tab:bge_m3_comparison_filtered}
+	\label{tab:bge_m3_comparison}
 \end{table}
 
 \section{Why Qwen?}
@@ -180,7 +181,7 @@ Our RAG system is designed to leverage external knowledge sources to enhance the
 	\centering
 	\includegraphics[scale=0.2]{Images/Implement/rag_pipeline.png}
 	\vspace{5mm}
-	\caption{Our RAG architecture design}
+	\caption{Our RAG architecture design.}
 	\label{fig:RAG-architecture}
 \end{figure}
 
@@ -354,7 +355,7 @@ Alibaba PASE (PostgreSQL) \cite{pase2020} & \xmark                  & \checkmark
 \rowcolor[HTML]{D3D3D3} 
 Milvus \cite{wang2021milvus}              & \checkmark                  & \checkmark            & \checkmark  & \checkmark                 & \checkmark                  & \checkmark                 \\ \hline
 \end{tabular}
-\caption{System comparison.}
+\caption{Vector database comparison.}
 \end{table}
 
 % \subsection{Query handling and prompt management}

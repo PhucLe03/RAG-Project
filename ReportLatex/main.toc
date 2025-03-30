@@ -7,7 +7,7 @@
 \contentsline {section}{\numberline {1.3}Significant of the problem}{3}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Objectives}{3}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Scope}{3}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Challenges}{3}{section.1.6}%
+\contentsline {section}{\numberline {1.6}Challenges}{4}{section.1.6}%
 \contentsline {section}{\numberline {1.7}Structure of the report}{4}{section.1.7}%
 \contentsline {chapter}{\numberline {2}Preliminaries}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Retriever}{5}{section.2.1}%
