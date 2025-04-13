@@ -1,187 +1,118 @@
-\chapter{Evaluation plan}
+\chapter{Evaluation}
 
 \section{Evaluation metrics}
-\subsection{Retriever metrics}
-\textbf{Recall@K:}
-    Recall@K measures the proportion of relevant documents retrieved within the top $K$ results for a query.
-    \[
-    \text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Retrieved top K documents} |}{|\text{Relevant documents}|}
-    \]
-    where:
-    \begin{itemize}
-        \item $|\text{Relevant documents}|$ is the total number of relevant documents for the query.
-        \item $| \text{Relevant documents} \cap \text{Retrieved top K documents} |$ is the number of relevant documents retrieved in the top $K$ results.
-    \end{itemize}
-    Example:
-    \begin{itemize}
-        \item Scenario: A query retrieves the top \( K = 5 \) documents. Out of these, \( 3 \) are relevant, and the total number of relevant documents is \( 4 \).
 
-        \item Calculation:
-        \begin{equation*}
-        \text{Recall@5} = \frac{3}{4} = 0.75 ,(75\%)
-        \end{equation*}
-
-    \end{itemize}
-
-
-\textbf{Precision@K:}
-    Precision@K evaluates the accuracy of the retrieved documents within the top $K$ results.
-    \[
-    \text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Retrieved top K documents} |}{|\text{Retrieved top K documents}|}
-    \]
-    where:
-    \begin{itemize}
-        \item $|\text{Retrieved top K documents}|$ is the total number of documents retrieved in the top $K$ results.
-    \end{itemize}
-    Example:
-    \begin{itemize}
-        \item Scenario: A query retrieves the top \( K = 5 \) documents. Out of these, \( 3 \) are relevant, and the total number of relevant documents is \( 4 \).
-
+	\subsection{Retriever Metrics}
+	
+	\textbf{Recall@K:}  
+	Recall@K quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
+	\[
+	\text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Relevant documents}|}
+	\]
+	Where:
+	\begin{itemize}
+		\item $|\text{Relevant documents}|$ denotes the total number of documents relevant to the query.
+		\item $|\text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents}|$ is the count of relevant documents found in the top $K$ results.
+	\end{itemize}
+	\textbf{Example:}
+	\begin{itemize}
+		\item Scenario: A query returns the top \( K = 5 \) documents. Among them, \( 3 \) are relevant, while the total number of relevant documents is \( 4 \).
 		\item Calculation:
-        \begin{equation*}
-        \text{Precision@5} = \frac{3}{5} = 0.6 \,(60\%)
-        \end{equation*}
+		\begin{equation*}
+			\text{Recall@5} = \frac{3}{4} = 0.75 \quad (75\%)
+		\end{equation*}
+	\end{itemize}
+	
+	\textbf{Precision@K:}  
+	Precision@K measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
+	\[
+	\text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Top-}K \text{ retrieved documents}|}
+	\]
+	Where:
+	\begin{itemize}
+		\item $|\text{Top-}K \text{ retrieved documents}|$ is the number of documents retrieved within the top $K$ results.
+	\end{itemize}
+	\textbf{Example:}
+	\begin{itemize}
+		\item Scenario: A query retrieves the top \( K = 5 \) documents, with \( 3 \) being relevant. The total number of relevant documents is \( 4 \).
+		\item Calculation:
+		\begin{equation*}
+			\text{Precision@5} = \frac{3}{5} = 0.6 \quad (60\%)
+		\end{equation*}
+	\end{itemize}
+	
+	\textbf{Latency:}  
+	Latency represents the response time taken to complete a retrieval operation.
+	\[
+	\text{Latency (ms)} = \text{Time}_{\text{returned}} - \text{Time}_{\text{submitted}}
+	\]
+	\textbf{Example:}
+	\begin{itemize}
+		\item Scenario: The query is submitted at 11:00:00.000 and the result is received at 11:00:00.340.
+		\item Calculation:
+		\begin{equation*}
+			\text{Latency} = 340\,\text{ms} - 0\,\text{ms} = 340\,\text{ms}
+		\end{equation*}
+	\end{itemize}
+	
+	\subsection{Generator Metrics}
+	
+	\textbf{ROUGE Score:}  
+	ROUGE evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
+	\[
+	\text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
+	\]
+	\textbf{Example:}
+	\begin{itemize}
+		\item Scenario: A reference document has 10 bigrams, and the generated output contains 8 matching bigrams.
+		\item Calculation:
+		\begin{equation*}
+			\text{ROUGE-2} = \frac{8}{10} = 0.8
+		\end{equation*}
+	\end{itemize}
+	
+	\textbf{Relevance:}  
+	Relevance measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
+	\[
+	\text{Relevance} = \frac{1}{N} \sum_{i=1}^{N} \text{RelevanceScore}_i
+	\]
+	\textbf{Example:}
+	\begin{itemize}
+		\item Scenario: Five queries yield relevance scores of \( 0.9, 0.8, 0.7, 1.0, \text{and } 0.6 \).
+		\item Calculation:
+		\begin{equation*}
+			\text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
+		\end{equation*}
+	\end{itemize}
+	
+	\textbf{Latency:}  
+	Latency in the generation phase denotes the time elapsed between the completion of retrieval and the generation of the final output.
+	\[
+	\text{Latency (ms)} = \text{Time}_{\text{generated}} - \text{Time}_{\text{retrieved}}
+	\]
+	\textbf{Example:}
+	\begin{itemize}
+		\item Scenario: The output is generated at 12:00:00.210 after retrieval completes at 12:00:00.000.
+		\item Calculation:
+		\begin{equation*}
+			\text{Latency} = 210\,\text{ms} - 0\,\text{ms} = 210\,\text{ms}
+		\end{equation*}
+	\end{itemize}
 
-    \end{itemize}
-
-\textbf{Latency:}
-    Latency measures the time taken to retrieve documents for a query.
-    \[
-    \text{Latency (ms)} = \text{Time when results are returned} - \text{Time when query is submitted}
-    \]
-    Example:
-    \begin{itemize}
-        \item Scenario: LLM receives a prompt at 11:00:00.000 and receives the results at 11:00:00.340.
-    
-        \item Calculation:
-        \begin{equation*}
-        \text{Latency} = 340 \, \text{ms} - 0 \, \text{ms} = 340 \, \text{ms}
-        \end{equation*}
-
-    \end{itemize}
-
-\textbf{Coverage:}
-    Coverage assesses the percentage of queries for which at least one relevant document is retrieved.
-    \[
-    \text{Coverage} = \frac{\text{Number of queries with relevant results retrieved}}{\text{Total number of queries}} \times 100
-    \]
-    Example:
-    \begin{itemize}
-        \item Scenario: A total of 10 queries are submitted, and the system retrieves relevant results for 8 queries.
-        
-        \item Calculation:
-        \begin{equation*}
-        \text{Coverage} = \left( \frac{8}{10} \right) \times 100 = 80\%
-        \end{equation*}
-        
-    \end{itemize}
-
-\subsection{Generator metrics}
-\textbf{ROUGE score:}
-    ROUGE evaluates the overlap between the generated text and reference outputs. For example, ROUGE-N is defined as:
-    \[
-    \text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
-    \]
-    Example:
-    \begin{itemize}
-        \item Scenario: A reference document contains 10 bigrams, and the system retrieves 8 bigrams that match with the reference.
-
-        \item Calculation:
-        \begin{equation*}
-        \text{ROUGE-2} = \frac{\text{8 bigram overlaps}}{\text{10 bigrams in reference}} = 0.8
-        \end{equation*}        
-    \end{itemize}
-
-\textbf{Relevance:}
-    Relevance is assessed manually by rating how well the generated outputs align with the intent of user queries. Scores are averaged across all queries:
-    \[
-    \text{Relevance} = \frac{\sum_{i=1}^{N} \text{Relevance score for query } i}{N}
-    \]
-    Example:
-    \begin{itemize}
-        \item Scenario: There are 5 queries, and their relevance scores are: \( 0.9, 0.8, 0.7, 1.0, \text{and } 0.6 \).
-
-        \item Calculation:
-        \begin{equation*}
-        \text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
-        \end{equation*}     
-    \end{itemize}
-
-\textbf{Factual accuracy:}
-    Factual accuracy measures the percentage of generated outputs that are factually correct based on the retrieved data:
-    \[
-    \text{Factual accuracy} = \frac{\text{Number of factually correct outputs}}{\text{Total number of outputs}} \times 100
-    \]
-    Example:
-    \begin{itemize}
-        \item Scenario: Out of 20 outputs, 16 outputs are factually correct.
-
-        \item Calculation:
-        \begin{equation*}
-        \text{Factual Accuracy} = \left( \frac{16}{20} \right) \times 100 = 80\%
-        \end{equation*}
-        
-    \end{itemize}
-
-\textbf{Latency:}
-    Latency for the generator is calculated similarly to the retriever:
-    \[
-    \text{Latency (ms)} = \text{Time when output is generated} - \text{Time when retrieval is completed}
-    \]
-    Example:
-    \begin{itemize}
-        \item Scenario: LLM receives a prompt at 12:00:00.000 and receives the results at 12:00:00.210.
-    
-        \item Calculation:
-        \begin{equation*}
-        \text{Latency} = 210 \, \text{ms} - 0 \, \text{ms} = 210 \, \text{ms}
-        \end{equation*}
-
-    \end{itemize}
-    
 
 \section{Evaluation methodology}
 
-\subsection{Retriever evaluation}
-We will use the pre-defined dataset with known relevant results to benchmark the retriever's performance across query types:
-\begin{itemize}
-    \item \textbf{Simple queries:} Basic queries requiring straightforward retrieval of documents.
-    \item \textbf{Complex queries:} Multi-faceted queries involving multiple conditions or ambiguities.
-    \item \textbf{Context-dependent queries:} Queries that rely on contextual understanding of the current repository.
-\end{itemize}
+To evaluate the performance of both the retriever and the generator, we employ a curated dataset containing queries with predefined relevant documents. The evaluation covers a diverse range of query types:
 
-\subsection{Generator evaluation}
-Provide the generator with retriever outputs and evaluate the quality of generated content using:
-    \begin{itemize}
-        \item \textbf{Automatic metrics:} ROUGE scores to quantify similarity and overlap with reference outputs.
-        \item \textbf{Human evaluation:} Involve domain experts to rate the relevance, accuracy, and quality of generated outputs on a predefined scale.
-    \end{itemize}
-    
-    Include edge cases in testing, such as incomplete or ambiguous retriever outputs, to ensure the generator’s robustness.
+\begin{itemize} 
+	\item \textbf{Simple queries:} Direct questions that require retrieving clearly defined information from the documentation. 
+	\item \textbf{Complex queries:} Queries involving multiple components, conditions, or requiring deeper semantic understanding. 
+	\item \textbf{Context-dependent queries:} Queries that depend on contextual cues from the current codebase or ongoing conversation history. \end{itemize}
 
-\section{Test plans}
-Since our RAG model will be integrated into a VSCode extension, we will utilize VSCode's support for running and debugging tests through integration tests. The system's performance will be evaluated using the following methods:
+\section{Evaluation summary}
+
+\section{Testing}
+
 \subsection{Unit testing} Validate individual functions and components of the extension.
 
-\textbf{Focus areas} Ensure all API calls return expected results and handle errors gracefully. Verify that data processing components correctly transform input data into the desired output format. Additionally, confirm the correctness of the generated output for a variety of given inputs, including edge cases.
-
-\textbf{Methods:} Write unit tests using Mocha or Jest to ensure each function behaves as expected. Mock the VSCode API to isolate and test individual components without dependencies.
-
-
 \subsection{Integration testing} Ensure proper interaction between extension components and the VSCode environment.
-
-\textbf{Focus areas:} Validate commands and features exposed by the extension. Ensure that commands are correctly registered and executed, and that features such as code completion, linting, and formatting work as intended. Test the extension in a simulated VSCode instance to verify its behavior in a real-world scenario.
-
-\textbf{Methods:} Use the @vscode/test-electron API for integration testing. Write integration tests to simulate user interactions with the extension. For example, test the execution of commands, the response to user inputs, and the interaction with the VSCode UI and then configure launch.json to enable debugging of integration tests.
-
-\subsection{System testing} Test the extension as a whole to evaluate its usability and performance in real scenarios.
-
-\textbf{Focus areas:} Perform comprehensive end-to-end tasks such as activating commands, editing files, and interacting with the VSCode UI. Ensure the extension works seamlessly with other third-party extensions and does not cause any conflicts or unexpected behavior.
-
-\textbf{Methods:} Use automated test suites to re-test core functionalities. Automated test suites help streamline the regression testing process by executing pre-defined test cases efficiently and consistently. They ensure that recent updates or changes do not negatively impact existing features. Additionally, maintain a comprehensive log of identified bugs, fixes, and test outcomes. This log serves as a valuable reference for tracking recurring issues, validating the effectiveness of applied solutions, and guiding future development efforts. Consistently reviewing and updating these logs ensures better understanding and management of the extension’s quality over time.
-
-\subsection{Performance testing} Assess the extension’s speed, resource usage, and responsiveness.
-
-\textbf{Focus areas:} Measure activation time and execution of commands. Monitor memory and CPU usage during operations. Evaluate response times under different network speeds to simulate various user environments. Load test the extension under normal and peak conditions to analyze its behavior. Conduct stress tests to identify breaking points when pushed beyond normal workloads during peak times. Assess recovery mechanisms and evaluate how the extension handles high load or failure events, ensuring it can recover gracefully.
-
-\textbf{Methods:} Use performance monitoring tools and built-in VSCode performance diagnostics. Profile heavy operations using the VSCode Performance Profiler. Simulate different network conditions and user workflows for comprehensive testing.

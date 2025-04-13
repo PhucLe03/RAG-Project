@@ -60,22 +60,19 @@
 \contentsline {section}{\numberline {5.5}Local LLMs setup}{42}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Setup Ollama}{42}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Integration with the RAG system}{42}{subsection.5.5.2}%
-\contentsline {chapter}{\numberline {6}Evaluation plan}{44}{chapter.6}%
+\contentsline {chapter}{\numberline {6}Evaluation}{44}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Evaluation metrics}{44}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Retriever metrics}{44}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Generator metrics}{45}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Evaluation methodology}{46}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Retriever evaluation}{46}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Generator evaluation}{46}{subsection.6.2.2}%
-\contentsline {section}{\numberline {6.3}Test plans}{46}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Unit testing}{46}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Integration testing}{46}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}System testing}{46}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Performance testing}{47}{subsection.6.3.4}%
-\contentsline {chapter}{\numberline {7}Conclusion and future works}{48}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusion}{48}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Upcoming works: January 2025 and beyond}{49}{section.7.2}%
-\contentsline {chapter}{Bibliography}{51}{chapter*.49}%
-\contentsline {chapter}{Appendices}{55}{section*.50}%
-\contentsline {chapter}{\numberline {A}Interface of the RAGGIN Extension}{56}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}Test Results}{57}{appendix.1.B}%
+\contentsline {subsection}{\numberline {6.1.1}Retriever Metrics}{44}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Generator Metrics}{45}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Evaluation methodology}{45}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Evaluation summary}{45}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Testing}{45}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Unit testing}{45}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Integration testing}{46}{subsection.6.4.2}%
+\contentsline {chapter}{\numberline {7}Conclusion and future works}{47}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusion}{47}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Upcoming works: January 2025 and beyond}{48}{section.7.2}%
+\contentsline {chapter}{Bibliography}{50}{chapter*.49}%
+\contentsline {chapter}{Appendices}{54}{section*.50}%
+\contentsline {chapter}{\numberline {A}Interface of the RAGGIN extension}{55}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}Evaluation and test results}{56}{appendix.1.B}%
