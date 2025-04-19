@@ -112,58 +112,74 @@ In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, en
 	\label{tab:bge_m3_comparison}
 \end{table}
 
-\section{Why Qwen?}
+%\section{Why Qwen?}
+%
+%% Qwen \cite{bai2023qwen} is a relatively less recognized yet promising LLM developed by Alibaba Cloud, designed to offer robust natural language understanding and generation capabilities. While it may not be as widely publicized or frequently used as some of its contemporaries, Qwen presents unique advantages that warrant its inclusion in our comparative study. Our goal is to use RAG techniques to evaluate how effectively "weaker" LLMs like Qwen can benefit from external knowledge sources to enhance their performance compared to more advanced models. By employing RAG, we aim to demonstrate the potential of Qwen to leverage additional information and improve its generative responses and contextual understanding. This comparative analysis will provide valuable insights into the strengths and limitations of Qwen and contribute to the ongoing research on how weaker LLMs can be enhanced through advanced techniques like RAG.
+%
+%
+%Qwen \cite{bai2023qwen} is a relatively less recognized yet promising LLM developed by Alibaba Cloud, designed to offer robust natural language understanding and generation capabilities. While its public profile may not be as prominent as some of its contemporaries, the performance metrics in Table \ref{table:qwen} demonstrate that Qwen is highly competitive in several benchmarks. For instance, the 14B parameter Qwen model achieves state-of-the-art results in tasks such as MMLU (66.3), C-Eval (72.1), and GSM8K (61.3), surpassing many well-known local models like LLaMA \cite{llama}, Llama2 \cite{llama2} and Baichuan2 \cite{baichuan2}. This highlights Qwen’s strong capability to handle diverse tasks effectively despite having fewer parameters compared to some larger models.
+%
+%The decision to integrate Qwen into our RAG pipeline stems from its balance of efficiency, performance, and adaptability. By leveraging RAG, we aim to showcase how even a "lighter" LLM like Qwen can achieve substantial improvements by incorporating external knowledge sources. Unlike more resource-intensive models, Qwen's relatively lightweight architecture allows for efficient local deployment, making it a practical choice for scenarios where computational resources are limited. This approach not only aligns with our objective of building a lightweight and context-aware system but also emphasizes how RAG techniques can enhance the generative responses and contextual understanding of models that might otherwise be constrained by their architecture.
+%
+%This comparative analysis provides valuable insights into Qwen’s strengths and limitations, illustrating its potential as an effective and efficient solution when paired with external retrieval mechanisms in RAG-based applications.
+%
+%
+%\begin{table}[ht]
+%\centering
+%\begin{tabular}{l c c c c c c c c}
+%\hline
+%\textbf{Model}      & \textbf{Params} & \textbf{MMLU} & \textbf{C-Eval} & \textbf{GSM8K} & \textbf{MATH} & \textbf{HumanEval} & \textbf{MBPP} & \textbf{BBH} \\ 
+%                    &                 & \textbf{5-shot} & \textbf{5-shot} & \textbf{8-shot} & \textbf{4-shot} & \textbf{0-shot}    & \textbf{3-shot} & \textbf{3-shot} \\ \hline
+%
+%Baichuan2            & 7B             & 54.7           & 56.3           & 24.6           & 5.6           & 18.3               & 24.2          & 41.6          \\
+%                    & 13B            & 59.5           & 59.0           & 52.8           & 10.1          & 17.1               & 30.2          & 49.0          \\ \hline
+%LLaMA              & 7B             & 35.6           & 27.3           & 11.0           & 2.9           & 12.8               & 17.7          & 33.5          \\
+%                    & 13B            & 47.7           & 31.8           & 20.3           & 4.2           & 15.8               & 22.0          & 37.9          \\
+%                    & 33B            & 58.7           & 37.5           & 42.3           & 7.1           & 21.7               & 30.2          & 50.0          \\
+%                    & 65B            & 63.7           & 40.4           & 54.4           & 10.6          & 23.7               & 37.7          & 58.4          \\ \hline
+%Llama 2              & 7B             & 46.8           & 32.5           & 16.7           & 3.3           & 12.8               & 20.8          & 38.2          \\
+%                    & 13B            & 55.0           & 41.4           & 29.6           & 5.0           & 18.9               & 30.3          & 45.6          \\
+%                    & 34B            & 62.6           & 42.6           & 42.2           & 6.2           & 22.6               & 33.0          & 44.1          \\
+%                    & 70B            & 69.8           & 50.1           & 63.6           & 13.5          & 29.9               & 45.0          & 64.9          \\ \hline
+%QWEN                & 1.8B           & 44.6           & 54.7           & 21.2           & 5.6           & 17.1               & 14.8          & 28.2          \\
+%                    & 7B             & 58.2           & 63.5           & 51.7           & 11.6          & 29.9               & 31.6          & 45.0          \\
+%                    & 14B            & 66.3           & 72.1           & 61.3           & 24.8          & 32.3               & 40.8          & 53.4          \\ \hline
+%\end{tabular}
+%\caption{Performance comparison of some open-source base models on different benchmarks \cite{bai2023qwen}.}
+%\label{table:qwen}
+%\end{table}
+%
+%\begin{table}[ht]
+%	\centering
+%	\begin{tabular}{l c c c c}
+%		\hline
+%		\textbf{Model}      & \textbf{Params} & \textbf{HumanEval} & \textbf{MATH} & \textbf{GSM8K} \\ 
+%		&                 & \textbf{0-shot}    & \textbf{4-shot} & \textbf{8-shot} \\ \hline
+%		Baichuan 2 \cite{baichuan2}           & 7B             & 18.3               & 5.6           & 24.6           \\ \hline
+%		LLaMA \cite{llama}               & 7B             & 12.8               & 2.9           & 11.0           \\ \hline
+%		Llama 2 \cite{llama2}           & 7B             & 12.8               & 3.3           & 16.7           \\ \hline
+%		QWEN \cite{bai2023qwen}               & 1.8B           & 17.1               & 5.6           & 21.2           \\
+%		\hline
+%	\end{tabular}
+%	\caption{Performance comparison of Qwen 1.8B and other 7B models on selected benchmarks.}
+%	\label{table:qwen_filtered}
+%\end{table}
 
-% Qwen \cite{bai2023qwen} is a relatively less recognized yet promising LLM developed by Alibaba Cloud, designed to offer robust natural language understanding and generation capabilities. While it may not be as widely publicized or frequently used as some of its contemporaries, Qwen presents unique advantages that warrant its inclusion in our comparative study. Our goal is to use RAG techniques to evaluate how effectively "weaker" LLMs like Qwen can benefit from external knowledge sources to enhance their performance compared to more advanced models. By employing RAG, we aim to demonstrate the potential of Qwen to leverage additional information and improve its generative responses and contextual understanding. This comparative analysis will provide valuable insights into the strengths and limitations of Qwen and contribute to the ongoing research on how weaker LLMs can be enhanced through advanced techniques like RAG.
+\section{Why Ollama's LLMs}
 
+In designing a fully local RAG system, Ollama was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen, LLaMA, and Mistral makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with RAGGIN’s goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
 
-Qwen \cite{bai2023qwen} is a relatively less recognized yet promising LLM developed by Alibaba Cloud, designed to offer robust natural language understanding and generation capabilities. While its public profile may not be as prominent as some of its contemporaries, the performance metrics in Table \ref{table:qwen} demonstrate that Qwen is highly competitive in several benchmarks. For instance, the 14B parameter Qwen model achieves state-of-the-art results in tasks such as MMLU (66.3), C-Eval (72.1), and GSM8K (61.3), surpassing many well-known local models like LLaMA \cite{llama}, Llama2 \cite{llama2} and Baichuan2 \cite{baichuan2}. This highlights Qwen’s strong capability to handle diverse tasks effectively despite having fewer parameters compared to some larger models.
+\section{Why Docker?}
 
-The decision to integrate Qwen into our RAG pipeline stems from its balance of efficiency, performance, and adaptability. By leveraging RAG, we aim to showcase how even a "lighter" LLM like Qwen can achieve substantial improvements by incorporating external knowledge sources. Unlike more resource-intensive models, Qwen's relatively lightweight architecture allows for efficient local deployment, making it a practical choice for scenarios where computational resources are limited. This approach not only aligns with our objective of building a lightweight and context-aware system but also emphasizes how RAG techniques can enhance the generative responses and contextual understanding of models that might otherwise be constrained by their architecture.
+Docker was chosen as the containerization solution for the RAGGIN system to ensure portability, consistency, and ease of deployment across various development environments. Our backend—comprising the retrieval service, embedding logic, and integration with the vector database—is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
 
-This comparative analysis provides valuable insights into Qwen’s strengths and limitations, illustrating its potential as an effective and efficient solution when paired with external retrieval mechanisms in RAG-based applications.
+By using Docker, we abstract away the intricacies of installing and configuring backend tools such as the Milvus vector database and the application logic for hybrid retrieval. This not only simplifies onboarding for new users but also ensures that the system behaves consistently across machines, eliminating common "it works on my machine" problems. Additionally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of data, models, or configurations without altering the core codebase.
 
+Although the backend is not lightweight due to the nature of the services it includes, containerization allows the system to remain modular and maintainable. Users can deploy updates or scale specific services independently, without affecting the rest of the system. This separation of concerns aligns with modern software engineering best practices and makes RAGGIN easier to extend and maintain in the long term.
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{l c c c c c c c c}
-\hline
-\textbf{Model}      & \textbf{Params} & \textbf{MMLU} & \textbf{C-Eval} & \textbf{GSM8K} & \textbf{MATH} & \textbf{HumanEval} & \textbf{MBPP} & \textbf{BBH} \\ 
-                    &                 & \textbf{5-shot} & \textbf{5-shot} & \textbf{8-shot} & \textbf{4-shot} & \textbf{0-shot}    & \textbf{3-shot} & \textbf{3-shot} \\ \hline
+\section{Why VS Code Extension?}
 
-Baichuan2            & 7B             & 54.7           & 56.3           & 24.6           & 5.6           & 18.3               & 24.2          & 41.6          \\
-                    & 13B            & 59.5           & 59.0           & 52.8           & 10.1          & 17.1               & 30.2          & 49.0          \\ \hline
-LLaMA              & 7B             & 35.6           & 27.3           & 11.0           & 2.9           & 12.8               & 17.7          & 33.5          \\
-                    & 13B            & 47.7           & 31.8           & 20.3           & 4.2           & 15.8               & 22.0          & 37.9          \\
-                    & 33B            & 58.7           & 37.5           & 42.3           & 7.1           & 21.7               & 30.2          & 50.0          \\
-                    & 65B            & 63.7           & 40.4           & 54.4           & 10.6          & 23.7               & 37.7          & 58.4          \\ \hline
-Llama 2              & 7B             & 46.8           & 32.5           & 16.7           & 3.3           & 12.8               & 20.8          & 38.2          \\
-                    & 13B            & 55.0           & 41.4           & 29.6           & 5.0           & 18.9               & 30.3          & 45.6          \\
-                    & 34B            & 62.6           & 42.6           & 42.2           & 6.2           & 22.6               & 33.0          & 44.1          \\
-                    & 70B            & 69.8           & 50.1           & 63.6           & 13.5          & 29.9               & 45.0          & 64.9          \\ \hline
-QWEN                & 1.8B           & 44.6           & 54.7           & 21.2           & 5.6           & 17.1               & 14.8          & 28.2          \\
-                    & 7B             & 58.2           & 63.5           & 51.7           & 11.6          & 29.9               & 31.6          & 45.0          \\
-                    & 14B            & 66.3           & 72.1           & 61.3           & 24.8          & 32.3               & 40.8          & 53.4          \\ \hline
-\end{tabular}
-\caption{Performance comparison of some open-source base models on different benchmarks \cite{bai2023qwen}.}
-\label{table:qwen}
-\end{table}
-
-\begin{table}[ht]
-	\centering
-	\begin{tabular}{l c c c c}
-		\hline
-		\textbf{Model}      & \textbf{Params} & \textbf{HumanEval} & \textbf{MATH} & \textbf{GSM8K} \\ 
-		&                 & \textbf{0-shot}    & \textbf{4-shot} & \textbf{8-shot} \\ \hline
-		Baichuan 2 \cite{baichuan2}           & 7B             & 18.3               & 5.6           & 24.6           \\ \hline
-		LLaMA \cite{llama}               & 7B             & 12.8               & 2.9           & 11.0           \\ \hline
-		Llama 2 \cite{llama2}           & 7B             & 12.8               & 3.3           & 16.7           \\ \hline
-		QWEN \cite{bai2023qwen}               & 1.8B           & 17.1               & 5.6           & 21.2           \\
-		\hline
-	\end{tabular}
-	\caption{Performance comparison of Qwen 1.8B and other 7B models on selected benchmarks.}
-	\label{table:qwen_filtered}
-\end{table}
+Integrating RAGGIN as a Visual Studio Code extension allows the system to directly assist developers within their preferred coding environment. Rather than switching between tools or browsers, users can query documentation, generate code, and receive intelligent suggestions in real time—all without leaving their editor. This seamless integration improves developer productivity and provides contextual support exactly where it’s needed. VS Code's extensibility, wide adoption in the web development community, and built-in terminal and interface support make it an ideal platform for embedding a developer-focused RAG system.
 
 \section{Main architecture}
 
