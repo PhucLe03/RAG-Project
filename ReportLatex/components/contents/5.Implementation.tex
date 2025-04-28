@@ -156,7 +156,7 @@ We developed a schema optimized for organizing and storing documentation data. T
 		\texttt{version}             & VARCHAR                & 20   & \textbf{Partition key}.  Indicates documentation version.\\
 		\texttt{tag}                 & VARCHAR                & 255  & Labels source (documentation vs.\ documented errors).\\
 		\hline
-		\texttt{text\_content}       & VARCHAR                & 65\,535 & Markdown body; code blocks replaced by \texttt{code\_snippet\_\{idx\}} placeholders.\\
+		\texttt{text\_content}       & VARCHAR                & 65\,535 & Markdown body.\\
 		\texttt{code\_content}       & VARCHAR                & 65\,535 & JSON-stringified dict of code snippets (language, file name, switcher).\\
 		\hline
 		\texttt{sparse\_title}       & SPARSE\_FLOAT\_VECTOR  & –    & Sparse embedding of concatenated title + description.  \emph{Index}: SPARSE\_INVERTED\_INDEX; \emph{Metric}: Inner Product.\\
@@ -167,6 +167,72 @@ We developed a schema optimized for organizing and storing documentation data. T
 	\caption{Schema Structure}
 	\label{tab:schema_structure}
 \end{table}
+
+When designing the schema, it is crucial to determine how to store code snippets effectively while facilitating the identification of which snippet belongs to which section. Our proposal is to avoid saving code snippets as separate entries in the database in order to reduce latency and computational overhead.
+
+Given this decision, a challenge arises: how should we store embeddings of code snippets, especially since some sections contain none, one, or multiple code snippets? Additionally, for sections with multiple snippets, we must define an efficient storage method.
+
+Figure~\ref{fig:code_snippet_distribution} illustrates the distribution of code snippets across sections from version \texttt{v15.1.4} to \texttt{v15.3.1}. It shows that while some sections have multiple snippets, others have none, reinforcing the need for a flexible storage strategy.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Images/Implement/section_code_snippet_count_distribution.png}
+	\vspace{3mm}
+	\caption{Distribution of Code Snippets per Section (v15.1.4 to v15.3.1)}
+	\label{fig:code_snippet_distribution}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Images/Implement/code_snippet_token_count_distribution.png}
+	\vspace{3mm}
+	\caption{Token Count Distribution of Code Snippets (v15.1.4 to v15.3.1)}
+	\label{fig:code_snippet_token}
+\end{figure}
+
+There are two primary methods for embedding code snippets:
+\begin{itemize}
+	\item \textbf{Separate Storage:} Each code snippet embedding is stored individually within an array field associated with its section entry.
+	\item \textbf{Aggregated Storage:} Embeddings of all code snippets within a section are aggregated into a single vector.
+\end{itemize}
+
+The separate storage method enables precise comparison between a query and individual code snippets. However, it suffers from major drawbacks:
+\begin{itemize}
+	\item Additional complexity in indexing entries, as the number of code snippets per section varies.
+	\item Increased database size and computational cost, particularly problematic for large-scale retrieval tasks.
+\end{itemize}
+
+Thus, \textbf{aggregated storage} is the preferred option for efficiency.
+
+To unify embeddings into a single vector per section, two aggregation methods are considered:
+\begin{itemize}
+	\item \textbf{Average Pooling:} Element-wise averaging of all embeddings.
+	\item \textbf{Max Pooling:} Element-wise maximum of all embeddings.
+\end{itemize}
+
+To evaluate which aggregation method performs better, we utilize Normalized Discounted Cumulative Gain (NDCG) as the ranking metric.
+
+Figures~\ref{fig:ndcg_avg} and~\ref{fig:ndcg_max} present the NDCG performance of average pooling and max pooling, respectively, evaluated under both dense code search and hybrid search scenarios.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Images/Implement/dense_code_ndcg.png}
+	\vspace{5mm}
+	\caption{NDCG Results with Average Pooling}
+	\label{fig:ndcg_avg}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Images/Implement/hybrid_ndcg.png}
+	\vspace{5mm}
+	\caption{NDCG Results with Max Pooling}
+	\label{fig:ndcg_max}
+\end{figure}
+
+The evaluation results indicate that average pooling delivers more stable and reliable retrieval performance than max pooling, particularly in maintaining consistent ranking quality.
+
+The retrieved document structure includes a text body containing special placeholder tokens in the form of \texttt{code\_snippet\_\{idx\}}. During post-processing, each placeholder is replaced by the corresponding code snippet from the \texttt{code\_content} dictionary.
 
 \section{Database setup}
 
@@ -293,6 +359,7 @@ The Database API manages documentation data in the Milvus database through seven
 
 \section{RAGGIN core services}
 
+The RAGGIN core service provides the API functionalities for hybrid retrieval and generation. It is deployed as a containerized application, built from a custom Dockerfile and exposed through port 8000. The backend interacts directly with the Milvus vector database via a specified internal URI, handling retrieval queries and database operations. It also interfaces with an external Ollama API endpoint to access local LLMs during generation. Pretrained embedding models, such as BGE-M3, are cached within a dedicated volume to reduce startup latency and accelerate embedding generation. The backend depends on the Milvus standalone service for healthy initialization, ensuring database availability before serving requests. Volumes are mounted to persist downloaded documentation files and model checkpoints across restarts, allowing efficient reuse of data. This service acts as the main processing layer connecting the vector storage, retrieval logic, and language model inference.
 
 \subsection{Retriever}
 

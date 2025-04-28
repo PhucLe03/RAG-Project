@@ -407,12 +407,3 @@ The interactive user interface is a crucial part of the system, designed to opti
 %     \item Code suggestions and explanations
 % \end{itemize}
 
-\subsection{Feedback loop}
-Even the most advanced models, such as GPT-4 \cite{gpt4} or local LLMs like LLaMA \cite{llama}, are not immune to errors or biases. While they excel at generating high-quality responses, these models lack intrinsic mechanisms for discerning truth, consistency, or fairness without external guidance. To implement robust feedback loops in our system, we leverage a combination of automated and human-guided approaches, ensuring comprehensive oversight and continuous refinement.
-\begin{itemize}
-    \item Human-in-the-Loop (HITL) Feedback: Users interacting with the VSCode extension provide explicit feedback on the relevance and accuracy of responses, particularly for sensitive or complex queries. For example, when a user submits a query with a code snippet, they can flag issues such as incorrect logic, incomplete explanations, or unhelpful suggestions. These inputs are used to refine the model's understanding and response generation iteratively.
-
-    \item Reinforcement learning from human feedback (RLHF): RLHF is employed to align the model's outputs with user preferences and ethical guidelines. By introducing a reward system based on user feedback, the model learns to prioritize accuracy, clarity, and helpfulness. This method ensures that the system adapts to the specific needs of the developer community.
-\end{itemize}
-
-
