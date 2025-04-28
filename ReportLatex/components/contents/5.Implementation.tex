@@ -1,178 +1,68 @@
-\chapter{Initial implementation}
+\chapter{Implementation}
 
-For this implementation, we specifically prepared the data for version 15.1.0 of Next.js. In our initial efforts, we concentrated on establishing the foundational components of the system, which included designing the data structure, preparing and preprocessing the data, and configuring both the database and local Large Language Models (LLMs) to develop a functional prototype.
+This chapter provides a detailed explanation of our implementation strategy based on the outlined approach. The implemented solution consists of three core components: the Database, the RAGGIN core service, and the VSCode extension.
 
-% \begin{figure}[H]
-% 	\vspace{2pt}
-% 	\centering
-% 	\includegraphics[scale=0.45]{Images/Implement/rag_pipeline.png}
-% 	\vspace{5mm}
-% 	\caption{Our RAG architecture design}
-% \end{figure}
+\section{Database}
 
-\section{Database design}
+\section{Data Preparation}
 
-Before delving into the structure and preparation of the data, it is important to discuss the data source. Naturally, the official documentation pages of the Next.js framework were our first consideration. Upon examination, the HTML files of the documentation were found to be well-formed and extractable. However, a critical limitation emerged: the official documentation does not maintain a comprehensive version history. The version selection section often changes its listed versions, making it unreliable for our intended use case.
+We prepared documentation data for Next.js starting from version \texttt{v13.0.0} onwards. At the time of writing, the latest version is \texttt{v15.3.1}, encompassing a total of 107 supported versions. The data was sourced directly from the official Next.js GitHub repository.
 
-Our goal is to provide users with the ability to select their current framework version and the version they wish to upgrade or downgrade to. This feature requires reliable and comprehensive documentation for all versions.
-
-Fortunately, we identified a more reliable data source: the official GitHub repository of the Next.js framework. This repository provides comprehensive documentation for all versions of the framework in markdown format. These markdown files are well-structured, containing valuable metadata, clearly defined sections, and organized code snippets, making them perfectly suited for our use case. The stable release of version 15.1.0 alone includes 578 markdown files. To ensure broad compatibility, we plan to support versions from 13.0.0 to 15.1.0, encompassing 95 stable versions. Canary versions are excluded from our dataset, as their changes are eventually consolidated in the corresponding stable releases.
-
-\subsection{Data structure design}
-
-The purpose of our data structure design is to store the Next.js documentation effectively. After analyzing the structure of the markdown files retrieved from the repository, the following key components were identified:
+\textbf{Steps involved in data preparation:}
 
 \begin{itemize}
-	\item \textbf{Metadata:} Contains information such as:
+	\item \textbf{Data Acquisition:}A Python script leveraging Git's \texttt{sparse-checkout} feature was developed to efficiently download only relevant directories, such as \texttt{docs} and \texttt{errors}, corresponding to specific version tags. This script automates repository cloning, sparse-checkout configuration, and version-specific checkout.
+	
+	\item \textbf{Data Organization:}Retrieved files were systematically organized into directories structured by version. For example, documentation for version \texttt{v15.1.0} was organized as follows:
+	
+	\begin{verbatim}
+   ./v15.1.0/
+       docs/
+           01-app/
+           index.mdx
+           ...
+       errors/
+           404-get-initial-props.mdx
+           amp-bind-jsx-alt.mdx
+           ...
+	\end{verbatim}
+\end{itemize}
+	
+Upon reviewing the markdown files, we identified several main elements:
+	
+\begin{itemize}
+	\item \textbf{Metadata:} Essential metadata includes:
 	\begin{itemize}
-		\item \texttt{title}: The title of the documentation page.
-		\item \texttt{nav\_title}: The title displayed in the navigation bar.
-		\item \texttt{description}: A brief description of the page's content.
-		\item \texttt{related}: An optional field containing links to other related documentation pages.
+		\item \texttt{title}: Title of the documentation page.
+		\item \texttt{nav\_title}: Title displayed in the navigation bar.
+		\item \texttt{description}: Concise summary of the content.
+		\item \texttt{related}: Optional links to related documentation pages.
 	\end{itemize}
 	
-	\item \textbf{Text:} The main content of the documentation, divided into sections and subsections using markdown syntax.
+	\item \textbf{Text Content:} Main documentation content organized into sections and subsections via markdown syntax.
 	
-	\item \textbf{Code snippets:} Includes:
+	\item \textbf{Code Snippets:} Each snippet includes:
 	\begin{itemize}
-		\item \texttt{language}: Programming language used in the snippet (e.g., JavaScript or TypeScript).
-		\item \texttt{file}: Indicates the file or component to which the code belongs (Next.js follows a naming convention for files).
-		\item \texttt{switcher}: Indicates whether the code snippet has a counterpart in another language (e.g., JavaScript/TypeScript switcher).
-		\item \texttt{content}: The actual code content.
+		\item \texttt{language}: Programming language (e.g., JavaScript or TypeScript).
+		\item \texttt{file}: Corresponding filename or component name following Next.js conventions.
+		\item \texttt{switcher}: Indicates if an alternative language snippet is available (e.g., JavaScript/TypeScript).
+		\item \texttt{content}: Actual source code.
 	\end{itemize}
 	
-	\item \textbf{Version history:} A special section explicitly listing major updates to the documentation across versions. However, this section is present in only a small portion of the documentation.
+	\item \textbf{Version History:} A dedicated section describing significant documentation updates across versions, although available in only a limited subset of documents.
 \end{itemize}
-
-\begin{table}[H]
-	\centering
-	\label{tab:field_schema_properties}
-	\begin{tabular}{p{3cm}p{5.5cm}p{5.5cm}l}
-		\hline
-		\textbf{Properties}   & \textbf{Description}                                                                 & \textbf{Note}                                                                                                                                         \\ \hline
-		\texttt{name}         & Name of the field in the collection to create                                        & Data type: String. Mandatory                                                                                                                         \\ \hline
-		\texttt{dtype}        & Data type of the field                                                              & Mandatory                                                                                                                                             \\ \hline
-		\texttt{description}  & Description of the field                                                            & Data type: String. Optional                                                                                                                          \\ \hline
-		\texttt{is\_primary}  & Whether to set the field as the primary key field or not                            & Data type: Boolean (\texttt{true} or \texttt{false}). Mandatory for the primary key field                                                            \\ \hline
-		\texttt{auto\_id}     & Switch to enable or disable automatic ID (primary key) allocation                   & \texttt{true} or \texttt{false}. Mandatory for primary key field                                                                                     \\ \hline
-		\texttt{max\_length}  & Maximum byte length for strings allowed to be inserted.                             & {[}1, 65,535{]}. Mandatory for \texttt{VARCHAR} field. Multibyte characters may occupy more than one byte                                            \\ \hline
-		\texttt{dim}          & Dimension of the vector                                                            & Data type: Integer {[}1, 32,768{]}. Mandatory for dense vector field. Omit for sparse vector field                                                   \\ \hline
-		\texttt{is\_partition\_key} & Whether this field is a partition-key field                                      & Data type: Boolean (\texttt{true} or \texttt{false})                                                                                                \\ \hline
-	\end{tabular}
-	\caption{Field schema properties(Manage Schema\protect\footnotemark).}
-\end{table}
-
-\footnotetext{\url{ https://milvus.io/docs/schema.md\#Manage-Schema}}
-
-Based on these components, we designed a schema to organize and store the documentation data efficiently.
-
-\textbf{Collection:} \texttt{nextjs\_docs}
-
-This single collection will store all data, including documents, sections, and code snippets. Each record will represent one of the following:
-\begin{itemize}
-	\item A \textbf{document}: Represents a top-level page in the documentation.
-	\item A \textbf{section}: Represents a subsection within a document.
-	\item A \textbf{code snippet}: Represents a code example belonging to a section.
-\end{itemize}
-
-\subsection{Fields in the schema}
-
-\textbf{Primary scalar fields}
-\begin{table}[H]
-	\centering
-	\label{tab:primary_scalar_fields}
-	\begin{tabular}{lp{10cm}}
-		\hline
-		\textbf{Field name}          & \textbf{Description}                                                                                      \\ \hline
-		\texttt{entry\_id} (Primary Key) & Unique identifier for each entry.                                   \\ \hline
-		\texttt{tag}                  & A tag derived from \texttt{nav\_title} to indicate the subject or topic of the entry. Useful for categorizing and filtering entries by subject. \\ \hline
-		\texttt{entry\_type}         & Type of entry (\texttt{document}, \texttt{section}, or \texttt{code\_snippet}).                              \\ \hline
-		\texttt{parent\_id}          & The \texttt{entry\_id} of the parent entry. For:
-		\begin{itemize}
-			\item \textbf{Sections:} Links to the document or other section it belongs to.
-			\item \textbf{Code snippets:} Links to the section it belongs to.
-		\end{itemize} \\ \hline
-		\texttt{title}               & Title of the document, section, or code snippet.                                           \\ \hline
-		\texttt{description}         & Description from \texttt{description} metadata.                                          \\ \hline
-		\texttt{metadata}            & JSON or string field for custom metadata (e.g., programming language, or related links).             \\ \hline
-		\texttt{version}             & Framework version associated with the entry (e.g., \texttt{"15.1.0"}).                                      \\ \hline
-	\end{tabular}
-	\caption{Primary scalar fields in the schema.}
-\end{table}
-
-\textbf{Text fields}
-\begin{table}[H]
-	\centering
-	\begin{tabular}{lp{4cm}p{5cm}}
-		\hline
-		\textbf{Field name}                 & \textbf{Description}                  & \textbf{.}          \\ \hline
-		\texttt{text\_content}      &  The raw text content (e.g., document or section body). \\ \hline
-		\texttt{code\_content}      &  The actual code snippet (only for entries of type \texttt{code\_snippet}). \\ \hline
-		& 
-	\end{tabular}
-	\caption{Text field in the schema.}
-	\label{tab:my_label}
-\end{table}
-
-\textbf{Embedding vectors}
-\begin{table}[H]
-	\centering
-	\label{tab:embedding_vectors}
-	\begin{tabular}{lp{4cm}p{5cm}}
-		\hline
-		\textbf{Field name}                 & \textbf{Index}                  & \textbf{Metric}          \\ \hline
-		\texttt{sparse\_title\_description} & \texttt{SPARSE\_INVERTED\_INDEX} & Inner Product            \\ \hline
-		\texttt{dense\_text\_content}       & \texttt{HNSW}                   & Cosine Similarity (Dimension: 1024) \\ \hline
-		\texttt{dense\_code\_snippet}       & \texttt{HNSW}                   & Cosine Similarity (Dimension: 1024) \\ \hline
-	\end{tabular}
-	\caption{Embedding vectors in the schema.}
-\end{table}
-
-\textbf{Partitioning}
-\textbf{Field:} \texttt{version}
-
-This field is used to partition entries by \texttt{version}. Partitioning aligns with Milvus's capability for managing partitions, ensuring efficient queries when users specify the framework version.
-
-\section{Data preparation}
-
-As described in the previous section, our primary data source is the GitHub repository of the Next.js framework. Initially, we developed a crawler that recursively navigated and downloaded resources from the \texttt{docs} and \texttt{errors} folders of the repository. However, this approach faced significant limitations due to GitHub's API rate limits. After careful evaluation, we adopted a more efficient and native method to retrieve data directly from the GitHub repository.
-
-\textbf{Steps in data preparation:}
-
-\begin{itemize}
-	\item \textbf{Data acquisition:} 
-	To extract the necessary files, we implemented a Python script that utilizes Git's sparse-checkout feature. This approach enabled us to selectively download specific folders, such as \texttt{docs} and \texttt{errors}, corresponding to a particular version tag. The script automates tasks including cloning the repository, configuring sparse-checkout, and checking out the desired version tag.
 	
-	\item \textbf{Data organization:} 
-	The retrieved folders and their contents were stored in version-specific directories. For instance, for the version \texttt{v15.1.0}, the directory structure appeared as follows:
-	
-	% \begin{verbatim}
-		%     ./v15.1.0/
-		%         ├── docs/
-		%         │   ├── 01-app/
-		%         │   ├── index.mdx
-		%         │   └── ...
-		%         ├── errors/
-		%         │   ├── 404-get-initial-props.mdx
-		%         │   ├── amp-bind-jsx-alt.mdx
-		%         │   └── ...
-		% \end{verbatim}
-	
-	This structure provides an organized format, facilitating seamless access and retrieval of documentation resources for different framework versions.
-	
-	\item \textbf{Data integrity check:} 
-	To ensure the integrity and relevance of the dataset, the script included steps to validate and clean the retrieved data. Non-essential files and directories were removed, leaving only the targeted folders and their respective contents. This process ensured that the dataset was well-structured and ready for subsequent preprocessing.
-\end{itemize}
+After completing data preparation, the quantity of markdown files per version ranged significantly, from 294 files for \texttt{v13.0.0} to 591 files for \texttt{v15.3.1}. This increase nearly doubled the amount of documentation and documented errors, highlighting substantial growth in the capabilities and complexity of the Next.js framework.
 
-\section{Data preprocessing}
+\section{Data Preprocessing}
 
-Once the data was acquired and organized, the next critical step was preprocessing it to ensure compatibility with the schema design for effective storage and retrieval. This process involved converting raw markdown files into structured formats through a preprocessing pipeline implemented in Python. The pipeline utilized markdown parsing libraries, embedding models, and structured data processing to extract meaningful information from the documentation.
+After acquiring and organizing the data, the next critical step was preprocessing it to ensure alignment with our schema design for optimal storage and retrieval. This phase transformed raw markdown files into structured data via a Python-based preprocessing pipeline, leveraging markdown parsing libraries, embedding models, and structured data processing techniques.
 
 \textbf{Key preprocessing steps}
 
 \begin{itemize}
-	\item \textbf{Metadata extraction:} 
-	The metadata fields, such as \texttt{title}, \texttt{description}, and \texttt{nav\_title}, were extracted from markdown files using the \texttt{frontmatter} library. Additional metadata, such as \texttt{related} links, was included if available. Each document was assigned a unique \texttt{entry\_id} to enable hierarchical referencing within the schema.
+	\item \textbf{Metadata Extraction:}
+	Metadata fields such as \texttt{title}, \texttt{description}, and \texttt{nav\_title} were extracted using the \texttt{frontmatter} library. Additional metadata, including \texttt{related} links when available, were also captured. Unique \texttt{entry\_id}s were generated for hierarchical referencing within the database schema.
 	
 	Example code for generating a unique entry ID:
 	\begin{lstlisting}[language=Python, caption=Generating unique entry IDs]
@@ -194,14 +84,8 @@ Once the data was acquired and organized, the next critical step was preprocessi
 	\item \textbf{Code snippet identification:} 
 	Code blocks were identified using \texttt{CodeFence} tokens and extracted along with relevant metadata, including the programming language, associated filename, and optional switcher flags. This information linked code snippets to their respective sections and allowed for language-specific queries.
 	
-	\item \textbf{Data structuring:} 
-	The extracted sections were structured as dictionaries containing fields such as section title, textual content, and associated code snippets. This data organization was designed to align with the schema in the database for seamless integration.
-	
 	\item \textbf{Embedding preparation:} 
 	Text and code content from each section were processed to prepare for embedding generation. Sparse embeddings were used for keyword indexing, while dense embeddings captured semantic meaning, enabling similarity-based queries.
-	
-	\item \textbf{Validation and cleanup:} 
-	Parsed sections and their content were validated for completeness and correctness. Empty or incomplete sections were flagged for review, and non-essential formatting artifacts were removed to ensure clean and reliable data.
 \end{itemize}
 
 The \texttt{parse\_markdown\_sections} function, implemented using \texttt{mistletoe}, played a central role in these steps by iterating over the document tokens to extract structured information. For instance, a document with headings, paragraphs, and code blocks was transformed into hierarchical sections with associated metadata and content.
@@ -216,78 +100,322 @@ Example of parsing and organizing code snippets:
 		"switcher": switcher
 	}
 \end{lstlisting}
-% current_section["code_snippets"].append(code_info)
 
 \begin{itemize}
 	\item \textbf{Embedding generation:} 
 	Dense and sparse embeddings were generated for both text and code content using a pre-trained embedding model (\texttt{BGEM3EmbeddingFunction}). Dense vectors captured semantic meaning, while sparse vectors indexed key terms for efficient retrieval.
 	
-	\item \textbf{Batch processing and storage:} 
-	Processed entries were saved in batches as CSV files, with fields such as \texttt{entry\_id}, \texttt{entry\_type}, \texttt{text\_content}, and embeddings. This modular strategy supported scalability and efficient handling of large datasets.
+	\item \textbf{Storage:} 
+	Processed entries were saved in batches as CSV files, with fields such as \texttt{entry\_id}, \texttt{text\_content}, and embeddings.
 \end{itemize}
 
-The preprocessing resulted in 4,714 data entries stored in a CSV file. A total of 481 files were processed, while 97 files were skipped because their content was generated by other files.
+The preprocessing resulted in 107 CSV files, publicly accessible via our dataset \href{https://www.kaggle.com/datasets/jiyujizai/nextjs-documentation-for-raggin}{NextJs Documentation for RAGGIN}, achieving a usability score of 9.41/10 on Kaggle. Dataset insights include:
+
+\begin{itemize}
+	\item \textbf{Dataset Size:} From 15.53 MB for version \texttt{v13.0.0} up to 49.97 MB for version \texttt{v15.3.1}.
+	\item \textbf{Entry Count:} Ranges from 396 entries for \texttt{v13.0.0} to 1,381 entries for \texttt{v15.3.1}.
+\end{itemize}
+
+\section{Database design}
+
+Before presenting our schema design, we detail the properties utilized within our fields.
+
+\begin{table}[H]
+	\centering
+	\label{tab:field_schema_properties}
+	\begin{tabular}{p{3cm}p{5.5cm}p{5.5cm}l}
+		\hline
+		\textbf{Properties}   & \textbf{Description}                                                                 & \textbf{Note}                                                                                                                                         \\ \hline
+		\texttt{name}         & Name of the field in the collection to create                                        & Data type: String. Mandatory                                                                                                                         \\ \hline
+		\texttt{dtype}        & Data type of the field                                                              & Mandatory                                                                                                                                             \\ \hline
+		\texttt{description}  & Description of the field                                                            & Data type: String. Optional                                                                                                                          \\ \hline
+		\texttt{is\_primary}  & Whether to set the field as the primary key field or not                            & Data type: Boolean (\texttt{true} or \texttt{false}). Mandatory for the primary key field                                                            \\ \hline
+		\texttt{auto\_id}     & Switch to enable or disable automatic ID (primary key) allocation                   & \texttt{true} or \texttt{false}. Mandatory for primary key field                                                                                     \\ \hline
+		\texttt{max\_length}  & Maximum byte length for strings allowed to be inserted.                             & {[}1, 65,535{]}. Mandatory for \texttt{VARCHAR} field. Multibyte characters may occupy more than one byte                                            \\ \hline
+		\texttt{dim}          & Dimension of the vector                                                            & Data type: Integer {[}1, 32,768{]}. Mandatory for dense vector field. Omit for sparse vector field                                                   \\ \hline
+		\texttt{is\_partition\_key} & Whether this field is a partition-key field                                      & Data type: Boolean (\texttt{true} or \texttt{false})                                                                                                \\ \hline
+	\end{tabular}
+	\caption{Field schema properties(Manage Schema\protect\footnotemark)}
+\end{table}
+
+\footnotetext{\url{ https://milvus.io/docs/schema.md\#Manage-Schema}}
+
+We developed a schema optimized for organizing and storing documentation data. The schema is implemented within a single collection named \texttt{nextjs\_docs}.
+
+\begin{table}[H]
+	\small
+	\centering
+	\setlength\tabcolsep{5pt}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{l c c p{6.8cm}}
+		\hline
+		\textbf{Field} & \textbf{dtype} & \textbf{Len / Dim} & \textbf{Notes  /  Description} \\ \hline
+		\texttt{entry\_id}           & VARCHAR                & 255  & \textbf{Primary key}. auto\_id\,=\,false.  Built by concatenating version + doc name + section name.\\
+		\texttt{title}               & VARCHAR                & 255  & Built from documentation name, description, and section name.\\
+		\texttt{metadata}            & JSON                   & –    & JSON blob of title, description, and related links.\\
+		\texttt{version}             & VARCHAR                & 20   & \textbf{Partition key}.  Indicates documentation version.\\
+		\texttt{tag}                 & VARCHAR                & 255  & Labels source (documentation vs.\ documented errors).\\
+		\hline
+		\texttt{text\_content}       & VARCHAR                & 65\,535 & Markdown body; code blocks replaced by \texttt{code\_snippet\_\{idx\}} placeholders.\\
+		\texttt{code\_content}       & VARCHAR                & 65\,535 & JSON-stringified dict of code snippets (language, file name, switcher).\\
+		\hline
+		\texttt{sparse\_title}       & SPARSE\_FLOAT\_VECTOR  & –    & Sparse embedding of concatenated title + description.  \emph{Index}: SPARSE\_INVERTED\_INDEX; \emph{Metric}: Inner Product.\\
+		\texttt{dense\_text\_content}& FLOAT\_VECTOR          & 1024 & Dense embedding of full text.  \emph{Index}: HNSW; \emph{Metric}: Cosine.\\
+		\texttt{dense\_code\_snippet}& FLOAT\_VECTOR          & 1024 & Avg-pooled vector over all snippet embeddings.  \emph{Index}: HNSW; \emph{Metric}: Cosine.\\
+		\hline
+	\end{tabular}
+	\caption{Schema Structure}
+	\label{tab:schema_structure}
+\end{table}
 
 \section{Database setup}
 
-Setting up the database involved configuring Milvus for effective data storage, indexing, and retrieval. This process included deploying Milvus, defining the schema, creating indices, and inserting as well as retrieving data.
+To efficiently handle storage, retrieval, and indexing, we set up our database using Milvus, leveraging Docker Compose for streamlined deployment and configuration. This database setup involved three key services:
 
-\subsection{Deploying Milvus with Docker Compose}
-
-Milvus was deployed using Docker Compose. After installing Docker, the configuration file was downloaded, and the required containers were initialized. This setup resulted in three key containers:
 \begin{itemize}
-	\item \textbf{milvus-etcd:} Responsible for managing metadata storage.
-	\item \textbf{milvus-minio:} Manages object storage for the system.
-	\item \textbf{milvus-standalone:} Handles vector indexing and retrieval services.
+	\item \textbf{etcd Service:}
+	We utilized the \texttt{etcd} container to manage metadata storage and configuration. It uses the CoreOS etcd image version \texttt{v3.5.16}. Configuration settings included client URL advertisement, client listening URLs, data directory specification, auto-compaction, and backend quota management to ensure efficient and stable operation.
+	
+	\item \textbf{MinIO Service:}
+	The \texttt{minio} container was configured for object storage, essential for storing large data objects. The MinIO server uses a specific release version and provides object storage capabilities with secure access via defined credentials. It exposes two ports: one for the main service (port \texttt{9000}) and another for the console interface (port \texttt{9001}).
+	
+	\item \textbf{Milvus Service (Standalone):}
+	The \texttt{milvus-standalone} service, using Milvus version \texttt{v2.5.4}, was established for vector indexing and retrieval operations. This container depends on the healthy states of both \texttt{etcd} and \texttt{minio} services, integrating with them via their respective endpoints. It handles incoming requests and provides monitoring via specified ports.
 \end{itemize}
 
-\subsection{Installing PyMilvus}
+\section{Database API}
 
-The \texttt{PyMilvus} library was installed to allow programmatic interaction with the Milvus server. To ensure compatibility, the version of \texttt{PyMilvus} matched the Milvus server version (2.4).
+The Database API manages documentation data in the Milvus database through seven primary endpoints:
 
-\subsection*{Schema definition and collection creation}
-
-As outlined in the data structure design, the database schema was implemented with the collection name \texttt{nextjs\_docs}.
-
-\subsection{Creating indices}
-
-To optimize retrieval performance, indices were created for each of the three vector fields:
 \begin{itemize}
-	\item \textbf{Sparse index:} Built for the \texttt{sparse\_title\_description} field using an inverted index with inner product (\texttt{IP}) as the metric type.
-	\item \textbf{Dense text index:} Applied to the \texttt{dense\_text\_content} field using the \texttt{HNSW} algorithm with cosine similarity.
-	\item \textbf{Dense code index:} Created for the \texttt{dense\_code\_snippet} field, also utilizing the \texttt{HNSW} algorithm with cosine similarity.
+	
+	\item \textbf{List All Supported Versions} \texttt{[GET /data/versions]}:  
+	Returns a list of all supported Next.js versions with download status.
+	\begin{lstlisting}[caption=GET /data/versions output example]
+		[
+		{"version_name": "v13.0.0", "downloaded": true},
+		{"version_name": "v13.0.1", "downloaded": false},
+		...
+		{"version_name": "v15.3.1", "downloaded": true}
+		]\end{lstlisting}
+	
+	\item \textbf{Retrieve Version Details} \texttt{[GET /data/versions/\{version\}]}:  
+	Fetches metadata (file size, last modified time) for a specific version. Returns 404 if unsupported.
+	\begin{lstlisting}[caption=GET /data/versions/{version} output example]
+		{
+			"version_name": "v15.3.1",
+			"downloaded": true,
+			"file_size": 49966271,
+			"last_modified": 1745841921.8775475
+		]\end{lstlisting}
+	
+	\item \textbf{List Downloaded Versions} \texttt{[GET /data/downloaded]}:  
+	Returns a list of all versions downloaded locally.
+	\begin{lstlisting}[caption=GET /data/downloaded output example]
+		[
+		"v13.0.0",
+		"v15.1.2",
+		"v15.3.1"
+		]\end{lstlisting}
+	
+	\item \textbf{Retrieve Version Statistics} \texttt{[GET /data/stats]}:  
+	Provides statistics including total supported and downloaded versions.
+	\begin{lstlisting}[caption=GET /data/stats output example]
+		{
+			"total_supported": 107,
+			"total_downloaded": 3,
+			"downloaded_versions": [
+			"v13.0.0",
+			"v15.1.2",
+			"v15.3.1"
+			]
+		}\end{lstlisting}
+	
+	\item \textbf{Retrieve Documentation Version} \texttt{[POST /version/retrieve]}:  
+	Downloads a version from Kaggle (if absent) and inserts it into Milvus with optional indexing parameters.
+	
+	Request parameters:
+	\begin{itemize}
+		\item \texttt{version\_name}: Target version (e.g., \texttt{v15.0.0}).
+		\item \texttt{m\_text} (optional, default = 16): HNSW "M" for text embeddings.
+		\item \texttt{ef\_text} (optional, default = 200): HNSW "efConstruction" for text embeddings.
+		\item \texttt{m\_code} (optional, default = 16): HNSW "M" for code embeddings.
+		\item \texttt{ef\_code} (optional, default = 200): HNSW "efConstruction" for code embeddings.
+	\end{itemize}
+	
+	Processing steps:
+	\begin{enumerate}
+		\item Check if CSV exists locally.
+		\item Download CSV from Kaggle if missing.
+		\item Create Milvus collection if not exists; apply index parameters (\texttt{M}, \texttt{efConstruction}) specific to the version. 
+		\begin{itemize}
+			\item \texttt{M}: Controls graph connectivity in HNSW; higher values improve accuracy but use more memory.
+			\item \texttt{efConstruction}: Controls the candidate pool size during indexing; larger values increase precision at indexing cost.
+		\end{itemize}
+		\item Insert parsed CSV data into Milvus.
+	\end{enumerate}
+
+	
+	\item \textbf{Delete Documentation Version} \texttt{[DELETE /version/delete]}:  
+	Deletes a version from both local storage and Milvus.
+	
+	Request parameters:
+	\begin{itemize}
+		\item \texttt{version\_name}: Target version.
+		\item Optional indexing parameters (\texttt{m\_text}, \texttt{ef\_text}, \texttt{m\_code}, \texttt{ef\_code}).
+	\end{itemize}
+	
+	Processing steps:
+	\begin{enumerate}
+		\item Remove local CSV and associated Milvus entries.
+		\item Download fresh CSV from Kaggle.
+		\item Recreate Milvus indices using specified or default \texttt{M} and \texttt{efConstruction} values.
+		\item Reinsert refreshed data into Milvus.
+	\end{enumerate}
+
+	
+	\item \textbf{Repair Documentation Version} \texttt{[POST /version/repair]}:  
+	Repairs a version by deleting old data and reimporting it fresh.
+	
+	Request parameters:
+	\begin{itemize}
+		\item \texttt{version\_name}: Target version.
+	\end{itemize}
+	
+	Processing steps:
+	\begin{enumerate}
+		\item Check if CSV exists locally.
+		\item Remove associated entries from Milvus.
+		\item Delete the local CSV file.
+	\end{enumerate}
+	
 \end{itemize}
 
-\subsection{Inserting data into the Collection}
+\section{RAGGIN core services}
 
-The preprocessed data, stored as a CSV file, was read and validated to ensure all data types matched the schema requirements.
 
-\subsection{Hybrid search implementation}
+\subsection{Retriever}
 
-The hybrid search function was implemented as a prototype to illustrate the retrieval process by integrating sparse and dense embeddings.
+The Retriever service performs hybrid searches by combining sparse lexical matching and dense vector similarity using BGE-M3 embeddings. It leverages Milvus for efficient retrieval and supports weighted multi-modal queries.
 
-\textbf{Workflow of hybrid search:}
+\textbf{Hybrid Search Endpoint \texttt{[POST /search]})}
+
+Executes hybrid searches across sparse and dense (text and code) embeddings, returning the top-\texttt{k} most relevant results.
+
+Request parameters:
+
+\begin{itemize}
+	\item \texttt{text\_query}: Text query for semantic matching.
+	\item \texttt{code\_query}: Code query for snippet matching.
+	\item \texttt{version\_name}: Version filter (e.g., \texttt{v15.0.0}).
+	\item \texttt{sparse\_weight} (optional, default = 1.0): Weight for sparse embeddings.
+	\item \texttt{dense\_text\_weight} (optional, default = 1.0): Weight for dense text embeddings.
+	\item \texttt{dense\_code\_weight} (optional, default = 1.0): Weight for dense code embeddings.
+	\item \texttt{top\_k} (optional, default = 10): Number of results to return.
+	\item \texttt{filter\_expr} (optional): Additional filter expression\footnote{Filtered Search - \url{https://milvus.io/docs/filtered-search.md}} for Milvus.
+	\item \texttt{radius\_sparse}, \texttt{radius\_dense\_text}, \texttt{radius\_dense\_code} (optional, default = 0.5): Search radius\footnote{Range Search - \url{https://milvus.io/docs/range-search.md}} for each modality.
+   	\item \texttt{range\_sparse}, \texttt{range\_dense\_text}, \texttt{range\_dense\_code} (optional, default = 0.5): Search range\footnote{Range Search - \url{https://milvus.io/docs/range-search.md}} for each modality.
+\end{itemize}
+
+Processing steps:
 
 \begin{enumerate}
-	\item \textbf{Input and initialization:}
-	Sparse and dense embeddings are provided as inputs, along with weights to balance their influence. Sparse embeddings are processed using the \texttt{sparse\_search} function, while dense embeddings are handled by the \texttt{dense\_text\_search} function.
+	\item Validate input: Ensure at least one modality weight is nonzero; prepare queries and filters.
+	\item Generate embeddings: Produce sparse and dense vectors using BGE-M3.
+	\item Search: Query Milvus separately for each modality (sparse, dense text, dense code).
+	\item Merge results: Raw similarity distances returned by Milvus are mapped to the range \([0, 1]\) to ensure comparability across modalities.  
+	The normalization function is defined as:
 	
-	\item \textbf{Sparse search:}
-	This step retrieves entries based on keyword relevance. The output includes the entry's metadata and a distance metric.
-	
-	\item \textbf{Dense search:}
-	This step retrieves entries based on semantic similarity, outputting the entry's metadata and a distance metric.
-	
-	\item \textbf{Combining results:}
-	The results from sparse and dense searches are merged using \texttt{entry\_id} as the common key. A combined score is calculated for each entry:
 	\[
-	\text{Combined score} = (\text{Sparse distance} \times \text{Sparse weight}) + (\text{Dense distance} \times \text{Dense weight})
+	\text{normalized\_score} = \frac{\frac{\pi}{2} - \arctan(\text{distance})}{\frac{\pi}{2}}
 	\]
-	If an entry is missing in either result, its corresponding distance is set to zero.
 	
-	\item \textbf{Sorting and limiting results:}
-	The entries are ranked by their combined scores in descending order. The top \texttt{limit} results are returned, demonstrating the hybrid retrieval process.
+	where:
+	\begin{itemize}
+		\item A distance close to 0 maps to a score close to 1 (indicating high relevance).
+		\item A distance approaching \(+\infty\) maps to a score close to 0 (indicating low relevance).
+		\item The output is clamped to \([0, 1]\) to avoid overflow or underflow.
+	\end{itemize}
+	
+	This mapping ensures that smaller distances (closer matches) correspond to higher normalized scores.
+	
+	After normalization, scores from different modalities (sparse, dense text, dense code) are aggregated into a single combined score using a weighted sum:
+	
+	\[
+	\text{combined\_score} = w_{\text{sparse}} \times s_{\text{sparse}} + w_{\text{dense\_text}} \times s_{\text{dense\_text}} + w_{\text{dense\_code}} \times s_{\text{dense\_code}}
+	\]
+	
+	where:
+	\begin{itemize}
+		\item \(w_{\text{sparse}}, w_{\text{dense\_text}}, w_{\text{dense\_code}}\) are the user-defined weights for each modality (default 1.0).
+		\item \(s_{\text{sparse}}, s_{\text{dense\_text}}, s_{\text{dense\_code}}\) are the normalized scores from the respective search results.
+	\end{itemize}
+	
+	\item Select top-k: Rank by hybrid scores and return top results.
 \end{enumerate}
+
+Example query:
+
+\begin{lstlisting}[caption=POST /search JSON payload example]
+	{
+		"text_query": "Is this command using the canary version?",
+		"code_query": "npx create-next-app@latest",
+		"version_name": "v15.1.2",
+		"sparse_weight": 0.5,
+		"dense_text_weight": 1.0,
+		"dense_code_weight": 0.9,
+		"top_k": 3,
+		"filter_expr": "tag == 'documentation'",
+		"radius_sparse": 0.08,
+		"range_sparse": 1,
+		"radius_dense_text": 0.6,
+		"range_dense_text": 1,
+		"radius_dense_code": 0.6,
+		"range_dense_code": 1
+	}
+\end{lstlisting}
+
+Example response:
+
+\begin{lstlisting}[caption=POST /search output example]
+	{
+		"results": [
+		{
+			"title": "02-canary - Upgrade your Next.js Application to canary",
+			"metadata": {},
+			"version": "v15.3.1",
+			"text_content": "...",
+			"code_content": "...",
+			"tag": "documentation",
+			"sparse_distance": 0.115,
+			"dense_text_distance": 0.602,
+			"dense_code_distance": null,
+			"combined_score": 0.745
+		},
+		{
+			"title": "create-next-app - Create Next.js apps",
+			"metadata": {},
+			"version": "v15.3.1",
+			"text_content": "...",
+			"code_content": "...",
+			"sparse_distance": 0.080,
+			"dense_code_distance": 0.901,
+			"combined_score": 0.681
+		},
+		{
+			"title": "12-upgrading - Learn how to upgrade Next.js",
+			"metadata": {},
+			"version": "v15.3.1",
+			"text_content": "...",
+			"code_content": "...",
+			"dense_text_distance": 0.664,
+			"combined_score": 0.626
+		}
+		]
+	}
+\end{lstlisting}
+
+\subsection{Generator}
 
 \section{Local LLMs setup}
 
