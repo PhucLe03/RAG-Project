@@ -1,0 +1,41 @@
+\section{RAGGIN Docker implementation}
+
+\subsection{Retriever}
+
+\subsection{Generator}
+
+The API endpoint for RAGGIN Generator is POST /prompt/generate.
+
+The request body should be in JSON format, specifying the desired model and the prompt to be processed. An example request body is shown below:
+
+\begin{verbatim}
+{
+    "version_name": "v15.1.3",
+    "query": "refactor the files to make it more readable.",
+    "model": "llama2:13b",
+    "additional_options": {
+        "retriever_options": {},
+        "generator_options": {}
+    },
+    "file_list": [
+        {
+        "file_name": "/my_page.tsx",
+        "file_extension": "tsx",
+        "file_content": "import { File, UserRound, LogOut } from \"lucide-react\"; ..."
+        }
+    ]
+}
+\end{verbatim}
+
+When RAGGIN Generator receives the request, it will take the query, model, and file list and process them to RAGGIN Retriever to retrieve relevant documents. Then, it will take the retrieved documents, together with the query and process them to Ollama LLM to generate the final response.
+
+The response body will contain the generated response and some other relevant information in JSON format.
+
+\begin{verbatim}
+{
+    "model": "llama2:13b",
+    "response": "Sure! Here are some suggestions for refactoring the code to make it more 
+    readable ..."
+    ...
+}
+\end{verbatim}
