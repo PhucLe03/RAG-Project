@@ -365,7 +365,7 @@ The RAGGIN core service provides the API functionalities for hybrid retrieval an
 
 The Retriever service performs hybrid searches by combining sparse lexical matching and dense vector similarity using BGE-M3 embeddings. It leverages Milvus for efficient retrieval and supports weighted multi-modal queries.
 
-\textbf{Hybrid Search Endpoint \texttt{[POST /search]})}
+\textbf{Hybrid Search Endpoint \texttt{[POST /search]}}
 
 Executes hybrid searches across sparse and dense (text and code) embeddings, returning the top-\texttt{k} most relevant results.
 
@@ -484,11 +484,11 @@ Example response:
 
 \subsection{Generator}
 
-\section{Local LLMs setup}
+\textbf{Local LLMs setup}
 
 In the development of RAG systems, the choice of a robust and secure LLM is critical for achieving high-quality responses and ensuring data privacy. To support our RAG pipeline, we installed and configured Ollama\footnote{Ollama - \url{https://ollama.com/}}, a platform specifically designed to facilitate the deployment of pre-trained language models on local infrastructure. This section describes the setup and integration of Ollama into our system.
 
-\subsection{Setup Ollama}
+\textbf{Setup Ollama}
 
 The setup process begins by installing the Ollama application, which is compatible with various operating systems including Windows, macOS, and Linux. Once installed, Ollama provides a straightforward interface to download and configure pre-trained models without requiring fine-tuning.
 
@@ -512,7 +512,7 @@ Furthermore, the platform's lightweight design enhances compatibility across a v
 
 
 
-\subsection{Integration with the RAG system}
+\textbf{Integration with the RAG system}
 
 To integrate Ollama into the RAG workflow, we use the Ollama API for direct interaction with the locally installed models. The endpoint for the API is:
 
@@ -520,19 +520,76 @@ POST \url{http://localhost:11434/api/generate}
 
 The POST request body should be in JSON format, specifying the desired model and the prompt to be processed. An example request body is shown below:
 
-\begin{verbatim}
+\begin{lstlisting}[caption=Ollama JSON payload example]
 	{
 		"model": "qwen",
 		"prompt": "What is RAG?"
 	}
-\end{verbatim}
+\end{lstlisting}
 
 The API provides a straightforward and efficient method for passing queries and receiving responses from the model. 
 
-Alternatively, Ollama models can also be integrated using the Python library LangChain\footnote{LangChain - \url{https://python.langchain.com/docs/introduction/}}. With LangChain, the locally installed Ollama models can be accessed and utilized as part of a more comprehensive pipeline, allowing for advanced customization and ease of interaction. This flexibility enables developers to build robust RAG systems that leverage the full potential of Ollama's capabilities while adapting to diverse use cases.
+%Alternatively, Ollama models can also be integrated using the Python library LangChain\footnote{LangChain - \url{https://python.langchain.com/docs/introduction/}}. With LangChain, the locally installed Ollama models can be accessed and utilized as part of a more comprehensive pipeline, allowing for advanced customization and ease of interaction. This flexibility enables developers to build robust RAG systems that leverage the full potential of Ollama's capabilities while adapting to diverse use cases.
 
 
+\textbf{Generator Endpoint \texttt{[POST /prompt/generate]}}
 
+When RAGGIN Generator receives the generate request, it will take the query, model, and file list and process them to RAGGIN Retriever to retrieve relevant documents. Then, it will take the retrieved documents, together with the query and process them to Ollama LLM to generate the final response.
+
+Request parameters:
+\begin{itemize}
+	\item \texttt{version\_name}: Version filter (e.g. v15.3.1).
+	\item \texttt{query}: The input query or prompt that serves as the basis for the system to retrieve relevant information and generate a response.
+	\item \texttt{model}: The name of the Ollama LLM selected for generating the response.
+	\item \texttt{file\_list} (Optional): A collection of \texttt{FileModel} instances, where each instance includes the following string fields: \texttt{fileName}, \texttt{fileExtension}, and \texttt{fileContent}.
+	\item \texttt{additional\_options} (Optional): An optional field comprising two subfields: \texttt{retriever\_options} — the configurable parameters associated with the Hybrid Search Endpoint — and \texttt{generator\_options} — the set of options controlling the language model's generation behavior. These settings enable users to customize the system’s retrieval and generation phases for enhanced flexibility and performance.
+	
+\end{itemize}
+
+Processing steps:
+
+\begin{enumerate}
+	\item Retrieve documents: Use input prompt and version name to retrieve relevance documents.
+	\item Enhance prompt: Construct an enhanced prompt using the original prompt with the retrieved documents.
+	\item Generate: Send a POST request to the Ollama API endpoint, then receive and return the generated response.
+
+\end{enumerate}
+
+The generate request's body should be in JSON format, specifying the desired model and the prompt to be processed. An example request body is shown below:
+
+\begin{lstlisting}[caption=POST /prompt/generate JSON payload example]
+{
+    "version_name": "v15.1.3",
+    "query": "refactor the files to make it more readable.",
+    "model": "llama2:13b",
+    "additional_options": {
+        "retriever_options": {
+        	"top_k": 5
+        },
+        "generator_options": {
+        	"temperature": 0.8
+        }
+    },
+    "file_list": [
+        {
+        "file_name": "/my_page.tsx",
+        "file_extension": "tsx",
+        "file_content": "import { File, UserRound, LogOut } from \"lucide-react\"; ..."
+        }
+    ]
+}
+\end{lstlisting}
+
+The response body will contain the generated response and some other relevant information in JSON format.
+
+\begin{lstlisting}[caption=POST /prompt/generate output example]
+{
+    "model": "llama2:13b",
+    "response": "Sure! Here are some suggestions for refactoring the code to make it more 
+    readable ..."
+    ...
+}
+\end{lstlisting}
 
 
 
