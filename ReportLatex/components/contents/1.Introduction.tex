@@ -100,22 +100,23 @@ Developing this tool involves several challenges:
 This chapter introduces the motivations, objectives, and scope of the research. It highlights the challenges of web development and the role of RAG in enhancing efficiency and accuracy. The chapter outlines the structure of the report, providing a roadmap for the research presented.
 
 \textbf{Chapter 2. Preliminaries.} 
-This chapter provides foundational knowledge on RAG, emphasizing its retriever and generator components. It discusses indexing, vector embeddings, and augmentation methods, offering a clear understanding of the technologies used. Key concepts of the Next.js framework and associated development tools are also introduced.
+This chapter provides foundational knowledge on RAG, emphasizing its retriever and generator components. It discusses indexing, vector embeddings, and augmentation methods, offering a clear understanding of the technologies used.
 
-\textbf{Chapter 3. Related Works and Tools.} 
+\textbf{Chapter 3. Related works and tools.} 
 This chapter explores prior research on RAG and its application in web development. It reviews developer tools such as VSCode extensions and discusses strategies for retrieval and augmentation. Comparative analyses of existing frameworks and methodologies are also presented.
 
 \textbf{Chapter 4. Approach.} 
-This chapter describes the proposed solution, including the architecture of the RAG-enhanced system. It explains the rationale for selecting specific models like BGE-M3 and Qwen and details the integration of local vector storage with the Next.js framework to ensure efficient retrieval and generation.
+This chapter presents the reasoning behind adopting RAG over fine-tuning, and explains the selection of key components such as the BGE-M3 embedding model and Ollama's local LLMs. It also discusses design choices including containerization with Docker and the use of a VSCode extension. Finally, it outlines the system’s core architecture, focusing on local vector storage and editor integration.
 
-\textbf{Chapter 5. Initial implementation.} 
-This chapter outlines the step-by-step development process of the RAG pipeline. It includes data preparation, database setup, and integration with the VSCode extension. Challenges encountered during implementation and their solutions are also discussed.
 
-\textbf{Chapter 6. Evaluation plan.} 
-This chapter evaluates the system using metrics such as accuracy and developer productivity. It describes the testing methodology, compares results with existing solutions, and highlights the strengths and limitations of the proposed approach.
+\textbf{Chapter 5. Implementation.} 
+This chapter details the development process of the RAGGIN system, covering data preparation, preprocessing, database design and setup, and the implementation of a RESTful API. It also introduces the core retrieval and generation services, and concludes with the integration of these components into a VSCode extension.
 
-\textbf{Chapter 7. Future plan.} 
-The final chapter summarizes the contributions of the research and discusses potential areas for improvement. It offers recommendations for extending the system’s compatibility and incorporating advanced retrieval techniques to enhance performance and scalability.
+\textbf{Chapter 6. Evaluation.}
+This chapter presents the evaluation of the system through quantitative metrics for both retrieval and generation components. It describes the evaluation methodology, summarizes results, and includes both unit and integration testing to validate system behavior. The analysis highlights key strengths as well as performance limitations under different usage scenarios.
+
+\textbf{Chapter 7. Conclusion.}
+The final chapter summarizes the key results achieved, acknowledges the current system limitations, and outlines clear directions for future development.
 
 
 % Background knowledge is then provided to explain the technologies and methodologies used. A review of related work follows, including research and existing solutions in web development, and Retrieval-Augmented Generation (RAG). The approach section describes the proposed solution, detailing the architecture and methodology for building the VSCode extension. The implementation section outlines the development process, and tools used. The evaluation presents the metrics, testing strategies, and results, along with comparisons to other solutions. Finally, the conclusion summarizes the achievements, discusses limitations, and offers suggestions for future improvements, with a reference section listing all the sources used.

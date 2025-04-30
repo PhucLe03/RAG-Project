@@ -2492,16 +2492,6 @@
     <bcf:citekey order="116" intorder="1">wei2020analyticdbv</bcf:citekey>
     <bcf:citekey order="117" intorder="1">pase2020</bcf:citekey>
     <bcf:citekey order="118" intorder="1">wang2021milvus</bcf:citekey>
-    <bcf:citekey order="119" intorder="1">zhao2024retrievalaugmentedgenerationaigeneratedcontent</bcf:citekey>
-    <bcf:citekey order="119" intorder="2">gao2023ragllmsurvey</bcf:citekey>
-    <bcf:citekey order="120" intorder="1">chen2024bge</bcf:citekey>
-    <bcf:citekey order="121" intorder="1">malkov2018hnsw</bcf:citekey>
-    <bcf:citekey order="122" intorder="1">vaswani2017</bcf:citekey>
-    <bcf:citekey order="123" intorder="1">bai2023qwen</bcf:citekey>
-    <bcf:citekey order="124" intorder="1">ram2023incontext</bcf:citekey>
-    <bcf:citekey order="125" intorder="1">wang2023knowledgpt</bcf:citekey>
-    <bcf:citekey order="126" intorder="1">asai2023selfrag</bcf:citekey>
-    <bcf:citekey order="127" intorder="1">wang2021milvus</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

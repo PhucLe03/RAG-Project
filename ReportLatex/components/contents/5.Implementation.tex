@@ -4,7 +4,7 @@ This chapter provides a detailed explanation of our implementation strategy base
 
 \section{Database}
 
-\section{Data Preparation}
+\subsection{Data Preparation}
 
 We prepared documentation data for Next.js starting from version \texttt{v13.0.0} onwards. At the time of writing, the latest version is \texttt{v15.3.1}, encompassing a total of 107 supported versions. The data was sourced directly from the official Next.js GitHub repository.
 
@@ -54,7 +54,7 @@ Upon reviewing the markdown files, we identified several main elements:
 	
 After completing data preparation, the quantity of markdown files per version ranged significantly, from 294 files for \texttt{v13.0.0} to 591 files for \texttt{v15.3.1}. This increase nearly doubled the amount of documentation and documented errors, highlighting substantial growth in the capabilities and complexity of the Next.js framework.
 
-\section{Data Preprocessing}
+\subsection{Data Preprocessing}
 
 After acquiring and organizing the data, the next critical step was preprocessing it to ensure alignment with our schema design for optimal storage and retrieval. This phase transformed raw markdown files into structured data via a Python-based preprocessing pipeline, leveraging markdown parsing libraries, embedding models, and structured data processing techniques.
 
@@ -116,7 +116,7 @@ The preprocessing resulted in 107 CSV files, publicly accessible via our dataset
 	\item \textbf{Entry Count:} Ranges from 396 entries for \texttt{v13.0.0} to 1,381 entries for \texttt{v15.3.1}.
 \end{itemize}
 
-\section{Database design}
+\subsection{Database design}
 
 Before presenting our schema design, we detail the properties utilized within our fields.
 
@@ -234,7 +234,7 @@ The evaluation results indicate that average pooling delivers more stable and re
 
 The retrieved document structure includes a text body containing special placeholder tokens in the form of \texttt{code\_snippet\_\{idx\}}. During post-processing, each placeholder is replaced by the corresponding code snippet from the \texttt{code\_content} dictionary.
 
-\section{Database setup}
+\subsection{Database setup}
 
 To efficiently handle storage, retrieval, and indexing, we set up our database using Milvus, leveraging Docker Compose for streamlined deployment and configuration. This database setup involved three key services:
 
@@ -249,7 +249,7 @@ To efficiently handle storage, retrieval, and indexing, we set up our database u
 	The \texttt{milvus-standalone} service, using Milvus version \texttt{v2.5.4}, was established for vector indexing and retrieval operations. This container depends on the healthy states of both \texttt{etcd} and \texttt{minio} services, integrating with them via their respective endpoints. It handles incoming requests and provides monitoring via specified ports.
 \end{itemize}
 
-\section{Database API}
+\subsection{Database API}
 
 The Database API manages documentation data in the Milvus database through seven primary endpoints:
 
