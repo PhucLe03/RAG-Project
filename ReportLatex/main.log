@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.15)  2 MAY 2025 21:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.15)  2 MAY 2025 21:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2466,12 +2466,12 @@ Package pdftex.def Info: Images/Approach/The nature of Fine-Tuning and RAG.png
 [29 <./Images/Approach/The nature of Fine-Tuning and RAG.png>]
 
 [30]
-<Images/Implement/rag_pipeline.png, id=874, 1715.40875pt x 999.735pt>
+<Images/Implement/rag_pipeline.png, id=874, 827.7324pt x 484.209pt>
 File: Images/Implement/rag_pipeline.png Graphic file (type png)
 <use Images/Implement/rag_pipeline.png>
 Package pdftex.def Info: Images/Implement/rag_pipeline.png  used on input line 
 198.
-(pdftex.def)             Requested size: 343.07567pt x 199.94345pt.
+(pdftex.def)             Requested size: 165.54355pt x 96.84007pt.
 
 
 [31 <./Images/Implement/rag_pipeline.png>]
@@ -2718,49 +2718,49 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Evaluations/rouge_1.png, id=1362, 891.0891pt x 573.1011pt>
+<Images/Evaluations/rouge_1.png, id=1362, 891.0891pt x 517.4532pt>
 File: Images/Evaluations/rouge_1.png Graphic file (type png)
 <use Images/Evaluations/rouge_1.png>
 Package pdftex.def Info: Images/Evaluations/rouge_1.png  used on input line 5.
-(pdftex.def)             Requested size: 409.71692pt x 263.50728pt.
-<Images/Evaluations/rouge_2.png, id=1363, 897.5934pt x 573.1011pt>
+(pdftex.def)             Requested size: 409.71692pt x 237.9208pt.
+<Images/Evaluations/rouge_2.png, id=1363, 897.5934pt x 517.4532pt>
 File: Images/Evaluations/rouge_2.png Graphic file (type png)
 <use Images/Evaluations/rouge_2.png>
 Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 13.
 
-(pdftex.def)             Requested size: 409.71692pt x 261.6009pt.
+(pdftex.def)             Requested size: 409.71692pt x 236.19955pt.
 
 
 [60
 
  <./Images/Evaluations/rouge_1.png>]
-<Images/Evaluations/rouge_3.png, id=1371, 897.5934pt x 573.1011pt>
+<Images/Evaluations/rouge_3.png, id=1371, 897.5934pt x 517.4532pt>
 File: Images/Evaluations/rouge_3.png Graphic file (type png)
 <use Images/Evaluations/rouge_3.png>
 Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 21.
 
-(pdftex.def)             Requested size: 409.71692pt x 261.6009pt.
-<Images/Evaluations/rouge_L.png, id=1372, 891.0891pt x 573.1011pt>
+(pdftex.def)             Requested size: 409.71692pt x 236.19955pt.
+<Images/Evaluations/rouge_L.png, id=1372, 891.0891pt x 517.4532pt>
 File: Images/Evaluations/rouge_L.png Graphic file (type png)
 <use Images/Evaluations/rouge_L.png>
 Package pdftex.def Info: Images/Evaluations/rouge_L.png  used on input line 29.
 
-(pdftex.def)             Requested size: 409.71692pt x 263.50728pt.
+(pdftex.def)             Requested size: 409.71692pt x 237.9208pt.
 
 
 [61 <./Images/Evaluations/rouge_2.png> <./Images/Evaluations/rouge_3.png>]
-<Images/Evaluations/llm_eval_small.png, id=1381, 859.2903pt x 570.933pt>
+<Images/Evaluations/llm_eval_small.png, id=1381, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_small.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_small.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_small.png  used on input l
 ine 37.
-(pdftex.def)             Requested size: 409.71692pt x 272.22397pt.
-<Images/Evaluations/llm_eval_bigger.png, id=1382, 859.2903pt x 570.933pt>
+(pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
+<Images/Evaluations/llm_eval_bigger.png, id=1382, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_bigger.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_bigger.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_bigger.png  used on input 
 line 45.
-(pdftex.def)             Requested size: 409.71692pt x 272.22397pt.
+(pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
 )
 
 [62 <./Images/Evaluations/rouge_L.png> <./Images/Evaluations/llm_eval_small.png
@@ -2788,7 +2788,7 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 Here is how much of TeX's memory you used:
  46710 strings out of 473330
  967492 string characters out of 5721312
- 2316050 words of memory out of 5000000
+ 2316048 words of memory out of 5000000
  68528 multiletter control sequences out of 15000+600000
  584278 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2825,7 +2825,7 @@ c/cm-super/sftt0800.pfb><d:/Apps/texlive/2024/texmf-dist/fonts/type1/public/cm-
 super/sftt0900.pfb><d:/Apps/texlive/2024/texmf-dist/fonts/type1/public/cm-super
 /sftt1000.pfb><d:/Apps/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a
 .pfb><d:/Apps/texlive/2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (70 pages, 3688176 bytes).
+Output written on main.pdf (70 pages, 3660604 bytes).
 PDF statistics:
  1650 PDF objects out of 1728 (max. 8388607)
  1406 compressed objects within 15 object streams
