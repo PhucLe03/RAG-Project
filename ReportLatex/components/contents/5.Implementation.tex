@@ -592,5 +592,132 @@ The response body will contain the generated response and some other relevant in
 \end{lstlisting}
 
 
+\section{RAGGIN VSCode Extension Development}
+
+The RAGGIN (Retrieval-Augmented Generation for Guided Intelligence in Next.js) Visual Studio Code extension is purpose-built to elevate developer productivity within the Next.js ecosystem. RAGGIN operates entirely on the local machine, leveraging Docker and Ollama to remove any reliance on an active internet connection. At its foundation, the extension seamlessly integrates several advanced technologies: local Large Language Models (LLMs) via Ollama for rapid and context-aware response generation; Retrieval-Augmented Generation (RAG) to supplement AI outputs with precise, project-relevant documentation; Docker containers to orchestrate retrieval and computation processes; and the VS Code extension API, which embeds these capabilities natively within the editor. Real-time communication between the VS Code webview and the extension host is achieved through efficient message passing, ensuring a responsive and interactive AI experience.
+
+\subsection{Installing in VSCode (Private installation)}
+
+\textbf{Install from the VS Code Marketplace}
+
+\begin{itemize}
+	\item In your VS Code IDE, go to \textbf{Extensions}.
+	\item Search for \textbf{Raggin (Self-Hosted)} and select it.
+	\item Install the extension.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/Implement/vscode_extension_download.png}
+	\vspace{5mm}
+	\caption{Installing Raggin extension in VS Code.}
+	\label{fig:vscode_extension_download}
+\end{figure}
+
+You don't need to log in anyway because this is private for user own using.
+
+\subsection{Icons \& labels}
+\textbf{Chat page header}\\
+The top navigation bar of the IDE plugin displays the selected model (e.g., qwen2.5-coder) and its corresponding version (e.g., v15.3.0). To the right, users have quick access to Settings, the option to Add a New Chat, and Chat History, streamlining workflow for configuration, testing, and session management.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.69]{Images/Implement/chat_page_header.png}
+	\vspace{5mm}
+	\caption{Chat page header.}
+	\label{fig:chat_page_icon}
+\end{figure}
+
+\textbf{Chat input}\\
+This interface includes a file-plus icon on the left, which allows users to upload files from their code base. Once the file is uploaded, it will appear on the left side of the input field, just above the text box, indicating that the file is successfully attached and ready to be referenced or processed within the current chat session. On the far right, there is a send button (shaped like a cleft arrow) used to submit the message. The submit function becomes active after selecting the appropriate Ollama model, specifying the Next.js version, and completing the prompt input.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_input.png}
+	\vspace{5mm}
+	\caption{Chat input.}
+	\label{fig:chat_input}
+\end{figure}
+
+\textbf{Added context label}\\
+The File Context Label appears prominently beneath the model and version selection bar. It displays the path of the currently active file (e.g., /webview-ui/src/App.tsx), indicating the specific source file that the assistant will use as reference for the current interaction. This context ensures that code-related requests—such as refactoring or debugging—are applied to the correct file within the project structure.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/Implement/added_context_label.png}
+	\vspace{5mm}
+	\caption{Chat input.}
+	\label{fig:added_context_label}
+\end{figure}
+
+\textbf{Chat window}\\
+This section of the chat interface displays individual conversation sessions. When a user submits a lengthy question, the interface provides a "Show more / Show less" toggle to optimize readability and minimize vertical scrolling. Responses containing code are rendered using the react-syntax-highlighter library, ensuring clear syntax formatting. Additionally, each code block includes a convenient copy-to-clipboard icon, allowing users to quickly copy the snippet for immediate use in their development workflow.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_window.png}
+	\vspace{5mm}
+	\caption{Chat input.}
+	\label{fig:chat_window}
+\end{figure}
+
+\textbf{Chat history header}\\
+The Chat History panel serves as a central location for users to access and manage their previous conversation sessions. Positioned at the top of this section is the "Chat History" heading, clearly indicating its purpose. To the right of the heading are two functional icons designed for streamlined interaction. The first icon, represented by a list, allows users to toggle between different view modes or manage existing chat threads more efficiently. Next to it, the clear history icon provides a quick way to delete all saved conversations, helping users maintain a clean workspace.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.69]{Images/Implement/chat_history_header.png}
+	\vspace{5mm}
+	\caption{Chat history header.}
+	\label{fig:chat_history_header}
+\end{figure}
+
+\textbf{Chat history window}\\
+Each chat entry in the chat history panel includes a three-dot settings menu located in the top-right corner of the chat card. This contextual menu provides users with the ability to rename the conversation—allowing for more meaningful and descriptive titles—or to delete the chat entirely when it is no longer needed. These options help users efficiently manage their session history and maintain an organized workspace.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_history_window.png}
+	\vspace{5mm}
+	\caption{Chat history window.}
+	\label{fig:chat_history_window}
+\end{figure}
+
+\textbf{Advance settings page}\\
+The interface displayed is the Advanced Settings panel, designed to fine-tune parameters for both retrieval and generation in RAG workflow. At the top, there is a tabbed header with two options: Retriever options (currently selected) \& Generator options. Each section includes an Instructions link that likely directs users to documentation or usage guidance. At the bottom, users can choose to Cancel changes or Save their configuration using clearly labeled action buttons.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/Implement/advance_settings.png}
+	\vspace{5mm}
+	\caption{Advance settings page.}
+	\label{fig:advance_settings_page}
+\end{figure}
+
+\subsection{Primary function}
+
+RAGGIN is a lightweight, privacy-preserving AI assistant extension built for Visual Studio Code, specifically tailored to support Next.js developers across a wide range of versions. The extension integrates Retrieval-Augmented Generation (RAG) techniques to deliver context-aware, intelligent responses directly within the development environment.\\
+\textbf{Key features include:}
+
+\begin{itemize}
+	\item \textbf{Real-time Querying within VSCode:} Developers can interact with the AI assistant directly inside the extension panel. The primary focus is on Next.js-related queries, with dynamic control over the Next.js version (from v13.0.0 to v15.3.1) to ensure framework-specific accuracy. Additionally, users can switch between Ollama-hosted LLM models, offering flexibility in model selection based on task complexity or system capabilities.
+	\item \textbf{Local Contextual Intelligence:} Users can load a specific code file from their local project to provide the AI with deeper context. All operations occur within the local development environment, ensuring data privacy and security—no external server calls or remote data exposure
+	\item \textbf{Persistent Chat History:} All user interactions are stored locally using VSCode’s globalState API, enabling developers to retain conversation history across sessions. The dedicated history view allows quick reference and reuse of past discussions without re-prompting.
+	\item \textbf{Advanced Configuration Panel:} For power users and researchers, the Advanced Settings page provides control over key RAG parameters:
+	\begin{itemize}
+		\item Retrieval method customization (e.g., top-k, similarity threshold)
+		\item Generator configuration (e.g., temperature, max tokens)
+		These tunable settings support experimentation and fine-tuning for optimal results.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Performance}
+Raggin stands out as one of the most lightweight AI-assist extensions on the VSCode Marketplace, with a package size under 2.5MB. Optimized for speed, memory efficiency, and modular development, it consumes minimal system resources—using CPU and memory at levels comparable to or lower than typical VSCode extensions. The extension achieves this efficiency by offloading most computational work to the underlying RAG model via Ollama, ensuring your editor remains responsive even during complex queries. Response quality and speed scale with your hardware capabilities—systems that can run larger LLMs will experience enhanced performance with faster, more accurate answers.
+
+\subsection{Known Limitations and Future Roadmap}
+
+\textbf{Known Limitations:} Despite its current utility, RAGGIN still has areas for growth. Currently, the extension supports contextual referencing for \textbf{one file at a time}, which may restrict its effectiveness in multi-module projects. Additionally, responses are only rendered \textbf{after full generation}, lacking token-by-token streaming, which may result in perceived delays for long outputs.
+
+\textbf{Planned Enhancements:} The development roadmap for RAGGIN includes several key improvements: implementing \textbf{streaming responses} for real-time feedback, upgrading the \textbf{user interface} for smoother interaction and better usability, enabling \textbf{multi-file context handling} to support complex codebases, and enhancing \textbf{prompt management and template customization} for more structured queries.
+
+
+
+
+
 
 
