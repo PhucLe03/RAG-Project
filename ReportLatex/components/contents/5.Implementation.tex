@@ -65,7 +65,7 @@ After acquiring and organizing the data, the next critical step was preprocessin
 	Metadata fields such as \texttt{title}, \texttt{description}, and \texttt{nav\_title} were extracted using the \texttt{frontmatter} library. Additional metadata, including \texttt{related} links when available, were also captured. Unique \texttt{entry\_id}s were generated for hierarchical referencing within the database schema.
 	
 	Example code for generating a unique entry ID:
-	\begin{lstlisting}[language=Python, caption=Generating unique entry IDs.]
+	\begin{lstlisting}[language=Python, caption=Generating unique entry IDs]
 		def generate_entry_id(file_path):
 		relative_path = os.path.relpath(file_path)
 		entry_id = re.sub(r'[^a-zA-Z0-9]', '_', relative_path)
@@ -91,7 +91,7 @@ After acquiring and organizing the data, the next critical step was preprocessin
 The \texttt{parse\_markdown\_sections} function, implemented using \texttt{mistletoe}, played a central role in these steps by iterating over the document tokens to extract structured information. For instance, a document with headings, paragraphs, and code blocks was transformed into hierarchical sections with associated metadata and content.
 
 Example of parsing and organizing code snippets:
-\begin{lstlisting}[language=Python, caption=Code snippet parsing.]
+\begin{lstlisting}[language=Python, caption=Code snippet parsing]
 	if isinstance(token, CodeFence):
 	code_info = {
 		"code": token.children[0].content if token.children else "",
@@ -135,7 +135,7 @@ Before presenting our schema design, we detail the properties utilized within ou
 		\texttt{dim}          & Dimension of the vector                                                            & Data type: Integer {[}1, 32,768{]}. Mandatory for dense vector field. Omit for sparse vector field                                                   \\ \hline
 		\texttt{is\_partition\_key} & Whether this field is a partition-key field                                      & Data type: Boolean (\texttt{true} or \texttt{false})                                                                                                \\ \hline
 	\end{tabular}
-	\caption{Field schema properties(Manage Schema\protect\footnotemark).}
+	\caption{Field schema properties(Manage Schema\protect\footnotemark)}
 \end{table}
 
 \footnotetext{\url{ https://milvus.io/docs/schema.md\#Manage-Schema}}
@@ -164,7 +164,7 @@ We developed a schema optimized for organizing and storing documentation data. T
 		\texttt{dense\_code\_snippet}& FLOAT\_VECTOR          & 1024 & Avg-pooled vector over all snippet embeddings.  \emph{Index}: HNSW; \emph{Metric}: Cosine.\\
 		\hline
 	\end{tabular}
-	\caption{Schema Structure.}
+	\caption{Schema Structure}
 	\label{tab:schema_structure}
 \end{table}
 
@@ -178,7 +178,7 @@ Figure~\ref{fig:code_snippet_distribution} illustrates the distribution of code 
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Implement/section_code_snippet_count_distribution.png}
 	\vspace{3mm}
-	\caption{Distribution of Code Snippets per Section (v15.1.4 to v15.3.1).}
+	\caption{Distribution of Code Snippets per Section (\texttt{v15.1.4} to \texttt{v15.3.1})}
 	\label{fig:code_snippet_distribution}
 \end{figure}
 
@@ -186,7 +186,7 @@ Figure~\ref{fig:code_snippet_distribution} illustrates the distribution of code 
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Implement/code_snippet_token_count_distribution.png}
 	\vspace{3mm}
-	\caption{Token Count Distribution of Code Snippets (v15.1.4 to v15.3.1).}
+	\caption{Token Count Distribution of Code Snippets (\texttt{v15.1.4} to \texttt{v15.3.1})}
 	\label{fig:code_snippet_token}
 \end{figure}
 
@@ -218,7 +218,7 @@ Figures~\ref{fig:ndcg_avg} and~\ref{fig:ndcg_max} present the NDCG performance o
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Implement/dense_code_ndcg.png}
 	\vspace{5mm}
-	\caption{NDCG Results with Average Pooling.}
+	\caption{NDCG Results with Average Pooling}
 	\label{fig:ndcg_avg}
 \end{figure}
 
@@ -226,7 +226,7 @@ Figures~\ref{fig:ndcg_avg} and~\ref{fig:ndcg_max} present the NDCG performance o
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Implement/hybrid_ndcg.png}
 	\vspace{5mm}
-	\caption{NDCG Results with Max Pooling.}
+	\caption{NDCG Results with Max Pooling}
 	\label{fig:ndcg_max}
 \end{figure}
 
@@ -257,7 +257,7 @@ The Database API manages documentation data in the Milvus database through seven
 	
 	\item \textbf{List All Supported Versions} \texttt{[GET /data/versions]}:  
 	Returns a list of all supported Next.js versions with download status.
-	\begin{lstlisting}[caption=GET /data/versions output example.]
+	\begin{lstlisting}[caption=GET /data/versions output example]
 		[
 		{"version_name": "v13.0.0", "downloaded": true},
 		{"version_name": "v13.0.1", "downloaded": false},
@@ -267,7 +267,7 @@ The Database API manages documentation data in the Milvus database through seven
 	
 	\item \textbf{Retrieve Version Details} \texttt{[GET /data/versions/\{version\}]}:  
 	Fetches metadata (file size, last modified time) for a specific version. Returns 404 if unsupported.
-	\begin{lstlisting}[caption=GET /data/versions/{version} output example.]
+	\begin{lstlisting}[caption=GET /data/versions/{version} output example]
 		{
 			"version_name": "v15.3.1",
 			"downloaded": true,
@@ -277,7 +277,7 @@ The Database API manages documentation data in the Milvus database through seven
 	
 	\item \textbf{List Downloaded Versions} \texttt{[GET /data/downloaded]}:  
 	Returns a list of all versions downloaded locally.
-	\begin{lstlisting}[caption=GET /data/downloaded output example.]
+	\begin{lstlisting}[caption=GET /data/downloaded output example]
 		[
 		"v13.0.0",
 		"v15.1.2",
@@ -286,7 +286,7 @@ The Database API manages documentation data in the Milvus database through seven
 	
 	\item \textbf{Retrieve Version Statistics} \texttt{[GET /data/stats]}:  
 	Provides statistics including total supported and downloaded versions.
-	\begin{lstlisting}[caption=GET /data/stats output example.]
+	\begin{lstlisting}[caption=GET /data/stats output example]
 		{
 			"total_supported": 107,
 			"total_downloaded": 3,
@@ -378,7 +378,7 @@ Request parameters:
 	\item \texttt{sparse\_weight} (optional, default = 1.0): Weight for sparse embeddings.
 	\item \texttt{dense\_text\_weight} (optional, default = 1.0): Weight for dense text embeddings.
 	\item \texttt{dense\_code\_weight} (optional, default = 1.0): Weight for dense code embeddings.
-	\item \texttt{top\_k} (optional, default = 10): Number of results to return.
+	\item \texttt{top\_k} (optional, default = 5): Number of results to return.
 	\item \texttt{filter\_expr} (optional): Additional filter expression\footnote{Filtered Search - \url{https://milvus.io/docs/filtered-search.md}} for Milvus.
 	\item \texttt{radius\_sparse}, \texttt{radius\_dense\_text}, \texttt{radius\_dense\_code} (optional, default = 0.5): Search radius\footnote{Range Search - \url{https://milvus.io/docs/range-search.md}} for each modality.
    	\item \texttt{range\_sparse}, \texttt{range\_dense\_text}, \texttt{range\_dense\_code} (optional, default = 0.5): Search range\footnote{Range Search - \url{https://milvus.io/docs/range-search.md}} for each modality.
@@ -423,7 +423,7 @@ Processing steps:
 
 Example query:
 
-\begin{lstlisting}[caption=POST /search JSON payload example.]
+\begin{lstlisting}[caption=POST /search JSON payload example]
 	{
 		"text_query": "Is this command using the canary version?",
 		"code_query": "npx create-next-app@latest",
@@ -444,7 +444,7 @@ Example query:
 
 Example response:
 
-\begin{lstlisting}[caption=POST /search output example.]
+\begin{lstlisting}[caption=POST /search output example]
 	{
 		"results": [
 		{
@@ -520,7 +520,7 @@ POST \url{http://localhost:11434/api/generate}
 
 The POST request body should be in JSON format, specifying the desired model and the prompt to be processed. An example request body is shown below:
 
-\begin{lstlisting}[caption=Ollama JSON payload example.]
+\begin{lstlisting}[caption=Ollama JSON payload example]
 	{
 		"model": "qwen",
 		"prompt": "What is RAG?"
@@ -538,7 +538,7 @@ When RAGGIN Generator receives the generate request, it will take the query, mod
 
 Request parameters:
 \begin{itemize}
-	\item \texttt{version\_name}: Version filter (e.g. v15.3.1).
+	\item \texttt{version\_name}: Version filter (e.g. \texttt{v15.3.1}).
 	\item \texttt{query}: The input query or prompt that serves as the basis for the system to retrieve relevant information and generate a response.
 	\item \texttt{model}: The name of the Ollama LLM selected for generating the response.
 	\item \texttt{file\_list} (Optional): A collection of \texttt{FileModel} instances, where each instance includes the following string fields: \texttt{fileName}, \texttt{fileExtension}, and \texttt{fileContent}.
@@ -557,7 +557,7 @@ Processing steps:
 
 The generate request's body should be in JSON format, specifying the desired model and the prompt to be processed. An example request body is shown below:
 
-\begin{lstlisting}[caption=POST /prompt/generate JSON payload example.]
+\begin{lstlisting}[caption=POST /prompt/generate JSON payload example]
 {
     "version_name": "v15.1.3",
     "query": "refactor the files to make it more readable.",
@@ -582,7 +582,7 @@ The generate request's body should be in JSON format, specifying the desired mod
 
 The response body will contain the generated response and some other relevant information in JSON format.
 
-\begin{lstlisting}[caption=POST /prompt/generate output example.]
+\begin{lstlisting}[caption=POST /prompt/generate output example]
 {
     "model": "llama2:13b",
     "response": "Sure! Here are some suggestions for refactoring the code to make it more 
@@ -610,7 +610,7 @@ The RAGGIN (Retrieval-Augmented Generation for Guided Intelligence in Next.js) V
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Implement/vscode_extension_download.png}
 	\vspace{5mm}
-	\caption{Installing Raggin extension in VS Code.}
+	\caption{Installing Raggin extension in VS Code}
 	\label{fig:vscode_extension_download}
 \end{figure}
 
@@ -618,13 +618,13 @@ You don't need to log in anyway because this is private for user own using.
 
 \subsection{Icons \& labels}
 \textbf{Chat page header}\\
-The top navigation bar of the IDE plugin displays the selected model (e.g., qwen2.5-coder) and its corresponding version (e.g., v15.3.0). To the right, users have quick access to Settings, the option to Add a New Chat, and Chat History, streamlining workflow for configuration, testing, and session management.
+The top navigation bar of the IDE plugin displays the selected model (e.g., qwen2.5-coder) and its corresponding version (e.g., \texttt{v15.3.0}). To the right, users have quick access to Settings, the option to Add a New Chat, and Chat History, streamlining workflow for configuration, testing, and session management.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.69]{Images/Implement/chat_page_header.png}
 	\vspace{5mm}
-	\caption{Chat page header.}
+	\caption{Chat page header}
 	\label{fig:chat_page_icon}
 \end{figure}
 
@@ -635,7 +635,7 @@ This interface includes a file-plus icon on the left, which allows users to uplo
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_input.png}
 	\vspace{5mm}
-	\caption{Chat input.}
+	\caption{Chat input}
 	\label{fig:chat_input}
 \end{figure}
 
@@ -645,7 +645,7 @@ The File Context Label appears prominently beneath the model and version selecti
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Implement/added_context_label.png}
 	\vspace{5mm}
-	\caption{Chat input.}
+	\caption{Chat input}
 	\label{fig:added_context_label}
 \end{figure}
 
@@ -655,7 +655,7 @@ This section of the chat interface displays individual conversation sessions. Wh
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_window.png}
 	\vspace{5mm}
-	\caption{Chat input.}
+	\caption{Chat input}
 	\label{fig:chat_window}
 \end{figure}
 
@@ -665,7 +665,7 @@ The Chat History panel serves as a central location for users to access and mana
 	\centering
 	\includegraphics[scale=0.69]{Images/Implement/chat_history_header.png}
 	\vspace{5mm}
-	\caption{Chat history header.}
+	\caption{Chat history header}
 	\label{fig:chat_history_header}
 \end{figure}
 
@@ -675,7 +675,7 @@ Each chat entry in the chat history panel includes a three-dot settings menu loc
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_history_window.png}
 	\vspace{5mm}
-	\caption{Chat history window.}
+	\caption{Chat history window}
 	\label{fig:chat_history_window}
 \end{figure}
 
@@ -685,7 +685,7 @@ The interface displayed is the Advanced Settings panel, designed to fine-tune pa
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Implement/advance_settings.png}
 	\vspace{5mm}
-	\caption{Advance settings page.}
+	\caption{Advance settings page}
 	\label{fig:advance_settings_page}
 \end{figure}
 
@@ -695,7 +695,7 @@ RAGGIN is a lightweight, privacy-preserving AI assistant extension built for Vis
 \textbf{Key features include:}
 
 \begin{itemize}
-	\item \textbf{Real-time Querying within VSCode:} Developers can interact with the AI assistant directly inside the extension panel. The primary focus is on Next.js-related queries, with dynamic control over the Next.js version (from v13.0.0 to v15.3.1) to ensure framework-specific accuracy. Additionally, users can switch between Ollama-hosted LLM models, offering flexibility in model selection based on task complexity or system capabilities.
+	\item \textbf{Real-time Querying within VSCode:} Developers can interact with the AI assistant directly inside the extension panel. The primary focus is on Next.js-related queries, with dynamic control over the Next.js version (from \texttt{v13.0.0} to \texttt{v15.3.1}) to ensure framework-specific accuracy. Additionally, users can switch between Ollama-hosted LLM models, offering flexibility in model selection based on task complexity or system capabilities.
 	\item \textbf{Local Contextual Intelligence:} Users can load a specific code file from their local project to provide the AI with deeper context. All operations occur within the local development environment, ensuring data privacy and security—no external server calls or remote data exposure
 	\item \textbf{Persistent Chat History:} All user interactions are stored locally using VSCode’s globalState API, enabling developers to retain conversation history across sessions. The dedicated history view allows quick reference and reuse of past discussions without re-prompting.
 	\item \textbf{Advanced Configuration Panel:} For power users and researchers, the Advanced Settings page provides control over key RAG parameters:

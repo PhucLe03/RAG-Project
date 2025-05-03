@@ -14,14 +14,14 @@ However, despite these advancements, LLMs still face certain limitations, such a
 \centering
 \includegraphics[width=1\textwidth]{Images/Introduction/stackoverflow-trends-chart.png}
 \vspace{.1cm}
-\caption{The popularity of frameworks based on StackOverflow questions 2008-2024}
+\caption{The popularity of frameworks based on StackOverflow questions 2008-2025}
 \end{figure}
 
 To illustrate, consider the Next.js framework, which exemplifies the rapid evolution of modern web technologies. Originally built on top of React.js, Next.js has transformed from a simple server-rendering tool into a comprehensive full-stack framework. What makes Next.js particularly notable is the speed at which it introduces significant updates. In just under three years, it moved from version 12 to version 15, each introducing major shifts in architecture and development paradigms.
 
 For instance, Next.js 13 (October 2022) introduced the App Router, React Server Components, and a new file-based routing system—radically altering how pages and layouts are structured. Less than a year later, Next.js 14 (October 2023) refined these features while improving performance with deeper Turbopack integration. And most recently, Next.js 15 (March 2025) pushed the boundaries even further by stabilizing Partial Prerendering, extending Server Actions, and fully embracing React Server Components\footnote{\href{https://nextjs.org/blog/next-15}{Next.js 15 Release Notes - https://nextjs.org/blog/next-15}}.
 
-These frequent and impactful changes challenge developers to constantly relearn patterns, adapt to breaking changes, and stay updated with both Next.js and its dependency—React.js, which itself released React 19 with major improvements to transitions, refs, and concurrency\footnote{\href{https://react.dev/blog/2024/04/25/react-19-upgrade-guide}{React 19 Upgrade Guide - https://react.dev/blog/2024/04/25/react-19-upgrade-guide}}.
+These frequent and impactful changes challenge developers to constantly relearn patterns, adapt to breaking changes, and stay updated with both Next.js and its dependency. React.js, which itself released React 19 with major improvements to transitions, refs, and concurrency\footnote{\href{https://react.dev/blog/2024/04/25/react-19-upgrade-guide}{React 19 Upgrade Guide - https://react.dev/blog/2024/04/25/react-19-upgrade-guide}}.
 
 \section{Problem statement}
 
@@ -49,14 +49,7 @@ By solving this problem, we aim to not only improve the efficiency of individual
 
 \section{Objectives}
 
-The objective of this research is to develop a tool, specifically a VS Code extension, that facilitates the web development process by addressing common challenges associated with modern frameworks. The tool aims to:
-
-\begin{itemize}
-  \item Utilize RAG to assist developers with question answering, code generation, and code review. RAG will retrieve relevant information from documentation or community forums to enhance the accuracy and relevance of the tool's suggestions.
-  \item Analyze the user's codebase and suggest modifications for parts that are no longer relevant, particularly when updating the code to newer versions of a framework.
-\end{itemize}
-
-This extension will help streamline the development process, making it easier for developers to maintain, upgrade, and enhance their applications with minimal friction.
+The objective of this research is to develop a tool, specifically a VS Code extension, that facilitates the web development process by addressing common challenges associated with modern frameworks. Utilize RAG to assist developers with question answering, code generation, and code review. RAG will retrieve relevant information from documentation or community forums to enhance the accuracy and relevance of the tool's suggestions.
 
 \section{Scope}
 The scope is intentionally confined to Next.js as the primary framework for web application development, enabling a focused exploration of its interaction with RAG methodologies. Additionally, the implementation targets applications written in JavaScript, TypeScript, HTML, and CSS, ensuring compatibility with commonly used web development programming languages.
