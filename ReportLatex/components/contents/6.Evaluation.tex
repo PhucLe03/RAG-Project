@@ -111,6 +111,27 @@ To evaluate the performance of both the retriever and the generator, we employ a
 
 \section{Evaluation summary}
 
+\subsection{Retriever Performance}
+
+Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance and generator latency for simple and complex queries, respectively.
+
+Results show that the retriever achieved high \textbf{Recall@K} in simple queries, with a peak of \textbf{0.81} at \textbf{K=5}, demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \textbf{Recall@K} dropping to \textbf{0.24} at \textbf{K=5}. \textbf{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
+
+Latency remained reasonable for simple queries (approximately \textbf{1.2 seconds}), while complex queries understandably took longer due to the increased search depth and token length, averaging around \textbf{3.4 seconds}.
+
+
+\subsection{Generator Performance}
+
+The generator ROUGE scores across various models are illustrated in Figure~\ref{fig:rouge_1}, Figure~\ref{fig:rouge_2} and Figure~\ref{fig:rouge_3}, corresponding to ROUGE-1, ROUGE-2 and ROUGE-3 metrics, respectively. Additionally, model-wise relevance evaluations are presented in Figure~\ref{fig:llm_eval_small} and Figure~\ref{fig:llm_eval_bigger}, capturing the perceived quality of generated outputs across different model sizes. Notably:
+
+\begin{itemize}
+	\item \textbf{Codestral-22B}, \textbf{LLaMA2-13B}, and \textbf{Qwen2.5-14B} consistently achieved top scores, producing highly relevant and fluent outputs across diverse test cases.
+	\item \textbf{Mistral-7B}, \textbf{CodeLLaMA-7B}, and \textbf{Qwen2.5-3B} also demonstrated balanced performance, with strong semantic accuracy and reliable response generation.
+	\item Smaller models like \textbf{Qwen-1.8B} and \textbf{CodeGemma-2B} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
+\end{itemize}
+
+Overall, generation latency remained within practical limits—averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries—though these values varied depending on the size and architecture of the underlying language model.
+
 \section{Testing}
 
 \subsection{Unit testing} Validate individual functions and components of the extension.
