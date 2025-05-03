@@ -111,14 +111,33 @@ To evaluate the performance of both the retriever and the generator, we employ a
 
 \section{Evaluation summary}
 
+\subsection{Retriever Performance}
+
+Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance and generator latency for simple and complex queries, respectively.
+
+Results show that the retriever achieved high \textbf{Recall@K} in simple queries, with a peak of \textbf{0.81} at \textbf{K=5}, demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \textbf{Recall@K} dropping to \textbf{0.24} at \textbf{K=5}. \textbf{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
+
+Latency remained reasonable for simple queries (approximately \textbf{1.2 seconds}), while complex queries understandably took longer due to the increased search depth and token length, averaging around \textbf{3.4 seconds}.
+
+
+\subsection{Generator Performance}
+
+The generator ROUGE scores across various models are illustrated in Figure~\ref{fig:rouge_1}, Figure~\ref{fig:rouge_2} and Figure~\ref{fig:rouge_3}, corresponding to ROUGE-1, ROUGE-2 and ROUGE-3 metrics, respectively. Additionally, model-wise relevance evaluations are presented in Figure~\ref{fig:llm_eval_small} and Figure~\ref{fig:llm_eval_bigger}, capturing the perceived quality of generated outputs across different model sizes. Notably:
+
+\begin{itemize}
+	\item \textbf{Codestral-22B}, \textbf{LLaMA2-13B}, and \textbf{Qwen2.5-14B} consistently achieved top scores, producing highly relevant and fluent outputs across diverse test cases.
+	\item \textbf{Mistral-7B}, \textbf{CodeLLaMA-7B}, and \textbf{Qwen2.5-3B} also demonstrated balanced performance, with strong semantic accuracy and reliable response generation.
+	\item Smaller models like \textbf{Qwen-1.8B} and \textbf{CodeGemma-2B} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
+\end{itemize}
+
+Overall, generation latency remained within practical limits—averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries—though these values varied depending on the size and architecture of the underlying language model.
+
 \section{RAGGIN extension testing}
 RAGGIN is designed as a lightweight AI-assistance extension tailored specifically for Next.js developers. With a package size of less than 2.5MB, it ensures a fast installation process and minimal overhead on the VSCode environment. The extension offloads computation to backend services such as Dockerized RAG engines or Ollama models, maintaining low CPU and memory usage during operation.
 
-Performance varies depending on hardware configuration and the size of the selected model. On a system equipped with an Intel Core i7 Gen 11 and integrated Intel Iris Xe graphics, RAGGIN demonstrated an average total response time of approximately 140 seconds over 10 tests. In contrast, a higher-end setup using a Core i5 Gen 13 CPU paired with an RTX 3060 GPU completed the same 10 tests in around 40 seconds—indicating a significant performance gain from GPU acceleration and newer architecture.
+Performance varies depending on hardware configuration and the size of the selected model. However, during real-world usage, there are instances where the model responds with "I don't know" or fails to generate a meaningful answer—particularly when a smaller LLM is selected. In such cases, switching to a larger, more capable model (e.g., \texttt{deepseek-r1:8b}) often leads to significantly more accurate and context-aware responses. This highlights the importance of model selection based on the complexity of the task, as well as the value of scalable performance in RAG systems.
 
-Additionally, when context files are uploaded and included in the prompt, processing time tends to increase due to the added complexity in retrieval and grounding operations. Therefore, users can expect faster and more efficient interactions when operating on modern hardware with optimal model configurations.
-
-For the VS Code extension component, we will test RAGGIN's operability through \textbf{scenario testing}.
+Moreover, for the VS Code extension component, we will test RAGGIN's operability through \textbf{scenario testing}.
 
 \begin{table}[H]
 	\centering
