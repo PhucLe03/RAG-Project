@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.5.3)  3 MAY 2025 11:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.5.3)  3 MAY 2025 12:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2656,26 +2656,34 @@ File: Images/Interface/gen_opt.png Graphic file (type png)
 Package pdftex.def Info: Images/Interface/gen_opt.png  used on input line 101.
 (pdftex.def)             Requested size: 204.85846pt x 356.9481pt.
 [61 <./Images/Interface/add_file.png> <./Images/Interface/send_complex.png> <./
-Images/Interface/complex_response.png>]) [62 <./Images/Interface/ret_opt.png> <
-./Images/Interface/gen_opt.png>] (./components/contents/B.TestResults.tex
+Images/Interface/complex_response.png>]
+<Images/Interface/rename_chat.png, id=1396, 527.72156pt x 297.36093pt>
+File: Images/Interface/rename_chat.png Graphic file (type png)
+<use Images/Interface/rename_chat.png>
+Package pdftex.def Info: Images/Interface/rename_chat.png  used on input line 1
+10.
+(pdftex.def)             Requested size: 318.66948pt x 179.56134pt.
+) [62 <./Images/Interface/ret_opt.png> <./Images/Interface/gen_opt.png> <./Imag
+es/Interface/rename_chat.png>]
+(./components/contents/B.TestResults.tex
 Appendix B.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Evaluations/rouge_1.png, id=1403, 891.0891pt x 406.1574pt>
+<Images/Evaluations/rouge_1.png, id=1406, 891.0891pt x 406.1574pt>
 File: Images/Evaluations/rouge_1.png Graphic file (type png)
 <use Images/Evaluations/rouge_1.png>
 Package pdftex.def Info: Images/Evaluations/rouge_1.png  used on input line 5.
 (pdftex.def)             Requested size: 455.24411pt x 207.50317pt.
-<Images/Evaluations/rouge_2.png, id=1404, 897.5934pt x 406.1574pt>
+<Images/Evaluations/rouge_2.png, id=1407, 897.5934pt x 406.1574pt>
 File: Images/Evaluations/rouge_2.png Graphic file (type png)
 <use Images/Evaluations/rouge_2.png>
 Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 13.
 
 (pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
-<Images/Evaluations/rouge_3.png, id=1405, 897.5934pt x 406.1574pt>
+<Images/Evaluations/rouge_3.png, id=1408, 897.5934pt x 406.1574pt>
 File: Images/Evaluations/rouge_3.png Graphic file (type png)
 <use Images/Evaluations/rouge_3.png>
 Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 21.
@@ -2684,13 +2692,13 @@ Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 21.
 [63
 
  <./Images/Evaluations/rouge_1.png> <./Images/Evaluations/rouge_2.png>]
-<Images/Evaluations/rouge_L.png, id=1415, 891.0891pt x 406.1574pt>
+<Images/Evaluations/rouge_L.png, id=1418, 891.0891pt x 406.1574pt>
 File: Images/Evaluations/rouge_L.png Graphic file (type png)
 <use Images/Evaluations/rouge_L.png>
 Package pdftex.def Info: Images/Evaluations/rouge_L.png  used on input line 29.
 
 (pdftex.def)             Requested size: 455.24411pt x 207.50317pt.
-<Images/Evaluations/llm_eval_small.png, id=1416, 859.2903pt x 498.663pt>
+<Images/Evaluations/llm_eval_small.png, id=1419, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_small.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_small.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_small.png  used on input l
@@ -2698,7 +2706,7 @@ ine 37.
 (pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
 
 [64 <./Images/Evaluations/rouge_3.png> <./Images/Evaluations/rouge_L.png>]
-<Images/Evaluations/llm_eval_bigger.png, id=1425, 859.2903pt x 498.663pt>
+<Images/Evaluations/llm_eval_bigger.png, id=1428, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_bigger.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_bigger.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_bigger.png  used on input 
@@ -2724,10 +2732,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46622 strings out of 474222
- 973916 string characters out of 5748734
- 2253011 words of memory out of 5000000
- 67552 multiletter control sequences out of 15000+600000
+ 46631 strings out of 474222
+ 974222 string characters out of 5748734
+ 2253067 words of memory out of 5000000
+ 67560 multiletter control sequences out of 15000+600000
  584278 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  109i,17n,118p,1541b,2047s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2759,10 +2767,10 @@ pe1/public/cm-super/sftt0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/
 sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (72 pages, 3945140 bytes).
+Output written on main.pdf (72 pages, 3964036 bytes).
 PDF statistics:
- 1687 PDF objects out of 1728 (max. 8388607)
- 1419 compressed objects within 15 object streams
- 479 named destinations out of 1000 (max. 500000)
- 848 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1690 PDF objects out of 1728 (max. 8388607)
+ 1420 compressed objects within 15 object streams
+ 480 named destinations out of 1000 (max. 500000)
+ 853 words of extra memory for PDF output out of 10000 (max. 10000000)
 
