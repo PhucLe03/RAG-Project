@@ -1,0 +1,956 @@
+entry_id,title,metadata,version,text_content,code_content,sparse_title,dense_text_content,dense_code_snippet,tag,code_snippet_count,total_code_snippet_token_count,snippet_token_counts
+v15_1_3_08-route-groups_convention,08-route-groups - Route Groups can be used to partition your Next.js application into different sections. - Convention,{},v15.1.3,"In the app directory, nested folders are normally mapped to URL paths. However, you can mark a folder as a Route Group to prevent the folder from being included in the route's URL path.
+This allows you to organize your route segments and project files into logical groups without affecting the URL path structure.
+Route groups are useful for:
+- Organizing routes into groups e.g. by site section, intent, or team.
+- Enabling nested layouts in the same route segment level:
+- Creating multiple nested layouts in the same segment, including multiple root layouts
+- Adding a layout to a subset of routes in a common segment
+- Adding a loading skeleton to specific route in a common segment
+A route group can be created by wrapping a folder's name in parenthesis: (folderName)
+",[],,,,documentation,0,0,[]
+v15_1_3_08-route-groups_examples,08-route-groups - Route Groups can be used to partition your Next.js application into different sections. - Examples,{},v15.1.3,"### Organize routes without affecting the URL path
+To organize routes without affecting the URL, create a group to keep related routes together. The folders in parenthesis will be omitted from the URL (e.g. (marketing) or (shop).
+<Image
+alt=""Organizing Routes with Route Groups""
+srcLight=""/docs/light/route-group-organisation.png""
+srcDark=""/docs/dark/route-group-organisation.png""
+width=""1600""
+height=""930""
+/>
+Even though routes inside (marketing) and (shop) share the same URL hierarchy, you can create a different layout for each group by adding a layout.js file inside their folders.
+<Image
+alt=""Route Groups with Multiple Layouts""
+srcLight=""/docs/light/route-group-multiple-layouts.png""
+srcDark=""/docs/dark/route-group-multiple-layouts.png""
+width=""1600""
+height=""768""
+/>
+### Opting specific segments into a layout
+To opt specific routes into a layout, create a new route group (e.g. (shop)) and move the routes that share the same layout into the group (e.g. account and cart). The routes outside of the group will not share the layout (e.g. checkout).
+<Image
+alt=""Route Groups with Opt-in Layouts""
+srcLight=""/docs/light/route-group-opt-in-layouts.png""
+srcDark=""/docs/dark/route-group-opt-in-layouts.png""
+width=""1600""
+height=""930""
+/>
+### Opting for loading skeletons on a specific route
+To apply a loading skeleton via a loading.js file to a specific route, create a new route group (e.g., /(overview)) and then move your loading.tsx inside that route group.
+<Image
+alt=""Folder structure showing a loading.tsx and a page.tsx inside the route group""
+srcLight=""/docs/light/route-group-loading.png""
+srcDark=""/docs/dark/route-group-loading.png""
+width=""1600""
+height=""444""
+/>
+Now, the loading.tsx file will only apply to your dashboard → overview page instead of all your dashboard pages without affecting the URL path structure.
+### Creating multiple root layouts
+To create multiple root layouts, remove the top-level layout.js file, and add a layout.js file inside each route group. This is useful for partitioning an application into sections that have a completely different UI or experience. The <html> and <body> tags need to be added to each root layout.
+<Image
+alt=""Route Groups with Multiple Root Layouts""
+srcLight=""/docs/light/route-group-multiple-root-layouts.png""
+srcDark=""/docs/dark/route-group-multiple-root-layouts.png""
+width=""1600""
+height=""687""
+/>
+In the example above, both (marketing) and (shop) have their own root layout.
+
+------
+> Good to know:
+> - The naming of route groups has no special significance other than for organization. They do not affect the URL path.
+> - Routes that include a route group should not resolve to the same URL path as other routes. For example, since route groups don't affect URL structure, (marketing)/about/page.js and (shop)/about/page.js would both resolve to /about and cause an error.
+> - If you use multiple root layouts without a top-level layout.js file, your home page.js file should be defined in one of the route groups, For example: app/(marketing)/page.js.
+> - Navigating across multiple root layouts will cause a full page load (as opposed to a client-side navigation). For example, navigating from /cart that uses app/(shop)/layout.js to /blog that uses app/(marketing)/layout.js will cause a full page load. This only applies to multiple root layouts.
+",[],,,,documentation,0,0,[]
+v15_1_3_10-dynamic-routes_convention,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - Convention,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"When you don't know the exact segment names ahead of time and want to create routes from dynamic data, you can use Dynamic Segments that are filled in at request time or prerendered at build time.
+A Dynamic Segment can be created by wrapping a folder's name in square brackets: [folderName]. For example, [id] or [slug].
+Dynamic Segments are passed as the params prop to layout, page, route, and generateMetadata functions.
+",[],,,,documentation,0,0,[]
+v15_1_3_10-dynamic-routes_example,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - Example,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"For example, a blog could include the following route app/blog/[slug]/page.js where [slug] is the Dynamic Segment for blog posts.
+```code_snippet_1```
+```code_snippet_2```
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/blog/[slug]/page.js | /blog/a | { slug: 'a' } |
+| app/blog/[slug]/page.js | /blog/b | { slug: 'b' } |
+| app/blog/[slug]/page.js | /blog/c | { slug: 'c' } |
+See the generateStaticParams() page to learn how to generate the params for the segment.
+","[{'code': 'export default async function Page({\n  params,\n}: {\n  params: Promise<{ slug: string }>\n}) {\n  const slug = (await params).slug\n  return <div>My Post: {slug}</div>\n}\n', 'language': 'tsx', 'filename': 'app/blog/[slug]/page.tsx', 'switcher': True}, {'code': 'export default async function Page({ params }) {\n  const slug = (await params).slug\n  return <div>My Post: {slug}</div>\n}\n', 'language': 'jsx', 'filename': 'app/blog/[slug]/page.js', 'switcher': True}]",,,,documentation,2,43,"[25, 18]"
+v15_1_3_10-dynamic-routes_good to know,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - Good to know,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"- Since the params prop is a promise. You must use async/await or React's use function to access the values.
+- In version 14 and earlier, params was a synchronous prop. To help with backwards compatibility, you can still access it synchronously in Next.js 15, but this behavior will be deprecated in the future.
+- Dynamic Segments are equivalent to Dynamic Routes in the pages directory.
+",[],,,,documentation,0,0,[]
+v15_1_3_10-dynamic-routes_generating static params,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - Generating Static Params,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"The generateStaticParams function can be used in combination with dynamic route segments to statically generate routes at build time instead of on-demand at request time.
+```code_snippet_1```
+```code_snippet_2```
+The primary benefit of the generateStaticParams function is its smart retrieval of data. If content is fetched within the generateStaticParams function using a fetch request, the requests are automatically memoized. This means a fetch request with the same arguments across multiple generateStaticParams, Layouts, and Pages will only be made once, which decreases build times.
+Use the migration guide if you are migrating from the pages directory.
+See generateStaticParams server function documentation for more information and advanced use cases.
+","[{'code': ""export async function generateStaticParams() {\n  const posts = await fetch('https://.../posts').then((res) => res.json())\n\n  return posts.map((post) => ({\n    slug: post.slug,\n  }))\n}\n"", 'language': 'tsx', 'filename': 'app/blog/[slug]/page.tsx', 'switcher': True}, {'code': ""export async function generateStaticParams() {\n  const posts = await fetch('https://.../posts').then((res) => res.json())\n\n  return posts.map((post) => ({\n    slug: post.slug,\n  }))\n}\n"", 'language': 'jsx', 'filename': 'app/blog/[slug]/page.js', 'switcher': True}]",,,,documentation,2,40,"[20, 20]"
+v15_1_3_10-dynamic-routes_catch-all segments,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - Catch-all Segments,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"Dynamic Segments can be extended to catch-all subsequent segments by adding an ellipsis inside the brackets [...folderName].
+For example, app/shop/[...slug]/page.js will match /shop/clothes, but also /shop/clothes/tops, /shop/clothes/tops/t-shirts, and so on.
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/shop/[...slug]/page.js | /shop/a | { slug: ['a'] } |
+| app/shop/[...slug]/page.js | /shop/a/b | { slug: ['a', 'b'] } |
+| app/shop/[...slug]/page.js | /shop/a/b/c | { slug: ['a', 'b', 'c'] } |
+",[],,,,documentation,0,0,[]
+v15_1_3_10-dynamic-routes_optional catch-all segments,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - Optional Catch-all Segments,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"Catch-all Segments can be made optional by including the parameter in double square brackets: [[...folderName]].
+For example, app/shop/[[...slug]]/page.js will also match /shop, in addition to /shop/clothes, /shop/clothes/tops, /shop/clothes/tops/t-shirts.
+The difference between catch-all and optional catch-all segments is that with optional, the route without the parameter is also matched (/shop in the example above).
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/shop/[[...slug]]/page.js | /shop | { slug: undefined } |
+| app/shop/[[...slug]]/page.js | /shop/a | { slug: ['a'] } |
+| app/shop/[[...slug]]/page.js | /shop/a/b | { slug: ['a', 'b'] } |
+| app/shop/[[...slug]]/page.js | /shop/a/b/c | { slug: ['a', 'b', 'c'] } |
+",[],,,,documentation,0,0,[]
+v15_1_3_10-dynamic-routes_typescript,10-dynamic-routes - Dynamic Routes can be used to programmatically generate route segments from dynamic data. - TypeScript,"{'related': {'title': 'Next Steps', 'description': 'For more information on what to do next, we recommend the following sections', 'links': ['app/building-your-application/routing/linking-and-navigating', 'app/api-reference/functions/generate-static-params']}}",v15.1.3,"When using TypeScript, you can add types for params depending on your configured route segment.
+```code_snippet_1```
+```code_snippet_2```
+| Route | params Type Definition |
+| :--- | :--- |
+| app/blog/[slug]/page.js | { slug: string } |
+| app/shop/[...slug]/page.js | { slug: string[] } |
+| app/shop/[[...slug]]/page.js | { slug?: string[] } |
+| app/[categoryId]/[itemId]/page.js | { categoryId: string, itemId: string } |
+> Good to know: This may be done automatically by the TypeScript plugin in the future.
+","[{'code': 'export default async function Page({\n  params,\n}: {\n  params: Promise<{ slug: string }>\n}) {\n  return <h1>My Page</h1>\n}\n', 'language': 'tsx', 'filename': 'app/blog/[slug]/page.tsx', 'switcher': True}, {'code': 'export default async function Page({ params }) {\n  return <h1>My Page</h1>\n}\n', 'language': 'jsx', 'filename': 'app/blog/[slug]/page.js', 'switcher': True}]",,,,documentation,2,31,"[19, 12]"
+v15_1_3_11-parallel-routes_slots,11-parallel-routes - Simultaneously render one or more pages in the same view that can be navigated independently. A pattern for highly dynamic applications. - Slots,{'related': {'links': ['app/api-reference/file-conventions/default']}},v15.1.3,"Parallel Routes allows you to simultaneously or conditionally render one or more pages within the same layout. They are useful for highly dynamic sections of an app, such as dashboards and feeds on social sites.
+For example, considering a dashboard, you can use parallel routes to simultaneously render the team and analytics pages:
+<Image
+alt=""Parallel Routes Diagram""
+srcLight=""/docs/light/parallel-routes.png""
+srcDark=""/docs/dark/parallel-routes.png""
+width=""1600""
+height=""942""
+/>
+Parallel routes are created using named slots. Slots are defined with the @folder convention. For example, the following file structure defines two slots: @analytics and @team:
+<Image
+alt=""Parallel Routes File-system Structure""
+srcLight=""/docs/light/parallel-routes-file-system.png""
+srcDark=""/docs/dark/parallel-routes-file-system.png""
+width=""1600""
+height=""687""
+/>
+Slots are passed as props to the shared parent layout. For the example above, the component in app/layout.js now accepts the @analytics and @team slots props, and can render them in parallel alongside the children prop:
+```code_snippet_1```
+```code_snippet_2```
+However, slots are not route segments and do not affect the URL structure. For example, for /@analytics/views, the URL will be /views since @analytics is a slot. Slots are combined with the regular Page component to form the final page associated with the route segment. Because of this, you cannot have separate static and dynamic slots at the same route segment level. If one slot is dynamic, all slots at that level must be dynamic.
+> Good to know:
+> - The children prop is an implicit slot that does not need to be mapped to a folder. This means app/page.js is equivalent to app/@children/page.js.
+","[{'code': 'export default function Layout({\n  children,\n  team,\n  analytics,\n}: {\n  children: React.ReactNode\n  analytics: React.ReactNode\n  team: React.ReactNode\n}) {\n  return (\n    <>\n      {children}\n      {team}\n      {analytics}\n    </>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/layout.tsx', 'switcher': True}, {'code': 'export default function Layout({ children, team, analytics }) {\n  return (\n    <>\n      {children}\n      {team}\n      {analytics}\n    </>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/layout.js', 'switcher': True}]",,,,documentation,2,44,"[26, 18]"
+v15_1_3_11-parallel-routes_active state and navigation,11-parallel-routes - Simultaneously render one or more pages in the same view that can be navigated independently. A pattern for highly dynamic applications. - Active state and navigation,{'related': {'links': ['app/api-reference/file-conventions/default']}},v15.1.3,"By default, Next.js keeps track of the active state (or subpage) for each slot. However, the content rendered within a slot will depend on the type of navigation:
+- Soft Navigation: During client-side navigation, Next.js will perform a partial render, changing the subpage within the slot, while maintaining the other slot's active subpages, even if they don't match the current URL.
+- Hard Navigation: After a full-page load (browser refresh), Next.js cannot determine the active state for the slots that don't match the current URL. Instead, it will render a default.js file for the unmatched slots, or 404 if default.js doesn't exist.
+> Good to know:
+> - The 404 for unmatched routes helps ensure that you don't accidentally render a parallel route on a page that it was not intended for.
+### default.js
+You can define a default.js file to render as a fallback for unmatched slots during the initial load or full-page reload.
+Consider the following folder structure. The @team slot has a /settings page, but @analytics does not.
+<Image
+alt=""Parallel Routes unmatched routes""
+srcLight=""/docs/light/parallel-routes-unmatched-routes.png""
+srcDark=""/docs/dark/parallel-routes-unmatched-routes.png""
+width=""1600""
+height=""930""
+/>
+When navigating to /settings, the @team slot will render the /settings page while maintaining the currently active page for the @analytics slot.
+On refresh, Next.js will render a default.js for @analytics. If default.js doesn't exist, a 404 is rendered instead.
+Additionally, since children is an implicit slot, you also need to create a default.js file to render a fallback for children when Next.js cannot recover the active state of the parent page.
+### useSelectedLayoutSegment(s)
+Both useSelectedLayoutSegment and useSelectedLayoutSegments accept a parallelRoutesKey parameter, which allows you to read the active route segment within a slot.
+```code_snippet_1```
+```code_snippet_2```
+When a user navigates to app/@auth/login (or /login in the URL bar), loginSegment will be equal to the string ""login"".
+","[{'code': ""'use client'\n\nimport { useSelectedLayoutSegment } from 'next/navigation'\n\nexport default function Layout({ auth }: { auth: React.ReactNode }) {\n  const loginSegment = useSelectedLayoutSegment('auth')\n  // ...\n}\n"", 'language': 'tsx', 'filename': 'app/layout.tsx', 'switcher': True}, {'code': ""'use client'\n\nimport { useSelectedLayoutSegment } from 'next/navigation'\n\nexport default function Layout({ auth }) {\n  const loginSegment = useSelectedLayoutSegment('auth')\n  // ...\n}\n"", 'language': 'jsx', 'filename': 'app/layout.js', 'switcher': True}]",,,,documentation,2,48,"[26, 22]"
+v15_1_3_11-parallel-routes_examples,11-parallel-routes - Simultaneously render one or more pages in the same view that can be navigated independently. A pattern for highly dynamic applications. - Examples,{'related': {'links': ['app/api-reference/file-conventions/default']}},v15.1.3,"### Conditional Routes
+You can use Parallel Routes to conditionally render routes based on certain conditions, such as user role. For example, to render a different dashboard page for the /admin or /user roles:
+<Image
+alt=""Conditional routes diagram""
+srcLight=""/docs/light/conditional-routes-ui.png""
+srcDark=""/docs/dark/conditional-routes-ui.png""
+width=""1600""
+height=""898""
+/>
+```code_snippet_1```
+```code_snippet_2```
+### Tab Groups
+You can add a layout inside a slot to allow users to navigate the slot independently. This is useful for creating tabs.
+For example, the @analytics slot has two subpages: /page-views and /visitors.
+<Image
+alt=""Analytics slot with two subpages and a layout""
+srcLight=""/docs/light/parallel-routes-tab-groups.png""
+srcDark=""/docs/dark/parallel-routes-tab-groups.png""
+width=""1600""
+height=""768""
+/>
+Within @analytics, create a layout file to share the tabs between the two pages:
+```code_snippet_3```
+```code_snippet_4```
+### Modals
+Parallel Routes can be used together with Intercepting Routes to create modals that support deep linking. This allows you to solve common challenges when building modals, such as:
+- Making the modal content shareable through a URL.
+- Preserving context when the page is refreshed, instead of closing the modal.
+- Closing the modal on backwards navigation rather than going to the previous route.
+- Reopening the modal on forwards navigation.
+Consider the following UI pattern, where a user can open a login modal from a layout using client-side navigation, or access a separate /login page:
+<Image
+alt=""Parallel Routes Diagram""
+srcLight=""/docs/light/parallel-routes-auth-modal.png""
+srcDark=""/docs/dark/parallel-routes-auth-modal.png""
+width=""1600""
+height=""687""
+/>
+To implement this pattern, start by creating a /login route that renders your main login page.
+<Image
+alt=""Parallel Routes Diagram""
+srcLight=""/docs/light/parallel-routes-modal-login-page.png""
+srcDark=""/docs/dark/parallel-routes-modal-login-page.png""
+width=""1600""
+height=""768""
+/>
+```code_snippet_5```
+```code_snippet_6```
+Then, inside the @auth slot, add default.js file that returns null. This ensures that the modal is not rendered when it's not active.
+```code_snippet_7```
+```code_snippet_8```
+Inside your @auth slot, intercept the /login route by updating the /(.)login folder. Import the <Modal> component and its children into the /(.)login/page.tsx file:
+```code_snippet_9```
+```code_snippet_10```
+> Good to know:
+> - The convention used to intercept the route, e.g. (.), depends on your file-system structure. See Intercepting Routes convention.
+> - By separating the <Modal> functionality from the modal content (<Login>), you can ensure any content inside the modal, e.g. forms, are Server Components. See Interleaving Client and Server Components for more information.
+#### Opening the modal
+Now, you can leverage the Next.js router to open and close the modal. This ensures the URL is correctly updated when the modal is open, and when navigating backwards and forwards.
+To open the modal, pass the @auth slot as a prop to the parent layout and render it alongside the children prop.
+```code_snippet_11```
+```code_snippet_12```
+When the user clicks the <Link>, the modal will open instead of navigating to the /login page. However, on refresh or initial load, navigating to /login will take the user to the main login page.
+#### Closing the modal
+You can close the modal by calling router.back() or by using the Link component.
+```code_snippet_13```
+```code_snippet_14```
+When using the Link component to navigate away from a page that shouldn't render the @auth slot anymore, we need to make sure the parallel route matches to a component that returns null. For example, when navigating back to the root page, we create a @auth/page.tsx component:
+```code_snippet_15```
+```code_snippet_16```
+```code_snippet_17```
+```code_snippet_18```
+Or if navigating to any other page (such as /foo, /foo/bar, etc), you can use a catch-all slot:
+```code_snippet_19```
+```code_snippet_20```
+> Good to know:
+> - We use a catch-all route in our @auth slot to close the modal because of the behavior described in Active state and navigation. Since client-side navigations to a route that no longer match the slot will remain visible, we need to match the slot to a route that returns null to close the modal.
+> - Other examples could include opening a photo modal in a gallery while also having a dedicated /photo/[id] page, or opening a shopping cart in a side modal.
+> - View an example of modals with Intercepted and Parallel Routes.
+### Loading and Error UI
+Parallel Routes can be streamed independently, allowing you to define independent error and loading states for each route:
+<Image
+alt=""Parallel routes enable custom error and loading states""
+srcLight=""/docs/light/parallel-routes-cinematic-universe.png""
+srcDark=""/docs/dark/parallel-routes-cinematic-universe.png""
+width=""1600""
+height=""1218""
+/>
+See the Loading UI and Error Handling documentation for more information.
+","[{'code': ""import { checkUserRole } from '@/lib/auth'\n\nexport default function Layout({\n  user,\n  admin,\n}: {\n  user: React.ReactNode\n  admin: React.ReactNode\n}) {\n  const role = checkUserRole()\n  return role === 'admin' ? admin : user\n}\n"", 'language': 'tsx', 'filename': 'app/dashboard/layout.tsx', 'switcher': True}, {'code': ""import { checkUserRole } from '@/lib/auth'\n\nexport default function Layout({ user, admin }) {\n  const role = checkUserRole()\n  return role === 'admin' ? admin : user\n}\n"", 'language': 'jsx', 'filename': 'app/dashboard/layout.js', 'switcher': True}, {'code': 'import Link from \'next/link\'\n\nexport default function Layout({ children }: { children: React.ReactNode }) {\n  return (\n    <>\n      <nav>\n        <Link href=""/page-views"">Page Views</Link>\n        <Link href=""/visitors"">Visitors</Link>\n      </nav>\n      <div>{children}</div>\n    </>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/@analytics/layout.tsx', 'switcher': True}, {'code': 'import Link from \'next/link\'\n\nexport default function Layout({ children }) {\n  return (\n    <>\n      <nav>\n        <Link href=""/page-views"">Page Views</Link>\n        <Link href=""/visitors"">Visitors</Link>\n      </nav>\n      <div>{children}</div>\n    </>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/@analytics/layout.js', 'switcher': True}, {'code': ""import { Login } from '@/app/ui/login'\n\nexport default function Page() {\n  return <Login />\n}\n"", 'language': 'tsx', 'filename': 'app/login/page.tsx', 'switcher': True}, {'code': ""import { Login } from '@/app/ui/login'\n\nexport default function Page() {\n  return <Login />\n}\n"", 'language': 'jsx', 'filename': 'app/login/page.js', 'switcher': True}, {'code': 'export default function Default() {\n  return null\n}\n', 'language': 'tsx', 'filename': 'app/@auth/default.tsx', 'switcher': True}, {'code': 'export default function Default() {\n  return null\n}\n', 'language': 'jsx', 'filename': 'app/@auth/default.js', 'switcher': True}, {'code': ""import { Modal } from '@/app/ui/modal'\nimport { Login } from '@/app/ui/login'\n\nexport default function Page() {\n  return (\n    <Modal>\n      <Login />\n    </Modal>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/@auth/(.)login/page.tsx', 'switcher': True}, {'code': ""import { Modal } from '@/app/ui/modal'\nimport { Login } from '@/app/ui/login'\n\nexport default function Page() {\n  return (\n    <Modal>\n      <Login />\n    </Modal>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/@auth/(.)login/page.js', 'switcher': True}, {'code': 'import Link from \'next/link\'\n\nexport default function Layout({\n  auth,\n  children,\n}: {\n  auth: React.ReactNode\n  children: React.ReactNode\n}) {\n  return (\n    <>\n      <nav>\n        <Link href=""/login"">Open modal</Link>\n      </nav>\n      <div>{auth}</div>\n      <div>{children}</div>\n    </>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/layout.tsx', 'switcher': True}, {'code': 'import Link from \'next/link\'\n\nexport default function Layout({ auth, children }) {\n  return (\n    <>\n      <nav>\n        <Link href=""/login"">Open modal</Link>\n      </nav>\n      <div>{auth}</div>\n      <div>{children}</div>\n    </>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/layout.js', 'switcher': True}, {'code': ""'use client'\n\nimport { useRouter } from 'next/navigation'\n\nexport function Modal({ children }: { children: React.ReactNode }) {\n  const router = useRouter()\n\n  return (\n    <>\n      <button\n        onClick={() => {\n          router.back()\n        }}\n      >\n        Close modal\n      </button>\n      <div>{children}</div>\n    </>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/ui/modal.tsx', 'switcher': True}, {'code': ""'use client'\n\nimport { useRouter } from 'next/navigation'\n\nexport function Modal({ children }) {\n  const router = useRouter()\n\n  return (\n    <>\n      <button\n        onClick={() => {\n          router.back()\n        }}\n      >\n        Close modal\n      </button>\n      <div>{children}</div>\n    </>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/ui/modal.js', 'switcher': True}, {'code': 'import Link from \'next/link\'\n\nexport function Modal({ children }: { children: React.ReactNode }) {\n  return (\n    <>\n      <Link href=""/"">Close modal</Link>\n      <div>{children}</div>\n    </>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/ui/modal.tsx', 'switcher': True}, {'code': 'import Link from \'next/link\'\n\nexport function Modal({ children }) {\n  return (\n    <>\n      <Link href=""/"">Close modal</Link>\n      <div>{children}</div>\n    </>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/ui/modal.js', 'switcher': True}, {'code': 'export default function Page() {\n  return null\n}\n', 'language': 'tsx', 'filename': 'app/@auth/page.tsx', 'switcher': True}, {'code': 'export default function Page() {\n  return null\n}\n', 'language': 'jsx', 'filename': 'app/@auth/page.js', 'switcher': True}, {'code': 'export default function CatchAll() {\n  return null\n}\n', 'language': 'tsx', 'filename': 'app/@auth/[...catchAll]/page.tsx', 'switcher': True}, {'code': 'export default function CatchAll() {\n  return null\n}\n', 'language': 'jsx', 'filename': 'app/@auth/[...catchAll]/page.js', 'switcher': True}]",,,,documentation,20,416,"[33, 27, 29, 25, 15, 15, 8, 8, 25, 25, 31, 25, 39, 35, 24, 20, 8, 8, 8, 8]"
+v15_1_3_12-intercepting-routes_convention,"12-intercepting-routes - Use intercepting routes to load a new route within the current layout while masking the browser URL, useful for advanced routing patterns such as modals. - Convention","{'related': {'title': 'Next Steps', 'description': 'Learn how to use modals with Intercepted and Parallel Routes.', 'links': ['app/building-your-application/routing/parallel-routes']}}",v15.1.3,"Intercepting routes allows you to load a route from another part of your application within the current layout. This routing paradigm can be useful when you want to display the content of a route without the user switching to a different context.
+For example, when clicking on a photo in a feed, you can display the photo in a modal, overlaying the feed. In this case, Next.js intercepts the /photo/123 route, masks the URL, and overlays it over /feed.
+<Image
+alt=""Intercepting routes soft navigation""
+srcLight=""/docs/light/intercepting-routes-soft-navigate.png""
+srcDark=""/docs/dark/intercepting-routes-soft-navigate.png""
+width=""1600""
+height=""617""
+/>
+However, when navigating to the photo by clicking a shareable URL or by refreshing the page, the entire photo page should render instead of the modal. No route interception should occur.
+<Image
+alt=""Intercepting routes hard navigation""
+srcLight=""/docs/light/intercepting-routes-hard-navigate.png""
+srcDark=""/docs/dark/intercepting-routes-hard-navigate.png""
+width=""1600""
+height=""604""
+/>
+Intercepting routes can be defined with the (..) convention, which is similar to relative path convention ../ but for segments.
+You can use:
+- (.) to match segments on the same level
+- (..) to match segments one level above
+- (..)(..) to match segments two levels above
+- (...) to match segments from the root app directory
+For example, you can intercept the photo segment from within the feed segment by creating a (..)photo directory.
+<Image
+alt=""Intercepting routes folder structure""
+srcLight=""/docs/light/intercepted-routes-files.png""
+srcDark=""/docs/dark/intercepted-routes-files.png""
+width=""1600""
+height=""604""
+/>
+> Note that the (..) convention is based on route segments, not the file-system.
+",[],,,,documentation,0,0,[]
+v15_1_3_12-intercepting-routes_examples,"12-intercepting-routes - Use intercepting routes to load a new route within the current layout while masking the browser URL, useful for advanced routing patterns such as modals. - Examples","{'related': {'title': 'Next Steps', 'description': 'Learn how to use modals with Intercepted and Parallel Routes.', 'links': ['app/building-your-application/routing/parallel-routes']}}",v15.1.3,"### Modals
+Intercepting Routes can be used together with Parallel Routes to create modals. This allows you to solve common challenges when building modals, such as:
+- Making the modal content shareable through a URL.
+- Preserving context when the page is refreshed, instead of closing the modal.
+- Closing the modal on backwards navigation rather than going to the previous route.
+- Reopening the modal on forwards navigation.
+Consider the following UI pattern, where a user can open a photo modal from a gallery using client-side navigation, or navigate to the photo page directly from a shareable URL:
+<Image
+alt=""Intercepting routes modal example""
+srcLight=""/docs/light/intercepted-routes-modal-example.png""
+srcDark=""/docs/dark/intercepted-routes-modal-example.png""
+width=""1600""
+height=""976""
+/>
+In the above example, the path to the photo segment can use the (..) matcher since @modal is a slot and not a segment. This means that the photo route is only one segment level higher, despite being two file-system levels higher.
+See the Parallel Routes documentation for a step-by-step example, or see our image gallery example.
+> Good to know:
+> - Other examples could include opening a login modal in a top navbar while also having a dedicated /login page, or opening a shopping cart in a side modal.
+",[],,,,documentation,0,0,[]
+v15_1_3_13-route-handlers_convention,13-route-handlers - Create custom request handlers for a given route using the Web's Request and Response APIs. - Convention,"{'related': {'title': 'API Reference', 'description': 'Learn more about the route.js file.', 'links': ['app/api-reference/file-conventions/route']}}",v15.1.3,"Route Handlers allow you to create custom request handlers for a given route using the Web Request and Response APIs.
+<Image
+alt=""Route.js Special File""
+srcLight=""/docs/light/route-special-file.png""
+srcDark=""/docs/dark/route-special-file.png""
+width=""1600""
+height=""444""
+/>
+> Good to know: Route Handlers are only available inside the app directory. They are the equivalent of API Routes inside the pages directory meaning you do not need to use API Routes and Route Handlers together.
+Route Handlers are defined in a route.js|ts file inside the app directory:
+```code_snippet_1```
+```code_snippet_2```
+Route Handlers can be nested anywhere inside the app directory, similar to page.js and layout.js. But there cannot be a route.js file at the same route segment level as page.js.
+### Supported HTTP Methods
+The following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a 405 Method Not Allowed response.
+### Extended NextRequest and NextResponse APIs
+In addition to supporting the native Request and Response APIs, Next.js extends them with NextRequest and NextResponse to provide convenient helpers for advanced use cases.
+","[{'code': 'export async function GET(request: Request) {}\n', 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': 'export async function GET(request) {}\n', 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}]",,,,documentation,2,11,"[6, 5]"
+v15_1_3_13-route-handlers_behavior,13-route-handlers - Create custom request handlers for a given route using the Web's Request and Response APIs. - Behavior,"{'related': {'title': 'API Reference', 'description': 'Learn more about the route.js file.', 'links': ['app/api-reference/file-conventions/route']}}",v15.1.3,"### Caching
+Route Handlers are not cached by default. You can, however, opt into caching for GET methods. Other supported HTTP methods are not cached. To cache a GET method, use a route config option such as export const dynamic = 'force-static' in your Route Handler file.
+```code_snippet_1```
+```code_snippet_2```
+> Good to know: Other supported HTTP methods are not cached, even if they are placed alongside a GET method that is cached, in the same file.
+### Special Route Handlers
+Special Route Handlers like sitemap.ts, opengraph-image.tsx, and icon.tsx, and other metadata files remain static by default unless they use Dynamic APIs or dynamic config options.
+### Route Resolution
+You can consider a route the lowest level routing primitive.
+- They do not participate in layouts or client-side navigations like page.
+- There cannot be a route.js file at the same route as page.js.
+| Page | Route | Result |
+| :--- | :--- | :--- |
+| app/page.js | app/route.js | <Cross size={18} /> Conflict |
+| app/page.js | app/api/route.js | <Check size={18} /> Valid |
+| app/[user]/page.js | app/api/route.js | <Check size={18} /> Valid |
+Each route.js or page.js file takes over all HTTP verbs for that route.
+```code_snippet_3```
+```code_snippet_4```
+","[{'code': ""export const dynamic = 'force-static'\n\nexport async function GET() {\n  const res = await fetch('https://data.mongodb-api.com/...', {\n    headers: {\n      'Content-Type': 'application/json',\n      'API-Key': process.env.DATA_API_KEY,\n    },\n  })\n  const data = await res.json()\n\n  return Response.json({ data })\n}\n"", 'language': 'ts', 'filename': 'app/items/route.ts', 'switcher': True}, {'code': ""export const dynamic = 'force-static'\n\nexport async function GET() {\n  const res = await fetch('https://data.mongodb-api.com/...', {\n    headers: {\n      'Content-Type': 'application/json',\n      'API-Key': process.env.DATA_API_KEY,\n    },\n  })\n  const data = await res.json()\n\n  return Response.json({ data })\n}\n"", 'language': 'js', 'filename': 'app/items/route.js', 'switcher': True}, {'code': 'export default function Page() {\n  return <h1>Hello, Next.js!</h1>\n}\n\n// ❌ Conflict\n// `app/route.ts`\nexport async function POST(request: Request) {}\n', 'language': 'ts', 'filename': 'app/page.ts', 'switcher': True}, {'code': 'export default function Page() {\n  return <h1>Hello, Next.js!</h1>\n}\n\n// ❌ Conflict\n// `app/route.js`\nexport async function POST(request) {}\n', 'language': 'js', 'filename': 'app/page.js', 'switcher': True}]",,,,documentation,4,107,"[34, 34, 20, 19]"
+v15_1_3_13-route-handlers_examples,13-route-handlers - Create custom request handlers for a given route using the Web's Request and Response APIs. - Examples,"{'related': {'title': 'API Reference', 'description': 'Learn more about the route.js file.', 'links': ['app/api-reference/file-conventions/route']}}",v15.1.3,"The following examples show how to combine Route Handlers with other Next.js APIs and features.
+### Revalidating Cached Data
+You can revalidate cached data using Incremental Static Regeneration (ISR):
+```code_snippet_1```
+```code_snippet_2```
+### Cookies
+You can read or set cookies with cookies from next/headers. This server function can be called directly in a Route Handler, or nested inside of another function.
+Alternatively, you can return a new Response using the Set-Cookie header.
+```code_snippet_3```
+```code_snippet_4```
+You can also use the underlying Web APIs to read cookies from the request (NextRequest):
+```code_snippet_5```
+```code_snippet_6```
+### Headers
+You can read headers with headers from next/headers. This server function can be called directly in a Route Handler, or nested inside of another function.
+This headers instance is read-only. To set headers, you need to return a new Response with new headers.
+```code_snippet_7```
+```code_snippet_8```
+You can also use the underlying Web APIs to read headers from the request (NextRequest):
+```code_snippet_9```
+```code_snippet_10```
+### Redirects
+```code_snippet_11```
+```code_snippet_12```
+### Dynamic Route Segments
+> We recommend reading the Defining Routes page before continuing.
+Route Handlers can use Dynamic Segments to create request handlers from dynamic data.
+```code_snippet_13```
+```code_snippet_14```
+| Route | Example URL | params |
+| :--- | :--- | :--- |
+| app/items/[slug]/route.js | /items/a | Promise<{ slug: 'a' }> |
+| app/items/[slug]/route.js | /items/b | Promise<{ slug: 'b' }> |
+| app/items/[slug]/route.js | /items/c | Promise<{ slug: 'c' }> |
+### URL Query Parameters
+The request object passed to the Route Handler is a NextRequest instance, which has some additional convenience methods, including for more easily handling query parameters.
+```code_snippet_15```
+```code_snippet_16```
+### Streaming
+Streaming is commonly used in combination with Large Language Models (LLMs), such as OpenAI, for AI-generated content. Learn more about the AI SDK.
+```code_snippet_17```
+```code_snippet_18```
+These abstractions use the Web APIs to create a stream. You can also use the underlying Web APIs directly.
+```code_snippet_19```
+```code_snippet_20```
+### Request Body
+You can read the Request body using the standard Web API methods:
+```code_snippet_21```
+```code_snippet_22```
+### Request Body FormData
+You can read the FormData using the request.formData() function:
+```code_snippet_23```
+```code_snippet_24```
+Since formData data are all strings, you may want to use zod-form-data to validate the request and retrieve data in the format you prefer (e.g. number).
+### CORS
+You can set CORS headers for a specific Route Handler using the standard Web API methods:
+```code_snippet_25```
+```code_snippet_26```
+> Good to know:
+> - To add CORS headers to multiple Route Handlers, you can use Middleware or the next.config.js file.
+> - Alternatively, see our CORS example package.
+### Webhooks
+You can use a Route Handler to receive webhooks from third-party services:
+```code_snippet_27```
+```code_snippet_28```
+Notably, unlike API Routes with the Pages Router, you do not need to use bodyParser to use any additional configuration.
+### Non-UI Responses
+You can use Route Handlers to return non-UI content. Note that sitemap.xml, robots.txt, app icons, and open graph images all have built-in support.
+```code_snippet_29```
+```code_snippet_30```
+### Segment Config Options
+Route Handlers use the same route segment configuration as pages and layouts.
+```code_snippet_31```
+```code_snippet_32```
+See the API reference for more details.
+","[{'code': ""export const revalidate = 60\n\nexport async function GET() {\n  const data = await fetch('https://api.vercel.app/blog')\n  const posts = await data.json()\n\n  return Response.json(posts)\n}\n"", 'language': 'ts', 'filename': 'app/posts/route.ts', 'switcher': True}, {'code': ""export const revalidate = 60\n\nexport async function GET() {\n  const data = await fetch('https://api.vercel.app/blog')\n  const posts = await data.json()\n\n  return Response.json(posts)\n}\n"", 'language': 'js', 'filename': 'app/posts/route.js', 'switcher': True}, {'code': ""import { cookies } from 'next/headers'\n\nexport async function GET(request: Request) {\n  const cookieStore = await cookies()\n  const token = cookieStore.get('token')\n\n  return new Response('Hello, Next.js!', {\n    status: 200,\n    headers: { 'Set-Cookie': `token=${token.value}` },\n  })\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""import { cookies } from 'next/headers'\n\nexport async function GET(request) {\n  const cookieStore = await cookies()\n  const token = cookieStore.get('token')\n\n  return new Response('Hello, Next.js!', {\n    status: 200,\n    headers: { 'Set-Cookie': `token=${token}` },\n  })\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': ""import { type NextRequest } from 'next/server'\n\nexport async function GET(request: NextRequest) {\n  const token = request.cookies.get('token')\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""export async function GET(request) {\n  const token = request.cookies.get('token')\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': ""import { headers } from 'next/headers'\n\nexport async function GET(request: Request) {\n  const headersList = await headers()\n  const referer = headersList.get('referer')\n\n  return new Response('Hello, Next.js!', {\n    status: 200,\n    headers: { referer: referer },\n  })\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""import { headers } from 'next/headers'\n\nexport async function GET(request) {\n  const headersList = await headers()\n  const referer = headersList.get('referer')\n\n  return new Response('Hello, Next.js!', {\n    status: 200,\n    headers: { referer: referer },\n  })\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': ""import { type NextRequest } from 'next/server'\n\nexport async function GET(request: NextRequest) {\n  const requestHeaders = new Headers(request.headers)\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': 'export async function GET(request) {\n  const requestHeaders = new Headers(request.headers)\n}\n', 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': ""import { redirect } from 'next/navigation'\n\nexport async function GET(request: Request) {\n  redirect('https://nextjs.org/')\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""import { redirect } from 'next/navigation'\n\nexport async function GET(request) {\n  redirect('https://nextjs.org/')\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': ""export async function GET(\n  request: Request,\n  { params }: { params: Promise<{ slug: string }> }\n) {\n  const slug = (await params).slug // 'a', 'b', or 'c'\n}\n"", 'language': 'ts', 'filename': 'app/items/[slug]/route.ts', 'switcher': True}, {'code': ""export async function GET(request, { params }) {\n  const slug = (await params).slug // 'a', 'b', or 'c'\n}\n"", 'language': 'js', 'filename': 'app/items/[slug]/route.js', 'switcher': True}, {'code': 'import { type NextRequest } from \'next/server\'\n\nexport function GET(request: NextRequest) {\n  const searchParams = request.nextUrl.searchParams\n  const query = searchParams.get(\'query\')\n  // query is ""hello"" for /api/search?query=hello\n}\n', 'language': 'ts', 'filename': 'app/api/search/route.ts', 'switcher': True}, {'code': 'export function GET(request) {\n  const searchParams = request.nextUrl.searchParams\n  const query = searchParams.get(\'query\')\n  // query is ""hello"" for /api/search?query=hello\n}\n', 'language': 'js', 'filename': 'app/api/search/route.js', 'switcher': True}, {'code': ""import { openai } from '@ai-sdk/openai'\nimport { StreamingTextResponse, streamText } from 'ai'\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json()\n  const result = await streamText({\n    model: openai('gpt-4-turbo'),\n    messages,\n  })\n\n  return new StreamingTextResponse(result.toAIStream())\n}\n"", 'language': 'ts', 'filename': 'app/api/chat/route.ts', 'switcher': True}, {'code': ""import { openai } from '@ai-sdk/openai'\nimport { StreamingTextResponse, streamText } from 'ai'\n\nexport async function POST(req) {\n  const { messages } = await req.json()\n  const result = await streamText({\n    model: openai('gpt-4-turbo'),\n    messages,\n  })\n\n  return new StreamingTextResponse(result.toAIStream())\n}\n"", 'language': 'js', 'filename': 'app/api/chat/route.js', 'switcher': True}, {'code': ""// https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream\nfunction iteratorToStream(iterator: any) {\n  return new ReadableStream({\n    async pull(controller) {\n      const { value, done } = await iterator.next()\n\n      if (done) {\n        controller.close()\n      } else {\n        controller.enqueue(value)\n      }\n    },\n  })\n}\n\nfunction sleep(time: number) {\n  return new Promise((resolve) => {\n    setTimeout(resolve, time)\n  })\n}\n\nconst encoder = new TextEncoder()\n\nasync function* makeIterator() {\n  yield encoder.encode('<p>One</p>')\n  await sleep(200)\n  yield encoder.encode('<p>Two</p>')\n  await sleep(200)\n  yield encoder.encode('<p>Three</p>')\n}\n\nexport async function GET() {\n  const iterator = makeIterator()\n  const stream = iteratorToStream(iterator)\n\n  return new Response(stream)\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""// https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream\nfunction iteratorToStream(iterator) {\n  return new ReadableStream({\n    async pull(controller) {\n      const { value, done } = await iterator.next()\n\n      if (done) {\n        controller.close()\n      } else {\n        controller.enqueue(value)\n      }\n    },\n  })\n}\n\nfunction sleep(time) {\n  return new Promise((resolve) => {\n    setTimeout(resolve, time)\n  })\n}\n\nconst encoder = new TextEncoder()\n\nasync function* makeIterator() {\n  yield encoder.encode('<p>One</p>')\n  await sleep(200)\n  yield encoder.encode('<p>Two</p>')\n  await sleep(200)\n  yield encoder.encode('<p>Three</p>')\n}\n\nexport async function GET() {\n  const iterator = makeIterator()\n  const stream = iteratorToStream(iterator)\n\n  return new Response(stream)\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': 'export async function POST(request: Request) {\n  const res = await request.json()\n  return Response.json({ res })\n}\n', 'language': 'ts', 'filename': 'app/items/route.ts', 'switcher': True}, {'code': 'export async function POST(request) {\n  const res = await request.json()\n  return Response.json({ res })\n}\n', 'language': 'js', 'filename': 'app/items/route.js', 'switcher': True}, {'code': ""export async function POST(request: Request) {\n  const formData = await request.formData()\n  const name = formData.get('name')\n  const email = formData.get('email')\n  return Response.json({ name, email })\n}\n"", 'language': 'ts', 'filename': 'app/items/route.ts', 'switcher': True}, {'code': ""export async function POST(request) {\n  const formData = await request.formData()\n  const name = formData.get('name')\n  const email = formData.get('email')\n  return Response.json({ name, email })\n}\n"", 'language': 'js', 'filename': 'app/items/route.js', 'switcher': True}, {'code': ""export async function GET(request: Request) {\n  return new Response('Hello, Next.js!', {\n    status: 200,\n    headers: {\n      'Access-Control-Allow-Origin': '*',\n      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',\n      'Access-Control-Allow-Headers': 'Content-Type, Authorization',\n    },\n  })\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""export async function GET(request) {\n  return new Response('Hello, Next.js!', {\n    status: 200,\n    headers: {\n      'Access-Control-Allow-Origin': '*',\n      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',\n      'Access-Control-Allow-Headers': 'Content-Type, Authorization',\n    },\n  })\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': ""export async function POST(request: Request) {\n  try {\n    const text = await request.text()\n    // Process the webhook payload\n  } catch (error) {\n    return new Response(`Webhook error: ${error.message}`, {\n      status: 400,\n    })\n  }\n\n  return new Response('Success!', {\n    status: 200,\n  })\n}\n"", 'language': 'ts', 'filename': 'app/api/route.ts', 'switcher': True}, {'code': ""export async function POST(request) {\n  try {\n    const text = await request.text()\n    // Process the webhook payload\n  } catch (error) {\n    return new Response(`Webhook error: ${error.message}`, {\n      status: 400,\n    })\n  }\n\n  return new Response('Success!', {\n    status: 200,\n  })\n}\n"", 'language': 'js', 'filename': 'app/api/route.js', 'switcher': True}, {'code': 'export async function GET() {\n  return new Response(\n    `<?xml version=""1.0"" encoding=""UTF-8"" ?>\n<rss version=""2.0"">\n\n<channel>\n  <title>Next.js Documentation</title>\n  <link>https://nextjs.org/docs</link>\n  <description>The React Framework for the Web</description>\n</channel>\n\n</rss>`,\n    {\n      headers: {\n        \'Content-Type\': \'text/xml\',\n      },\n    }\n  )\n}\n', 'language': 'ts', 'filename': 'app/rss.xml/route.ts', 'switcher': True}, {'code': 'export async function GET() {\n  return new Response(`<?xml version=""1.0"" encoding=""UTF-8"" ?>\n<rss version=""2.0"">\n\n<channel>\n  <title>Next.js Documentation</title>\n  <link>https://nextjs.org/docs</link>\n  <description>The React Framework for the Web</description>\n</channel>\n\n</rss>`)\n}\n', 'language': 'js', 'filename': 'app/rss.xml/route.js', 'switcher': True}, {'code': ""export const dynamic = 'auto'\nexport const dynamicParams = true\nexport const revalidate = false\nexport const fetchCache = 'auto'\nexport const runtime = 'nodejs'\nexport const preferredRegion = 'auto'\n"", 'language': 'ts', 'filename': 'app/items/route.ts', 'switcher': True}, {'code': ""export const dynamic = 'auto'\nexport const dynamicParams = true\nexport const revalidate = false\nexport const fetchCache = 'auto'\nexport const runtime = 'nodejs'\nexport const preferredRegion = 'auto'\n"", 'language': 'js', 'filename': 'app/items/route.js', 'switcher': True}]",,,,documentation,32,939,"[23, 23, 35, 34, 18, 10, 35, 34, 19, 11, 14, 13, 29, 19, 27, 19, 39, 38, 82, 80, 16, 15, 25, 24, 29, 28, 40, 39, 35, 26, 30, 30]"
+v15_1_3_14-middleware_use cases,14-middleware - Learn how to use Middleware to run code before a request is completed. - Use Cases,{},v15.1.3,"{/* The content of this doc is shared between the app and pages router. You can use the <PagesOnly>Content</PagesOnly> component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+Middleware allows you to run code before a request is completed. Then, based on the incoming request, you can modify the response by rewriting, redirecting, modifying the request or response headers, or responding directly.
+Middleware runs before cached content and routes are matched. See Matching Paths for more details.
+Integrating Middleware into your application can lead to significant improvements in performance, security, and user experience. Some common scenarios where Middleware is particularly effective include:
+- Authentication and Authorization: Ensure user identity and check session cookies before granting access to specific pages or API routes.
+- Server-Side Redirects: Redirect users at the server level based on certain conditions (e.g., locale, user role).
+- Path Rewriting: Support A/B testing, feature rollouts, or legacy paths by dynamically rewriting paths to API routes or pages based on request properties.
+- Bot Detection: Protect your resources by detecting and blocking bot traffic.
+- Logging and Analytics: Capture and analyze request data for insights before processing by the page or API.
+- Feature Flagging: Enable or disable features dynamically for seamless feature rollouts or testing.
+Recognizing situations where middleware may not be the optimal approach is just as crucial. Here are some scenarios to be mindful of:
+- Complex Data Fetching and Manipulation: Middleware is not designed for direct data fetching or manipulation, this should be done within Route Handlers or server-side utilities instead.
+- Heavy Computational Tasks: Middleware should be lightweight and respond quickly or it can cause delays in page load. Heavy computational tasks or long-running processes should be done within dedicated Route Handlers.
+- Extensive Session Management: While Middleware can manage basic session tasks, extensive session management should be managed by dedicated authentication services or within Route Handlers.
+- Direct Database Operations: Performing direct database operations within Middleware is not recommended. Database interactions should be done within Route Handlers or server-side utilities.
+",[],,,,documentation,0,0,[]
+v15_1_3_14-middleware_convention,14-middleware - Learn how to use Middleware to run code before a request is completed. - Convention,{},v15.1.3,"Use the file middleware.ts (or .js) in the root of your project to define Middleware. For example, at the same level as pages or app, or inside src if applicable.
+> Note: While only one middleware.ts file is supported per project, you can still organize your middleware logic modularly. Break out middleware functionalities into separate .ts or .js files and import them into your main middleware.ts file. This allows for cleaner management of route-specific middleware, aggregated in the middleware.ts for centralized control. By enforcing a single middleware file, it simplifies configuration, prevents potential conflicts, and optimizes performance by avoiding multiple middleware layers.
+",[],,,,documentation,0,0,[]
+v15_1_3_14-middleware_example,14-middleware - Learn how to use Middleware to run code before a request is completed. - Example,{},v15.1.3,"```code_snippet_1```
+```code_snippet_2```
+","[{'code': 'import { NextResponse } from \'next/server\'\nimport type { NextRequest } from \'next/server\'\n\n// This function can be marked `async` if using `await` inside\nexport function middleware(request: NextRequest) {\n  return NextResponse.redirect(new URL(\'/home\', request.url))\n}\n\n// See ""Matching Paths"" below to learn more\nexport const config = {\n  matcher: \'/about/:path*\',\n}\n', 'language': 'ts', 'filename': 'middleware.ts', 'switcher': True}, {'code': 'import { NextResponse } from \'next/server\'\n\n// This function can be marked `async` if using `await` inside\nexport function middleware(request) {\n  return NextResponse.redirect(new URL(\'/home\', request.url))\n}\n\n// See ""Matching Paths"" below to learn more\nexport const config = {\n  matcher: \'/about/:path*\',\n}\n', 'language': 'js', 'filename': 'middleware.js', 'switcher': True}]",,,,documentation,2,92,"[50, 42]"
+v15_1_3_14-middleware_matching paths,14-middleware - Learn how to use Middleware to run code before a request is completed. - Matching Paths,{},v15.1.3,"Middleware will be invoked for every route in your project. Given this, it's crucial to use matchers to precisely target or exclude specific routes. The following is the execution order:
+- headers from next.config.js
+- redirects from next.config.js
+- Middleware (rewrites, redirects, etc.)
+- beforeFiles (rewrites) from next.config.js
+- Filesystem routes (public/, _next/static/, pages/, app/, etc.)
+- afterFiles (rewrites) from next.config.js
+- Dynamic Routes (/blog/[slug])
+- fallback (rewrites) from next.config.js
+There are two ways to define which paths Middleware will run on:
+- Custom matcher config
+- Conditional statements
+### Matcher
+matcher allows you to filter Middleware to run on specific paths.
+```code_snippet_1```
+You can match a single path or multiple paths with an array syntax:
+```code_snippet_2```
+The matcher config allows full regex so matching like negative lookaheads or character matching is supported. An example of a negative lookahead to match all except specific paths can be seen here:
+```code_snippet_3```
+You can also bypass Middleware for certain requests by using the missing or has arrays, or a combination of both:
+```code_snippet_4```
+> Good to know: The matcher values need to be constants so they can be statically analyzed at build-time. Dynamic values such as variables will be ignored.
+Configured matchers:
+- MUST start with /
+- Can include named parameters: /about/:path matches /about/a and /about/b but not /about/a/c
+- Can have modifiers on named parameters (starting with :): /about/:path* matches /about/a/b/c because * is zero or more. ? is zero or one and + one or more
+- Can use regular expression enclosed in parenthesis: /about/(.*) is the same as /about/:path*
+Read more details on path-to-regexp documentation.
+> Good to know: For backward compatibility, Next.js always considers /public as /public/index. Therefore, a matcher of /public/:path will match.
+### Conditional Statements
+```code_snippet_5```
+```code_snippet_6```
+","[{'code': ""export const config = {\n  matcher: '/about/:path*',\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': ""export const config = {\n  matcher: ['/about/:path*', '/dashboard/:path*'],\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': ""export const config = {\n  matcher: [\n    /*\n     * Match all request paths except for the ones starting with:\n     * - api (API routes)\n     * - _next/static (static files)\n     * - _next/image (image optimization files)\n     * - favicon.ico, sitemap.xml, robots.txt (metadata files)\n     */\n    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',\n  ],\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': ""export const config = {\n  matcher: [\n    /*\n     * Match all request paths except for the ones starting with:\n     * - api (API routes)\n     * - _next/static (static files)\n     * - _next/image (image optimization files)\n     * - favicon.ico, sitemap.xml, robots.txt (metadata files)\n     */\n    {\n      source:\n        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',\n      missing: [\n        { type: 'header', key: 'next-router-prefetch' },\n        { type: 'header', key: 'purpose', value: 'prefetch' },\n      ],\n    },\n\n    {\n      source:\n        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',\n      has: [\n        { type: 'header', key: 'next-router-prefetch' },\n        { type: 'header', key: 'purpose', value: 'prefetch' },\n      ],\n    },\n\n    {\n      source:\n        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',\n      has: [{ type: 'header', key: 'x-present' }],\n      missing: [{ type: 'header', key: 'x-missing', value: 'prefetch' }],\n    },\n  ],\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': ""import { NextResponse } from 'next/server'\nimport type { NextRequest } from 'next/server'\n\nexport function middleware(request: NextRequest) {\n  if (request.nextUrl.pathname.startsWith('/about')) {\n    return NextResponse.rewrite(new URL('/about-2', request.url))\n  }\n\n  if (request.nextUrl.pathname.startsWith('/dashboard')) {\n    return NextResponse.rewrite(new URL('/dashboard/user', request.url))\n  }\n}\n"", 'language': 'ts', 'filename': 'middleware.ts', 'switcher': True}, {'code': ""import { NextResponse } from 'next/server'\n\nexport function middleware(request) {\n  if (request.nextUrl.pathname.startsWith('/about')) {\n    return NextResponse.rewrite(new URL('/about-2', request.url))\n  }\n\n  if (request.nextUrl.pathname.startsWith('/dashboard')) {\n    return NextResponse.rewrite(new URL('/dashboard/user', request.url))\n  }\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': True}]",,,,documentation,6,232,"[8, 9, 46, 107, 35, 27]"
+v15_1_3_14-middleware_nextresponse,14-middleware - Learn how to use Middleware to run code before a request is completed. - NextResponse,{},v15.1.3,"The NextResponse API allows you to:
+- redirect the incoming request to a different URL
+- rewrite the response by displaying a given URL
+- Set request headers for API Routes, getServerSideProps, and rewrite destinations
+- Set response cookies
+- Set response headers
+<AppOnly>
+To produce a response from Middleware, you can:
+- rewrite to a route (Page or Route Handler) that produces a response
+- return a NextResponse directly. See Producing a Response
+</AppOnly>
+<PagesOnly>
+To produce a response from Middleware, you can:
+- rewrite to a route (Page or Edge API Route) that produces a response
+- return a NextResponse directly. See Producing a Response
+</PagesOnly>
+",[],,,,documentation,0,0,[]
+v15_1_3_14-middleware_using cookies,14-middleware - Learn how to use Middleware to run code before a request is completed. - Using Cookies,{},v15.1.3,"Cookies are regular headers. On a Request, they are stored in the Cookie header. On a Response they are in the Set-Cookie header. Next.js provides a convenient way to access and manipulate these cookies through the cookies extension on NextRequest and NextResponse.
+- For incoming requests, cookies comes with the following methods: get, getAll, set, and delete cookies. You can check for the existence of a cookie with has or remove all cookies with clear.
+- For outgoing responses, cookies have the following methods get, getAll, set, and delete.
+```code_snippet_1```
+```code_snippet_2```
+","[{'code': 'import { NextResponse } from \'next/server\'\nimport type { NextRequest } from \'next/server\'\n\nexport function middleware(request: NextRequest) {\n  // Assume a ""Cookie:nextjs=fast"" header to be present on the incoming request\n  // Getting cookies from the request using the `RequestCookies` API\n  let cookie = request.cookies.get(\'nextjs\')\n  console.log(cookie) // => { name: \'nextjs\', value: \'fast\', Path: \'/\' }\n  const allCookies = request.cookies.getAll()\n  console.log(allCookies) // => [{ name: \'nextjs\', value: \'fast\' }]\n\n  request.cookies.has(\'nextjs\') // => true\n  request.cookies.delete(\'nextjs\')\n  request.cookies.has(\'nextjs\') // => false\n\n  // Setting cookies on the response using the `ResponseCookies` API\n  const response = NextResponse.next()\n  response.cookies.set(\'vercel\', \'fast\')\n  response.cookies.set({\n    name: \'vercel\',\n    value: \'fast\',\n    path: \'/\',\n  })\n  cookie = response.cookies.get(\'vercel\')\n  console.log(cookie) // => { name: \'vercel\', value: \'fast\', Path: \'/\' }\n  // The outgoing response will have a `Set-Cookie:vercel=fast;path=/` header.\n\n  return response\n}\n', 'language': 'ts', 'filename': 'middleware.ts', 'switcher': True}, {'code': 'import { NextResponse } from \'next/server\'\n\nexport function middleware(request) {\n  // Assume a ""Cookie:nextjs=fast"" header to be present on the incoming request\n  // Getting cookies from the request using the `RequestCookies` API\n  let cookie = request.cookies.get(\'nextjs\')\n  console.log(cookie) // => { name: \'nextjs\', value: \'fast\', Path: \'/\' }\n  const allCookies = request.cookies.getAll()\n  console.log(allCookies) // => [{ name: \'nextjs\', value: \'fast\' }]\n\n  request.cookies.has(\'nextjs\') // => true\n  request.cookies.delete(\'nextjs\')\n  request.cookies.has(\'nextjs\') // => false\n\n  // Setting cookies on the response using the `ResponseCookies` API\n  const response = NextResponse.next()\n  response.cookies.set(\'vercel\', \'fast\')\n  response.cookies.set({\n    name: \'vercel\',\n    value: \'fast\',\n    path: \'/\',\n  })\n  cookie = response.cookies.get(\'vercel\')\n  console.log(cookie) // => { name: \'vercel\', value: \'fast\', Path: \'/\' }\n  // The outgoing response will have a `Set-Cookie:vercel=fast;path=/test` header.\n\n  return response\n}\n', 'language': 'js', 'filename': 'middleware.js', 'switcher': True}]",,,,documentation,2,246,"[127, 119]"
+v15_1_3_14-middleware_setting headers,14-middleware - Learn how to use Middleware to run code before a request is completed. - Setting Headers,{},v15.1.3,"You can set request and response headers using the NextResponse API (setting request headers is available since Next.js v13.0.0).
+```code_snippet_1```
+```code_snippet_2```
+> Good to know: Avoid setting large headers as it might cause 431 Request Header Fields Too Large error depending on your backend web server configuration.
+### CORS
+You can set CORS headers in Middleware to allow cross-origin requests, including simple and preflighted requests.
+```code_snippet_3```
+```code_snippet_4```
+<AppOnly>
+> Good to know: You can configure CORS headers for individual routes in Route Handlers.
+</AppOnly>
+","[{'code': ""import { NextResponse } from 'next/server'\nimport type { NextRequest } from 'next/server'\n\nexport function middleware(request: NextRequest) {\n  // Clone the request headers and set a new header `x-hello-from-middleware1`\n  const requestHeaders = new Headers(request.headers)\n  requestHeaders.set('x-hello-from-middleware1', 'hello')\n\n  // You can also set request headers in NextResponse.next\n  const response = NextResponse.next({\n    request: {\n      // New request headers\n      headers: requestHeaders,\n    },\n  })\n\n  // Set a new response header `x-hello-from-middleware2`\n  response.headers.set('x-hello-from-middleware2', 'hello')\n  return response\n}\n"", 'language': 'ts', 'filename': 'middleware.ts', 'switcher': True}, {'code': ""import { NextResponse } from 'next/server'\n\nexport function middleware(request) {\n  // Clone the request headers and set a new header `x-hello-from-middleware1`\n  const requestHeaders = new Headers(request.headers)\n  requestHeaders.set('x-hello-from-middleware1', 'hello')\n\n  // You can also set request headers in NextResponse.next\n  const response = NextResponse.next({\n    request: {\n      // New request headers\n      headers: requestHeaders,\n    },\n  })\n\n  // Set a new response header `x-hello-from-middleware2`\n  response.headers.set('x-hello-from-middleware2', 'hello')\n  return response\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': True}, {'code': ""import { NextRequest, NextResponse } from 'next/server'\n\nconst allowedOrigins = ['https://acme.com', 'https://my-app.org']\n\nconst corsOptions = {\n  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',\n  'Access-Control-Allow-Headers': 'Content-Type, Authorization',\n}\n\nexport function middleware(request: NextRequest) {\n  // Check the origin from the request\n  const origin = request.headers.get('origin') ?? ''\n  const isAllowedOrigin = allowedOrigins.includes(origin)\n\n  // Handle preflighted requests\n  const isPreflight = request.method === 'OPTIONS'\n\n  if (isPreflight) {\n    const preflightHeaders = {\n      ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),\n      ...corsOptions,\n    }\n    return NextResponse.json({}, { headers: preflightHeaders })\n  }\n\n  // Handle simple requests\n  const response = NextResponse.next()\n\n  if (isAllowedOrigin) {\n    response.headers.set('Access-Control-Allow-Origin', origin)\n  }\n\n  Object.entries(corsOptions).forEach(([key, value]) => {\n    response.headers.set(key, value)\n  })\n\n  return response\n}\n\nexport const config = {\n  matcher: '/api/:path*',\n}\n"", 'language': 'tsx', 'filename': 'middleware.ts', 'switcher': True}, {'code': ""import { NextResponse } from 'next/server'\n\nconst allowedOrigins = ['https://acme.com', 'https://my-app.org']\n\nconst corsOptions = {\n  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',\n  'Access-Control-Allow-Headers': 'Content-Type, Authorization',\n}\n\nexport function middleware(request) {\n  // Check the origin from the request\n  const origin = request.headers.get('origin') ?? ''\n  const isAllowedOrigin = allowedOrigins.includes(origin)\n\n  // Handle preflighted requests\n  const isPreflight = request.method === 'OPTIONS'\n\n  if (isPreflight) {\n    const preflightHeaders = {\n      ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),\n      ...corsOptions,\n    }\n    return NextResponse.json({}, { headers: preflightHeaders })\n  }\n\n  // Handle simple requests\n  const response = NextResponse.next()\n\n  if (isAllowedOrigin) {\n    response.headers.set('Access-Control-Allow-Origin', origin)\n  }\n\n  Object.entries(corsOptions).forEach(([key, value]) => {\n    response.headers.set(key, value)\n  })\n\n  return response\n}\n\nexport const config = {\n  matcher: '/api/:path*',\n}\n"", 'language': 'jsx', 'filename': 'middleware.js', 'switcher': True}]",,,,documentation,4,356,"[71, 63, 112, 110]"
+v15_1_3_14-middleware_producing a response,14-middleware - Learn how to use Middleware to run code before a request is completed. - Producing a Response,{},v15.1.3,"You can respond from Middleware directly by returning a Response or NextResponse instance. (This is available since Next.js v13.1.0)
+```code_snippet_1```
+```code_snippet_2```
+### waitUntil and NextFetchEvent
+The NextFetchEvent object extends the native FetchEvent object, and includes the waitUntil() method.
+The waitUntil() method takes a promise as an argument, and extends the lifetime of the Middleware until the promise settles. This is useful for performing work in the background.
+```code_snippet_3```
+","[{'code': ""import type { NextRequest } from 'next/server'\nimport { isAuthenticated } from '@lib/auth'\n\n// Limit the middleware to paths starting with `/api/`\nexport const config = {\n  matcher: '/api/:function*',\n}\n\nexport function middleware(request: NextRequest) {\n  // Call our authentication function to check the request\n  if (!isAuthenticated(request)) {\n    // Respond with JSON indicating an error message\n    return Response.json(\n      { success: false, message: 'authentication failed' },\n      { status: 401 }\n    )\n  }\n}\n"", 'language': 'ts', 'filename': 'middleware.ts', 'switcher': True}, {'code': ""import { isAuthenticated } from '@lib/auth'\n\n// Limit the middleware to paths starting with `/api/`\nexport const config = {\n  matcher: '/api/:function*',\n}\n\nexport function middleware(request) {\n  // Call our authentication function to check the request\n  if (!isAuthenticated(request)) {\n    // Respond with JSON indicating an error message\n    return Response.json(\n      { success: false, message: 'authentication failed' },\n      { status: 401 }\n    )\n  }\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': True}, {'code': ""import { NextResponse } from 'next/server'\nimport type { NextFetchEvent, NextRequest } from 'next/server'\n\nexport function middleware(req: NextRequest, event: NextFetchEvent) {\n  event.waitUntil(\n    fetch('https://my-analytics-platform.com', {\n      method: 'POST',\n      body: JSON.stringify({ pathname: req.nextUrl.pathname }),\n    })\n  )\n\n  return NextResponse.next()\n}\n"", 'language': 'ts', 'filename': 'middleware.ts', 'switcher': False}]",,,,documentation,3,170,"[71, 63, 36]"
+v15_1_3_14-middleware_advanced middleware flags,14-middleware - Learn how to use Middleware to run code before a request is completed. - Advanced Middleware Flags,{},v15.1.3,"In v13.1 of Next.js two additional flags were introduced for middleware, skipMiddlewareUrlNormalize and skipTrailingSlashRedirect to handle advanced use cases.
+skipTrailingSlashRedirect disables Next.js redirects for adding or removing trailing slashes. This allows custom handling inside middleware to maintain the trailing slash for some paths but not others, which can make incremental migrations easier.
+```code_snippet_1```
+```code_snippet_2```
+skipMiddlewareUrlNormalize allows for disabling the URL normalization in Next.js to make handling direct visits and client-transitions the same. In some advanced cases, this option provides full control by using the original URL.
+```code_snippet_3```
+```code_snippet_4```
+","[{'code': 'module.exports = {\n  skipTrailingSlashRedirect: true,\n}\n', 'language': 'js', 'filename': 'next.config.js', 'switcher': False}, {'code': ""const legacyPrefixes = ['/docs', '/blog']\n\nexport default async function middleware(req) {\n  const { pathname } = req.nextUrl\n\n  if (legacyPrefixes.some((prefix) => pathname.startsWith(prefix))) {\n    return NextResponse.next()\n  }\n\n  // apply trailing slash handling\n  if (\n    !pathname.endsWith('/') &&\n    !pathname.match(/((?!\\.well-known(?:\\/.*)?)(?:[^/]+\\/)*[^/]+\\.\\w+)/)\n  ) {\n    return NextResponse.redirect(\n      new URL(`${req.nextUrl.pathname}/`, req.nextUrl)\n    )\n  }\n}\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': 'module.exports = {\n  skipMiddlewareUrlNormalize: true,\n}\n', 'language': 'js', 'filename': 'next.config.js', 'switcher': False}, {'code': 'export default async function middleware(req) {\n  const { pathname } = req.nextUrl\n\n  // GET /_next/data/build-id/hello.json\n\n  console.log(pathname)\n  // with the flag this now /_next/data/build-id/hello.json\n  // without the flag this would be normalized to /hello\n}\n', 'language': 'js', 'filename': 'middleware.js', 'switcher': False}]",,,,documentation,4,91,"[6, 45, 6, 34]"
+v15_1_3_14-middleware_unit testing (experimental),14-middleware - Learn how to use Middleware to run code before a request is completed. - Unit Testing (experimental),{},v15.1.3,"Starting in Next.js 15.1, the next/experimental/testing/server package contains utilities to help unit test middleware files. Unit testing middleware can help ensure that it's only run on desired paths and that custom routing logic works as intended before code reaches production.
+The unstable_doesMiddlewareMatch function can be used to assert whether middleware will run for the provided URL, headers, and cookies.
+```code_snippet_1```
+The entire middleware function can also be tested.
+```code_snippet_2```
+","[{'code': ""import { unstable_doesMiddlewareMatch } from 'next/experimental/testing/server'\n\nexpect(\n  unstable_doesMiddlewareMatch({\n    config,\n    nextConfig,\n    url: '/test',\n  })\n).toEqual(false)\n"", 'language': 'js', 'filename': None, 'switcher': False}, {'code': ""import { isRewrite, getRewrittenUrl } from 'next/experimental/testing/server'\n\nconst request = new NextRequest('https://nextjs.org/docs')\nconst response = await middleware(request)\nexpect(isRewrite(response)).toEqual(true)\nexpect(getRewrittenUrl(response)).toEqual('https://other-domain.com/docs')\n// getRedirectUrl could also be used if the response were a redirect\n"", 'language': 'js', 'filename': None, 'switcher': False}]",,,,documentation,2,45,"[14, 31]"
+v15_1_3_14-middleware_runtime,14-middleware - Learn how to use Middleware to run code before a request is completed. - Runtime,{},v15.1.3,"Middleware currently only supports APIs compatible with the Edge runtime. APIs exclusive to Node.js are unsupported.
+",[],,,,documentation,0,0,[]
+v15_1_3_14-middleware_version history,14-middleware - Learn how to use Middleware to run code before a request is completed. - Version History,{},v15.1.3,"| Version | Changes |
+| :--- | :--- |
+| v13.1.0 | Advanced Middleware flags added |
+| v13.0.0 | Middleware can modify request headers, response headers, and send responses |
+| v12.2.0 | Middleware is stable, please see the upgrade guide |
+| v12.0.9 | Enforce absolute URLs in Edge Runtime (PR) |
+| v12.0.0 | Middleware (Beta) added |
+",[],,,,documentation,0,0,[]
+v15_1_3_15-internationalization_terminology,15-internationalization - Add support for multiple languages with internationalized routing and localized content. - Terminology,{},v15.1.3,"Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.
+- Locale: An identifier for a set of language and formatting preferences. This usually includes the preferred language of the user and possibly their geographic region.
+- en-US: English as spoken in the United States
+- nl-NL: Dutch as spoken in the Netherlands
+- nl: Dutch, no specific region
+",[],,,,documentation,0,0,[]
+v15_1_3_15-internationalization_routing overview,15-internationalization - Add support for multiple languages with internationalized routing and localized content. - Routing Overview,{},v15.1.3,"It’s recommended to use the user’s language preferences in the browser to select which locale to use. Changing your preferred language will modify the incoming Accept-Language header to your application.
+For example, using the following libraries, you can look at an incoming Request to determine which locale to select, based on the Headers, locales you plan to support, and the default locale.
+```code_snippet_1```
+Routing can be internationalized by either the sub-path (/fr/products) or domain (my-site.fr/products). With this information, you can now redirect the user based on the locale inside Middleware.
+```code_snippet_2```
+Finally, ensure all special files inside app/ are nested under app/[lang]. This enables the Next.js router to dynamically handle different locales in the route, and forward the lang parameter to every layout and page. For example:
+```code_snippet_3```
+The root layout can also be nested in the new folder (e.g. app/[lang]/layout.js).
+","[{'code': ""import { match } from '@formatjs/intl-localematcher'\nimport Negotiator from 'negotiator'\n\nlet headers = { 'accept-language': 'en-US,en;q=0.5' }\nlet languages = new Negotiator({ headers }).languages()\nlet locales = ['en-US', 'nl-NL', 'nl']\nlet defaultLocale = 'en-US'\n\nmatch(languages, locales, defaultLocale) // -> 'en-US'\n"", 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': 'import { NextResponse } from ""next/server"";\n\nlet locales = [\'en-US\', \'nl-NL\', \'nl\']\n\n// Get the preferred locale, similar to the above or using a library\nfunction getLocale(request) { ... }\n\nexport function middleware(request) {\n  // Check if there is any supported locale in the pathname\n  const { pathname } = request.nextUrl\n  const pathnameHasLocale = locales.some(\n    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`\n  )\n\n  if (pathnameHasLocale) return\n\n  // Redirect if there is no locale\n  const locale = getLocale(request)\n  request.nextUrl.pathname = `/${locale}${pathname}`\n  // e.g. incoming request is /products\n  // The new URL is now /en-US/products\n  return NextResponse.redirect(request.nextUrl)\n}\n\nexport const config = {\n  matcher: [\n    // Skip all internal paths (_next)\n    \'/((?!_next).*)\',\n    // Optional: only run on root (/) URL\n    // \'/\'\n  ],\n}\n', 'language': 'js', 'filename': 'middleware.js', 'switcher': False}, {'code': '// You now have access to the current locale\n// e.g. /en-US/products -> `lang` is ""en-US""\nexport default async function Page({ params: { lang } }) {\n  return ...\n}\n', 'language': 'jsx', 'filename': 'app/[lang]/page.js', 'switcher': False}]",,,,documentation,3,192,"[40, 122, 30]"
+v15_1_3_15-internationalization_localization,15-internationalization - Add support for multiple languages with internationalized routing and localized content. - Localization,{},v15.1.3,"Changing displayed content based on the user’s preferred locale, or localization, is not something specific to Next.js. The patterns described below would work the same with any web application.
+Let’s assume we want to support both English and Dutch content inside our application. We might maintain two different “dictionaries”, which are objects that give us a mapping from some key to a localized string. For example:
+```code_snippet_1```
+```code_snippet_2```
+We can then create a getDictionary function to load the translations for the requested locale:
+```code_snippet_3```
+Given the currently selected language, we can fetch the dictionary inside of a layout or page.
+```code_snippet_4```
+Because all layouts and pages in the app/ directory default to Server Components, we do not need to worry about the size of the translation files affecting our client-side JavaScript bundle size. This code will only run on the server, and only the resulting HTML will be sent to the browser.
+","[{'code': '{\n  ""products"": {\n    ""cart"": ""Add to Cart""\n  }\n}\n', 'language': 'json', 'filename': 'dictionaries/en.json', 'switcher': False}, {'code': '{\n  ""products"": {\n    ""cart"": ""Toevoegen aan Winkelwagen""\n  }\n}\n', 'language': 'json', 'filename': 'dictionaries/nl.json', 'switcher': False}, {'code': ""import 'server-only'\n\nconst dictionaries = {\n  en: () => import('./dictionaries/en.json').then((module) => module.default),\n  nl: () => import('./dictionaries/nl.json').then((module) => module.default),\n}\n\nexport const getDictionary = async (locale) => dictionaries[locale]()\n"", 'language': 'jsx', 'filename': 'app/[lang]/dictionaries.js', 'switcher': False}, {'code': ""import { getDictionary } from './dictionaries'\n\nexport default async function Page({ params: { lang } }) {\n  const dict = await getDictionary(lang) // en\n  return <button>{dict.products.cart}</button> // Add to Cart\n}\n"", 'language': 'jsx', 'filename': 'app/[lang]/page.js', 'switcher': False}]",,,,documentation,4,76,"[9, 9, 27, 31]"
+v15_1_3_15-internationalization_static generation,15-internationalization - Add support for multiple languages with internationalized routing and localized content. - Static Generation,{},v15.1.3,"To generate static routes for a given set of locales, we can use generateStaticParams with any page or layout. This can be global, for example, in the root layout:
+```code_snippet_1```
+","[{'code': ""export async function generateStaticParams() {\n  return [{ lang: 'en-US' }, { lang: 'de' }]\n}\n\nexport default function Root({ children, params }) {\n  return (\n    <html lang={params.lang}>\n      <body>{children}</body>\n    </html>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/[lang]/layout.js', 'switcher': False}]",,,,documentation,1,31,[31]
+v15_1_3_15-internationalization_resources,15-internationalization - Add support for multiple languages with internationalized routing and localized content. - Resources,{},v15.1.3,"- Minimal i18n routing and translations
+- next-intl
+- next-international
+- next-i18n-router
+- paraglide-next
+- lingui
+",[],,,,documentation,0,0,[]
+v15_1_3_index_terminology,index - Learn the fundamentals of routing for front-end applications. - Terminology,{},v15.1.3,"The skeleton of every application is routing. This page will introduce you to the fundamental concepts of routing for the web and how to handle routing in Next.js.
+First, you will see these terms being used throughout the documentation. Here's a quick reference:
+<Image
+alt=""Terminology for Component Tree""
+srcLight=""/docs/light/terminology-component-tree.png""
+srcDark=""/docs/dark/terminology-component-tree.png""
+width=""1600""
+height=""832""
+/>
+- Tree: A convention for visualizing a hierarchical structure. For example, a component tree with parent and children components, a folder structure, etc.
+- Subtree: Part of a tree, starting at a new root (first) and ending at the leaves (last).
+- Root: The first node in a tree or subtree, such as a root layout.
+- Leaf: Nodes in a subtree that have no children, such as the last segment in a URL path.
+<Image
+alt=""Terminology for URL Anatomy""
+srcLight=""/docs/light/terminology-url-anatomy.png""
+srcDark=""/docs/dark/terminology-url-anatomy.png""
+width=""1600""
+height=""371""
+/>
+- URL Segment: Part of the URL path delimited by slashes.
+- URL Path: Part of the URL that comes after the domain (composed of segments).
+",[],,,,documentation,0,0,[]
+v15_1_3_index_the app router,index - Learn the fundamentals of routing for front-end applications. - The app Router,{},v15.1.3,"In version 13, Next.js introduced a new App Router built on React Server Components, which supports shared layouts, nested routing, loading states, error handling, and more.
+The App Router works in a new directory named app. The app directory works alongside the pages directory to allow for incremental adoption. This allows you to opt some routes of your application into the new behavior while keeping other routes in the pages directory for previous behavior. If your application uses the pages directory, please also see the Pages Router documentation.
+> Good to know: The App Router takes priority over the Pages Router. Routes across directories should not resolve to the same URL path and will cause a build-time error to prevent a conflict.
+<Image
+alt=""Next.js App Directory""
+srcLight=""/docs/light/next-router-directories.png""
+srcDark=""/docs/dark/next-router-directories.png""
+width=""1600""
+height=""444""
+/>
+By default, components inside app are React Server Components. This is a performance optimization and allows you to easily adopt them, and you can also use Client Components.
+> Recommendation: Check out the Server page if you're new to Server Components.
+",[],,,,documentation,0,0,[]
+v15_1_3_index_roles of folders and files,index - Learn the fundamentals of routing for front-end applications. - Roles of Folders and Files,{},v15.1.3,"Next.js uses a file-system based router where:
+- Folders are used to define routes. A route is a single path of nested folders, following the file-system hierarchy from the root folder down to a final leaf folder that includes a page.js file. See Defining Routes.
+- Files are used to create UI that is shown for a route segment. See special files.
+",[],,,,documentation,0,0,[]
+v15_1_3_index_route segments,index - Learn the fundamentals of routing for front-end applications. - Route Segments,{},v15.1.3,"Each folder in a route represents a route segment. Each route segment is mapped to a corresponding segment in a URL path.
+<Image
+alt=""How Route Segments Map to URL Segments""
+srcLight=""/docs/light/route-segments-to-path-segments.png""
+srcDark=""/docs/dark/route-segments-to-path-segments.png""
+width=""1600""
+height=""594""
+/>
+",[],,,,documentation,0,0,[]
+v15_1_3_index_nested routes,index - Learn the fundamentals of routing for front-end applications. - Nested Routes,{},v15.1.3,"To create a nested route, you can nest folders inside each other. For example, you can add a new /dashboard/settings route by nesting two new folders in the app directory.
+The /dashboard/settings route is composed of three segments:
+- / (Root segment)
+- dashboard (Segment)
+- settings (Leaf segment)
+",[],,,,documentation,0,0,[]
+v15_1_3_index_file conventions,index - Learn the fundamentals of routing for front-end applications. - File Conventions,{},v15.1.3,"Next.js provides a set of special files to create UI with specific behavior in nested routes:
+|  |  |
+| :--- | :--- |
+| layout | Shared UI for a segment and its children |
+| page | Unique UI of a route and make routes publicly accessible |
+| loading | Loading UI for a segment and its children |
+| not-found | Not found UI for a segment and its children |
+| error | Error UI for a segment and its children |
+| global-error | Global Error UI |
+| route | Server-side API endpoint |
+| template | Specialized re-rendered Layout UI |
+| default | Fallback UI for Parallel Routes |
+> Good to know: .js, .jsx, or .tsx file extensions can be used for special files.
+",[],,,,documentation,0,0,[]
+v15_1_3_index_component hierarchy,index - Learn the fundamentals of routing for front-end applications. - Component Hierarchy,{},v15.1.3,"The React components defined in special files of a route segment are rendered in a specific hierarchy:
+- layout.js
+- template.js
+- error.js (React error boundary)
+- loading.js (React suspense boundary)
+- not-found.js (React error boundary)
+- page.js or nested layout.js
+<Image
+alt=""Component Hierarchy for File Conventions""
+srcLight=""/docs/light/file-conventions-component-hierarchy.png""
+srcDark=""/docs/dark/file-conventions-component-hierarchy.png""
+width=""1600""
+height=""643""
+/>
+In a nested route, the components of a segment will be nested inside the components of its parent segment.
+<Image
+alt=""Nested File Conventions Component Hierarchy""
+srcLight=""/docs/light/nested-file-conventions-component-hierarchy.png""
+srcDark=""/docs/dark/nested-file-conventions-component-hierarchy.png""
+width=""1600""
+height=""863""
+/>
+",[],,,,documentation,0,0,[]
+v15_1_3_index_colocation,index - Learn the fundamentals of routing for front-end applications. - Colocation,{},v15.1.3,"In addition to special files, you have the option to colocate your own files (e.g. components, styles, tests, etc) inside folders in the app directory.
+This is because while folders define routes, only the contents returned by page.js or route.js are publicly addressable.
+<Image
+alt=""An example folder structure with colocated files""
+srcLight=""/docs/light/project-organization-colocation.png""
+srcDark=""/docs/dark/project-organization-colocation.png""
+width=""1600""
+height=""1011""
+/>
+Learn more about Project Organization and Colocation.
+",[],,,,documentation,0,0,[]
+v15_1_3_index_advanced routing patterns,index - Learn the fundamentals of routing for front-end applications. - Advanced Routing Patterns,{},v15.1.3,"The App Router also provides a set of conventions to help you implement more advanced routing patterns. These include:
+- Parallel Routes: Allow you to simultaneously show two or more pages in the same view that can be navigated independently. You can use them for split views that have their own sub-navigation. E.g. Dashboards.
+- Intercepting Routes: Allow you to intercept a route and show it in the context of another route. You can use these when keeping the context for the current page is important. E.g. Seeing all tasks while editing one task or expanding a photo in a feed.
+These patterns allow you to build richer and more complex UIs, democratizing features that were historically complex for small teams and individual developers to implement.
+",[],,,,documentation,0,0,[]
+v15_1_3_index_next steps,index - Learn the fundamentals of routing for front-end applications. - Next Steps,{},v15.1.3,"Now that you understand the fundamentals of routing in Next.js, follow the links below to create your first routes:
+",[],,,,documentation,0,0,[]
+v15_1_3_01-fetching_reference,01-fetching - Learn best practices for fetching data on the server or client in Next.js. - Reference,{},v15.1.3,"<details>
+  <summary>Examples</summary>
+- Next.js Commerce
+- On-Demand ISR
+- Next.js Forms
+</details>
+This guide will walk you through the basics of data fetching and caching in Next.js, providing practical examples and best practices.
+Here's a minimal example of data fetching in Next.js:
+```code_snippet_1```
+```code_snippet_2```
+This example demonstrates a basic server-side data fetch using the fetch API in an asynchronous React Server Component.
+- fetch
+- React cache
+- Next.js unstable_cache
+","[{'code': ""export default async function Page() {\n  const data = await fetch('https://api.vercel.app/blog')\n  const posts = await data.json()\n  return (\n    <ul>\n      {posts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""export default async function Page() {\n  const data = await fetch('https://api.vercel.app/blog')\n  const posts = await data.json()\n  return (\n    <ul>\n      {posts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}]",,,,documentation,2,56,"[28, 28]"
+v15_1_3_01-fetching_examples,01-fetching - Learn best practices for fetching data on the server or client in Next.js. - Examples,{},v15.1.3,"### Fetching data on the server with the fetch API
+This component will fetch and display a list of blog posts. The response from fetch is not cached by default.
+```code_snippet_1```
+```code_snippet_2```
+If you are not using any Dynamic APIs anywhere else in this route, it will be prerendered during next build to a static page. The data can then be updated using Incremental Static Regeneration.
+To prevent the page from prerendering, you can add the following to your file:
+```code_snippet_3```
+However, you will commonly use functions like cookies, headers, or reading the incoming searchParams from the page props, which will automatically make the page render dynamically. In this case, you do not need to explicitly use force-dynamic.
+### Fetching data on the server with an ORM or database
+This component will fetch and display a list of blog posts. The response from the database is not cached by default but could be with additional configuration.
+```code_snippet_4```
+```code_snippet_5```
+If you are not using any Dynamic APIs anywhere else in this route, it will be prerendered during next build to a static page. The data can then be updated using Incremental Static Regeneration.
+To prevent the page from prerendering, you can add the following to your file:
+```code_snippet_6```
+However, you will commonly use functions like cookies, headers, or reading the incoming searchParams from the page props, which will automatically make the page render dynamically. In this case, you do not need to explicitly use force-dynamic.
+### Fetching data on the client
+We recommend first attempting to fetch data on the server-side.
+However, there are still cases where client-side data fetching makes sense. In these scenarios, you can manually call fetch in a useEffect (not recommended), or lean on popular React libraries in the community (such as SWR or React Query) for client fetching.
+```code_snippet_7```
+```code_snippet_8```
+### Caching data with an ORM or Database
+You can use the unstable_cache API to cache the response to allow pages to be prerendered when running next build.
+```code_snippet_9```
+```code_snippet_10```
+This example caches the result of the database query for 1 hour (3600 seconds). It also adds the cache tag posts which can then be invalidated with Incremental Static Regeneration.
+### Reusing data across multiple functions
+Next.js uses APIs like generateMetadata and generateStaticParams where you will need to use the same data fetched in the page.
+If you are using fetch, requests can be memoized by adding cache: 'force-cache'. This means you can safely call the same URL with the same options, and only one request will be made.
+> Good to know:
+> - In previous versions of Next.js, using fetch would have a default cache value of force-cache. This changed in version 15, to a default of cache: no-store.
+```code_snippet_11```
+```code_snippet_12```
+If you are not using fetch, and instead using an ORM or database directly, you can wrap your data fetch with the React cache function. This will de-duplicate and only make one query.
+```code_snippet_13```
+### Revalidating cached data
+Learn more about revalidating cached data with Incremental Static Regeneration.
+","[{'code': ""export default async function Page() {\n  const data = await fetch('https://api.vercel.app/blog')\n  const posts = await data.json()\n  return (\n    <ul>\n      {posts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""export default async function Page() {\n  const data = await fetch('https://api.vercel.app/blog')\n  const posts = await data.json()\n  return (\n    <ul>\n      {posts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""export const dynamic = 'force-dynamic'\n"", 'language': 'js', 'filename': None, 'switcher': False}, {'code': ""import { db, posts } from '@/lib/db'\n\nexport default async function Page() {\n  const allPosts = await db.select().from(posts)\n  return (\n    <ul>\n      {allPosts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""import { db, posts } from '@/lib/db'\n\nexport default async function Page() {\n  const allPosts = await db.select().from(posts)\n  return (\n    <ul>\n      {allPosts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""export const dynamic = 'force-dynamic'\n"", 'language': 'js', 'filename': None, 'switcher': False}, {'code': ""'use client'\n\nimport { useState, useEffect } from 'react'\n\nexport function Posts() {\n  const [posts, setPosts] = useState(null)\n\n  useEffect(() => {\n    async function fetchPosts() {\n      const res = await fetch('https://api.vercel.app/blog')\n      const data = await res.json()\n      setPosts(data)\n    }\n    fetchPosts()\n  }, [])\n\n  if (!posts) return <div>Loading...</div>\n\n  return (\n    <ul>\n      {posts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""'use client'\n\nimport { useState, useEffect } from 'react'\n\nexport function Posts() {\n  const [posts, setPosts] = useState(null)\n\n  useEffect(() => {\n    async function fetchPosts() {\n      const res = await fetch('https://api.vercel.app/blog')\n      const data = await res.json()\n      setPosts(data)\n    }\n    fetchPosts()\n  }, [])\n\n  if (!posts) return <div>Loading...</div>\n\n  return (\n    <ul>\n      {posts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""import { unstable_cache } from 'next/cache'\nimport { db, posts } from '@/lib/db'\n\nconst getPosts = unstable_cache(\n  async () => {\n    return await db.select().from(posts)\n  },\n  ['posts'],\n  { revalidate: 3600, tags: ['posts'] }\n)\n\nexport default async function Page() {\n  const allPosts = await getPosts()\n\n  return (\n    <ul>\n      {allPosts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""import { unstable_cache } from 'next/cache'\nimport { db, posts } from '@/lib/db'\n\nconst getPosts = unstable_cache(\n  async () => {\n    return await db.select().from(posts)\n  },\n  ['posts'],\n  { revalidate: 3600, tags: ['posts'] }\n)\n\nexport default async function Page() {\n  const allPosts = await getPosts()\n\n  return (\n    <ul>\n      {allPosts.map((post) => (\n        <li key={post.id}>{post.title}</li>\n      ))}\n    </ul>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""import { notFound } from 'next/navigation'\n\ninterface Post {\n  id: string\n  title: string\n  content: string\n}\n\nasync function getPost(id: string) {\n  const res = await fetch(`https://api.vercel.app/blog/${id}`, {\n    cache: 'force-cache',\n  })\n  const post: Post = await res.json()\n  if (!post) notFound()\n  return post\n}\n\nexport async function generateStaticParams() {\n  const posts = await fetch('https://api.vercel.app/blog', {\n    cache: 'force-cache',\n  }).then((res) => res.json())\n\n  return posts.map((post: Post) => ({\n    id: String(post.id),\n  }))\n}\n\nexport async function generateMetadata({\n  params,\n}: {\n  params: Promise<{ id: string }>\n}) {\n  const { id } = await params\n  const post = await getPost(id)\n\n  return {\n    title: post.title,\n  }\n}\n\nexport default async function Page({\n  params,\n}: {\n  params: Promise<{ id: string }>\n}) {\n  const { id } = await params\n  const post = await getPost(id)\n\n  return (\n    <article>\n      <h1>{post.title}</h1>\n      <p>{post.content}</p>\n    </article>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/blog/[id]/page.tsx', 'switcher': True}, {'code': ""import { notFound } from 'next/navigation'\n\nasync function getPost(id) {\n  const res = await fetch(`https://api.vercel.app/blog/${id}`)\n  const post = await res.json()\n  if (!post) notFound()\n  return post\n}\n\nexport async function generateStaticParams() {\n  const posts = await fetch('https://api.vercel.app/blog').then((res) =>\n    res.json()\n  )\n\n  return posts.map((post) => ({\n    id: String(post.id),\n  }))\n}\n\nexport async function generateMetadata({ params }) {\n  const { id } = await params\n  const post = await getPost(id)\n\n  return {\n    title: post.title,\n  }\n}\n\nexport default async function Page({ params }) {\n  const { id } = await params\n  const post = await getPost(id)\n\n  return (\n    <article>\n      <h1>{post.title}</h1>\n      <p>{post.content}</p>\n    </article>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/blog/[id]/page.js', 'switcher': True}, {'code': ""import { cache } from 'react'\nimport { db, posts, eq } from '@/lib/db' // Example with Drizzle ORM\nimport { notFound } from 'next/navigation'\n\nexport const getPost = cache(async (id) => {\n  const post = await db.query.posts.findFirst({\n    where: eq(posts.id, parseInt(id)),\n  })\n\n  if (!post) notFound()\n  return post\n})\n"", 'language': 'jsx', 'filename': None, 'switcher': False}]",,,,documentation,13,632,"[28, 28, 5, 30, 30, 5, 56, 56, 56, 56, 134, 100, 48]"
+v15_1_3_01-fetching_patterns,01-fetching - Learn best practices for fetching data on the server or client in Next.js. - Patterns,{},v15.1.3,"### Parallel and sequential data fetching
+When fetching data inside components, you need to be aware of two data fetching patterns: Parallel and Sequential.
+<Image
+alt=""Sequential and Parallel Data Fetching""
+srcLight=""/docs/light/sequential-parallel-data-fetching.png""
+srcDark=""/docs/dark/sequential-parallel-data-fetching.png""
+width=""1600""
+height=""525""
+/>
+- Sequential: requests in a component tree are dependent on each other. This can lead to longer loading times.
+- Parallel: requests in a route are eagerly initiated and will load data at the same time. This reduces the total time it takes to load data.
+#### Sequential data fetching
+If you have nested components, and each component fetches its own data, then data fetching will happen sequentially if those data requests are not memoized.
+There may be cases where you want this pattern because one fetch depends on the result of the other. For example, the Playlists component will only start fetching data once the Artist component has finished fetching data because Playlists depends on the artistID prop:
+```code_snippet_1```
+```code_snippet_2```
+You can use loading.js (for route segments) or React <Suspense> (for nested components) to show an instant loading state while React streams in the result.
+This will prevent the whole route from being blocked by data requests, and the user will be able to interact with the parts of the page that are ready.
+#### Parallel Data Fetching
+By default, layout and page segments are rendered in parallel. This means requests will be initiated in parallel.
+However, due to the nature of async/await, an awaited request inside the same segment or component will block any requests below it.
+To fetch data in parallel, you can eagerly initiate requests by defining them outside the components that use the data. This saves time by initiating both requests in parallel, however, the user won't see the rendered result until both promises are resolved.
+In the example below, the getArtist and getAlbums functions are defined outside the Page component and initiated inside the component using Promise.all:
+```code_snippet_3```
+```code_snippet_4```
+In addition, you can add a Suspense Boundary to break up the rendering work and show part of the result as soon as possible.
+### Preloading Data
+Another way to prevent waterfalls is to use the preload pattern by creating an utility function that you eagerly call above blocking requests. For example, checkIsAvailable() blocks <Item/> from rendering, so you can call preload() before it to eagerly initiate <Item/> data dependencies. By the time <Item/> is rendered, its data has already been fetched.
+Note that preload function doesn't block checkIsAvailable() from running.
+```code_snippet_5```
+```code_snippet_6```
+```code_snippet_7```
+```code_snippet_8```
+> Good to know: The ""preload"" function can also have any name as it's a pattern, not an API.
+#### Using React cache and server-only with the Preload Pattern
+You can combine the cache function, the preload pattern, and the server-only package to create a data fetching utility that can be used throughout your app.
+```code_snippet_9```
+```code_snippet_10```
+With this approach, you can eagerly fetch data, cache responses, and guarantee that this data fetching only happens on the server.
+The utils/get-item exports can be used by Layouts, Pages, or other components to give them control over when an item's data is fetched.
+> Good to know:
+> - We recommend using the server-only package to make sure server data fetching functions are never used on the client.
+### Preventing sensitive data from being exposed to the client
+We recommend using React's taint APIs, taintObjectReference and taintUniqueValue, to prevent whole object instances or sensitive values from being passed to the client.
+To enable tainting in your application, set the Next.js Config experimental.taint option to true:
+```code_snippet_11```
+Then pass the object or value you want to taint to the experimental_taintObjectReference or experimental_taintUniqueValue functions:
+```code_snippet_12```
+```code_snippet_13```
+```code_snippet_14```
+```code_snippet_15```
+","[{'code': 'export default async function Page({\n  params,\n}: {\n  params: Promise<{ username: string }>\n}) {\n  const { username } = await params\n  // Get artist information\n  const artist = await getArtist(username)\n\n  return (\n    <>\n      <h1>{artist.name}</h1>\n      {/* Show fallback UI while the Playlists component is loading */}\n      <Suspense fallback={<div>Loading...</div>}>\n        {/* Pass the artist ID to the Playlists component */}\n        <Playlists artistID={artist.id} />\n      </Suspense>\n    </>\n  )\n}\n\nasync function Playlists({ artistID }: { artistID: string }) {\n  // Use the artist ID to fetch playlists\n  const playlists = await getArtistPlaylists(artistID)\n\n  return (\n    <ul>\n      {playlists.map((playlist) => (\n        <li key={playlist.id}>{playlist.name}</li>\n      ))}\n    </ul>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/artist/[username]/page.tsx', 'switcher': True}, {'code': 'export default async function Page({ params }) {\n  const { username } = await params\n  // Get artist information\n  const artist = await getArtist(username)\n\n  return (\n    <>\n      <h1>{artist.name}</h1>\n      {/* Show fallback UI while the Playlists component is loading */}\n      <Suspense fallback={<div>Loading...</div>}>\n        {/* Pass the artist ID to the Playlists component */}\n        <Playlists artistID={artist.id} />\n      </Suspense>\n    </>\n  )\n}\n\nasync function Playlists({ artistID }) {\n  // Use the artist ID to fetch playlists\n  const playlists = await getArtistPlaylists(artistID)\n\n  return (\n    <ul>\n      {playlists.map((playlist) => (\n        <li key={playlist.id}>{playlist.name}</li>\n      ))}\n    </ul>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/artist/[username]/page.js', 'switcher': True}, {'code': ""import Albums from './albums'\n\nasync function getArtist(username: string) {\n  const res = await fetch(`https://api.example.com/artist/${username}`)\n  return res.json()\n}\n\nasync function getAlbums(username: string) {\n  const res = await fetch(`https://api.example.com/artist/${username}/albums`)\n  return res.json()\n}\n\nexport default async function Page({\n  params,\n}: {\n  params: Promise<{ username: string }>\n}) {\n  const { username } = await params\n  const artistData = getArtist(username)\n  const albumsData = getAlbums(username)\n\n  // Initiate both requests in parallel\n  const [artist, albums] = await Promise.all([artistData, albumsData])\n\n  return (\n    <>\n      <h1>{artist.name}</h1>\n      <Albums list={albums} />\n    </>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/artist/[username]/page.tsx', 'switcher': True}, {'code': ""import Albums from './albums'\n\nasync function getArtist(username) {\n  const res = await fetch(`https://api.example.com/artist/${username}`)\n  return res.json()\n}\n\nasync function getAlbums(username) {\n  const res = await fetch(`https://api.example.com/artist/${username}/albums`)\n  return res.json()\n}\n\nexport default async function Page({ params }) {\n  const { username } = await params\n  const artistData = getArtist(username)\n  const albumsData = getAlbums(username)\n\n  // Initiate both requests in parallel\n  const [artist, albums] = await Promise.all([artistData, albumsData])\n\n  return (\n    <>\n      <h1>{artist.name}</h1>\n      <Albums list={albums} />\n    </>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/artist/[username]/page.js', 'switcher': True}, {'code': ""import { getItem } from '@/utils/get-item'\n\nexport const preload = (id: string) => {\n  // void evaluates the given expression and returns undefined\n  // https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void\n  void getItem(id)\n}\nexport default async function Item({ id }: { id: string }) {\n  const result = await getItem(id)\n  // ...\n}\n"", 'language': 'tsx', 'filename': 'components/Item.tsx', 'switcher': True}, {'code': ""import { getItem } from '@/utils/get-item'\n\nexport const preload = (id) => {\n  // void evaluates the given expression and returns undefined\n  // https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void\n  void getItem(id)\n}\nexport default async function Item({ id }) {\n  const result = await getItem(id)\n  // ...\n}\n"", 'language': 'jsx', 'filename': 'components/Item.js', 'switcher': True}, {'code': ""import Item, { preload, checkIsAvailable } from '@/components/Item'\n\nexport default async function Page({\n  params,\n}: {\n  params: Promise<{ id: string }>\n}) {\n  const { id } = await params\n  // starting loading item data\n  preload(id)\n  // perform another asynchronous task\n  const isAvailable = await checkIsAvailable()\n\n  return isAvailable ? <Item id={id} /> : null\n}\n"", 'language': 'tsx', 'filename': 'app/item/[id]/page.tsx', 'switcher': True}, {'code': ""import Item, { preload, checkIsAvailable } from '@/components/Item'\n\nexport default async function Page({ params }) {\n  const { id } = await params\n  // starting loading item data\n  preload(id)\n  // perform another asynchronous task\n  const isAvailable = await checkIsAvailable()\n\n  return isAvailable ? <Item id={id} /> : null\n}\n"", 'language': 'jsx', 'filename': 'app/item/[id]/page.js', 'switcher': True}, {'code': ""import { cache } from 'react'\nimport 'server-only'\n\nexport const preload = (id: string) => {\n  void getItem(id)\n}\n\nexport const getItem = cache(async (id: string) => {\n  // ...\n})\n"", 'language': 'ts', 'filename': 'utils/get-item.ts', 'switcher': True}, {'code': ""import { cache } from 'react'\nimport 'server-only'\n\nexport const preload = (id) => {\n  void getItem(id)\n}\n\nexport const getItem = cache(async (id) => {\n  // ...\n})\n"", 'language': 'js', 'filename': 'utils/get-item.js', 'switcher': True}, {'code': 'module.exports = {\n  experimental: {\n    taint: true,\n  },\n}\n', 'language': 'js', 'filename': 'next.config.js', 'switcher': False}, {'code': 'import { queryDataFromDB } from \'./api\'\nimport {\n  experimental_taintObjectReference,\n  experimental_taintUniqueValue,\n} from \'react\'\n\nexport async function getUserData() {\n  const data = await queryDataFromDB()\n  experimental_taintObjectReference(\n    \'Do not pass the whole user object to the client\',\n    data\n  )\n  experimental_taintUniqueValue(\n    ""Do not pass the user\'s address to the client"",\n    data,\n    data.address\n  )\n  return data\n}\n', 'language': 'ts', 'filename': 'app/utils.ts', 'switcher': True}, {'code': 'import { queryDataFromDB } from \'./api\'\nimport {\n  experimental_taintObjectReference,\n  experimental_taintUniqueValue,\n} from \'react\'\n\nexport async function getUserData() {\n  const data = await queryDataFromDB()\n  experimental_taintObjectReference(\n    \'Do not pass the whole user object to the client\',\n    data\n  )\n  experimental_taintUniqueValue(\n    ""Do not pass the user\'s address to the client"",\n    data,\n    data.address\n  )\n  return data\n}\n', 'language': 'js', 'filename': 'app/utils.js', 'switcher': True}, {'code': ""import { getUserData } from './data'\n\nexport async function Page() {\n  const userData = getUserData()\n  return (\n    <ClientComponent\n      user={userData} // this will cause an error because of taintObjectReference\n      address={userData.address} // this will cause an error because of taintUniqueValue\n    />\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""import { getUserData } from './data'\n\nexport async function Page() {\n  const userData = await getUserData()\n  return (\n    <ClientComponent\n      user={userData} // this will cause an error because of taintObjectReference\n      address={userData.address} // this will cause an error because of taintUniqueValue\n    />\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}]",,,,documentation,15,796,"[100, 89, 83, 74, 48, 43, 55, 48, 31, 29, 9, 52, 52, 41, 42]"
+v15_1_3_03-server-actions-and-mutations_convention,03-server-actions-and-mutations - Learn how to handle form submissions and data mutations with Next.js. - Convention,"{'related': {'description': 'Learn how to configure Server Actions in Next.js', 'links': ['app/api-reference/config/next-config-js/serverActions']}}",v15.1.3,"Server Actions are asynchronous functions that are executed on the server. They can be called in Server and Client Components to handle form submissions and data mutations in Next.js applications.
+> 🎥 Watch: Learn more about mutations with Server Actions → YouTube (10 minutes).
+A Server Action can be defined with the React ""use server"" directive. You can place the directive at the top of an async function to mark the function as a Server Action, or at the top of a separate file to mark all exports of that file as Server Actions.
+### Server Components
+Server Components can use the inline function level or module level ""use server"" directive. To inline a Server Action, add ""use server"" to the top of the function body:
+```code_snippet_1```
+```code_snippet_2```
+### Client Components
+To call a Server Action in a Client Component, create a new file and add the ""use server"" directive at the top of it. All exported functions within the file will be marked as Server Actions that can be reused in both Client and Server Components:
+```code_snippet_3```
+```code_snippet_4```
+```code_snippet_5```
+```code_snippet_6```
+### Passing actions as props
+You can also pass a Server Action to a Client Component as a prop:
+```code_snippet_7```
+```code_snippet_8```
+```code_snippet_9```
+Usually, the Next.js TypeScript plugin would flag updateItemAction in client-component.tsx since it is a function which generally can't be serialized across client-server boundaries.
+However, props named action or ending with Action are assumed to receive Server Actions.
+This is only a heuristic since the TypeScript plugin doesn't actually know if it receives a Server Action or an ordinary function.
+Runtime type-checking will still ensure you don't accidentally pass a function to a Client Component.
+","[{'code': ""export default function Page() {\n  // Server Action\n  async function create() {\n    'use server'\n    // Mutate data\n  }\n\n  return '...'\n}\n"", 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': ""export default function Page() {\n  // Server Action\n  async function create() {\n    'use server'\n    // Mutate data\n  }\n\n  return '...'\n}\n"", 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""'use server'\n\nexport async function create() {}\n"", 'language': 'tsx', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nexport async function create() {}\n"", 'language': 'js', 'filename': 'app/actions.js', 'switcher': True}, {'code': ""'use client'\n\nimport { create } from '@/app/actions'\n\nexport function Button() {\n  return <button onClick={() => create()}>Create</button>\n}\n"", 'language': 'tsx', 'filename': 'app/ui/button.tsx', 'switcher': True}, {'code': ""'use client'\n\nimport { create } from '@/app/actions'\n\nexport function Button() {\n  return <button onClick={() => create()}>Create</button>\n}\n"", 'language': 'jsx', 'filename': 'app/ui/button.js', 'switcher': True}, {'code': '<ClientComponent updateItemAction={updateItem} />\n', 'language': 'jsx', 'filename': None, 'switcher': False}, {'code': ""'use client'\n\nexport default function ClientComponent({\n  updateItemAction,\n}: {\n  updateItemAction: (formData: FormData) => void\n}) {\n  return <form action={updateItemAction}>{/* ... */}</form>\n}\n"", 'language': 'tsx', 'filename': 'app/client-component.tsx', 'switcher': True}, {'code': ""'use client'\n\nexport default function ClientComponent({ updateItemAction }) {\n  return <form action={updateItemAction}>{/* ... */}</form>\n}\n"", 'language': 'jsx', 'filename': 'app/client-component.js', 'switcher': True}]",,,,documentation,9,132,"[21, 21, 7, 7, 18, 18, 3, 22, 15]"
+v15_1_3_03-server-actions-and-mutations_behavior,03-server-actions-and-mutations - Learn how to handle form submissions and data mutations with Next.js. - Behavior,"{'related': {'description': 'Learn how to configure Server Actions in Next.js', 'links': ['app/api-reference/config/next-config-js/serverActions']}}",v15.1.3,"- Server actions can be invoked using the action attribute in a <form> element:
+- Server Components support progressive enhancement by default, meaning the form will be submitted even if JavaScript hasn't loaded yet or is disabled.
+- In Client Components, forms invoking Server Actions will queue submissions if JavaScript isn't loaded yet, prioritizing client hydration.
+- After hydration, the browser does not refresh on form submission.
+- Server Actions are not limited to <form> and can be invoked from event handlers, useEffect, third-party libraries, and other form elements like <button>.
+- Server Actions integrate with the Next.js caching and revalidation architecture. When an action is invoked, Next.js can return both the updated UI and new data in a single server roundtrip.
+- Behind the scenes, actions use the POST method, and only this HTTP method can invoke them.
+- The arguments and return value of Server Actions must be serializable by React. See the React docs for a list of serializable arguments and values.
+- Server Actions are functions. This means they can be reused anywhere in your application.
+- Server Actions inherit the runtime from the page or layout they are used on.
+- Server Actions inherit the Route Segment Config from the page or layout they are used on, including fields like maxDuration.
+",[],,,,documentation,0,0,[]
+v15_1_3_03-server-actions-and-mutations_examples,03-server-actions-and-mutations - Learn how to handle form submissions and data mutations with Next.js. - Examples,"{'related': {'description': 'Learn how to configure Server Actions in Next.js', 'links': ['app/api-reference/config/next-config-js/serverActions']}}",v15.1.3,"### Forms
+React extends the HTML <form> element to allow Server Actions to be invoked with the action prop.
+When invoked in a form, the action automatically receives the FormData object. You don't need to use React useState to manage fields, instead, you can extract the data using the native FormData methods:
+```code_snippet_1```
+```code_snippet_2```
+> Good to know:
+> - Example: Form with Loading & Error States
+> - When working with forms that have many fields, you may want to consider using the entries() method with JavaScript's Object.fromEntries(). For example: const rawFormData = Object.fromEntries(formData). One thing to note is that the formData will include additional $ACTION_ properties.
+> - See React <form> documentation to learn more.
+### Passing additional arguments
+You can pass additional arguments to a Server Action using the JavaScript bind method.
+```code_snippet_3```
+```code_snippet_4```
+The Server Action will receive the userId argument, in addition to the form data:
+```code_snippet_5```
+```code_snippet_6```
+> Good to know:
+> - An alternative is to pass arguments as hidden input fields in the form (e.g. <input type=""hidden"" name=""userId"" value={userId} />). However, the value will be part of the rendered HTML and will not be encoded.
+> - .bind works in both Server and Client Components. It also supports progressive enhancement.
+### Nested form elements
+You can also invoke a Server Action in elements nested inside <form> such as <button>, <input type=""submit"">, and <input type=""image"">. These elements accept the formAction prop or event handlers.
+This is useful in cases where you want to call multiple server actions within a form. For example, you can create a specific <button> element for saving a post draft in addition to publishing it. See the React <form> docs for more information.
+### Programmatic form submission
+You can trigger a form submission programmatically using the requestSubmit() method. For example, when the user submits a form using the ⌘ + Enter keyboard shortcut, you can listen for the onKeyDown event:
+```code_snippet_7```
+```code_snippet_8```
+This will trigger the submission of the nearest <form> ancestor, which will invoke the Server Action.
+### Server-side form validation
+You can use the HTML attributes like required and type=""email"" for basic client-side form validation.
+For more advanced server-side validation, you can use a library like zod to validate the form fields before mutating the data:
+```code_snippet_9```
+```code_snippet_10```
+Once the fields have been validated on the server, you can return a serializable object in your action and use the React useActionState hook to show a message to the user.
+- By passing the action to useActionState, the action's function signature changes to receive a new prevState or initialState parameter as its first argument.
+- useActionState is a React hook and therefore must be used in a Client Component.
+```code_snippet_11```
+```code_snippet_12```
+Then, you can pass your action to the useActionState hook and use the returned state to display an error message.
+```code_snippet_13```
+```code_snippet_14```
+### Pending states
+The useActionState hook exposes a pending boolean that can be used to show a loading indicator while the action is being executed.
+Alternatively, you can use the useFormStatus hook to show a loading indicator while the action is being executed. When using this hook, you'll need to create a separate component to render the loading indicator. For example, to disable the button when the action is pending:
+```code_snippet_15```
+```code_snippet_16```
+You can then nest the SubmitButton component inside the form:
+```code_snippet_17```
+```code_snippet_18```
+> Good to know: In React 19, useFormStatus includes additional keys on the returned object, like data, method, and action. If you are not using React 19, only the pending key is available.
+### Optimistic updates
+You can use the React useOptimistic hook to optimistically update the UI before the Server Action finishes executing, rather than waiting for the response:
+```code_snippet_19```
+```code_snippet_20```
+### Event handlers
+While it's common to use Server Actions within <form> elements, they can also be invoked with event handlers such as onClick. For example, to increment a like count:
+```code_snippet_21```
+```code_snippet_22```
+You can also add event handlers to form elements, for example, to save a form field onChange:
+```code_snippet_23```
+For cases like this, where multiple events might be fired in quick succession, we recommend debouncing to prevent unnecessary Server Action invocations.
+### useEffect
+You can use the React useEffect hook to invoke a Server Action when the component mounts or a dependency changes. This is useful for mutations that depend on global events or need to be triggered automatically. For example, onKeyDown for app shortcuts, an intersection observer hook for infinite scrolling, or when the component mounts to update a view count:
+```code_snippet_24```
+```code_snippet_25```
+Remember to consider the behavior and caveats of useEffect.
+### Error Handling
+When an error is thrown, it'll be caught by the nearest error.js or <Suspense> boundary on the client. See Error Handling for more information.
+> Good to know:
+> - Aside from throwing the error, you can also return an object to be handled by useActionState. See Server-side validation and error handling.
+### Revalidating data
+You can revalidate the Next.js Cache inside your Server Actions with the revalidatePath API:
+```code_snippet_26```
+```code_snippet_27```
+Or invalidate a specific data fetch with a cache tag using revalidateTag:
+```code_snippet_28```
+```code_snippet_29```
+### Redirecting
+If you would like to redirect the user to a different route after the completion of a Server Action, you can use redirect API. redirect needs to be called outside of the try/catch block:
+```code_snippet_30```
+```code_snippet_31```
+### Cookies
+You can get, set, and delete cookies inside a Server Action using the cookies API:
+```code_snippet_32```
+```code_snippet_33```
+See additional examples for deleting cookies from Server Actions.
+","[{'code': ""export default function Page() {\n  async function createInvoice(formData: FormData) {\n    'use server'\n\n    const rawFormData = {\n      customerId: formData.get('customerId'),\n      amount: formData.get('amount'),\n      status: formData.get('status'),\n    }\n\n    // mutate data\n    // revalidate cache\n  }\n\n  return <form action={createInvoice}>...</form>\n}\n"", 'language': 'tsx', 'filename': 'app/invoices/page.tsx', 'switcher': True}, {'code': ""export default function Page() {\n  async function createInvoice(formData) {\n    'use server'\n\n    const rawFormData = {\n      customerId: formData.get('customerId'),\n      amount: formData.get('amount'),\n      status: formData.get('status'),\n    }\n\n    // mutate data\n    // revalidate cache\n  }\n\n  return <form action={createInvoice}>...</form>\n}\n"", 'language': 'jsx', 'filename': 'app/invoices/page.js', 'switcher': True}, {'code': '\'use client\'\n\nimport { updateUser } from \'./actions\'\n\nexport function UserProfile({ userId }: { userId: string }) {\n  const updateUserWithId = updateUser.bind(null, userId)\n\n  return (\n    <form action={updateUserWithId}>\n      <input type=""text"" name=""name"" />\n      <button type=""submit"">Update User Name</button>\n    </form>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/client-component.tsx', 'switcher': True}, {'code': '\'use client\'\n\nimport { updateUser } from \'./actions\'\n\nexport function UserProfile({ userId }) {\n  const updateUserWithId = updateUser.bind(null, userId)\n\n  return (\n    <form action={updateUserWithId}>\n      <input type=""text"" name=""name"" />\n      <button type=""submit"">Update User Name</button>\n    </form>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/client-component.js', 'switcher': True}, {'code': ""'use server'\n\nexport async function updateUser(userId: string, formData: FormData) {}\n"", 'language': 'ts', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nexport async function updateUser(userId, formData) {}\n"", 'language': 'js', 'filename': 'app/actions.js', 'switcher': True}, {'code': '\'use client\'\n\nexport function Entry() {\n  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {\n    if (\n      (e.ctrlKey || e.metaKey) &&\n      (e.key === \'Enter\' || e.key === \'NumpadEnter\')\n    ) {\n      e.preventDefault()\n      e.currentTarget.form?.requestSubmit()\n    }\n  }\n\n  return (\n    <div>\n      <textarea name=""entry"" rows={20} required onKeyDown={handleKeyDown} />\n    </div>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/entry.tsx', 'switcher': True}, {'code': '\'use client\'\n\nexport function Entry() {\n  const handleKeyDown = (e) => {\n    if (\n      (e.ctrlKey || e.metaKey) &&\n      (e.key === \'Enter\' || e.key === \'NumpadEnter\')\n    ) {\n      e.preventDefault()\n      e.currentTarget.form?.requestSubmit()\n    }\n  }\n\n  return (\n    <div>\n      <textarea name=""entry"" rows={20} required onKeyDown={handleKeyDown} />\n    </div>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/entry.js', 'switcher': True}, {'code': ""'use server'\n\nimport { z } from 'zod'\n\nconst schema = z.object({\n  email: z.string({\n    invalid_type_error: 'Invalid Email',\n  }),\n})\n\nexport default async function createUser(formData: FormData) {\n  const validatedFields = schema.safeParse({\n    email: formData.get('email'),\n  })\n\n  // Return early if the form data is invalid\n  if (!validatedFields.success) {\n    return {\n      errors: validatedFields.error.flatten().fieldErrors,\n    }\n  }\n\n  // Mutate data\n}\n"", 'language': 'tsx', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nimport { z } from 'zod'\n\nconst schema = z.object({\n  email: z.string({\n    invalid_type_error: 'Invalid Email',\n  }),\n})\n\nexport default async function createsUser(formData) {\n  const validatedFields = schema.safeParse({\n    email: formData.get('email'),\n  })\n\n  // Return early if the form data is invalid\n  if (!validatedFields.success) {\n    return {\n      errors: validatedFields.error.flatten().fieldErrors,\n    }\n  }\n\n  // Mutate data\n}\n"", 'language': 'jsx', 'filename': 'app/actions.js', 'switcher': True}, {'code': ""'use server'\n\nimport { redirect } from 'next/navigation'\n\nexport async function createUser(prevState: any, formData: FormData) {\n  const res = await fetch('https://...')\n  const json = await res.json()\n\n  if (!res.ok) {\n    return { message: 'Please enter a valid email' }\n  }\n\n  redirect('/dashboard')\n}\n"", 'language': 'tsx', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nimport { redirect } from 'next/navigation'\n\nexport async function createUser(prevState, formData) {\n  const res = await fetch('https://...')\n  const json = await res.json()\n\n  if (!res.ok) {\n    return { message: 'Please enter a valid email' }\n  }\n\n  redirect('/dashboard')\n}\n"", 'language': 'jsx', 'filename': 'app/actions.js', 'switcher': True}, {'code': '\'use client\'\n\nimport { useActionState } from \'react\'\nimport { createUser } from \'@/app/actions\'\n\nconst initialState = {\n  message: \'\',\n}\n\nexport function Signup() {\n  const [state, formAction, pending] = useActionState(createUser, initialState)\n\n  return (\n    <form action={formAction}>\n      <label htmlFor=""email"">Email</label>\n      <input type=""text"" id=""email"" name=""email"" required />\n      {/* ... */}\n      <p aria-live=""polite"">{state?.message}</p>\n      <button disabled={pending}>Sign up</button>\n    </form>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/ui/signup.tsx', 'switcher': True}, {'code': '\'use client\'\n\nimport { useActionState } from \'react\'\nimport { createUser } from \'@/app/actions\'\n\nconst initialState = {\n  message: \'\',\n}\n\nexport function Signup() {\n  const [state, formAction, pending] = useActionState(createUser, initialState)\n\n  return (\n    <form action={formAction}>\n      <label htmlFor=""email"">Email</label>\n      <input type=""text"" id=""email"" name=""email"" required />\n      {/* ... */}\n      <p aria-live=""polite"">{state?.message}</p>\n      <button disabled={pending}>Sign up</button>\n    </form>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/ui/signup.js', 'switcher': True}, {'code': '\'use client\'\n\nimport { useFormStatus } from \'react-dom\'\n\nexport function SubmitButton() {\n  const { pending } = useFormStatus()\n\n  return (\n    <button disabled={pending} type=""submit"">\n      Sign Up\n    </button>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/ui/button.tsx', 'switcher': True}, {'code': '\'use client\'\n\nimport { useFormStatus } from \'react-dom\'\n\nexport function SubmitButton() {\n  const { pending } = useFormStatus()\n\n  return (\n    <button disabled={pending} type=""submit"">\n      Sign Up\n    </button>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/ui/button.js', 'switcher': True}, {'code': ""import { SubmitButton } from './button'\nimport { createUser } from '@/app/actions'\n\nexport function Signup() {\n  return (\n    <form action={createUser}>\n      {/* Other form elements */}\n      <SubmitButton />\n    </form>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/ui/signup.tsx', 'switcher': True}, {'code': ""import { SubmitButton } from './button'\nimport { createUser } from '@/app/actions'\n\nexport function Signup() {\n  return (\n    <form action={createUser}>\n      {/* Other form elements */}\n      <SubmitButton />\n    </form>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/ui/signup.js', 'switcher': True}, {'code': '\'use client\'\n\nimport { useOptimistic } from \'react\'\nimport { send } from \'./actions\'\n\ntype Message = {\n  message: string\n}\n\nexport function Thread({ messages }: { messages: Message[] }) {\n  const [optimisticMessages, addOptimisticMessage] = useOptimistic<\n    Message[],\n    string\n  >(messages, (state, newMessage) => [...state, { message: newMessage }])\n\n  const formAction = async (formData: FormData) => {\n    const message = formData.get(\'message\') as string\n    addOptimisticMessage(message)\n    await send(message)\n  }\n\n  return (\n    <div>\n      {optimisticMessages.map((m, i) => (\n        <div key={i}>{m.message}</div>\n      ))}\n      <form action={formAction}>\n        <input type=""text"" name=""message"" />\n        <button type=""submit"">Send</button>\n      </form>\n    </div>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': '\'use client\'\n\nimport { useOptimistic } from \'react\'\nimport { send } from \'./actions\'\n\nexport function Thread({ messages }) {\n  const [optimisticMessages, addOptimisticMessage] = useOptimistic(\n    messages,\n    (state, newMessage) => [...state, { message: newMessage }]\n  )\n\n  const formAction = async (formData) => {\n    const message = formData.get(\'message\')\n    addOptimisticMessage(message)\n    await send(message)\n  }\n\n  return (\n    <div>\n      {optimisticMessages.map((m) => (\n        <div>{m.message}</div>\n      ))}\n      <form action={formAction}>\n        <input type=""text"" name=""message"" />\n        <button type=""submit"">Send</button>\n      </form>\n    </div>\n  )\n}\n', 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""'use client'\n\nimport { incrementLike } from './actions'\nimport { useState } from 'react'\n\nexport default function LikeButton({ initialLikes }: { initialLikes: number }) {\n  const [likes, setLikes] = useState(initialLikes)\n\n  return (\n    <>\n      <p>Total Likes: {likes}</p>\n      <button\n        onClick={async () => {\n          const updatedLikes = await incrementLike()\n          setLikes(updatedLikes)\n        }}\n      >\n        Like\n      </button>\n    </>\n  )\n}\n"", 'language': 'tsx', 'filename': 'app/like-button.tsx', 'switcher': True}, {'code': ""'use client'\n\nimport { incrementLike } from './actions'\nimport { useState } from 'react'\n\nexport default function LikeButton({ initialLikes }) {\n  const [likes, setLikes] = useState(initialLikes)\n\n  return (\n    <>\n      <p>Total Likes: {likes}</p>\n      <button\n        onClick={async () => {\n          const updatedLikes = await incrementLike()\n          setLikes(updatedLikes)\n        }}\n      >\n        Like\n      </button>\n    </>\n  )\n}\n"", 'language': 'jsx', 'filename': 'app/like-button.js', 'switcher': True}, {'code': '\'use client\'\n\nimport { publishPost, saveDraft } from \'./actions\'\n\nexport default function EditPost() {\n  return (\n    <form action={publishPost}>\n      <textarea\n        name=""content""\n        onChange={async (e) => {\n          await saveDraft(e.target.value)\n        }}\n      />\n      <button type=""submit"">Publish</button>\n    </form>\n  )\n}\n', 'language': 'tsx', 'filename': 'app/ui/edit-post.tsx', 'switcher': False}, {'code': ""'use client'\n\nimport { incrementViews } from './actions'\nimport { useState, useEffect } from 'react'\n\nexport default function ViewCount({ initialViews }: { initialViews: number }) {\n  const [views, setViews] = useState(initialViews)\n\n  useEffect(() => {\n    const updateViews = async () => {\n      const updatedViews = await incrementViews()\n      setViews(updatedViews)\n    }\n\n    updateViews()\n  }, [])\n\n  return <p>Total Views: {views}</p>\n}\n"", 'language': 'tsx', 'filename': 'app/view-count.tsx', 'switcher': True}, {'code': ""'use client'\n\nimport { incrementViews } from './actions'\nimport { useState, useEffect } from 'react'\n\nexport default function ViewCount({ initialViews }: { initialViews: number }) {\n  const [views, setViews] = useState(initialViews)\n\n  useEffect(() => {\n    const updateViews = async () => {\n      const updatedViews = await incrementViews()\n      setViews(updatedViews)\n    }\n\n    updateViews()\n  }, [])\n\n  return <p>Total Views: {views}</p>\n}\n"", 'language': 'jsx', 'filename': 'app/view-count.js', 'switcher': True}, {'code': ""'use server'\n\nimport { revalidatePath } from 'next/cache'\n\nexport async function createPost() {\n  try {\n    // ...\n  } catch (error) {\n    // ...\n  }\n\n  revalidatePath('/posts')\n}\n"", 'language': 'ts', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nimport { revalidatePath } from 'next/cache'\n\nexport async function createPost() {\n  try {\n    // ...\n  } catch (error) {\n    // ...\n  }\n\n  revalidatePath('/posts')\n}\n"", 'language': 'js', 'filename': 'app/actions.js', 'switcher': True}, {'code': ""'use server'\n\nimport { revalidateTag } from 'next/cache'\n\nexport async function createPost() {\n  try {\n    // ...\n  } catch (error) {\n    // ...\n  }\n\n  revalidateTag('posts')\n}\n"", 'language': 'ts', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nimport { revalidateTag } from 'next/cache'\n\nexport async function createPost() {\n  try {\n    // ...\n  } catch (error) {\n    // ...\n  }\n\n  revalidateTag('posts')\n}\n"", 'language': 'js', 'filename': 'app/actions.js', 'switcher': True}, {'code': ""'use server'\n\nimport { redirect } from 'next/navigation'\nimport { revalidateTag } from 'next/cache'\n\nexport async function createPost(id: string) {\n  try {\n    // ...\n  } catch (error) {\n    // ...\n  }\n\n  revalidateTag('posts') // Update cached posts\n  redirect(`/post/${id}`) // Navigate to the new post page\n}\n"", 'language': 'ts', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nimport { redirect } from 'next/navigation'\nimport { revalidateTag } from 'next/cache'\n\nexport async function createPost(id) {\n  try {\n    // ...\n  } catch (error) {\n    // ...\n  }\n\n  revalidateTag('posts') // Update cached posts\n  redirect(`/post/${id}`) // Navigate to the new post page\n}\n"", 'language': 'js', 'filename': 'app/actions.js', 'switcher': True}, {'code': ""'use server'\n\nimport { cookies } from 'next/headers'\n\nexport async function exampleAction() {\n  const cookieStore = await cookies()\n\n  // Get cookie\n  cookieStore.get('name')?.value\n\n  // Set cookie\n  cookieStore.set('name', 'Delba')\n\n  // Delete cookie\n  cookieStore.delete('name')\n}\n"", 'language': 'ts', 'filename': 'app/actions.ts', 'switcher': True}, {'code': ""'use server'\n\nimport { cookies } from 'next/headers'\n\nexport async function exampleAction() {\n  // Get cookie\n  const cookieStore = await cookies()\n\n  // Get cookie\n  cookieStore.get('name')?.value\n\n  // Set cookie\n  cookieStore.set('name', 'Delba')\n\n  // Delete cookie\n  cookieStore.delete('name')\n}\n"", 'language': 'js', 'filename': 'app/actions.js', 'switcher': True}]",,,,documentation,33,1325,"[34, 33, 38, 34, 10, 8, 44, 43, 55, 54, 41, 39, 55, 55, 28, 28, 30, 30, 87, 70, 54, 50, 33, 56, 56, 26, 26, 26, 26, 45, 44, 32, 35]"
+v15_1_3_03-server-actions-and-mutations_security,03-server-actions-and-mutations - Learn how to handle form submissions and data mutations with Next.js. - Security,"{'related': {'description': 'Learn how to configure Server Actions in Next.js', 'links': ['app/api-reference/config/next-config-js/serverActions']}}",v15.1.3,"By default, when a Server Action is created and exported, it creates a public HTTP endpoint
+and should be treated with the same security assumptions and authorization checks. This means, even if a Server Action or utility function is not imported elsewhere in your code, it’s still publicly accessible.
+To improve security, Next.js has the following built-in features:
+- Secure action IDs: Next.js creates encrypted, non-deterministic IDs to allow the client to reference and call the Server Action. These IDs are periodically recalculated between builds for enhanced security.
+- Dead code elimination: Unused Server Actions (referenced by their IDs) are removed from client bundle to avoid public access by third-party.
+> Good to know:
+> The IDs are created during compilation and are cached for a maximum of 14 days. They will be regenerated when a new build is initiated or when the build cache is invalidated.
+> This security improvement reduces the risk in cases where an authentication layer is missing. However, you should still treat Server Actions like public HTTP endpoints.
+```code_snippet_1```
+### Authentication and authorization
+You should ensure that the user is authorized to perform the action. For example:
+```code_snippet_2```
+### Closures and encryption
+Defining a Server Action inside a component creates a closure where the action has access to the outer function's scope. For example, the publish action has access to the publishVersion variable:
+```code_snippet_3```
+```code_snippet_4```
+Closures are useful when you need to capture a snapshot of data (e.g. publishVersion) at the time of rendering so that it can be used later when the action is invoked.
+However, for this to happen, the captured variables are sent to the client and back to the server when the action is invoked. To prevent sensitive data from being exposed to the client, Next.js automatically encrypts the closed-over variables. A new private key is generated for each action every time a Next.js application is built. This means actions can only be invoked for a specific build.
+> Good to know: We don't recommend relying on encryption alone to prevent sensitive values from being exposed on the client. Instead, you should use the React taint APIs to proactively prevent specific data from being sent to the client.
+### Overwriting encryption keys (advanced)
+When self-hosting your Next.js application across multiple servers, each server instance may end up with a different encryption key, leading to potential inconsistencies.
+To mitigate this, you can overwrite the encryption key using the process.env.NEXT_SERVER_ACTIONS_ENCRYPTION_KEY environment variable. Specifying this variable ensures that your encryption keys are persistent across builds, and all server instances use the same key.
+This is an advanced use case where consistent encryption behavior across multiple deployments is critical for your application. You should consider standard security practices such key rotation and signing.
+> Good to know: Next.js applications deployed to Vercel automatically handle this.
+### Allowed origins (advanced)
+Since Server Actions can be invoked in a <form> element, this opens them up to CSRF attacks.
+Behind the scenes, Server Actions use the POST method, and only this HTTP method is allowed to invoke them. This prevents most CSRF vulnerabilities in modern browsers, particularly with SameSite cookies being the default.
+As an additional protection, Server Actions in Next.js also compare the Origin header to the Host header (or X-Forwarded-Host). If these don't match, the request will be aborted. In other words, Server Actions can only be invoked on the same host as the page that hosts it.
+For large applications that use reverse proxies or multi-layered backend architectures (where the server API differs from the production domain), it's recommended to use the configuration option serverActions.allowedOrigins option to specify a list of safe origins. The option accepts an array of strings.
+```code_snippet_5```
+Learn more about Security and Server Actions.
+","[{'code': ""// app/actions.js\n'use server'\n\n// This action **is** used in our application, so Next.js\n// will create a secure ID to allow the client to reference\n// and call the Server Action.\nexport async function updateUserAction(formData) {}\n\n// This action **is not** used in our application, so Next.js\n// will automatically remove this code during `next build`\n// and will not create a public endpoint.\nexport async function deleteUserAction(formData) {}\n"", 'language': 'jsx', 'filename': None, 'switcher': False}, {'code': ""'use server'\n\nimport { auth } from './lib'\n\nexport function addItem() {\n  const { user } = auth()\n  if (!user) {\n    throw new Error('You must be signed in to perform this action')\n  }\n\n  // ...\n}\n"", 'language': 'tsx', 'filename': 'app/actions.ts', 'switcher': False}, {'code': 'export default async function Page() {\n  const publishVersion = await getLatestVersion();\n\n  async function publish() {\n    ""use server"";\n    if (publishVersion !== await getLatestVersion()) {\n      throw new Error(\'The version has changed since pressing publish\');\n    }\n    ...\n  }\n\n  return (\n    <form>\n      <button formAction={publish}>Publish</button>\n    </form>\n  );\n}\n', 'language': 'tsx', 'filename': 'app/page.tsx', 'switcher': True}, {'code': 'export default async function Page() {\n  const publishVersion = await getLatestVersion();\n\n  async function publish() {\n    ""use server"";\n    if (publishVersion !== await getLatestVersion()) {\n      throw new Error(\'The version has changed since pressing publish\');\n    }\n    ...\n  }\n\n  return (\n    <form>\n      <button formAction={publish}>Publish</button>\n    </form>\n  );\n}\n', 'language': 'jsx', 'filename': 'app/page.js', 'switcher': True}, {'code': ""/** @type {import('next').NextConfig} */\nmodule.exports = {\n  experimental: {\n    serverActions: {\n      allowedOrigins: ['my-proxy.com', '*.my-proxy.com'],\n    },\n  },\n}\n"", 'language': 'js', 'filename': 'next.config.js', 'switcher': False}]",,,,documentation,5,209,"[70, 36, 43, 43, 17]"
+v15_1_3_03-server-actions-and-mutations_additional resources,03-server-actions-and-mutations - Learn how to handle form submissions and data mutations with Next.js. - Additional resources,"{'related': {'description': 'Learn how to configure Server Actions in Next.js', 'links': ['app/api-reference/config/next-config-js/serverActions']}}",v15.1.3,"For more information, check out the following React docs:
+- Server Actions
+- ""use server""
+- <form>
+- useFormStatus
+- useActionState
+- useOptimistic
+",[],,,,documentation,0,0,[]

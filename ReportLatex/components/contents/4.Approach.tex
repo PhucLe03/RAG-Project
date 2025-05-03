@@ -167,27 +167,27 @@ In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, en
 
 \section{Why Ollama's LLMs}
 
-In designing a fully local RAG system, Ollama was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen, LLaMA, and Mistral makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with RAGGIN’s goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
+In designing a fully local RAG system, Ollama was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen, LLaMA, and Mistral makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with the goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
 
 \section{Why Docker?}
 
-Docker was chosen as the containerization solution for the RAGGIN system to ensure portability, consistency, and ease of deployment across various development environments. Our backend—comprising the retrieval service, embedding logic, and integration with the vector database—is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
+Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments. Our backend—comprising the retrieval service, embedding logic, and integration with the vector database—is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
 
 By using Docker, we abstract away the intricacies of installing and configuring backend tools such as the Milvus vector database and the application logic for hybrid retrieval. This not only simplifies onboarding for new users but also ensures that the system behaves consistently across machines, eliminating common "it works on my machine" problems. Additionally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of data, models, or configurations without altering the core codebase.
 
-Although the backend is not lightweight due to the nature of the services it includes, containerization allows the system to remain modular and maintainable. Users can deploy updates or scale specific services independently, without affecting the rest of the system. This separation of concerns aligns with modern software engineering best practices and makes RAGGIN easier to extend and maintain in the long term.
+Although the backend is not lightweight due to the nature of the services it includes, containerization allows the system to remain modular and maintainable. Users can deploy updates or scale specific services independently, without affecting the rest of the system. This separation of concerns aligns with modern software engineering best practices and makes the system easier to extend and maintain in the long term.
 
 \section{Why VS Code Extension?}
 
-Integrating RAGGIN as a Visual Studio Code extension allows the system to directly assist developers within their preferred coding environment. Rather than switching between tools or browsers, users can query documentation, generate code, and receive intelligent suggestions in real time—all without leaving their editor. This seamless integration improves developer productivity and provides contextual support exactly where it’s needed. VS Code's extensibility, wide adoption in the web development community, and built-in terminal and interface support make it an ideal platform for embedding a developer-focused RAG system.
+Integrating the RAG system into a Visual Studio Code extension provides seamless, in-editor support for developers within their preferred development environment. This integration enables users to query documentation, generate code, and receive intelligent suggestions in real time—without needing to switch between tools or leave the editor. By minimizing context-switching, it streamlines the development workflow and boosts productivity. Visual Studio Code’s extensibility, widespread usage in the web development community, and robust support for terminals and custom interfaces make it an ideal platform for embedding such a developer-focused RAG solution.
 
 \section{Main architecture}
 
-Our RAG system is designed to leverage external knowledge sources to enhance the performance and contextual understanding of LLMs. The architecture consists of the following main components:
+Our system, called RAGGIN (Retrieval-Augmented Generation for Guided Intelligence in Next.js), is designed to enhance the performance and contextual understanding of large language models by leveraging external knowledge sources. The system architecture is composed of the following key components:
 
 \begin{itemize} 
   \item \textbf{Vector database:} Stores the Next.js documentation in an optimized vector format to enable efficient semantic retrieval. 
-  \item \textbf{Retriever:} Accepts the user query sent from the VSCode extension and retrieves the most relevant documents from the vector database. 
+  \item \textbf{Retriever:} Accepts the user query sent from the VS Code extension and retrieves the most relevant documents from the vector database. 
   \item \textbf{Augmentation:} Combines the user query and retrieved documents to construct a context-rich prompt, including relevant context and additional questions, and forwards it to the generator. 
   \item \textbf{Generator:} Receives the augmented prompt and utilizes the local LLM to generate accurate and contextually relevant responses. 
 \end{itemize}
@@ -197,15 +197,15 @@ Our RAG system is designed to leverage external knowledge sources to enhance the
 	\centering
 	\includegraphics[scale=0.5]{Images/Implement/rag_pipeline.png}
 	\vspace{5mm}
-	\caption{Our RAG architecture design.}
-	\label{fig:RAG-architecture}
+	\caption{RAGGIN architecture design.}
+	\label{fig:RAGGIN-architecture}
 \end{figure}
 
 In this architecture, the input is the user's query, and the output is the corresponding response generated by the system. The response is constructed by utilizing the retrieved data and contextual knowledge extracted from the Next.js documentation, ensuring that it is both accurate and relevant to the user's query.
 
-\subsection*{How the RAG system solves the problems}
+\subsection*{How the RAGGIN system solves the problems}
 
-The proposed RAG system is designed to address the key issues outlined in the problem statement by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems:
+The proposed RAGGIN system is designed to address the key issues outlined in the problem statement by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems:
 
 \begin{enumerate}
   \item \textbf{Time-consuming searches}
@@ -245,8 +245,8 @@ The proposed RAG system is designed to address the key issues outlined in the pr
 
 \textbf{Solutions}:
 \begin{itemize}
-  \item The system is fully integrated into the VSCode environment, allowing developers to access it without leaving their coding workspace.
-  \item Queries can be sent directly from VSCode, and responses are displayed within the editor. This seamless integration ensures that developers remain focused on their work, minimizing interruptions and enhancing their overall efficiency.
+  \item The system is fully integrated into the VS Code environment, allowing developers to access it without leaving their coding workspace.
+  \item Queries can be sent directly from VS Code, and responses are displayed within the editor. This seamless integration ensures that developers remain focused on their work, minimizing interruptions and enhancing their overall efficiency.
 \end{itemize}
 
 \begin{enumerate}
@@ -343,7 +343,7 @@ Milvus is our chosen vector database for storing embedded data in the system. Th
 
 \begin{itemize}
     \item \textbf{Open source:} 
-    Milvus is an open-source database, perfectly aligning with our vision of delivering a free, open-source, distributed code assistance tool for VSCode. Its open nature encourages transparency and community contributions.
+    Milvus is an open-source database, perfectly aligning with our vision of delivering a free, open-source, distributed code assistance tool for VS Code. Its open nature encourages transparency and community contributions.
 
     \item \textbf{Support for structured and unstructured data:} 
     The nature of our dataset, comprising both structured metadata (e.g., documentation sections, categories) and unstructured content (e.g., textual descriptions, code snippets), makes Milvus an ideal choice. Structured data benefits from attribute-based filtering, allowing users to narrow their queries to specific documentation sections. Meanwhile, unstructured data, such as free-form text and code snippets, is embedded into high-dimensional vectors for similarity-based retrieval.
@@ -381,21 +381,21 @@ Milvus \cite{wang2021milvus}              & \checkmark                  & \check
     
 % \end{itemize}
 
-\subsection{VSCode integration}
-The interactive user interface is a crucial part of the system, designed to optimize the developer's experience while working. This component leverages the power of VSCode Extension to provide seamless integration between the development tool and the AI assistant.
+\subsection{VS Code integration}
+The interactive user interface is a crucial part of the system, designed to optimize the developer's experience while working. This component leverages the power of VS Code Extension to provide seamless integration between the development tool and the AI assistant.
 
-\textbf{Seamless experience in the programming environment:} Users can interact directly with the RAG system within their working environment using a VSCode Extension. This is convenient because:
+\textbf{Seamless experience in the programming environment:} Users can interact directly with the RAG system within their working environment using a VS Code Extension. This is convenient because:
     \begin{itemize}
         \item \textbf{No context switching}: By eliminating the need for users to alternate between the code editor and web browser, this feature reduces distractions and boosts efficiency.
 
-        \item \textbf{Direct integration into the project}: The RAG system can quickly access the source code being changed thanks to the VSCode plugin, offering solutions or recommendations without forcing users to copy and paste code into a different interface.
+        \item \textbf{Direct integration into the project}: The RAG system can quickly access the source code being changed thanks to the VS Code plugin, offering solutions or recommendations without forcing users to copy and paste code into a different interface.
     \end{itemize} 
-\textbf{Supportive in IDE environment:} The most often used IDE environment for web installers is Visual Studio Code, particularly when using more recent frameworks like Next.js. The RAG system's VSCode integration enables:
+\textbf{Supportive in IDE environment:} The most often used IDE environment for web installers is Visual Studio Code, particularly when using more recent frameworks like Next.js. The RAG system's VS Code integration enables:
     \begin{itemize}
         \item \textbf{Use code context}: From the Next.js structure folder (which includes pages, api, and app) to the file configuration (next.config.js,.env), the system may directly examine the project's coding\textbf{.
         \item Faster debugging and code optimization}: The system may access the coding link to offer more precise answers than the standard web interface information when users need to debug, test logic, or optimize coding.
     \end{itemize}
-\textbf{Security and privacy}: When working with source code, especially in sensitive projects, users are often concerned about security issues. A VSCode Extension:
+\textbf{Security and privacy}: When working with source code, especially in sensitive projects, users are often concerned about security issues. A VS Code Extension:
     \begin{itemize}
         \item \textbf{Local storage}: Allows the RAG system to operate locally on the user's machine (when using an internal RAG model such as LLaMA), avoiding the need to upload source code to an external server.
         \item \textbf{Limit information leakage}: With extensions, source code and sensitive data do not need to be transferred to a third browser or server, reducing the risk of information disclosure.
