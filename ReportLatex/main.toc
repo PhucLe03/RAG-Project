@@ -72,4 +72,4 @@
 \contentsline {chapter}{Bibliography}{54}{chapter*.52}%
 \contentsline {chapter}{Appendices}{58}{section*.53}%
 \contentsline {chapter}{\numberline {A}Interface of the RAGGIN extension}{59}{appendix.a.A}%
-\contentsline {chapter}{\numberline {B}Evaluation and test results}{60}{appendix.a.B}%
+\contentsline {chapter}{\numberline {B}Evaluation and test results}{63}{appendix.a.B}%
