@@ -10,7 +10,7 @@
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Related work and tool/BM25.png}
     \vspace{3mm}
-    \caption{BM25 visualization.}
+    \caption{BM25 visualization}
     \end{figure}
 
 \textbf{Dense retrieval methods}: Leveraging semantic embeddings, dense retrieval tools like SBERT \cite{reimers-2019-sentence-bert}'s semantic search and approximate techniques (e.g., HNSW \cite{malkov2018hnsw}, ANNOY \cite{bernhardsson_annoy}, and LSH \cite{jafari2021lsh}) provide scalable solutions for large knowledge bases. These approaches achieve significant speed improvements with minimal accuracy trade-offs \cite{he2024}.
@@ -19,7 +19,7 @@
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Related work and tool/LSH.png}
     \vspace{3mm}
-    \caption{LSH visualization.}
+    \caption{LSH visualization}
     \end{figure}
     
 \textbf{Selective retrieval}: Frameworks such as Repoformer \cite{wu2024} employ selective retrieval, determining the necessity of retrieval based on contextual evaluation. This approach reduces inefficiencies and avoid adding irrelevant context.
@@ -28,7 +28,7 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/Repoformer.png}
     \vspace{3mm}
-    \caption{REPOFORMER framework \cite{wu2024}.}
+    \caption{REPOFORMER framework \cite{wu2024}}
     \end{figure}
     
 \textbf{Multi-retrieval perspectives}: Systems like ProCC \cite{tan2024} utilize diverse perspectives, including lexical semantics, hypothetical line embeddings, and code summarization, to enrich context and improve code completion accuracy.
@@ -37,7 +37,7 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/ProCC.png}
     \vspace{3mm}
-    \caption{ProCC framework \cite{tan2024}.}
+    \caption{ProCC framework \cite{tan2024}}
     \end{figure}
     
     \textbf{Multilingual and multifunctional embeddings}:
@@ -47,7 +47,7 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/Characters of M3-Embedding.png}
     \vspace*{4mm}
-    \caption{Characters of M3-Embedding \cite{chen2024bge}.}
+    \caption{Characters of M3-Embedding \cite{chen2024bge}}
     \end{figure}
 
 \subsection{Generative enhancements}
@@ -57,7 +57,7 @@
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/llama2.png}
-    \caption{The Code Llama specialization pipeline \cite{roziere2023code}.}
+    \caption{The Code Llama specialization pipeline \cite{roziere2023code}}
     \end{figure}
     
 \textbf{In-context augmentation}: RAG pipelines integrate retrieved code snippets directly into prompts, enhancing generation without additional fine-tuning. This approach is particularly effective for repository-level code generation \cite{hostnik2024}.
@@ -66,7 +66,7 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/snippet additional metadata.png}
     \vspace{2mm}
-    \caption{The retrieved snippet contains continuation tokens and additional metadata \cite{hostnik2024}.}
+    \caption{The retrieved snippet contains continuation tokens and additional metadata \cite{hostnik2024}}
     \end{figure}
     
 \textbf{Specialized models for coding}: Models like Qwen2.5-Coder \cite{hui2024qwen2.5} and CodeQwen1.5-7B-Chat \cite{bai2023qwen} are fine-tuned for coding tasks, demonstrating improved performance in code generation and comprehension.
@@ -75,7 +75,7 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/The three-stage training pipeline for Qwen2.5-Coder.png}
     \vspace{2mm}
-    \caption{The three-stage training pipeline for Qwen2.5-Coder \cite{hostnik2024}.}
+    \caption{The three-stage training pipeline for Qwen2.5-Coder \cite{hostnik2024}}
     \end{figure}
 
 \subsection{Specialized Applications}
@@ -86,7 +86,7 @@
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Related work and tool/RepoCoder.png}
     \vspace{2mm}
-    \caption{Demonstrating the format of the RepoCoder prompt \cite{zhang2023repocoder}.}
+    \caption{Demonstrating the format of the RepoCoder prompt \cite{zhang2023repocoder}}
     \end{figure}
     
 \textbf{Commit message and assertion generation}: RAG systems generate commit messages and assertions by retrieving semantically aligned examples, balancing efficiency and effectiveness \cite{he2024}.
@@ -103,14 +103,14 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/stackoverflow-trends-chart.png}
     \vspace{1mm}
-    \caption{Stackoverflow trends chart 2008-2024.}
+    \caption{Stackoverflow trends chart 2008-2025}
     \end{figure}
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{Images/Related work and tool/NCS evaluation results.png}
     \vspace{3mm}
-    \caption{NCS evaluation results \cite{sachdev2018}.}
+    \caption{NCS evaluation results \cite{sachdev2018}}
     \end{figure}
     
 \textbf{Code completion and suggestion systems}: Intelligent tools like IntelliCode Compose \cite{svyatkovskiy2020} and example-based systems \cite{bruch2009} prioritize providing relevant suggestions for method calls, arguments, and entire lines of code. These systems are designed to enhance developer productivity by learning from existing codebases.
@@ -164,7 +164,7 @@
     & Web-based platform. \\ \hline
     
     \end{tabular}
-    \caption{Comparison of NCS, Sourcegraph, and Krugle.}
+    \caption{Comparison of NCS, Sourcegraph, and Krugle}
     \end{table}
 
 \textbf{IDE-embedded assistance}:
@@ -206,11 +206,11 @@
     & Basic model: free version with basic features; Dev version at \$9/month and Enterprise at \$39/user/month \\ \hline
     
     \end{tabular}
-    \caption{Comparison of IntelliCode Compose, GitHub Copilot, and Tabnine.}
+    \caption{Comparison of IntelliCode Compose, GitHub Copilot, and Tabnine}
     \end{table}
 
 \begin{figure}[H]
 \includegraphics[width=1.05\textwidth]{Images/Related work and tool/Code Snippet and Completion suggestion.png}
 \vspace{3mm}
-\caption{IntelliCode Compose's code snippet completion suggestion and completion-tree demonstration \cite{svyatkovskiy2020}.}
+\caption{IntelliCode Compose's code snippet completion suggestion and completion-tree demonstration \cite{svyatkovskiy2020}}
 \end{figure}

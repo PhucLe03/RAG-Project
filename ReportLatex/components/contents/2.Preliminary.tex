@@ -1,5 +1,5 @@
 \chapter{Preliminaries}
-The RAG process combines the capabilities of retrieval systems and generative AI to deliver precise and context-aware responses. It begins with query vectorization, where the user's input is transformed into a mathematical vector using models like Bidirectional Encoder Representations from Transformers (BERT) or sentence transformers. This vector is then used to search a pre-indexed vector database for semantically similar entries, retrieving the most relevant data. Once retrieved, the data undergoes preprocessing to ensure compatibility with the language model, such as summarizing or structuring it. The refined data is then integrated into the input context of a LLM, enabling it to generate responses that blend the retrieved information with its broader pre-trained knowledge. This structured pipeline ensures that the generated outputs are accurate, specific, and contextually grounded.
+The RAG process combines the capabilities of retrieval systems and generative AI to deliver precise and context-aware responses. It begins with query vectorization, where the user's input is transformed into a mathematical vector using models like Bidirectional Encoder Representations from Transformers (BERT) \cite{devlin2019bert} or sentence transformers. This vector is then used to search a pre-indexed vector database for semantically similar entries, retrieving the most relevant data. Once retrieved, the data undergoes preprocessing to ensure compatibility with the language model, such as summarizing or structuring it. The refined data is then integrated into the input context of a LLM, enabling it to generate responses that blend the retrieved information with its broader pre-trained knowledge. This structured pipeline ensures that the generated outputs are accurate, specific, and contextually grounded.
 
 \begin{figure}[H]
 \vspace{2pt}
@@ -82,7 +82,7 @@ The HNSW algorithm is built on the concept of organizing links based on their le
     \centering
     \includegraphics[width=0.4\textwidth]{Images/Preliminaries/hnsw.png}
     \vspace{5mm}
-    \caption{HNSW search algorithm visualization. The search starts from entry point from top layer (shown red), red arrows show direction of greedy algorithm to query point (shown yellow) \cite{malkov2018hnsw}.}
+    \caption{HNSW search algorithm visualization. The search starts from entry point from top layer (shown red), red arrows show direction of greedy algorithm to query point (shown yellow) \cite{malkov2018hnsw}}
     \end{figure}
 
 The HNSW algorithm begins with a network construction phase (Algorithm 1), where the graph structure is incrementally built through the consecutive insertion of stored elements. For each new element, a maximum layer $l$ is randomly determined using an exponentially decaying probability distribution. This hierarchical organization ensures that higher layers contain progressively fewer nodes, optimizing the search process by focusing on coarse-to-fine navigation.
@@ -270,7 +270,7 @@ where $pos$ is the position and $i$ is the dimension. That is, each dimension of
     % \captionsetup{width=\linewidth}
     \includegraphics[scale = 0.5]{Images/Preliminaries/transformers/scale-dot-attention.png}
     \vspace{5mm}
-    \caption{Scaled dot-product attention \cite{vaswani2017}.}
+    \caption{Scaled dot-product attention \cite{vaswani2017}}
     \label{fig:scale-dot-attention}
 \end{figure*}
 
@@ -288,7 +288,7 @@ where $pos$ is the position and $i$ is the dimension. That is, each dimension of
     % \captionsetup{width=\linewidth}
     \includegraphics[scale = 0.4]{Images/Preliminaries/transformers/multi-head-attention.png}
     \vspace{5mm}
-    \caption{Multi-Head Attention (consists of several attention layers running in parallel) \cite{vaswani2017}.}
+    \caption{Multi-Head Attention (consists of several attention layers running in parallel) \cite{vaswani2017}}
     \label{fig:multi-head-attention}
 \end{figure}
 \end{itemize}
@@ -365,7 +365,7 @@ Two practical design choices in RALM systems significantly impact performance:
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Preliminaries/Inference stage.png}
     \vspace{5mm}
-    \caption{Augmentation during the inference stage. Relevant documents are retrieved and prepended to the input for improved factual grounding.}
+    \caption{Augmentation during the inference stage. Relevant documents are retrieved and prepended to the input for improved factual grounding}
 \end{figure}
 
 \subsection{Augmentation source: Structured data}
@@ -376,7 +376,7 @@ Structured data, such as knowledge bases (KBs), offers a rich source for augment
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Preliminaries/Augmentation with structured data.png}
     \vspace{3mm}
-    \caption{Workflow of augmentation with structured data sources \cite{wang2023knowledgpt}.} 
+    \caption{Workflow of augmentation with structured data sources \cite{wang2023knowledgpt}} 
 \end{figure}
 
 To enable effective interaction with structured data, KnowledGPT employs several key functions:
@@ -447,7 +447,7 @@ Reflection tokens are special tokens used by SELF-RAG to evaluate and guide the 
  IsUSE & $x, y$ & \{5, 4, 3, 2, 1\} & $y$ is useful response to $x$ \\ [1ex] 
  \hline
 \end{tabular}
-\caption{Reflection tokens \cite{asai2023selfrag}.}
+\caption{Reflection tokens \cite{asai2023selfrag}}
 % '''''
 \end{table}
 

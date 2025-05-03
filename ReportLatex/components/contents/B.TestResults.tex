@@ -1,10 +1,42 @@
 \chapter{Evaluation and test results}
 
+\begin{table}[h!]
+	\centering
+	
+	\begin{tabular}{p{0.5cm}p{2.5cm}p{2cm}p{4cm}p{4cm}}
+		\hline
+		\textbf{K} & \textbf{Precision@K} & \textbf{Recall@K} & \textbf{Retriever Latency (s)} & \textbf{Generator Latency (s)} \\
+		\hline
+		1 & 0.27 & 0.05 & 1.18 & 0.64 \\
+		3 & 0.44 & 0.36 & 1.17 & 5.74 \\
+		5 & 0.57 & 0.81 & 1.21 & 5.44 \\
+		7 & 0.37 & 0.74 & 1.18 & 6.00 \\
+		\hline
+	\end{tabular}
+	\caption{Evaluation results with simple queries}\label{tab:ret_simple}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	
+	\begin{tabular}{p{0.5cm}p{2.5cm}p{2cm}p{4cm}p{4cm}}
+		\hline
+		\textbf{K} & \textbf{Precision@K} & \textbf{Recall@K} & \textbf{Retriever Latency (s)} & \textbf{Generator Latency (s)} \\
+		\hline
+		1 & 0.07 & 0.02 & 3.40 & 10.82 \\
+		3 & 0.24 & 0.12 & 3.48 & 11.46 \\
+		5 & 0.29 & 0.24 & 3.49 & 12.13 \\
+		7 & 0.21 & 0.24 & 3.49 & 11.77 \\
+		\hline
+	\end{tabular}
+	\caption{Evaluation results with complex queries}\label{tab:ret_complex}
+\end{table}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{Images/Evaluations/rouge_1.png}
 	\vspace{5mm}
-	\caption{ROUGE-1 Scores by LLMs.}
+	\caption{ROUGE-1 Scores by LLMs}
 	\label{fig:rouge_1}
 \end{figure}
 
@@ -12,7 +44,7 @@
 	\centering
 	\includegraphics[width=\textwidth]{Images/Evaluations/rouge_2.png}
 	\vspace{5mm}
-	\caption{ROUGE-2 Scores by LLMs.}
+	\caption{ROUGE-2 Scores by LLMs}
 	\label{fig:rouge_2}
 \end{figure}
 
@@ -20,7 +52,7 @@
 	\centering
 	\includegraphics[width=\textwidth]{Images/Evaluations/rouge_3.png}
 	\vspace{5mm}
-	\caption{ROUGE-3 Scores by LLMs.}
+	\caption{ROUGE-3 Scores by LLMs}
 	\label{fig:rouge_3}
 \end{figure}
 
@@ -28,7 +60,7 @@
 	\centering
 	\includegraphics[width=\textwidth]{Images/Evaluations/rouge_L.png}
 	\vspace{5mm}
-	\caption{ROUGE-L Scores by LLMs.}
+	\caption{ROUGE-L Scores by LLMs}
 	\label{fig:rouge_L}
 \end{figure}
 
@@ -36,7 +68,7 @@
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Evaluations/llm_eval_small.png}
 	\vspace{5mm}
-	\caption{Relevance Scores by some LLMs.}
+	\caption{Relevance Scores by some LLMs}
 	\label{fig:llm_eval_small}
 \end{figure}
 
@@ -44,6 +76,6 @@
 	\centering
 	\includegraphics[width=0.9\textwidth]{Images/Evaluations/llm_eval_bigger.png}
 	\vspace{5mm}
-	\caption{Relevance Scores by larger LLMs.}
+	\caption{Relevance Scores by larger LLMs}
 	\label{fig:llm_eval_bigger}
 \end{figure}
