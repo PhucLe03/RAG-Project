@@ -111,8 +111,36 @@ To evaluate the performance of both the retriever and the generator, we employ a
 
 \section{Evaluation summary}
 
-\section{Testing}
+\section{RAGGIN extension testing}
+RAGGIN is designed as a lightweight AI-assistance extension tailored specifically for Next.js developers. With a package size of less than 2.5MB, it ensures a fast installation process and minimal overhead on the VSCode environment. The extension offloads computation to backend services such as Dockerized RAG engines or Ollama models, maintaining low CPU and memory usage during operation.
 
-\subsection{Unit testing} Validate individual functions and components of the extension.
+Performance varies depending on hardware configuration and the size of the selected model. On a system equipped with an Intel Core i7 Gen 11 and integrated Intel Iris Xe graphics, RAGGIN demonstrated an average total response time of approximately 140 seconds over 10 tests. In contrast, a higher-end setup using a Core i5 Gen 13 CPU paired with an RTX 3060 GPU completed the same 10 tests in around 40 seconds—indicating a significant performance gain from GPU acceleration and newer architecture.
 
-\subsection{Integration testing} Ensure proper interaction between extension components and the VSCode environment.
+Additionally, when context files are uploaded and included in the prompt, processing time tends to increase due to the added complexity in retrieval and grounding operations. Therefore, users can expect faster and more efficient interactions when operating on modern hardware with optimal model configurations.
+
+For the VS Code extension component, we will test RAGGIN's operability through \textbf{scenario testing}.
+
+\begin{table}[H]
+	\centering
+	\label{tab:rag_extension_test_scenarios}
+	\begin{tabular}{p{1cm}p{3cm}p{4cm}p{4cm}p{1.5cm}}
+		\hline
+		\textbf{ID} & \textbf{Component} & \textbf{Test Scenarios} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+		%\textbf{Header components} & & & & \hline
+		Test01 & Ollama model choosing component & Click "select model" button on chat page's header & A list of models (e.g: Llama3.2, deepseek-r1,..) returned. & Pass \\ \hline
+		Test02 & Next.js version choosing component & Click "select version" button on chat page's header & A list of Next.js version downloaded and version available returned. & Pass \\ \hline
+		Test03 &  Ollama model \& Next.js version choosing component & Choosing the Ollama model or a Next.js version without starting the RAGGIN Docker container or Ollama service & A VS Code notification should appear informing the user that the backend services are not running & Pass \\ \hline
+		Test04 & Chat input form & Check if the send button is enabled only after selecting model, version, and input prompt & Send button appears only when all required fields are filled, and functions correctly on click & Pass \\ \hline
+		Test05 & File upload & Upload any file through context file input & File uploaded name is displayed upper the chat input area and selectable as chat context & Pass \\ \hline
+		Test06 & Chat generation & Enter a prompt and click send & Message is rendered in the chat window and model returns a valid response & Pass \\ \hline
+		Test07 & File Context Integration & Send a prompt with a selected file context & Response content reflects data from the uploaded file & Pass \\ \hline
+		Test08 & Next.js version setting & Change version in advanced settings page and submit prompt & Response differs appropriately between selected versions (e.g., v13 vs v15) & Pass \\ \hline
+		Test09 & Parameter tuning & Modify temperature or top-k parameters before submitting prompt & Model response behavior changes based on parameter values & Pass \\ \hline
+		Test10 & Chat History – Save & Send multiple prompts in a session & All prompts are stored and shown in correct order under History tab & Pass \\ \hline
+		Test11 & Chat history – Rename & Rename an existing chat from the history panel & Title is updated and persists across sessions & Pass \\ \hline
+		Test12 & Chat history – Delete & Delete a chat from history list & Chat is removed permanently and does not reappear after reload & Pass \\ \hline
+		Test13 & Chat history - Delete all chats & Press "delete all chats" button & All chats are removed permanently and does not reappear after reload & Pass \\ \hline
+		Test13 & Global state save & Reload the extension after using it & Previously saved sessions are restored correctly from global/local state & Pass \\ \hline
+	\end{tabular}
+	\caption{Scenario-Based Manual Testing for RAGGIN VS Code Extension}
+\end{table}
