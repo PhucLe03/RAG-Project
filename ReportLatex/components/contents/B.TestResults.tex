@@ -9,7 +9,7 @@
 		\hline
 		1 & 0.27 & 0.05 & 1.18 \\
 		3 & 0.44 & 0.36 & 1.17 \\
-		5 & 0.57 & 0.81 & 1.21 \\
+		5 & \textbf{0.57} & \textbf{0.81} & 1.21 \\
 		7 & 0.37 & 0.74 & 1.18 \\
 		\hline
 	\end{tabular}
@@ -25,8 +25,8 @@
 		\hline
 		1 & 0.07 & 0.02 & 3.40 \\
 		3 & 0.24 & 0.12 & 3.48 \\
-		5 & 0.29 & 0.24 & 3.49 \\
-		7 & 0.21 & 0.24 & 3.49 \\
+		5 & \textbf{0.29} & \textbf{0.24} & 3.49 \\
+		7 & 0.21 & \textbf{0.24} & 3.49 \\
 		\hline
 	\end{tabular}
 	\caption{Retriever evaluation results for complex queries with default parameters}\label{tab:ret_complex}
@@ -79,3 +79,31 @@
 	\caption{Relevance Scores by larger LLMs}
 	\label{fig:llm_eval_bigger}
 \end{figure}
+
+\begin{table}[h!]
+	\hspace{4cm}
+	\begin{tabular}{p{3.5cm}p{6cm}p{6.2cm}}
+		\hline
+		\textbf{Model name} & \textbf{Avg. latency for simple queries (s)} & \textbf{Avg. latency for complex queries (s)} \\
+		\hline 
+		CodeGemma-2B & 3.02 & 19.16 \\
+		CodeLLaMA-7B & 12.35 & 20.69 \\
+		CodeStral-22B & 87.98 & 147.65 \\
+		DeepSeek-R1-1.5B & 6.55 & 14.00 \\
+		Mistral-7B & 9.01 & 22.35 \\
+		MistralLite-7B & 10.42 & 20.42 \\
+		LLaMA3.2-3B & 6.26 & 14.01 \\
+		LLaMA2-13B & 37.72 & 72.19 \\
+		Gemma2-2B & 9.62 & 14.29 \\
+		Qwen-1.8B & 6.06 & 5.00 \\
+		Qwen-4B & 2.62 & 5.06 \\
+		Qwen2.5-0.5B & 3.52 & 5.66 \\
+		Qwen2.5-1.5B & 4.53 & 9.64 \\
+		Qwen2.5-14B & 29.48 & 46.14 \\
+		Qwen2.5-3B & 9.55 & 15.17 \\
+		Qwen2.5-Coder-1.5B & 4.16 & 7.60 \\
+		\hline
+	\end{tabular}
+	\centering
+	\caption{Generator latency evaluation result}\label{tab:gen_lat}
+\end{table}
