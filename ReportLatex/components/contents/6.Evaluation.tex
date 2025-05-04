@@ -115,11 +115,11 @@ The generator ROUGE scores across various models are illustrated in Figure~\ref{
 	\item Smaller models like \textbf{Qwen-1.8B} \cite{bai2023qwen} and \textbf{CodeGemma-2B} \cite{codegemma} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
 \end{itemize}
 
-Overall, generation latency remained within practical limits—averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries—though these values varied depending on the size and architecture of the underlying language model.
+Overall, generation latency remained within practical limits-averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries-though these values varied depending on the size and architecture of the underlying language model.
 
 \section{Testing}
 
-Performance varies depending on hardware configuration and the size of the selected model. However, during real-world usage, there are instances where the model responds with "I don't know" or fails to generate a meaningful answer—particularly when a smaller LLM is selected. In such cases, switching to a larger, more capable model (e.g., \texttt{deepseek-r1:8b} \cite{deepseek_r1}) often leads to significantly more accurate and context-aware responses. This highlights the importance of model selection based on the complexity of the task, as well as the value of scalable performance in RAG systems.
+Performance varies depending on hardware configuration and the size of the selected model. However, during real-world usage, there are instances where the model responds with "I don't know" or fails to generate a meaningful answer-particularly when a smaller LLM is selected. In such cases, switching to a larger, more capable model (e.g., \texttt{deepseek-r1:8b} \cite{deepseek_r1}) often leads to significantly more accurate and context-aware responses. This highlights the importance of model selection based on the complexity of the task, as well as the value of scalable performance in RAG systems.
 
 Moreover, for the VS Code extension component, we will test RAGGIN's operability through scenario testing.
 
