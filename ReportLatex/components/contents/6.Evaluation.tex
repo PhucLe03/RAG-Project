@@ -1,119 +1,104 @@
-\chapter{Evaluation}
-
-\section{Evaluation metrics}
-
-	\subsection{Retriever Metrics}
-	
-	\textbf{Recall@K:}  
-	Recall@K quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
-	\[
-	\text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Relevant documents}|}
-	\]
-	Where:
-	\begin{itemize}
-		\item $|\text{Relevant documents}|$ denotes the total number of documents relevant to the query.
-		\item $|\text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents}|$ is the count of relevant documents found in the top $K$ results.
-	\end{itemize}
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: A query returns the top \( K = 5 \) documents. Among them, \( 3 \) are relevant, while the total number of relevant documents is \( 4 \).
-		\item Calculation:
-		\begin{equation*}
-			\text{Recall@5} = \frac{3}{4} = 0.75 \quad (75\%)
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Precision@K:}  
-	Precision@K measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
-	\[
-	\text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Top-}K \text{ retrieved documents}|}
-	\]
-	Where:
-	\begin{itemize}
-		\item $|\text{Top-}K \text{ retrieved documents}|$ is the number of documents retrieved within the top $K$ results.
-	\end{itemize}
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: A query retrieves the top \( K = 5 \) documents, with \( 3 \) being relevant. The total number of relevant documents is \( 4 \).
-		\item Calculation:
-		\begin{equation*}
-			\text{Precision@5} = \frac{3}{5} = 0.6 \quad (60\%)
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Latency:}  
-	Latency represents the response time taken to complete a retrieval operation.
-	\[
-	\text{Latency (ms)} = \text{Time}_{\text{returned}} - \text{Time}_{\text{submitted}}
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: The query is submitted at 11:00:00.000 and the result is received at 11:00:00.340.
-		\item Calculation:
-		\begin{equation*}
-			\text{Latency} = 340\,\text{ms} - 0\,\text{ms} = 340\,\text{ms}
-		\end{equation*}
-	\end{itemize}
-	
-	\subsection{Generator Metrics}
-	
-	\textbf{ROUGE Score:}  
-	ROUGE evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
-	\[
-	\text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: A reference document has 10 bigrams, and the generated output contains 8 matching bigrams.
-		\item Calculation:
-		\begin{equation*}
-			\text{ROUGE-2} = \frac{8}{10} = 0.8
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Relevance:}  
-	Relevance measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
-	\[
-	\text{Relevance} = \frac{1}{N} \sum_{i=1}^{N} \text{RelevanceScore}_i
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: Five queries yield relevance scores of \( 0.9, 0.8, 0.7, 1.0, \text{and } 0.6 \).
-		\item Calculation:
-		\begin{equation*}
-			\text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Latency:}  
-	Latency in the generation phase denotes the time elapsed between the completion of retrieval and the generation of the final output.
-	\[
-	\text{Latency (ms)} = \text{Time}_{\text{generated}} - \text{Time}_{\text{retrieved}}
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: The output is generated at 12:00:00.210 after retrieval completes at 12:00:00.000.
-		\item Calculation:
-		\begin{equation*}
-			\text{Latency} = 210\,\text{ms} - 0\,\text{ms} = 210\,\text{ms}
-		\end{equation*}
-	\end{itemize}
-
+\chapter{Evaluation and testing}
 
 \section{Evaluation methodology}
 
 To evaluate the performance of both the retriever and the generator, we employ a curated dataset containing queries with predefined relevant documents. The evaluation covers two types:
 
 \begin{itemize} 
-	\item \textbf{Simple queries:} Direct questions that require retrieving clearly defined information from the documentation. 
-	\item \textbf{Complex queries:} Queries involving multiple components, conditions, or requiring deeper semantic understanding.
+	\item \textbf{Simple queries.} Direct questions that require retrieving clearly defined information from the documentation. 
+	\item \textbf{Complex queries.} Queries involving multiple components, conditions, or requiring deeper semantic understanding.
 \end{itemize}
+
+The evaluation was conducted using the default parameters for both the retriever and generator components, with the system targeting Next.js version 15.3.1. All experiments were performed on a machine equipped with an Intel Core i5-12400F processor and an NVIDIA RTX 3060 GPU with 12GB of VRAM.
+
+\section{Evaluation metrics}
+
+	\subsection{Retriever metrics}
+	\noindent\textbf{Recall@K.}  
+	Recall@K quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
+	\[
+	\text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Relevant documents}|}
+	\]
+	
+	Where:
+	\begin{itemize}
+		\item $|\text{Relevant documents}|$ denotes the total number of documents relevant to the query.
+		\item $|\text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents}|$ is the count of relevant documents found in the top $K$ results.
+	\end{itemize}
+	
+	\textbf{Example.} A query returns the top \( K = 5 \) documents. Among them, \( 3 \) are relevant, while the total number of relevant documents is \( 4 \).
+	\begin{equation*}
+		\text{Recall@5} = \frac{3}{4} = 0.75 \quad (75\%)
+	\end{equation*}
+	
+	\noindent\textbf{Precision@K.}  
+	Precision@K measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
+	\[
+	\text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Top-}K \text{ retrieved documents}|}
+	\]
+	
+	Where:
+	\begin{itemize}
+		\item $|\text{Top-}K \text{ retrieved documents}|$ is the number of documents retrieved within the top $K$ results.
+	\end{itemize}
+	
+	\textbf{Example.} A query retrieves the top \( K = 5 \) documents, with \( 3 \) being relevant. The total number of relevant documents is \( 4 \).
+	\begin{equation*}
+		\text{Precision@5} = \frac{3}{5} = 0.6 \quad (60\%)
+	\end{equation*}
+	
+	\noindent\textbf{Latency.}  
+	Latency represents the response time taken to complete a retrieval operation.
+	\[
+	\text{Latency (ms)} = \text{Time}_{\text{returned}} - \text{Time}_{\text{submitted}}
+	\]
+	
+	\textbf{Example.} The query is submitted at 11:00:00.000 and the result is received at 11:00:00.340.
+	\begin{equation*}
+		\text{Latency} = 340\,\text{ms} - 0\,\text{ms} = 340\,\text{ms}
+	\end{equation*}
+	
+	\subsection{Generator metrics}
+	
+	\noindent\textbf{ROUGE Score.}  
+	ROUGE evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
+	\[
+	\text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
+	\]
+	
+	\textbf{Example.} A reference document has 10 bigrams, and the generated output contains 8 matching bigrams.
+	\begin{equation*}
+		\text{ROUGE-2} = \frac{8}{10} = 0.8
+	\end{equation*}
+	
+	\noindent\textbf{Relevance.}  
+	Relevance measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
+	\[
+	\text{Relevance} = \frac{1}{N} \sum_{i=1}^{N} \text{RelevanceScore}_i
+	\]
+	
+	\textbf{Example.} Five queries yield relevance scores of \( 0.9, 0.8, 0.7, 1.0, \text{and } 0.6 \).
+	\begin{equation*}
+		\text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
+	\end{equation*}
+	
+	\noindent\textbf{Latency.}  
+	Latency in the generation phase denotes the time elapsed between the completion of retrieval and the generation of the final output.
+	\[
+	\text{Latency (ms)} = \text{Time}_{\text{generated}} - \text{Time}_{\text{retrieved}}
+	\]
+	
+	\textbf{Example.} The output is generated at 12:00:00.210 after retrieval completes at 12:00:00.000.
+	\begin{equation*}
+		\text{Latency} = 210\,\text{ms} - 0\,\text{ms} = 210\,\text{ms}
+	\end{equation*}
+
 
 \section{Evaluation summary}
 
 \subsection{Retriever Performance}
 
-Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance and generator latency for simple and complex queries, respectively.
+Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance for simple and complex queries, respectively.
 
 Results show that the retriever achieved high \text{Recall@K} in simple queries, with a peak of \textbf{0.81} at \( K = 5 \), demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \text{Recall@K} dropping to \textbf{0.24} at \( K = 5 \). \text{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
 
