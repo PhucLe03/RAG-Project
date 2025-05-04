@@ -45,19 +45,19 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
         \hline
         \textbf{Aspect} & \textbf{Fine-tuning} & \textbf{RAG} \\
         \hline
-        Dynamic vs. Static & Static: Relies on pre-trained knowledge, requiring retraining to update information. & Dynamic: Accesses up-to-date external data sources, providing current information without retraining. \\
+        Dynamic vs. Static & Static. Relies on pre-trained knowledge, requiring retraining to update information. & Dynamic. Accesses up-to-date external data sources, providing current information without retraining. \\
         \hline
         Architecture & Utilizes a pre-trained LLM adjusted with task-specific datasets. & Combines LLM with external knowledge bases, enabling retrieval and generation. \\
         \hline
         Customization & High customization in domain-specific knowledge, tone, and style. & Limited customization to domain behavior but excels in integrating external content. \\
         \hline
-        Hallucinations & Reduces hallucinations through domain-specific training but may hallucinate with unknown queries. & Minimizes hallucinations by grounding responses in retrieved documents. \\
+        Hallucinations & Reduces hallucinations through domain-specific training. & Minimizes hallucinations by grounding responses in retrieved documents. \\
         \hline
         Accuracy & High accuracy in specific, trained domains but limited outside the training scope. & Highly accurate for retrieving up-to-date, domain-relevant information. \\
         \hline
         Transparency & Functions as a "black box" with limited insight into response reasoning. & Transparent response generation with traceable data sources. \\
         \hline
-        Cost & Higher cost due to significant computational resources, labeled data requirements, and periodic retraining for updates. & Lower cost as it eliminates the need for retraining and requires minimal or no labeled data by leveraging external knowledge bases. \\
+        Cost & Higher cost due to significant computational resources, and periodic retraining for updates. & Lower cost as it eliminates the need for retraining by leveraging external knowledge bases. \\
         \hline
         Complexity & More complex due to the need for expertise in NLP, deep learning, and hyperparameter tuning. & Simpler to set up with minimal coding for retrieval integration. \\
         \hline
@@ -80,9 +80,124 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
 
 \subsection{Rationale for choosing RAG}
 
-\textbf{Minimize hallucinations:} RAG provides real-time access to the latest documentation and programming guidelines, ensuring that code suggestions are current and precise without the need for extensive retraining.
+\paragraph*{Minimize hallucinations with minimal cost.} RAG provides real-time access to the latest documentation and programming guidelines, ensuring that code suggestions are current and precise without the need for extensive retraining.
 
-\textbf{Transparency:} By grounding responses in specific, retrievable documents, RAG offers clear traceability of information sources. This transparency fosters trust in the generated outputs, as developers can verify the origins of the suggestions provided.
+\paragraph*{Transparency.} By grounding responses in specific, retrievable documents, RAG offers clear traceability of information sources. This transparency fosters trust in the generated outputs, as developers can verify the origins of the suggestions provided.
+
+\section{Main architecture}
+
+Our system, called RAGGIN (Retrieval-Augmented Generation for Guided Intelligence in Next.js) is composed of the following key components:
+
+\begin{itemize} 
+	\item \textbf{Vector database.} Stores the Next.js documentation in an optimized vector format to enable efficient semantic retrieval. 
+	\item \textbf{Retriever.} Accepts the user query sent from the VS Code extension and retrieves the most relevant documents from the vector database. 
+	\item \textbf{Augmentation.} Combines the user query and retrieved documents to construct a context-rich prompt, including relevant context and additional questions, and forwards it to the generator. 
+	\item \textbf{Generator.} Receives the augmented prompt and utilizes the local LLM to generate accurate and contextually relevant responses. 
+\end{itemize}
+
+\begin{figure}[H]
+	\vspace{2pt}
+	\centering
+	\includegraphics[scale=0.5]{Images/Implement/rag_pipeline.png}
+	\vspace{5mm}
+	\caption{RAGGIN architecture design}
+	\label{fig:RAGGIN-architecture}
+\end{figure}
+
+The proposed RAGGIN system is designed to address the key issues outlined in Section \ref{problem_statement} by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems:
+
+\begin{enumerate}
+	\item \textbf{Time-consuming searches}
+\end{enumerate}
+
+\textbf{Problem}: Developers spend excessive time manually searching through forums like StackOverflow or through vast and scattered Next.js documentation to find specific information.
+\vspace{2mm}
+
+\textbf{Solutions}:
+\begin{itemize}
+	\item The retriever component of the system uses a vector database to store Next.js documentation in a semantically indexed format.
+	\item When a user submits a query, the retriever efficiently retrieves the most relevant documents based on semantic similarity
+	\item By narrowing down the search scope and returning only the most contextually relevant sections, the system reduces the time spent on manual searches and ensures higher accuracy in retrieval.
+\end{itemize}
+
+\begin{enumerate}
+	\setcounter{enumi}{1}
+	\item \textbf{Lack of context-aware assistance}
+\end{enumerate}
+
+\textbf{Problem}: Retrieved information often lacks sufficient context, leaving developers to manually piece together fragmented answers.
+\vspace{2mm}
+
+\textbf{Solutions}:
+\begin{itemize}
+	\item The augmentation component combines the retrieved documents with the user's query to construct a prompt enriched with relevant context.
+	\item The generator uses the augmented prompt to produce coherent, actionable, and contextually accurate responses. This eliminates the need for developers to manually correlate information from multiple sources.
+\end{itemize}
+
+\begin{enumerate}
+	\setcounter{enumi}{2}
+	\item \textbf{Workflow disruption}
+\end{enumerate}
+
+\textbf{Problems}: Switching between the code editor and external documentation disrupts the developer's workflow, reducing productivity.
+\vspace{2mm}
+
+\textbf{Solutions}:
+\begin{itemize}
+	\item The system is fully integrated into the VS Code environment, allowing developers to access it without leaving their coding workspace.
+	\item Queries can be sent directly from VS Code, and responses are displayed within the editor. This seamless integration ensures that developers remain focused on their work, minimizing interruptions and enhancing their overall efficiency.
+\end{itemize}
+
+\begin{enumerate}
+	\setcounter{enumi}{3}
+	\item \textbf{Inconsistent support from existing tools}
+\end{enumerate}
+
+\textbf{Problem}: Traditional tools like keyword-based search engines fail to handle nuanced queries or provide tailored, actionable solutions.
+\vspace{2mm}
+
+\textbf{Solutions}:
+\begin{itemize}
+	\item The system leverages advanced semantic retrieval techniques through the vector database to locate relevant content based on the meaning of the query rather than just matching keywords.
+	\item The local LLM and vector database ensure an uninterrupted workflow, even in the event of an internet outage.
+\end{itemize}
+
+\section{Why Milvus?}
+
+Milvus is our chosen vector database for storing embedded data in the system. This decision is based on several compelling reasons:
+
+\begin{itemize}
+	\item \textbf{Open source:} 
+	Milvus is an open-source database, perfectly aligning with our vision of delivering a free, open-source, distributed code assistance tool for VS Code. Its open nature encourages transparency and community contributions.
+	
+	\item \textbf{Support for structured and unstructured data:} 
+	The nature of our dataset, comprising both structured metadata (e.g., documentation sections, categories) and unstructured content (e.g., textual descriptions, code snippets), makes Milvus an ideal choice. Structured data benefits from attribute-based filtering, allowing users to narrow their queries to specific documentation sections. Meanwhile, unstructured data, such as free-form text and code snippets, is embedded into high-dimensional vectors for similarity-based retrieval.
+	
+	\item \textbf{Comprehensive SDK and model support:} 
+	Milvus's SDK seamlessly integrates with our chosen embedding model, BGE-M3, for generating high-quality embeddings. It also supports the HNSW algorithm for efficient indexing of unstructured data. This compatibility with our preferred methods ensures smooth implementation and reliable performance.
+	
+	\item \textbf{Scalability:} 
+	Milvus employs LSM-based storage to minimize disk I/O and ensure efficient handling of frequent updates. This scalability is critical for managing dynamic and evolving datasets, such as continuously updated framework documentation.
+	
+	\item \textbf{Performance:} 
+	Since our system is designed to run entirely on the user's local machine, Milvus's ability to leverage both CPU and GPU resources significantly enhances performance. This ensures that computationally intensive tasks, such as vector similarity searches and indexing, are executed efficiently, maintaining a responsive user experience.
+\end{itemize}
+
+\begin{table}[H]
+	\begin{tabular}{lp{1.5cm}p{1.5cm}p{1cm}p{1.6cm}p{1.5cm}p{2cm}}
+		\hline
+		\textbf{System}                   & \textbf{Billion-Scale Data} & \textbf{Dynamic Data} & \textbf{GPU} & \textbf{Attribute Filtering} & \textbf{Multi-Vector Query} & \textbf{Distributed System} \\ \hline
+		Facebook Faiss \cite{douze2024faiss, johnson2017similarity}      & \checkmark                  & \xmark                & \checkmark  & \xmark                     & \xmark                      & \xmark                     \\ \hline
+		Microsoft SPTAG \cite{ChenW18}     & \checkmark                  & \xmark                & \checkmark  & \xmark                     & \xmark                      & \checkmark                 \\ \hline
+		ElasticSearch \cite{elasticsearch} & \xmark                      & \checkmark            & \xmark      & \checkmark                 & \xmark                      & \checkmark                 \\ \hline
+		Jingdong Vearch \cite{li2019visualsearch, li2019design}    & \checkmark                  & \checkmark            & \checkmark  & \checkmark                 & \xmark                      & \checkmark                 \\ \hline
+		Alibaba AnalyticDB-V \cite{wei2020analyticdbv} & \checkmark              & \checkmark            & \xmark      & \xmark                     & \xmark                      & \checkmark                 \\ \hline
+		Alibaba PASE (PostgreSQL) \cite{pase2020} & \xmark                  & \checkmark            & \xmark      & \checkmark                 & \xmark                      & \checkmark                 \\ \hline
+		\rowcolor[HTML]{D3D3D3} 
+		Milvus \cite{wang2021milvus}              & \checkmark                  & \checkmark            & \checkmark  & \checkmark                 & \checkmark                  & \checkmark                 \\ \hline
+	\end{tabular}
+	\caption{Vector database comparison}
+\end{table}
 
 \section{Why BGE-M3?}
 
@@ -101,7 +216,7 @@ In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, en
 		BM25 \cite{bm25}                         & 31.9               \\
 		E5\textsubscript{mistral-7b} \cite{wang2024e5_improve} & 63.4               \\
 		OpenAI-3                     & 54.9               \\ \hline
-		\multicolumn{2}{l}{\textbf{M3-Embedding}} \cite{chen2024bge} \\ \hline
+		\multicolumn{2}{l}{\textbf{M3-Embedding \cite{chen2024bge}}}  \\ \hline
 		Dense                        & 69.2               \\
 		Sparse                       & 53.9               \\
 		Multi-vector                 & 70.5               \\
@@ -171,97 +286,24 @@ In designing a fully local RAG system, Ollama\footnote{Ollama - \url{https://oll
 
 \section{Why Docker?}
 
-Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments. Our backend—comprising the retrieval service, embedding logic, and integration with the vector database—is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
+Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments. Our backend comprising the retrieval service, embedding logic, and integration with the vector database is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
 
 By using Docker, we abstract away the intricacies of installing and configuring backend tools such as the Milvus vector database and the application logic for hybrid retrieval. This not only simplifies onboarding for new users but also ensures that the system behaves consistently across machines, eliminating common "it works on my machine" problems. Additionally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of data, models, or configurations without altering the core codebase.
 
 Although the backend is not lightweight due to the nature of the services it includes, containerization allows the system to remain modular and maintainable. Users can deploy updates or scale specific services independently, without affecting the rest of the system. This separation of concerns aligns with modern software engineering best practices and makes the system easier to extend and maintain in the long term.
 
-\section{Why VS Code Extension?}
+%\section{Why VS Code Extension?}
+%
+%Integrating the RAG system into a VS Code extension provides seamless, in-editor support for developers within their preferred development environment. This integration enables users to query documentation, generate code, and receive intelligent suggestions in real time without needing to switch between tools or leave the editor. By minimizing context-switching, it streamlines the development workflow and boosts productivity. VS Code’s extensibility, widespread usage in the web development community, and robust support for terminals and custom interfaces make it an ideal platform for embedding such a developer-focused RAG solution.
 
-Integrating the RAG system into a Visual Studio Code extension provides seamless, in-editor support for developers within their preferred development environment. This integration enables users to query documentation, generate code, and receive intelligent suggestions in real time—without needing to switch between tools or leave the editor. By minimizing context-switching, it streamlines the development workflow and boosts productivity. Visual Studio Code’s extensibility, widespread usage in the web development community, and robust support for terminals and custom interfaces make it an ideal platform for embedding such a developer-focused RAG solution.
+\section{Why VS Code extension?}
 
-\section{Main architecture}
+Integrating the RAG system into a VS Code extension offers a seamless and efficient experience for developers by embedding AI-powered support directly into their primary development environment. This approach minimizes context-switching and enhances productivity by allowing developers to query documentation, generate code, and receive intelligent suggestions in real time, without leaving the editor.
+ 
+The interactive user interface of the VS Code extension is designed to optimize the developer's workflow. By eliminating the need to switch between the code editor and external resources like browsers or documentation portals, the system reduces distractions and streamlines the development process. Integration into the editor also allows direct access to the active codebase, enabling context-aware recommendations and code generation tailored to the current task.
 
-Our system, called RAGGIN (Retrieval-Augmented Generation for Guided Intelligence in Next.js), is designed to enhance the performance and contextual understanding of large language models by leveraging external knowledge sources. The system architecture is composed of the following key components:
+VS Code is the most widely adopted Integrated Development Environment (IDE) among web developers. Its robust support for terminals, extensions, and custom interfaces makes it an ideal platform for deploying AI-assisted tools.
 
-\begin{itemize} 
-  \item \textbf{Vector database:} Stores the Next.js documentation in an optimized vector format to enable efficient semantic retrieval. 
-  \item \textbf{Retriever:} Accepts the user query sent from the VS Code extension and retrieves the most relevant documents from the vector database. 
-  \item \textbf{Augmentation:} Combines the user query and retrieved documents to construct a context-rich prompt, including relevant context and additional questions, and forwards it to the generator. 
-  \item \textbf{Generator:} Receives the augmented prompt and utilizes the local LLM to generate accurate and contextually relevant responses. 
-\end{itemize}
-
-\begin{figure}[H]
-	\vspace{2pt}
-	\centering
-	\includegraphics[scale=0.5]{Images/Implement/rag_pipeline.png}
-	\vspace{5mm}
-	\caption{RAGGIN architecture design}
-	\label{fig:RAGGIN-architecture}
-\end{figure}
-
-In this architecture, the input is the user's query, and the output is the corresponding response generated by the system. The response is constructed by utilizing the retrieved data and contextual knowledge extracted from the Next.js documentation, ensuring that it is both accurate and relevant to the user's query.
-
-\subsection*{How the RAGGIN system solves the problems}
-
-The proposed RAGGIN system is designed to address the key issues outlined in the problem statement by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems:
-
-\begin{enumerate}
-  \item \textbf{Time-consuming searches}
-\end{enumerate}
-
-\textbf{Problem}: Developers spend excessive time manually searching through forums like StackOverflow or through vast and scattered Next.js documentation to find specific information.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-  \item The retriever component of the system uses a vector database to store Next.js documentation in a semantically indexed format.
-  \item When a user submits a query, the retriever efficiently retrieves the most relevant documents based on semantic similarity
-  \item By narrowing down the search scope and returning only the most contextually relevant sections, the system reduces the time spent on manual searches and ensures higher accuracy in retrieval.
-\end{itemize}
-
-\begin{enumerate}
-  \setcounter{enumi}{1}
-  \item \textbf{Lack of context-aware assistance}
-\end{enumerate}
-
-\textbf{Problem}: Retrieved information often lacks sufficient context, leaving developers to manually piece together fragmented answers.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-  \item The augmentation component combines the retrieved documents with the user's query to construct a prompt enriched with relevant context.
-  \item The generator uses the augmented prompt to produce coherent, actionable, and contextually accurate responses. This eliminates the need for developers to manually correlate information from multiple sources.
-\end{itemize}
-
-\begin{enumerate}
-  \setcounter{enumi}{2}
-  \item \textbf{Workflow disruption}
-\end{enumerate}
-
-\textbf{Problems}: Switching between the code editor and external documentation disrupts the developer's workflow, reducing productivity.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-  \item The system is fully integrated into the VS Code environment, allowing developers to access it without leaving their coding workspace.
-  \item Queries can be sent directly from VS Code, and responses are displayed within the editor. This seamless integration ensures that developers remain focused on their work, minimizing interruptions and enhancing their overall efficiency.
-\end{itemize}
-
-\begin{enumerate}
-  \setcounter{enumi}{3}
-  \item \textbf{Inconsistent support from existing tools}
-\end{enumerate}
-
-\textbf{Problem}: Traditional tools like keyword-based search engines fail to handle nuanced queries or provide tailored, actionable solutions.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-  \item The system leverages advanced semantic retrieval techniques through the vector database to locate relevant content based on the meaning of the query rather than just matching keywords.
-  \item The local LLM and vector database ensure an uninterrupted workflow, even in the event of an internet outage.
-\end{itemize}
 
 \subsection{Local vector storage}
 
@@ -337,42 +379,7 @@ The vector storage component is a fundamental part of our system, enabling effic
 \end{figure}
 
 
-\subsubsection*{Why Milvus?}
 
-Milvus is our chosen vector database for storing embedded data in the system. This decision is based on several compelling reasons:
-
-\begin{itemize}
-    \item \textbf{Open source:} 
-    Milvus is an open-source database, perfectly aligning with our vision of delivering a free, open-source, distributed code assistance tool for VS Code. Its open nature encourages transparency and community contributions.
-
-    \item \textbf{Support for structured and unstructured data:} 
-    The nature of our dataset, comprising both structured metadata (e.g., documentation sections, categories) and unstructured content (e.g., textual descriptions, code snippets), makes Milvus an ideal choice. Structured data benefits from attribute-based filtering, allowing users to narrow their queries to specific documentation sections. Meanwhile, unstructured data, such as free-form text and code snippets, is embedded into high-dimensional vectors for similarity-based retrieval.
-
-    \item \textbf{Comprehensive SDK and model support:} 
-    Milvus's SDK seamlessly integrates with our chosen embedding model, BGE-M3, for generating high-quality embeddings. It also supports the HNSW algorithm for efficient indexing of unstructured data. This compatibility with our preferred methods ensures smooth implementation and reliable performance.
-
-    \item \textbf{Scalability:} 
-    Milvus employs LSM-based storage to minimize disk I/O and ensure efficient handling of frequent updates. This scalability is critical for managing dynamic and evolving datasets, such as continuously updated framework documentation.
-
-    \item \textbf{Performance:} 
-    Since our system is designed to run entirely on the user's local machine, Milvus's ability to leverage both CPU and GPU resources significantly enhances performance. This ensures that computationally intensive tasks, such as vector similarity searches and indexing, are executed efficiently, maintaining a responsive user experience.
-\end{itemize}
-
-\begin{table}[H]
-\begin{tabular}{lp{1.5cm}p{1.5cm}p{1cm}p{1.6cm}p{1.5cm}p{2cm}}
-\hline
-\textbf{System}                   & \textbf{Billion-Scale Data} & \textbf{Dynamic Data} & \textbf{GPU} & \textbf{Attribute Filtering} & \textbf{Multi-Vector Query} & \textbf{Distributed System} \\ \hline
-Facebook Faiss \cite{douze2024faiss, johnson2017similarity}      & \checkmark                  & \xmark                & \checkmark  & \xmark                     & \xmark                      & \xmark                     \\ \hline
-Microsoft SPTAG \cite{ChenW18}     & \checkmark                  & \xmark                & \checkmark  & \xmark                     & \xmark                      & \checkmark                 \\ \hline
-ElasticSearch \cite{elasticsearch} & \xmark                      & \checkmark            & \xmark      & \checkmark                 & \xmark                      & \checkmark                 \\ \hline
-Jingdong Vearch \cite{li2019visualsearch, li2019design}    & \checkmark                  & \checkmark            & \checkmark  & \checkmark                 & \xmark                      & \checkmark                 \\ \hline
-Alibaba AnalyticDB-V \cite{wei2020analyticdbv} & \checkmark              & \checkmark            & \xmark      & \xmark                     & \xmark                      & \checkmark                 \\ \hline
-Alibaba PASE (PostgreSQL) \cite{pase2020} & \xmark                  & \checkmark            & \xmark      & \checkmark                 & \xmark                      & \checkmark                 \\ \hline
-\rowcolor[HTML]{D3D3D3} 
-Milvus \cite{wang2021milvus}              & \checkmark                  & \checkmark            & \checkmark  & \checkmark                 & \checkmark                  & \checkmark                 \\ \hline
-\end{tabular}
-\caption{Vector database comparison}
-\end{table}
 
 % \subsection{Query handling and prompt management}
 
@@ -381,25 +388,25 @@ Milvus \cite{wang2021milvus}              & \checkmark                  & \check
     
 % \end{itemize}
 
-\subsection{VS Code integration}
-The interactive user interface is a crucial part of the system, designed to optimize the developer's experience while working. This component leverages the power of VS Code Extension to provide seamless integration between the development tool and the AI assistant.
-
-\textbf{Seamless experience in the programming environment:} Users can interact directly with the RAG system within their working environment using a VS Code Extension. This is convenient because:
-    \begin{itemize}
-        \item \textbf{No context switching}: By eliminating the need for users to alternate between the code editor and web browser, this feature reduces distractions and boosts efficiency.
-
-        \item \textbf{Direct integration into the project}: The RAG system can quickly access the source code being changed thanks to the VS Code plugin, offering solutions or recommendations without forcing users to copy and paste code into a different interface.
-    \end{itemize} 
-\textbf{Supportive in IDE environment:} The most often used IDE environment for web installers is Visual Studio Code, particularly when using more recent frameworks like Next.js. The RAG system's VS Code integration enables:
-    \begin{itemize}
-        \item \textbf{Use code context}: From the Next.js structure folder (which includes pages, api, and app) to the file configuration (next.config.js,.env), the system may directly examine the project's coding\textbf{.
-        \item Faster debugging and code optimization}: The system may access the coding link to offer more precise answers than the standard web interface information when users need to debug, test logic, or optimize coding.
-    \end{itemize}
-\textbf{Security and privacy}: When working with source code, especially in sensitive projects, users are often concerned about security issues. A VS Code Extension:
-    \begin{itemize}
-        \item \textbf{Local storage}: Allows the RAG system to operate locally on the user's machine (when using an internal RAG model such as LLaMA), avoiding the need to upload source code to an external server.
-        \item \textbf{Limit information leakage}: With extensions, source code and sensitive data do not need to be transferred to a third browser or server, reducing the risk of information disclosure.
-    \end{itemize}
+%\subsection{VS Code integration}
+%The interactive user interface is a crucial part of the system, designed to optimize the developer's experience while working. This component leverages the power of VS Code Extension to provide seamless integration between the development tool and the AI assistant.
+%
+%\textbf{Seamless experience in the programming environment:} Users can interact directly with the RAG system within their working environment using a VS Code Extension. This is convenient because:
+%    \begin{itemize}
+%        \item \textbf{No context switching}: By eliminating the need for users to alternate between the code editor and web browser, this feature reduces distractions and boosts efficiency.
+%
+%        \item \textbf{Direct integration into the project}: The RAG system can quickly access the source code being changed thanks to the VS Code plugin, offering solutions or recommendations without forcing users to copy and paste code into a different interface.
+%    \end{itemize} 
+%\textbf{Supportive in IDE environment:} The most often used IDE environment for web installers is Visual Studio Code, particularly when using more recent frameworks like Next.js. The RAG system's VS Code integration enables:
+%    \begin{itemize}
+%        \item \textbf{Use code context}: From the Next.js structure folder (which includes pages, api, and app) to the file configuration (next.config.js,.env), the system may directly examine the project's coding\textbf{.
+%        \item Faster debugging and code optimization}: The system may access the coding link to offer more precise answers than the standard web interface information when users need to debug, test logic, or optimize coding.
+%    \end{itemize}
+%\textbf{Security and privacy}: When working with source code, especially in sensitive projects, users are often concerned about security issues. A VS Code Extension:
+%    \begin{itemize}
+%        \item \textbf{Local storage}: Allows the RAG system to operate locally on the user's machine (when using an internal RAG model such as LLaMA), avoiding the need to upload source code to an external server.
+%        \item \textbf{Limit information leakage}: With extensions, source code and sensitive data do not need to be transferred to a third browser or server, reducing the risk of information disclosure.
+%    \end{itemize}
 
 % \subsection{User interface for interactions}
 

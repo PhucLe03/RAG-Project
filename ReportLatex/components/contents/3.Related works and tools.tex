@@ -4,7 +4,7 @@
 
 \subsection{Retrieval strategies}
 
-\paragraph*{Sparse retrieval methods.} Tools like BM25 \cite{brown2020} rank documents based on term frequency and inverse document frequency (TF-IDF). While highly effective for small-scale knowledge bases, their efficiency declines as data scales increase \cite{he2024}.
+\paragraph*{Sparse retrieval methods.} Tools like BM25 \cite{brown2020} rank documents based on term frequency and inverse document frequency (TF-IDF) \cite{tfidf}. While highly effective for small-scale knowledge bases, their efficiency declines as data scales increase \cite{he2024}.
     
     \begin{figure}[H]
     \centering
@@ -75,7 +75,7 @@
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/The three-stage training pipeline for Qwen2.5-Coder.png}
     \vspace{2mm}
-    \caption{The three-stage training pipeline for Qwen2.5-Coder \cite{hostnik2024}}
+    \caption{The three-stage training pipeline for Qwen2.5-Coder \cite{hui2024qwen2.5}}
     \end{figure}
 
 \subsection{Specialized Applications}
@@ -120,14 +120,14 @@
 \subsection{Retrieval mechanisms}
 \paragraph*{Keyword-based retrieval.} Traditional forums rely on keyword searches, often yielding broad results with low contextual relevance.
 
-\paragraph*{Embedding-based retrieval.} Tools like NCS employ word embeddings, TF-IDF weighting \cite{mitra2017}, and vector similarity for precise retrieval of relevant code snippets. These systems also incorporate syntactic and semantic elements extracted from source code.
+\paragraph*{Embedding-based retrieval.} Tools like NCS employ word embeddings, TF-IDF weighting \cite{tfidf}, and vector similarity for precise retrieval of relevant code snippets. These systems also incorporate syntactic and semantic elements extracted from source code.
 
 \paragraph*{Rule-based retrieval.} Example-based systems mine patterns and associations (e.g., frequent co-occurrence of API calls) from repositories to recommend contextually relevant options.
 
 \subsection{Code generation capabilities}
 \paragraph*{Static suggestion systems.} Earlier systems \cite{bruch2009} relied solely on static type information, offering alphabetically sorted method recommendations without understanding contextual relevance.
 
-\paragraph*{Generative models.} IntelliCode Compose represents a generative approach, using transformer-based architectures \cite{vaswani2017} like GPT-C to predict and generate entire lines or blocks of syntactically correct code. This includes multilingual support and optimized decoding methods like beam search.
+\paragraph*{Generative models.} IntelliCode Compose represents a generative approach, using transformer-based architectures \cite{vaswani2017} to predict and generate entire lines or blocks of syntactically correct code. This includes multilingual support and optimized decoding methods like beam search.
 
 \subsection{Integration in development processes}
 \paragraph*{Standalone search interfaces}

@@ -1085,6 +1085,50 @@
       \field{title}{SPTAG: A Library for Fast Approximate Nearest Neighbor Search}
       \field{year}{2018}
     \endentry
+    \entry{tfidf}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=35c829e5fd7044b4b36f3751db7d3607}{%
+           family={Das},
+           familyi={D\bibinitperiod},
+           given={Mamata},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9cbd636f4d293ff4e355461a5c10f65b}{%
+           family={K.},
+           familyi={K\bibinitperiod},
+           given={Selvakumar},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c2acc2ec621491f59e514d56369917ad}{%
+           family={Alphonse},
+           familyi={A\bibinitperiod},
+           given={P.\bibnamedelimi J.\bibnamedelimi A.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{fullhash}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{fullhashraw}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{bibnamehash}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{authorbibnamehash}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{authornamehash}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{authorfullhash}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \strng{authorfullhashraw}{bbf96f5f39aea7d800a3ce8420c83fee}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{A Comparative Study on TF-IDF feature Weighting Method and its Analysis using Unstructured Dataset}
+      \field{year}{2023}
+      \verb{eprint}
+      \verb 2308.04037
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2308.04037
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2308.04037
+      \endverb
+    \endentry
     \entry{deepseek_r1}{misc}{}{}
       \name{author}{200}{}{%
         {{hash=d597faee5c847cfbb2346d3b8725ba38}{%
@@ -3255,38 +3299,6 @@
       \field{journaltitle}{arXiv preprint arXiv:1301.3781}
       \field{title}{Efficient Estimation of Word Representations in Vector Space}
       \field{year}{2013}
-    \endentry
-    \entry{mitra2017}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=29578de74e3c76b88989de43125385ca}{%
-           family={Mitra},
-           familyi={M\bibinitperiod},
-           given={Bhaskar},
-           giveni={B\bibinitperiod}}}%
-        {{hash=7a3b8c75373fcf308a7e8cda62ddd9ce}{%
-           family={Craswell},
-           familyi={C\bibinitperiod},
-           given={Nick},
-           giveni={N\bibinitperiod}}}%
-      }
-      \strng{namehash}{03a40895b7b465fc52995919a99185f9}
-      \strng{fullhash}{03a40895b7b465fc52995919a99185f9}
-      \strng{fullhashraw}{03a40895b7b465fc52995919a99185f9}
-      \strng{bibnamehash}{03a40895b7b465fc52995919a99185f9}
-      \strng{authorbibnamehash}{03a40895b7b465fc52995919a99185f9}
-      \strng{authornamehash}{03a40895b7b465fc52995919a99185f9}
-      \strng{authorfullhash}{03a40895b7b465fc52995919a99185f9}
-      \strng{authorfullhashraw}{03a40895b7b465fc52995919a99185f9}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{month}{5}
-      \field{note}{Available at \url{https://arxiv.org/abs/1705.01509}}
-      \field{title}{Neural Models for Information Retrieval}
-      \field{volume}{arXiv:1705.01509v1}
-      \field{year}{2017}
     \endentry
     \entry{pase2020}{misc}{}{}
       \field{sortinit}{P}
