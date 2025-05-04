@@ -2499,14 +2499,16 @@
     <bcf:citekey order="123" intorder="1">bai2023qwen</bcf:citekey>
     <bcf:citekey order="124" intorder="1">llama</bcf:citekey>
     <bcf:citekey order="125" intorder="1">mistral</bcf:citekey>
-    <bcf:citekey order="126" intorder="1">llama2</bcf:citekey>
-    <bcf:citekey order="127" intorder="1">hui2024qwen2.5</bcf:citekey>
-    <bcf:citekey order="128" intorder="1">mistral</bcf:citekey>
-    <bcf:citekey order="129" intorder="1">roziere2023code</bcf:citekey>
-    <bcf:citekey order="130" intorder="1">hui2024qwen2.5</bcf:citekey>
-    <bcf:citekey order="131" intorder="1">bai2023qwen</bcf:citekey>
-    <bcf:citekey order="132" intorder="1">codegemma</bcf:citekey>
-    <bcf:citekey order="133" intorder="1">deepseek_r1</bcf:citekey>
+    <bcf:citekey order="126" intorder="1">chen2024bge</bcf:citekey>
+    <bcf:citekey order="127" intorder="1">chen2024bge</bcf:citekey>
+    <bcf:citekey order="128" intorder="1">llama2</bcf:citekey>
+    <bcf:citekey order="129" intorder="1">hui2024qwen2.5</bcf:citekey>
+    <bcf:citekey order="130" intorder="1">mistral</bcf:citekey>
+    <bcf:citekey order="131" intorder="1">roziere2023code</bcf:citekey>
+    <bcf:citekey order="132" intorder="1">hui2024qwen2.5</bcf:citekey>
+    <bcf:citekey order="133" intorder="1">bai2023qwen</bcf:citekey>
+    <bcf:citekey order="134" intorder="1">codegemma</bcf:citekey>
+    <bcf:citekey order="135" intorder="1">deepseek_r1</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
