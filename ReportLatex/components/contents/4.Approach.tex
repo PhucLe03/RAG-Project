@@ -231,13 +231,38 @@ In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, en
 %	\label{table:qwen_filtered}
 %\end{table}
 
+%\section{Why Ollama?}
+%
+%In designing a fully local RAG system, Ollama\footnote{Ollama - \url{https://ollama.com/}} was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen \cite{bai2023qwen}, LLaMA \cite{llama}, and Mistral \cite{mistral} makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with the goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
+
 \section{Why Ollama?}
 
 In designing a fully local RAG system, Ollama\footnote{Ollama - \url{https://ollama.com/}} was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen \cite{bai2023qwen}, LLaMA \cite{llama}, and Mistral \cite{mistral} makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with the goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
 
+\vspace{0.5em}
+\paragraph*{Model Support and Flexibility.} Ollama offers a broad library of pre-integrated models, ranging from lightweight options to very large models. Notable supported models include:
+\begin{itemize}
+	\item \textbf{SmolLM\footnote{SmolLM -  \url{https://ollama.com/library/smollm}}.} Models with 135M, 360M, and 1.7B parameters, optimized for resource-constrained environments.
+	\item \textbf{TinyLlama\footnote{TinyLlama -  \url{https://ollama.com/library/tinyllama}}.} A compact 1.1B parameter model designed for efficiency.
+	\item \textbf{DeepSeek-R1\footnote{DeepSeek-R1 - \url{https://ollama.com/library/deepseek-r1}}.} Scalable up to 671B parameters, demonstrating Ollama’s capacity to handle massive models.
+	\item \textbf{LLaMA 3.1\footnote{LLaMA 3.1 - \url{https://ollama.com/library/llama3.1}}.} Supports 8B, 70B, and 405B variants, enabling flexible usage for tasks of varying complexity.
+\end{itemize}
+
+\vspace{0.5em}
+\paragraph*{System Compatibility.} According to the official documentation, Ollama runs on all major operating systems, including Linux, macOS, and Windows (with native support, removing the need for WSL). Recommended system requirements include:
+\begin{itemize}
+	\item \textbf{RAM.} 8GB for 3B models, 16GB for 7B models, and 32GB for 13B models.
+	\item \textbf{CPU.} At least 4 cores (8 cores recommended for larger models).
+	\item \textbf{Disk Space.} A minimum of 12GB for base installation, plus additional storage for model data.
+	\item \textbf{GPU (Optional).} GPU acceleration significantly improves performance and compatible with both NVDIA and AMD cards.
+\end{itemize}
+
+\vspace{0.5em}
+\paragraph*{Developer Ecosystem and Community.} Ollama is under active development, with strong community support reflected by its large GitHub presence\footnote{Ollama Github - \url{https://github.com/ollama/ollama}}. The platform provides a Python SDK that offers an intuitive, flexible interface ideal for integrating LLMs into applications such as RAG systems. Its growing adoption, combined with simplicity and performance focus, makes it a compelling choice for local model deployment.
+
 \section{Why Docker?}
 
-Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments. Our backend comprising the retrieval service, embedding logic, and integration with the vector database is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
+Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments\footnote{Docker Unveils 2024 State of Application Development Report - \url{https://www.docker.com/press-release/unveils-2024-state-of-application-development-report/}}. Our backend comprising the retrieval service, embedding logic, and integration with the vector database is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
 
 By using Docker, we abstract away the intricacies of installing and configuring backend tools such as the Milvus vector database and the application logic for retriever and generator. This not only simplifies onboarding for new users but also ensures that the system behaves consistently across machines. Additionally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of data, models, or configurations without altering the core codebase.
 
@@ -247,6 +272,6 @@ Integrating the RAG system into a VS Code extension offers a seamless and effici
  
 The interactive user interface of the VS Code extension is designed to optimize the developer's workflow. By eliminating the need to switch between the code editor and external resources like browsers or documentation portals, the system reduces distractions and streamlines the development process. Integration into the editor also allows direct access to the active codebase, enabling context-aware recommendations and code generation tailored to the current task.
 
-VS Code is the most widely adopted Integrated Development Environment (IDE) among web developers. Its robust support for terminals, extensions, and custom interfaces makes it an ideal platform for deploying AI-assisted tools.
+VS Code is the most widely adopted Integrated Development Environment (IDE) among web developers\footnote{2024 Stack Overflow Developer Survey - \url{https://survey.stackoverflow.co/2024/technology\#most-popular-technologies-new-collab-tools}}. Its robust support for terminals, extensions, and custom interfaces makes it an ideal platform for deploying AI-assisted tools.
 
 
