@@ -594,7 +594,7 @@ The response body will contain the generated response and some other relevant in
 
 
 \section{RAGGIN VS Code Extension Development}
-The VS Code extension, named RAGGIN, serves as an interface between the user and a locally hosted execution core running in Docker. After the user downloads the RAGGIN core (see Section~\ref{sec:raggin-core}), they can interact with it directly through the extension’s built-in UI in VS Code. A detailed description of the user interface is provided in Appendix~\ref{appendix:interface}.
+The VS Code extension, also named RAGGIN, serves as an interface between the user and a locally hosted execution core running in Docker. After the user downloads the RAGGIN core (see Section~\ref{sec:raggin-core}), they can interact with it directly through the extension’s built-in UI in VS Code. A detailed description of the user interface is provided in Appendix~\ref{appendix:interface}.
 
 \textbf{Key features include:}
 \begin{itemize}
@@ -668,8 +668,7 @@ VS Code provides a post-message communication mechanism that enables interaction
 	\label{fig:webview_communication}
 \end{figure}
 
-\textbf{Rendering RAGGIN UI in VS Code}\\
-In the development of VS Code extensions, presenting a custom UI that aligns with the extension's functionality is often necessary. While VS Code provides native APIs for UI components, there are scenarios where these APIs are insufficient for complex or highly customized interfaces. In such cases, the webview API offers a powerful solution, enabling the integration of custom HTML, CSS, and JavaScript-based UIs within the extension environment.
+\parapgraph*{Rendering RAGGIN UI in VS Code.} In the development of VS Code extensions, presenting a custom UI that aligns with the extension's functionality is often necessary. While VS Code provides native APIs for UI components, there are scenarios where these APIs are insufficient for complex or highly customized interfaces. In such cases, the webview API offers a powerful solution, enabling the integration of custom HTML, CSS, and JavaScript-based UIs within the extension environment.
 
 The webview API supports embedding a fully customized front-end application inside VS Code, making it possible to use modern frameworks like React\footnote{React - \url{https://react.dev/}}. This capability significantly simplifies the development process, especially for interfaces that require dynamic rendering, component reuse, or state management. By leveraging React in the webview context, we can take advantage of its component-based architecture, virtual DOM performance optimization, and rich ecosystem of libraries—ultimately accelerating development and improving maintainability.
 
@@ -677,8 +676,7 @@ For icon rendering in the extension UI, we chose the codicon\footnote{codicon - 
 
 To make the user interface more polished and the development process smoother, we chose to use the Shadcn UI library\footnote{Shadcn UI - \url{https://ui.shadcn.com/}}. It's a modern set of accessible, unstyled components built on Radix UI, designed specifically for React projects. With ready-to-use elements like buttons, tooltips, modals, and popover, it helps us keep a consistent design throughout the RAGGIN extension, while also saving time that would otherwise be spent styling each component from scratch.
 
-\textbf{Establish Communication}\\
-To establish communication between the webview and the extension backend, Visual Studio Code provides a structured messaging system based on the \texttt{postMessage} API. This mechanism enables asynchronous, bidirectional communication where serialized messages—typically JSON objects—are exchanged between the frontend and backend. On the webview side, messages are sent using the VS Code API, while the extension receives and handles them through registered event listeners. Conversely, the extension can respond by sending messages back to the webview, which listens using standard browser events. This design enables interactions such as form submissions, real-time updates, and API calls. 
+\parapgraph*{Establish Communication.} To establish communication between the webview and the extension backend, Visual Studio Code provides a structured messaging system based on the \texttt{postMessage} API. This mechanism enables asynchronous, bidirectional communication where serialized messages—typically JSON objects—are exchanged between the frontend and backend. On the webview side, messages are sent using the VS Code API, while the extension receives and handles them through registered event listeners. Conversely, the extension can respond by sending messages back to the webview, which listens using standard browser events. This design enables interactions such as form submissions, real-time updates, and API calls. 
 
 In the specific context of RAGGIN, when the user enters a prompt and presses the send button on the UI, the webview API is used to transmit the request to the extension.
 \begin{lstlisting}[caption=Handle chat storing]
