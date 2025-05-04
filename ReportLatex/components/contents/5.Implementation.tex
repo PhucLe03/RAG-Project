@@ -358,6 +358,7 @@ The Database API manages documentation data in the Milvus database through seven
 \end{itemize}
 
 \section{RAGGIN core services}
+\label{sec:raggin-core}
 
 The RAGGIN core service provides the API functionalities for hybrid retrieval and generation. It is deployed as a containerized application, built from a custom Dockerfile and exposed through port 8000. The backend interacts directly with the Milvus vector database via a specified internal URI, handling retrieval queries and database operations. It also interfaces with an external Ollama API endpoint to access local LLMs during generation. Pretrained embedding models, such as BGE-M3, are cached within a dedicated volume to reduce startup latency and accelerate embedding generation. The backend depends on the Milvus standalone service for healthy initialization, ensuring database availability before serving requests. Volumes are mounted to persist downloaded documentation files and model checkpoints across restarts, allowing efficient reuse of data. This service acts as the main processing layer connecting the vector storage, retrieval logic, and language model inference.
 
@@ -592,128 +593,174 @@ The response body will contain the generated response and some other relevant in
 \end{lstlisting}
 
 
-\section{RAGGIN VSCode Extension Development}
+\section{RAGGIN VS Code Extension Development}
+The VS Code extension, named RAGGIN, serves as an interface between the user and a locally hosted execution core running in Docker. After the user downloads the RAGGIN core (see Section~\ref{sec:raggin-core}), they can interact with it directly through the extension’s built-in UI in VS Code. A detailed description of the user interface is provided in Appendix~\ref{appendix:interface}.
 
-The RAGGIN (Retrieval-Augmented Generation for Guided Intelligence in Next.js) Visual Studio Code extension is purpose-built to elevate developer productivity within the Next.js ecosystem. RAGGIN operates entirely on the local machine, leveraging Docker and Ollama to remove any reliance on an active internet connection. At its foundation, the extension seamlessly integrates several advanced technologies: local Large Language Models (LLMs) via Ollama for rapid and context-aware response generation; Retrieval-Augmented Generation (RAG) to supplement AI outputs with precise, project-relevant documentation; Docker containers to orchestrate retrieval and computation processes; and the VS Code extension API, which embeds these capabilities natively within the editor. Real-time communication between the VS Code webview and the extension host is achieved through efficient message passing, ensuring a responsive and interactive AI experience.
-
-\subsection{Installing in VSCode (Private installation)}
-
-\textbf{Install from the VS Code Marketplace}
-
-\begin{itemize}
-	\item In your VS Code IDE, go to \textbf{Extensions}.
-	\item Search for \textbf{Raggin (Self-Hosted)} and select it.
-	\item Install the extension.
-\end{itemize}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Images/Implement/vscode_extension_download.png}
-	\vspace{5mm}
-	\caption{Installing Raggin extension in VS Code}
-	\label{fig:vscode_extension_download}
-\end{figure}
-
-You don't need to log in anyway because this is private for user own using.
-
-\subsection{Icons \& labels}
-\textbf{Chat page header}\\
-The top navigation bar of the IDE plugin displays the selected model (e.g., qwen2.5-coder) and its corresponding version (e.g., \texttt{v15.3.0}). To the right, users have quick access to Settings, the option to Add a New Chat, and Chat History, streamlining workflow for configuration, testing, and session management.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.69]{Images/Implement/chat_page_header.png}
-	\vspace{5mm}
-	\caption{Chat page header}
-	\label{fig:chat_page_icon}
-\end{figure}
-
-\textbf{Chat input}\\
-This interface includes a file-plus icon on the left, which allows users to upload files from their code base. Once the file is uploaded, it will appear on the left side of the input field, just above the text box, indicating that the file is successfully attached and ready to be referenced or processed within the current chat session. On the far right, there is a send button (shaped like a cleft arrow) used to submit the message. The submit function becomes active after selecting the appropriate Ollama model, specifying the Next.js version, and completing the prompt input.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_input.png}
-	\vspace{5mm}
-	\caption{Chat input}
-	\label{fig:chat_input}
-\end{figure}
-
-\textbf{Added context label}\\
-The File Context Label appears prominently beneath the model and version selection bar. It displays the path of the currently active file (e.g., /webview-ui/src/App.tsx), indicating the specific source file that the assistant will use as reference for the current interaction. This context ensures that code-related requests—such as refactoring or debugging—are applied to the correct file within the project structure.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Images/Implement/added_context_label.png}
-	\vspace{5mm}
-	\caption{Chat input}
-	\label{fig:added_context_label}
-\end{figure}
-
-\textbf{Chat window}\\
-This section of the chat interface displays individual conversation sessions. When a user submits a lengthy question, the interface provides a "Show more / Show less" toggle to optimize readability and minimize vertical scrolling. Responses containing code are rendered using the react-syntax-highlighter library, ensuring clear syntax formatting. Additionally, each code block includes a convenient copy-to-clipboard icon, allowing users to quickly copy the snippet for immediate use in their development workflow.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_window.png}
-	\vspace{5mm}
-	\caption{Chat input}
-	\label{fig:chat_window}
-\end{figure}
-
-\textbf{Chat history header}\\
-The Chat History panel serves as a central location for users to access and manage their previous conversation sessions. Positioned at the top of this section is the "Chat History" heading, clearly indicating its purpose. To the right of the heading are two functional icons designed for streamlined interaction. The first icon, represented by a list, allows users to toggle between different view modes or manage existing chat threads more efficiently. Next to it, the clear history icon provides a quick way to delete all saved conversations, helping users maintain a clean workspace.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.69]{Images/Implement/chat_history_header.png}
-	\vspace{5mm}
-	\caption{Chat history header}
-	\label{fig:chat_history_header}
-\end{figure}
-
-\textbf{Chat history window}\\
-Each chat entry in the chat history panel includes a three-dot settings menu located in the top-right corner of the chat card. This contextual menu provides users with the ability to rename the conversation—allowing for more meaningful and descriptive titles—or to delete the chat entirely when it is no longer needed. These options help users efficiently manage their session history and maintain an organized workspace.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Images/Implement/chat_history_window.png}
-	\vspace{5mm}
-	\caption{Chat history window}
-	\label{fig:chat_history_window}
-\end{figure}
-
-\textbf{Advance settings page}\\
-The interface displayed is the Advanced Settings panel, designed to fine-tune parameters for both retrieval and generation in RAG workflow. At the top, there is a tabbed header with two options: Retriever options (currently selected) \& Generator options. Each section includes an Instructions link that likely directs users to documentation or usage guidance. At the bottom, users can choose to Cancel changes or Save their configuration using clearly labeled action buttons.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Images/Implement/advance_settings.png}
-	\vspace{5mm}
-	\caption{Advance settings page}
-	\label{fig:advance_settings_page}
-\end{figure}
-
-\subsection{Primary function}
-
-RAGGIN is a lightweight, privacy-preserving AI assistant extension built for Visual Studio Code, specifically tailored to support Next.js developers across a wide range of versions. The extension integrates Retrieval-Augmented Generation (RAG) techniques to deliver context-aware, intelligent responses directly within the development environment.\\
 \textbf{Key features include:}
-
 \begin{itemize}
-	\item \textbf{Real-time Querying within VSCode:} Developers can interact with the AI assistant directly inside the extension panel. The primary focus is on Next.js-related queries, with dynamic control over the Next.js version (from \texttt{v13.0.0} to \texttt{v15.3.1}) to ensure framework-specific accuracy. Additionally, users can switch between Ollama-hosted LLM models, offering flexibility in model selection based on task complexity or system capabilities.
-	\item \textbf{Local Contextual Intelligence:} Users can load a specific code file from their local project to provide the AI with deeper context. All operations occur within the local development environment, ensuring data privacy and security—no external server calls or remote data exposure
-	\item \textbf{Persistent Chat History:} All user interactions are stored locally using VSCode’s globalState API, enabling developers to retain conversation history across sessions. The dedicated history view allows quick reference and reuse of past discussions without re-prompting.
-	\item \textbf{Advanced Configuration Panel:} For power users and researchers, the Advanced Settings page provides control over key RAG parameters:
+	\item \textbf{Real-time querying within VS Code.} Developers can interact with the AI assistant directly inside the extension panel. The primary focus is on Next.js-related queries, with dynamic control over the Next.js version (from \texttt{v13.0.0} to \texttt{v15.3.1}). Additionally, users can switch between Ollama-hosted LLM models, offering flexibility in model selection based on task complexity or system capabilities.
+	\item \textbf{Local contextual intelligence.} Users can load a specific code file from their local project to provide the AI with deeper context. All operations occur within the local development environment, ensuring data privacy and security—no external server calls or remote data exposure
+	\item textbf{Persistent chat history.} All user interactions are stored locally using VS Code’s globalState API, enabling developers to retain conversation history across sessions. The dedicated history view allows quick reference and reuse of past discussions without re-prompting.
+	\item \textbf{Advanced configuration panel.} For users and researchers, the advanced settings page provides control over key RAG parameters:
 	\begin{itemize}
 		\item Retrieval method customization (e.g., top-k, similarity threshold)
 		\item Generator configuration (e.g., temperature, max tokens)
-		These tunable settings support experimentation and fine-tuning for optimal results.
 	\end{itemize}
 \end{itemize}
 
-\subsection{Performance}
-Raggin stands out as one of the most lightweight AI-assist extensions on the VSCode Marketplace, with a package size under 2.5MB. Optimized for speed, memory efficiency, and modular development, it consumes minimal system resources—using CPU and memory at levels comparable to or lower than typical VSCode extensions. The extension achieves this efficiency by offloading most computational work to the underlying RAG model via Ollama, ensuring your editor remains responsive even during complex queries. Response quality and speed scale with your hardware capabilities—systems that can run larger LLMs will experience enhanced performance with faster, more accurate answers.
+\subsection{Intialize RAGGIN code base}
+The setup process for the RAGGIN VS Code extension follows the standard procedures outlined in the official Visual Studio Code extension development documentation\footnote{Your first extension - \url{https://code.visualstudio.com/api/get-started/your-first-extension}}.
 
-\subsection{Known Limitations and Future Roadmap}
 
-\textbf{Known Limitations:} Despite its current utility, RAGGIN still has areas for growth. Currently, the extension supports contextual referencing for one file at a time, which may restrict its effectiveness in multi-module projects. Additionally, responses are only rendered after full generation, lacking token-by-token streaming, which may result in perceived delays for long outputs.
+Our initial codebase followed the directory structure illustrated below. It primarily consists of two main folders: \texttt{src} and \texttt{webview-ui}.
 
-\textbf{Planned Enhancements:} The development roadmap for RAGGIN includes several key improvements: implementing streaming responses for real-time feedback, upgrading the user interface for smoother interaction and better usability, enabling multi-file context handling to support complex codebases, and enhancing prompt management and template customization for more structured queries.
+\begin{itemize}
+	\item \texttt{src.} This directory serves as the extension layer, responsible for implementing the core functionalities, including API calls to the RAGGIN core or a local Ollama server. It also manages the integration with VSCode's webview API to render content dynamically.
+	
+	\item \texttt{webview-ui.} This folder handles the complete UI implementation displayed within the VSCode sidebar, providing a seamless and interactive user experience.
+\end{itemize}
+\begin{figure}[H]
+	\centering 
+	\begin{forest}
+		for tree={
+			font=\ttfamily,
+			grow'=0,
+			child anchor=west,
+			parent anchor=south,
+			anchor=west,
+			calign=first,
+			edge path={
+				\noexpand\path [draw, \forestoption{edge}]
+				(!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+			},
+			before typesetting nodes={
+				if n=1
+				{insert before={[,phantom]}}
+				{}
+			},
+			fit=band,
+			before computing xy={l=15pt},
+		}
+		[system
+			[.vscode // Config for launching and debugging the extension
+				[launch.json // Config for launching and debugging the extension]
+				[task.json  // Config for build task that compiles TypeScript]
+			] 
+			[media // Store icons for RAGGIN] 
+			[src // Extension layer source code] 
+			[webview-ui // UI source code] 
+			[package.json // Extension manifest] 
+			[tsconfig.json  // TypeScript configuration]
+		]
+	\end{forest}
+	\vspace{5mm}
+  \caption{RAGGIN codebase directory tree}
+  \label{fig:tree}
+\end{figure}
+
+\subsection{VS Code extension webview comunication}
+VS Code provides a post-message communication mechanism that enables interaction between the extension backend and the webview. This system is particularly useful for initiating processes, requesting data, or triggering UI updates. To facilitate this communication, both the extension layer and the webview can send messages and listen for incoming ones, ensuring a seamless two-way data exchange.
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=0.9\textwidth]{Images/Implement/webview_communication.png}
+	\vspace{3mm}
+	\caption{API like communication flow}
+	\label{fig:webview_communication}
+\end{figure}
+
+\textbf{Rendering RAGGIN UI in VS Code}\\
+In the development of VS Code extensions, presenting a custom UI that aligns with the extension's functionality is often necessary. While VS Code provides native APIs for UI components, there are scenarios where these APIs are insufficient for complex or highly customized interfaces. In such cases, the webview API offers a powerful solution, enabling the integration of custom HTML, CSS, and JavaScript-based UIs within the extension environment.
+
+The webview API supports embedding a fully customized front-end application inside VS Code, making it possible to use modern frameworks like React\footnote{React - \url{https://react.dev/}}. This capability significantly simplifies the development process, especially for interfaces that require dynamic rendering, component reuse, or state management. By leveraging React in the webview context, we can take advantage of its component-based architecture, virtual DOM performance optimization, and rich ecosystem of libraries—ultimately accelerating development and improving maintainability.
+
+For icon rendering in the extension UI, we chose the codicon\footnote{codicon - \url{https://microsoft.github.io/vscode-codicons/dist/codicon.html}} library over other popular options such as react-icons or lucide-icons. This decision was made because, within the webview environment—a sandboxed HTML container in VS Code—libraries like React-based icons or modern SVG icon sets often fail to render correctly due to DOM restrictions and complex bundling requirements. Also, codicon is the official icon set used internally by Visual Studio Code and is natively supported within webview environments without the need for external imports
+
+To make the user interface more polished and the development process smoother, we chose to use the Shadcn UI library\footnote{Shadcn UI - \url{https://ui.shadcn.com/}}. It's a modern set of accessible, unstyled components built on Radix UI, designed specifically for React projects. With ready-to-use elements like buttons, tooltips, modals, and popover, it helps us keep a consistent design throughout the RAGGIN extension, while also saving time that would otherwise be spent styling each component from scratch.
+
+\textbf{Establish Communication}\\
+To establish communication between the webview and the extension backend, Visual Studio Code provides a structured messaging system based on the \texttt{postMessage} API. This mechanism enables asynchronous, bidirectional communication where serialized messages—typically JSON objects—are exchanged between the frontend and backend. On the webview side, messages are sent using the VS Code API, while the extension receives and handles them through registered event listeners. Conversely, the extension can respond by sending messages back to the webview, which listens using standard browser events. This design enables interactions such as form submissions, real-time updates, and API calls. 
+
+In the specific context of RAGGIN, when the user enters a prompt and presses the send button on the UI, the webview API is used to transmit the request to the extension.
+\begin{lstlisting}[caption=Handle chat storing]
+const vscode = acquireVsCodeApi();
+vscode.postMessage({
+	command: "ragCall",
+	// Parameters transmit
+	...
+});
+\end{lstlisting}
+
+When the extension layer receives the "ragCall" command, it validates required parameters, call API in the RAGGIN core to take the response. The extension layer then sends a message back to the webview.
+
+\begin{lstlisting}[caption=Extension layer receives command from webview]
+case "ragCall": {
+	// Validate parameters
+	...	
+	try {
+		webviewView.webview.postMessage({
+			command: "ragCallComplete",
+			content: answer.response,
+			...
+		});
+	} catch (error) {
+		// Handling errors
+		...
+	}
+	break;
+}
+\end{lstlisting}
+
+Finally, the webview has an event listener that detects the "ragCallComplete" message and then store the response in history and render it to chat window.
+
+\begin{lstlisting}[caption=Listener to detect message]
+window.addEventListener("message", (event) => {
+	const message = event.data;
+	// Check if the response contains an answer
+	if (message.command === "ragCallComplete") {
+		const responseContent = message.content || "No response received.";
+		...
+	}}
+\end{lstlisting}
+
+
+\subsection{Storing user chat data}
+The Global State in VS Code is a persistent storage mechanism provided by the extension API, allowing developers to save and access data that remains consistent across all workspaces and sessions. Unlike workspace state which is tied to a specific project, global state operates independently, functioning like a shared memory bank that retains information regardless of which folder or project is open. This data is stored securely in an internal SQLite database located in the user's application support directory. As a result, it persists through actions such as closing and reopening VS Code, switching between different workspaces, or even restarting the computer.
+
+\begin{lstlisting}[caption=Handle chat storing]
+	const currentChats = this._context.globalState.get<Chat[]>("chats", []);
+	const updatedChats = currentChats.filter((c) => c.id !== chat.id);
+	updatedChats.unshift(chat);
+	await this._context.globalState.update("chats", updatedChats);
+\end{lstlisting}
+
+For instance, in the case of our RAGGIN extension, we utilize the global state to maintain chat session histories across sessions. When a user interacts with the chat interface, each conversation is stored in global state using a unique key. It first retrieves the existing chat list stored under the key \textbf{"chats"} or defaults to an empty array if none exists. It then removes any chat with the same id as the incoming chat to prevent duplication. The new or updated chat is added to the top of the list, ensuring that the most recent session appears first. Finally, the updated list is saved back into globalState, preserving the chat history across different workspaces and sessions. This approach ensures continuity for users, allowing them to resume or revisit previous conversations seamlessly, even after the IDE has been closed or restarted.
+
+\subsection{Optimizing chat context for LLM input}
+To ensure relevant and concise prompts for the language model, the RAGGIN extension includes a helper method named \texttt{optimizeChatContext()}, which extracts and formats the most recent chat history into a structured context string. Specifically, it selects the last three user messages in history chat (when available), prefixes them with descriptive labels (e.g., “Previous sentence”), and appends the latest AI response if present. This context is separated from the next user question by a delimiter (\texttt{---}) and optionally trimmed to a maximum length to respect model input limitations.
+
+This prompt format explicitly separates prior context from the current query, improving the model’s ability to understand and respond appropriately. The resulting fullPrompt is passed into the RAGGIN core, alongside parameters such as the selected model, Next.js version, additional options, and any attached file list. This approach ensures that the language model operates with contextual awareness while maintaining performance and input size constraints.
+
+\begin{lstlisting}[caption=Full prompt after optimizing]
+[Context]: 
+Previous sentence: 
+What is the difference between getServerSideProps and getStaticProps?
+Response: Yes, using the [slug].js file in the pages directory enables dynamic routing.
+the sentence before that: 
+Can I create dynamic routes in Next.js?
+the sentence before that: 
+How does Next.js handle routing?
+
+---
+
+[Question]: Help me to refactor my code file.
+\end{lstlisting}
+
+
+%\subsection{Known Limitations and Future Roadmap}
+%
+%\textbf{Known Limitations:} Despite its current utility, RAGGIN still has areas for growth. Currently, the extension supports contextual referencing for one file at a time, which may restrict its effectiveness in multi-module projects. Additionally, responses are only rendered after full generation, lacking token-by-token streaming, which may result in perceived delays for long outputs.
+%
+%\textbf{Planned Enhancements:} The development roadmap for RAGGIN includes several key improvements: implementing streaming responses for real-time feedback, upgrading the user interface for smoother interaction and better usability, enabling multi-file context handling to support complex codebases, and enhancing prompt management and template customization for more structured queries.
 
 
 

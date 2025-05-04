@@ -20,7 +20,9 @@ In terms of retrieval performance, our core service exhibits low precision and r
 
 The full system image occupies roughly 20GB on Docker (17.3GB for the core backend service and 2.7GB for the Milvus database), excluding the language model and Ollama runtime, which challenges our original lightweight deployment goals.
 
-Finally, it is worth noting that RAGGIN is positioned as an open-source alternative to proprietary services like GitHub Copilot\footnote{GitHub Copilot — \url{https://github.com/features/copilot}}, which benefits from commercial-scale infrastructure and full integration with the Visual Studio Code ecosystem through its parent company, Microsoft.
+Currently, RAGGIN extension only supports adding context from a single file at a time, which can be limiting for projects that span multiple files or modules. Unlike tools like GitHub Copilot\footnote{GitHub Copilot — \url{https://github.com/features/copilot}}, it does not support code comparison or understanding across the full codebase. Additionally, responses are displayed only after the entire output is generated, without real-time token-by-token streaming, which can lead to noticeable delays—especially when handling longer responses. Moreover, our prompt only includes the three most recent user messages, the context provided to the model is relatively basic and intentionally limited. This design choice helps reduce prompt length and ensures compatibility with models that have strict token limits. However, it also means that the model may lack deeper conversational memory or long-range context understanding.
+
+Finally, it is worth noting that RAGGIN is positioned as an open-source alternative to proprietary services like GitHub Copilot, which benefits from commercial-scale infrastructure and full integration with the Visual Studio Code ecosystem through its parent company, Microsoft.
 
 \section{Future development directions}
 
@@ -46,6 +48,10 @@ To meet lightweight deployment goals, we plan to modularize services, separating
 
 To enhance usability and ecosystem compatibility, future development will target integration with the Language Server Protocol (LSP)\footnote{Language Server Protocol (LSP) — \url{https://microsoft.github.io/language-server-protocol}}, enabling support beyond Visual Studio Code (e.g., WebStorm\footnote{WebStorm — \url{https://www.jetbrains.com/webstorm}}, Neovim\footnote{Neovim — \url{https://neovim.io}}).
 
+\paragraph*{Enhance the extension’s capabilities}
+
+To enhance the extension by supporting multi-file context to improve understanding across larger codebases, and by enabling full codebase awareness for features like cross-file analysis and code comparison. We also aim to introduce real-time streaming responses for faster feedback and expand the current prompt memory beyond just the last three messages, using smarter context management to retain relevant history. As larger models with extended context windows become available, we will optimize the system to take full advantage of their capabilities.
+ 
 These future directions aim to evolve RAGGIN into a robust, extensible, and developer-friendly tool that remains open, transparent, and adaptable to diverse workflows.
 
 %% \section{Conclusion}
