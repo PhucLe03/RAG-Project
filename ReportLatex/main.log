@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  4 MAY 2025 22:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  4 MAY 2025 22:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3441,15 +3441,8 @@ enddocument/afterlastpage (AED): lastpage setting LastPage.
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 8917C150566F853369FEBEE568599CFE;12021
-(rerunfilecheck)             After:  0854C666A8D54BD8DB6597C2799947AB;12021.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 0854C666A8D54BD8DB6597C2799947AB;12021.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
@@ -3497,7 +3490,7 @@ onts/type1/public/cm-super/sfti0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1
 t0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
 <c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb><c:/texlive/20
 24/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (79 pages, 4290780 bytes).
+Output written on main.pdf (79 pages, 4290766 bytes).
 PDF statistics:
  1980 PDF objects out of 2073 (max. 8388607)
  1697 compressed objects within 17 object streams
