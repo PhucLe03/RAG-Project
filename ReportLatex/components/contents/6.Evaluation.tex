@@ -119,8 +119,6 @@ Overall, generation latency remained within practical limits—averaging approxi
 
 \section{Testing}
 
-With a package size of less than 2.5MB, RAGGIN Extension ensures a fast installation process and minimal overhead on the VS Code environment. The extension offloads computation to backend services such as Dockerized RAG engines or Ollama models, maintaining low CPU and memory usage during operation.
-
 Performance varies depending on hardware configuration and the size of the selected model. However, during real-world usage, there are instances where the model responds with "I don't know" or fails to generate a meaningful answer—particularly when a smaller LLM is selected. In such cases, switching to a larger, more capable model (e.g., \texttt{deepseek-r1:8b} \cite{deepseek_r1}) often leads to significantly more accurate and context-aware responses. This highlights the importance of model selection based on the complexity of the task, as well as the value of scalable performance in RAG systems.
 
 Moreover, for the VS Code extension component, we will test RAGGIN's operability through \textbf{scenario testing}.
