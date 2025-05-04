@@ -596,19 +596,7 @@ The response body will contain the generated response and some other relevant in
 \section{RAGGIN VS Code Extension Development}
 The VS Code extension, also named RAGGIN, serves as an interface between the user and a locally hosted execution core running in Docker. After the user downloads the RAGGIN core (see Section~\ref{sec:raggin-core}), they can interact with it directly through the extension’s built-in UI in VS Code. A detailed description of the user interface is provided in Appendix~\ref{appendix:interface}.
 
-\textbf{Key features include:}
-\begin{itemize}
-	\item \textbf{Real-time querying within VS Code.} Developers can interact with the AI assistant directly inside the extension panel. The primary focus is on Next.js-related queries, with dynamic control over the Next.js version (from \texttt{v13.0.0} to \texttt{v15.3.1}). Additionally, users can switch between Ollama-hosted LLM models, offering flexibility in model selection based on task complexity or system capabilities.
-	\item \textbf{Local contextual intelligence.} Users can load a specific code file from their local project to provide the AI with deeper context. All operations occur within the local development environment, ensuring data privacy and security—no external server calls or remote data exposure
-	\item textbf{Persistent chat history.} All user interactions are stored locally using VS Code’s globalState API, enabling developers to retain conversation history across sessions. The dedicated history view allows quick reference and reuse of past discussions without re-prompting.
-	\item \textbf{Advanced configuration panel.} For users and researchers, the advanced settings page provides control over key RAG parameters:
-	\begin{itemize}
-		\item Retrieval method customization (e.g., top-k, similarity threshold)
-		\item Generator configuration (e.g., temperature, max tokens)
-	\end{itemize}
-\end{itemize}
-
-\subsection{Intialize RAGGIN code base}
+\subsection{Intialize RAGGIN codebase}
 The setup process for the RAGGIN VS Code extension follows the standard procedures outlined in the official Visual Studio Code extension development documentation\footnote{Your first extension - \url{https://code.visualstudio.com/api/get-started/your-first-extension}}.
 
 
@@ -668,15 +656,15 @@ VS Code provides a post-message communication mechanism that enables interaction
 	\label{fig:webview_communication}
 \end{figure}
 
-\parapgraph*{Rendering RAGGIN UI in VS Code.} In the development of VS Code extensions, presenting a custom UI that aligns with the extension's functionality is often necessary. While VS Code provides native APIs for UI components, there are scenarios where these APIs are insufficient for complex or highly customized interfaces. In such cases, the webview API offers a powerful solution, enabling the integration of custom HTML, CSS, and JavaScript-based UIs within the extension environment.
+\paragraph*{Rendering RAGGIN UI in VS Code.} In the development of VS Code extensions, presenting a custom UI that aligns with the extension's functionality is often necessary. While VS Code provides native APIs for UI components, there are scenarios where these APIs are insufficient for complex or highly customized interfaces. In such cases, the webview API offers a powerful solution, enabling the integration of custom HTML, CSS, and JavaScript-based UIs within the extension environment.
 
-The webview API supports embedding a fully customized front-end application inside VS Code, making it possible to use modern frameworks like React\footnote{React - \url{https://react.dev/}}. This capability significantly simplifies the development process, especially for interfaces that require dynamic rendering, component reuse, or state management. By leveraging React in the webview context, we can take advantage of its component-based architecture, virtual DOM performance optimization, and rich ecosystem of libraries—ultimately accelerating development and improving maintainability.
+The Webview API allows developers to embed fully customized front-end applications within VS Code, enabling the use of modern frameworks such as React\footnote{React - \url{https://react.dev/}}. This approach greatly streamlines the development of complex interfaces by supporting dynamic rendering, component reuse, and efficient state management. Using React within a Webview context provides benefits such as a modular component structure, performance gains through the virtual DOM, and access to a wide range of supporting libraries-ultimately leading to faster development and easier long-term maintenance.
 
-For icon rendering in the extension UI, we chose the codicon\footnote{codicon - \url{https://microsoft.github.io/vscode-codicons/dist/codicon.html}} library over other popular options such as react-icons or lucide-icons. This decision was made because, within the webview environment—a sandboxed HTML container in VS Code—libraries like React-based icons or modern SVG icon sets often fail to render correctly due to DOM restrictions and complex bundling requirements. Also, codicon is the official icon set used internally by Visual Studio Code and is natively supported within webview environments without the need for external imports
+For icon rendering in the extension UI, we chose the codicon\footnote{codicon - \url{https://microsoft.github.io/vscode-codicons/dist/codicon.html}} library over other popular options such as react-icons or lucide-icons. This decision was made because, within the webview environment which is a sandboxed HTML container in VS Code-libraries like React-based icons or modern SVG icon sets often fail to render correctly due to DOM restrictions and complex bundling requirements. Also, codicon is the official icon set used internally by Visual Studio Code and is natively supported within webview environments without the need for external imports
 
 To make the user interface more polished and the development process smoother, we chose to use the Shadcn UI library\footnote{Shadcn UI - \url{https://ui.shadcn.com/}}. It's a modern set of accessible, unstyled components built on Radix UI, designed specifically for React projects. With ready-to-use elements like buttons, tooltips, modals, and popover, it helps us keep a consistent design throughout the RAGGIN extension, while also saving time that would otherwise be spent styling each component from scratch.
 
-\parapgraph*{Establish Communication.} To establish communication between the webview and the extension backend, Visual Studio Code provides a structured messaging system based on the \texttt{postMessage} API. This mechanism enables asynchronous, bidirectional communication where serialized messages—typically JSON objects—are exchanged between the frontend and backend. On the webview side, messages are sent using the VS Code API, while the extension receives and handles them through registered event listeners. Conversely, the extension can respond by sending messages back to the webview, which listens using standard browser events. This design enables interactions such as form submissions, real-time updates, and API calls. 
+\paragraph*{Establish Communication.} To establish communication between the webview and the extension backend, Visual Studio Code provides a structured messaging system based on the \texttt{postMessage} API. This mechanism enables asynchronous, bidirectional communication where serialized messages, typically JSON objects are exchanged between the frontend and backend. On the webview side, messages are sent using the VS Code API, while the extension receives and handles them through registered event listeners. Conversely, the extension can respond by sending messages back to the webview, which listens using standard browser events. This design enables interactions such as form submissions, real-time updates, and API calls. 
 
 In the specific context of RAGGIN, when the user enters a prompt and presses the send button on the UI, the webview API is used to transmit the request to the extension.
 \begin{lstlisting}[caption=Handle chat storing]
@@ -688,7 +676,7 @@ vscode.postMessage({
 });
 \end{lstlisting}
 
-When the extension layer receives the "ragCall" command, it validates required parameters, call API in the RAGGIN core to take the response. The extension layer then sends a message back to the webview.
+When the extension layer receives the \texttt{ragCall} command, it validates required parameters, call API in the RAGGIN core to take the response. The extension layer then sends a message back to the webview.
 
 \begin{lstlisting}[caption=Extension layer receives command from webview]
 case "ragCall": {
@@ -708,7 +696,7 @@ case "ragCall": {
 }
 \end{lstlisting}
 
-Finally, the webview has an event listener that detects the "ragCallComplete" message and then store the response in history and render it to chat window.
+Finally, the webview has an event listener that detects the \texttt{ragCallComplete} message and then store the response in history and render it to chat window.
 
 \begin{lstlisting}[caption=Listener to detect message]
 window.addEventListener("message", (event) => {
@@ -722,7 +710,7 @@ window.addEventListener("message", (event) => {
 
 
 \subsection{Storing user chat data}
-The Global State in VS Code is a persistent storage mechanism provided by the extension API, allowing developers to save and access data that remains consistent across all workspaces and sessions. Unlike workspace state which is tied to a specific project, global state operates independently, functioning like a shared memory bank that retains information regardless of which folder or project is open. This data is stored securely in an internal SQLite database located in the user's application support directory. As a result, it persists through actions such as closing and reopening VS Code, switching between different workspaces, or even restarting the computer.
+The \texttt{globalState} in VS Code is a persistent storage mechanism provided by the extension API, allowing developers to save and access data that remains consistent across all workspaces and sessions. Unlike workspace state which is tied to a specific project, \texttt{globalState} operates independently, functioning like a shared memory bank that retains information regardless of which folder or project is open. This data is stored securely in an internal SQLite database located in the user's application support directory. As a result, it persists through actions such as closing and reopening VS Code, switching between different workspaces, or even restarting the computer.
 
 \begin{lstlisting}[caption=Handle chat storing]
 	const currentChats = this._context.globalState.get<Chat[]>("chats", []);
@@ -731,12 +719,12 @@ The Global State in VS Code is a persistent storage mechanism provided by the ex
 	await this._context.globalState.update("chats", updatedChats);
 \end{lstlisting}
 
-For instance, in the case of our RAGGIN extension, we utilize the global state to maintain chat session histories across sessions. When a user interacts with the chat interface, each conversation is stored in global state using a unique key. It first retrieves the existing chat list stored under the key \textbf{"chats"} or defaults to an empty array if none exists. It then removes any chat with the same id as the incoming chat to prevent duplication. The new or updated chat is added to the top of the list, ensuring that the most recent session appears first. Finally, the updated list is saved back into globalState, preserving the chat history across different workspaces and sessions. This approach ensures continuity for users, allowing them to resume or revisit previous conversations seamlessly, even after the IDE has been closed or restarted.
+For instance, in the case of our RAGGIN extension, we utilize the \texttt{globalState} to maintain chat session histories across sessions. When a user interacts with the chat interface, each conversation is stored in \texttt{globalState} using a unique key. It first retrieves the existing chat list stored under the key \textbf{"chats"} or defaults to an empty array if none exists. It then removes any chat with the same id as the incoming chat to prevent duplication. The new or updated chat is added to the top of the list, ensuring that the most recent session appears first. Finally, the updated list is saved back into \texttt{globalState}, preserving the chat history across different workspaces and sessions. This approach ensures continuity for users, allowing them to resume or revisit previous conversations seamlessly, even after the IDE has been closed or restarted.
 
 \subsection{Optimizing chat context for LLM input}
 To ensure relevant and concise prompts for the language model, the RAGGIN extension includes a helper method named \texttt{optimizeChatContext()}, which extracts and formats the most recent chat history into a structured context string. Specifically, it selects the last three user messages in history chat (when available), prefixes them with descriptive labels (e.g., “Previous sentence”), and appends the latest AI response if present. This context is separated from the next user question by a delimiter (\texttt{---}) and optionally trimmed to a maximum length to respect model input limitations.
 
-This prompt format explicitly separates prior context from the current query, improving the model’s ability to understand and respond appropriately. The resulting fullPrompt is passed into the RAGGIN core, alongside parameters such as the selected model, Next.js version, additional options, and any attached file list. This approach ensures that the language model operates with contextual awareness while maintaining performance and input size constraints.
+This prompt format explicitly separates prior context from the current query, improving the model’s ability to understand and respond appropriately. The resulting full prompt is passed into the RAGGIN core, alongside parameters such as the selected model, Next.js version, additional options, and any attached file list. This approach ensures that the language model operates with contextual awareness while maintaining performance and input size constraints.
 
 \begin{lstlisting}[caption=Full prompt after optimizing]
 [Context]: 
