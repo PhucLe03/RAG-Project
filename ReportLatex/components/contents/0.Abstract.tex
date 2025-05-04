@@ -3,7 +3,7 @@
 
 In this project, we present the design of a Retrieval-Augmented Generation (RAG) workflow integrated into a Visual Studio Code (VS Code) extension, serving as a local intelligent assistant for web developers working with the Next.js framework. The system uses Milvus \cite{wang2021milvus} as the vector database to efficiently store and retrieve semantically indexed information from the official Next.js documentation, prepared during the data processing phase.
 
-For response generation, the architecture is model-agnostic and designed to work with locally hosted Large Language Models (LLMs) via Ollama\footnote{Ollama - \url{https://ollama.com/}}, a lightweight framework that allows users to run various LLMs depending on their hardware capabilities. This flexibility empowers developers to choose the model that best suits their system-whether it's a smaller model for lightweight environments or a more powerful one for advanced tasks.
+For response generation, the architecture is model-agnostic and designed to work with locally hosted Large Language Models (LLMs) via Ollama\footnote{\label{ollama}Ollama - \url{https://ollama.com/}}, a lightweight framework that allows users to run various LLMs depending on their hardware capabilities. This flexibility empowers developers to choose the model that best suits their system-whether it's a smaller model for lightweight environments or a more powerful one for advanced tasks.
 
 By combining retrieval from up-to-date documentation with locally generated, context-aware responses, the proposed RAG-enhanced assistant boosts productivity and simplifies development workflows directly within the VS Code environment.
 

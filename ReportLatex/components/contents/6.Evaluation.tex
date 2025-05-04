@@ -110,12 +110,12 @@ Latency remained reasonable for simple queries (approximately \textbf{1.2 second
 The generator ROUGE scores across various models are illustrated in Figure~\ref{fig:rouge_1}, Figure~\ref{fig:rouge_2} and Figure~\ref{fig:rouge_3}, corresponding to ROUGE-1, ROUGE-2 and ROUGE-3 metrics, respectively. Additionally, model-wise relevance evaluations are presented in Figure~\ref{fig:llm_eval_small} and Figure~\ref{fig:llm_eval_bigger}, capturing the perceived quality of generated outputs across different model sizes. Notably:
 
 \begin{itemize}
-	\item \textbf{Codestral-22B}\footnote{Codestral - \url{https://mistral.ai/news/codestral}}, \textbf{LLaMA2-13B} \cite{llama2}, and \textbf{Qwen2.5-14B} \cite{hui2024qwen2.5} consistently achieved top scores, producing highly relevant and fluent outputs across diverse test cases.
-	\item \textbf{Mistral-7B} \cite{mistral}, \textbf{CodeLLaMA-7B} \cite{roziere2023code}, and \textbf{Qwen2.5-3B} \cite{hui2024qwen2.5} also demonstrated balanced performance, with strong semantic accuracy and reliable response generation.
-	\item Smaller models like \textbf{Qwen-1.8B} \cite{bai2023qwen} and \textbf{CodeGemma-2B} \cite{codegemma} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
+	\item \texttt{Codestral-22B}\footnote{\label{codestral}Codestral - \url{https://mistral.ai/news/codestral}}, \texttt{LLaMA2-13B} \cite{llama2}, and \texttt{Qwen2.5-14B} \cite{hui2024qwen2.5} consistently achieved top scores, producing highly relevant and fluent outputs across diverse test cases.
+	\item \texttt{Mistral-7B} \cite{mistral}, \texttt{CodeLLaMA-7B} \cite{roziere2023code}, and \texttt{Qwen2.5-3B} \cite{hui2024qwen2.5} also demonstrated balanced performance, with strong semantic accuracy and reliable response generation.
+	\item Smaller models like \texttt{Qwen-1.8B} \cite{bai2023qwen} and \texttt{CodeGemma-2B} \cite{codegemma} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
 \end{itemize}
 
-Overall, generation latency remained within practical limits-averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries-though these values varied depending on the size and architecture of the underlying language model.
+Generator latency remained within practical limits but varied notably with model size and architecture. Lightweight models such as \texttt{Qwen-4B} \cite{baichuan2} and \texttt{Qwen2.5-0.5B} \cite{hui2024qwen2.5} delivered rapid response times—averaging under \textbf{4 seconds} for simple prompts and approximately \textbf{5–6 seconds} for complex ones. Mid-sized models, including \texttt{LLaMA3.2-3B} \cite{llama3} and \texttt{DeepSeek-R1-1.5B} \cite{deepseek_r1}, offered a balanced performance profile, with latencies around \textbf{6–7 seconds} for simple and \textbf{14 seconds} for complex inputs. Conversely, larger models such as \texttt{CodeLlama-7B} \cite{codellama}, \texttt{LLaMA2-13B} \cite{llama2}, and particularly \texttt{Codestral-22B}\footnoteref{codestral}, incurred significantly higher latencies, with complex queries requiring up to \textbf{150 seconds}. These results underscore the trade-off between model capacity and inference speed, a key consideration for latency-sensitive deployments.
 
 \section{Testing}
 
