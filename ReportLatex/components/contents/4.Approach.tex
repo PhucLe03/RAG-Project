@@ -104,62 +104,12 @@ Our system, called RAGGIN (Retrieval-Augmented Generation for Guided Intelligenc
 	\label{fig:RAGGIN-architecture}
 \end{figure}
 
-The proposed RAGGIN system is designed to address the key issues outlined in Section \ref{problem_statement} by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems:
+The proposed RAGGIN system is designed to address the key issues outlined in Section \ref{problem_statement} by combining advanced retrieval and generation techniques with seamless integration into the developer workflow. Below is how the system resolves the identified problems.
 
-\begin{enumerate}
-	\item \textbf{Time-consuming searches}
-\end{enumerate}
-
-\textbf{Problem}: Developers spend excessive time manually searching through forums like StackOverflow or through vast and scattered Next.js documentation to find specific information.
-\vspace{2mm}
-
-\textbf{Solutions}:
 \begin{itemize}
-	\item The retriever component of the system uses a vector database to store Next.js documentation in a semantically indexed format.
-	\item When a user submits a query, the retriever efficiently retrieves the most relevant documents based on semantic similarity
-	\item By narrowing down the search scope and returning only the most contextually relevant sections, the system reduces the time spent on manual searches and ensures higher accuracy in retrieval.
-\end{itemize}
-
-\begin{enumerate}
-	\setcounter{enumi}{1}
-	\item \textbf{Lack of context-aware assistance}
-\end{enumerate}
-
-\textbf{Problem}: Retrieved information often lacks sufficient context, leaving developers to manually piece together fragmented answers.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-	\item The augmentation component combines the retrieved documents with the user's query to construct a prompt enriched with relevant context.
-	\item The generator uses the augmented prompt to produce coherent, actionable, and contextually accurate responses. This eliminates the need for developers to manually correlate information from multiple sources.
-\end{itemize}
-
-\begin{enumerate}
-	\setcounter{enumi}{2}
-	\item \textbf{Workflow disruption}
-\end{enumerate}
-
-\textbf{Problems}: Switching between the code editor and external documentation disrupts the developer's workflow, reducing productivity.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-	\item The system is fully integrated into the VS Code environment, allowing developers to access it without leaving their coding workspace.
-	\item Queries can be sent directly from VS Code, and responses are displayed within the editor. This seamless integration ensures that developers remain focused on their work, minimizing interruptions and enhancing their overall efficiency.
-\end{itemize}
-
-\begin{enumerate}
-	\setcounter{enumi}{3}
-	\item \textbf{Inconsistent support from existing tools}
-\end{enumerate}
-
-\textbf{Problem}: Traditional tools like keyword-based search engines fail to handle nuanced queries or provide tailored, actionable solutions.
-\vspace{2mm}
-
-\textbf{Solutions}:
-\begin{itemize}
-	\item The system leverages advanced semantic retrieval techniques through the vector database to locate relevant content based on the meaning of the query rather than just matching keywords.
-	\item The local LLM and vector database ensure an uninterrupted workflow, even in the event of an internet outage.
+	\item \textbf{Disruption of workflow.} RAGGIN delivers in-editor assistance, eliminating the need for developers to leave the code editor to consult external documentation or perform browser-based searches. This minimizes context switching and preserves development focus.
+	
+	\item \textbf{Outdated or irrelevant context.} By retrieving documentation based on the specified version of the framework, RAGGIN ensures that the information provided is accurate and contextually aligned with the developer’s current environment, reducing the risk of relying on obsolete or generalized content.
 \end{itemize}
 
 \section{Why Milvus?}
@@ -310,8 +260,8 @@ VS Code is the most widely adopted Integrated Development Environment (IDE) amon
 The vector storage component is a fundamental part of our system, enabling efficient retrieval of embedded data for the user. Since our primary dataset consists of documentation from the Next.js framework, it inherently contains a combination of both structured and unstructured data:
 
 \begin{itemize}
-    \item \textbf{Structured data:} The Next.js documentation is systematically organized. Each documentation page belongs to a specific subject or category, resembling a hierarchical folder structure. This organization provides metadata that aids in filtering and contextual retrieval.
-    \item \textbf{Unstructured data:} The text content and code snippets within the documentation represent unstructured data. These elements lack a predefined schema but carry crucial information necessary for coding assistance.
+    \item \textbf{Structured data.} The Next.js documentation is systematically organized. Each documentation page belongs to a specific subject or category, resembling a hierarchical folder structure. This organization provides metadata that aids in filtering and contextual retrieval.
+    \item \textbf{Unstructured data.} The text content and code snippets within the documentation represent unstructured data. These elements lack a predefined schema but carry crucial information necessary for coding assistance.
 \end{itemize}
 
 \begin{figure}[H]
