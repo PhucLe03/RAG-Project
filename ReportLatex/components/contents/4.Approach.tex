@@ -117,24 +117,25 @@ The proposed RAGGIN system is designed to address the key issues outlined in Sec
 Milvus is our chosen vector database for storing embedded data in the system. This decision is based on several compelling reasons:
 
 \begin{itemize}
-	\item \textbf{Open source:} 
+	\item \textbf{Open source.} 
 	Milvus is an open-source database, perfectly aligning with our vision of delivering a free, open-source, distributed code assistance tool for VS Code. Its open nature encourages transparency and community contributions.
 	
-	\item \textbf{Support for structured and unstructured data:} 
+	\item \textbf{Support for structured and unstructured data.} 
 	The nature of our dataset, comprising both structured metadata (e.g., documentation sections, categories) and unstructured content (e.g., textual descriptions, code snippets), makes Milvus an ideal choice. Structured data benefits from attribute-based filtering, allowing users to narrow their queries to specific documentation sections. Meanwhile, unstructured data, such as free-form text and code snippets, is embedded into high-dimensional vectors for similarity-based retrieval.
 	
-	\item \textbf{Comprehensive SDK and model support:} 
+	\item \textbf{Comprehensive SDK and model support.} 
 	Milvus's SDK seamlessly integrates with our chosen embedding model, BGE-M3, for generating high-quality embeddings. It also supports the HNSW algorithm for efficient indexing of unstructured data. This compatibility with our preferred methods ensures smooth implementation and reliable performance.
 	
-	\item \textbf{Scalability:} 
+	\item \textbf{Scalability.} 
 	Milvus employs LSM-based storage to minimize disk I/O and ensure efficient handling of frequent updates. This scalability is critical for managing dynamic and evolving datasets, such as continuously updated framework documentation.
 	
-	\item \textbf{Performance:} 
+	\item \textbf{Performance.} 
 	Since our system is designed to run entirely on the user's local machine, Milvus's ability to leverage both CPU and GPU resources significantly enhances performance. This ensures that computationally intensive tasks, such as vector similarity searches and indexing, are executed efficiently, maintaining a responsive user experience.
 \end{itemize}
 
 \begin{table}[H]
-	\begin{tabular}{lp{1.5cm}p{1.5cm}p{1cm}p{1.6cm}p{1.5cm}p{2cm}}
+	\hspace{-1.5cm}
+	\begin{tabular}{lp{2cm}p{1.5cm}p{1cm}p{1.6cm}p{2cm}p{2cm}}
 		\hline
 		\textbf{System}                   & \textbf{Billion-Scale Data} & \textbf{Dynamic Data} & \textbf{GPU} & \textbf{Attribute Filtering} & \textbf{Multi-Vector Query} & \textbf{Distributed System} \\ \hline
 		Facebook Faiss \cite{douze2024faiss, johnson2017similarity}      & \checkmark                  & \xmark                & \checkmark  & \xmark                     & \xmark                      & \xmark                     \\ \hline
@@ -238,13 +239,7 @@ In designing a fully local RAG system, Ollama\footnote{Ollama - \url{https://oll
 
 Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments. Our backend comprising the retrieval service, embedding logic, and integration with the vector database is relatively complex and includes multiple dependencies and components that can be challenging to configure manually. Docker provides a robust solution to package these services into isolated containers, enabling users to launch the full backend stack with a single command, regardless of their underlying operating system or local environment setup.
 
-By using Docker, we abstract away the intricacies of installing and configuring backend tools such as the Milvus vector database and the application logic for hybrid retrieval. This not only simplifies onboarding for new users but also ensures that the system behaves consistently across machines, eliminating common "it works on my machine" problems. Additionally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of data, models, or configurations without altering the core codebase.
-
-Although the backend is not lightweight due to the nature of the services it includes, containerization allows the system to remain modular and maintainable. Users can deploy updates or scale specific services independently, without affecting the rest of the system. This separation of concerns aligns with modern software engineering best practices and makes the system easier to extend and maintain in the long term.
-
-%\section{Why VS Code Extension?}
-%
-%Integrating the RAG system into a VS Code extension provides seamless, in-editor support for developers within their preferred development environment. This integration enables users to query documentation, generate code, and receive intelligent suggestions in real time without needing to switch between tools or leave the editor. By minimizing context-switching, it streamlines the development workflow and boosts productivity. VS Code’s extensibility, widespread usage in the web development community, and robust support for terminals and custom interfaces make it an ideal platform for embedding such a developer-focused RAG solution.
+By using Docker, we abstract away the intricacies of installing and configuring backend tools such as the Milvus vector database and the application logic for retriever and generator. This not only simplifies onboarding for new users but also ensures that the system behaves consistently across machines. Additionally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of data, models, or configurations without altering the core codebase.
 
 \section{Why VS Code extension?}
 
