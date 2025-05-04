@@ -1,9 +1,9 @@
 \chapter{Introduction}
-% \label{chap:intro}
+\label{chap:intro}
 
-% \section{Introduction}
+
 \section{Motivations}
-% \label{sec:motivation}
+\label{sec:motivation}
 
 The process of web development has been significantly transformed by the introduction and adoption of frameworks. Frameworks have become the industry standard, providing developers with structured, reusable tools that simplify the creation of web applications. This evolution has also been greatly influenced by the rise of LLMs like OpenAI's Codex \cite{chen2021openai_codex}, Google's Gemini \cite{gemini}, and GitHub Copilot\footnote{Github Copilot - \url{https://copilot.github.com/}}, which have made coding more accessible by offering automated code generation, real-time suggestions, and debugging assistance. These tools have made entry into web development easier than ever, lowering barriers for beginners and speeding up development processes.
 
@@ -27,13 +27,14 @@ These frequent and impactful changes challenge developers to constantly relearn 
 
 Modern web development frameworks, such as Next.js, offer powerful features and flexibility, making them a popular choice for building high-performance applications. However, as these frameworks continue to evolve, their complexity has grown significantly. Developers are often required to refer to extensive documentation, which can be fragmented and difficult to navigate, to resolve coding challenges, learn new functionalities, or debug issues.
 
+\subsection*{Challenges}
+
 \begin{itemize}
-  \item \textbf{Disruption of workflow.} Switching between the code editor and external documentation interrupts the development process, causing a loss of focus and reducing productivity.
-  \item \textbf{Outdated or irrelevant context.} Existing tools, including traditional search engines and static code assistants, often generate responses based on outdated or generalized information. This can lead to suggestions that are no longer applicable to the current framework version, forcing developers to manually verify or reconcile discrepancies.
+	\item \textbf{Disruption of workflow.} Switching between the code editor and external documentation interrupts the development process, causing a loss of focus and reducing productivity.
+	\item \textbf{Outdated or irrelevant context.} Existing tools, including traditional search engines and static code assistants, often generate responses based on outdated or generalized information. This can lead to suggestions that are no longer applicable to the current framework version, forcing developers to manually verify or reconcile discrepancies.
 \end{itemize}
 
-
-\section{Significance of the problem}
+\subsection*{Significance}
 
 \begin{itemize}
 	\item \textbf{Streamlined developer experience.} By reducing the time spent navigating documentation and minimizing context switching within the development environment, the proposed system enhances developer focus and efficiency, ultimately accelerating development workflows.
@@ -42,44 +43,19 @@ Modern web development frameworks, such as Next.js, offer powerful features and 
 
 This project demonstrates how RAG can improve developer experience by delivering precise, contextually relevant documentation directly within the development environment. Rather than relying on static or outdated content, RAG enables dynamic, real-time support tailored to the developer's needs, making it a practical and scalable solution for modern software development.
 
-
-\section{Objectives}
-
-The objective of this research is to develop a tool, specifically a VS Code extension, that facilitates the web development process by addressing common challenges associated with modern frameworks. Utilize RAG to assist developers with question answering, code generation, and code review. RAG will retrieve relevant information from documentation to enhance the accuracy and relevance of the tool's suggestions.
-
 \section{Scope}
 The scope is intentionally confined to Next.js as the primary framework for web application development, enabling a focused exploration of its interaction with RAG methodologies. Additionally, the implementation targets applications written in JavaScript, TypeScript, HTML, and CSS, ensuring compatibility with commonly used web development programming languages.
 
-% In this thesis, we aim to focus on the Next.js framework and the common packages that are often used alongside it, as well as Firebase for hosting purposes. The scope of the research includes the design and implementation of the RAG pipeline, the integration of the VSCode extension, and the evaluation of the system’s effectiveness in improving the development experience for Next.js applications.
+\section{Objective} \label{objectives}
 
-% Specifically, our scope will only includes the technologies of Next.js - main framework used for the web application development.
+The objective of this research is to develop a tool, specifically a VS Code extension, that facilitates the web development process by addressing common challenges associated with modern frameworks. The tool will utilize RAG to assist developers with question answering, code generation, and code review. By retrieving relevant information from documentation, RAG enhances the accuracy and relevance of the tool's suggestions.
 
-% The tool will specifically target applications written in JavaScript, TypeScript, HTML, and CSS.
-% Specifically, the scope includes the following technologies:
-
-% \begin{itemize}
-%   \item Next.js: The main framework used for web application development.
-%   \item Firebase: Used for hosting Next.js applications and providing backend services.
-%   \item Tailwind CSS: A utility-first CSS framework for designing responsive user interfaces.
-%   \item Framer Motion: A popular library for animations and interactions.
-%   \item Shadcn UI: A component library for UI elements.
-%   \item Zod: A TypeScript-first schema declaration and validation library.
-%   \item Prisma: An ORM for interacting with the database in a type-safe manner.
-%   \item Firebase SDK: The official Firebase SDK is used for integration with Firebase services.
-% \end{itemize}
-
-
-
-% The focus will be on understanding how these tools and libraries can be used effectively in combination with Next.js and Firebase, with an emphasis on addressing issues related to rapid framework evolution and interoperability between services.
-
-\section{Challenges}
-
-Developing this tool involves several challenges:
+Developing this tool involves several key challenges:
 
 \begin{itemize}
-  \item \textbf{Efficient context management.} Since the goal is to make the tool lightweight, storing and managing the context of a user's codebase in a way that allows for fast retrieval without overwhelming system resources is a major challenge.
-  \item \textbf{Data curation complexity.} The data curation process requires extensive knowledge about the framework.
-  \item \textbf{Handling framework updates.} Keeping the tool updated with the frequent changes in frameworks like Next.js and their associated packages is challenging. Continuous updates are needed to ensure compatibility and provide accurate suggestions.
+	\item \textbf{Efficient context management.} Since the goal is to make the tool lightweight, storing and managing the context of a user's codebase in a way that allows for fast retrieval without overwhelming system resources is a major challenge.
+	\item \textbf{Data curation complexity.} The data curation process requires extensive knowledge about the framework.
+	\item \textbf{Handling framework updates.} Keeping the tool updated with the frequent changes in frameworks like Next.js and their associated packages is challenging. Continuous updates are needed to ensure compatibility and provide accurate suggestions.
 \end{itemize}
 
 \section{Structure of the report}
