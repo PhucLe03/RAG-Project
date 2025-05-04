@@ -96,7 +96,7 @@ The evaluation was conducted using the default parameters for both the retriever
 
 \section{Evaluation summary}
 
-\subsection{Retriever Performance}
+\subsection{Retriever performance}
 
 Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance for simple and complex queries, respectively.
 
@@ -105,7 +105,7 @@ Results show that the retriever achieved high \text{Recall@K} in simple queries,
 Latency remained reasonable for simple queries (approximately \textbf{1.2 seconds}), while complex queries understandably took longer due to the increased search depth and token length, averaging around \textbf{3.4 seconds}.
 
 
-\subsection{Generator Performance}
+\subsection{Generator performance}
 
 The generator ROUGE scores across various models are illustrated in Figure~\ref{fig:rouge_1}, Figure~\ref{fig:rouge_2} and Figure~\ref{fig:rouge_3}, corresponding to ROUGE-1, ROUGE-2 and ROUGE-3 metrics, respectively. Additionally, model-wise relevance evaluations are presented in Figure~\ref{fig:llm_eval_small} and Figure~\ref{fig:llm_eval_bigger}, capturing the perceived quality of generated outputs across different model sizes. Notably:
 
@@ -117,7 +117,7 @@ The generator ROUGE scores across various models are illustrated in Figure~\ref{
 
 Overall, generation latency remained within practical limits—averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries—though these values varied depending on the size and architecture of the underlying language model.
 
-\section{RAGGIN VS Code Extension testing}
+\section{Testing}
 
 With a package size of less than 2.5MB, RAGGIN Extension ensures a fast installation process and minimal overhead on the VS Code environment. The extension offloads computation to backend services such as Dockerized RAG engines or Ollama models, maintaining low CPU and memory usage during operation.
 

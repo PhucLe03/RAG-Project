@@ -25,31 +25,27 @@ These frequent and impactful changes challenge developers to constantly relearn 
 
 \section{Problem statement}
 
-Modern web development frameworks, such as Next.js, offer powerful features and flexibility, making them a popular choice for building high-performance applications. However, as these frameworks continue to evolve, their complexity has grown significantly. Developers are often required to refer to extensive documentation, which can be fragmented and difficult to navigate, to resolve coding challenges, learn new functionalities, or debug issues. This reliance on documentation creates several inefficiencies in the development workflow, including:
+Modern web development frameworks, such as Next.js, offer powerful features and flexibility, making them a popular choice for building high-performance applications. However, as these frameworks continue to evolve, their complexity has grown significantly. Developers are often required to refer to extensive documentation, which can be fragmented and difficult to navigate, to resolve coding challenges, learn new functionalities, or debug issues.
 
 \begin{itemize}
-  \item Time-Consuming Information Retrieval: Developers frequently need to search through lengthy and intricate documentation to find specific information. Traditional search methods, such as keyword-based tools, often fail to capture the intent behind the query or retrieve relevant context, leading to prolonged and unproductive searches.
-  \item Fragmented Context: Even when relevant information is found, it often lacks the necessary context to answer the developer's query fully. This forces developers to cross-reference multiple sections of the documentation, further delaying progress.
-  \item Disruption of Workflow: Switching between the code editor and external documentation interrupts the development process, causing a loss of focus and reducing productivity.
-  \item Inconsistent Results: Existing tools, such as search engines or static code assistants, often provide inconsistent results that fail to address the specific needs of a query or task, leaving developers to piece together partial solutions on their own.
+  \item \textbf{Disruption of workflow.} Switching between the code editor and external documentation interrupts the development process, causing a loss of focus and reducing productivity.
+  \item \textbf{Outdated or irrelevant context.} Existing tools, including traditional search engines and static code assistants, often generate responses based on outdated or generalized information. This can lead to suggestions that are no longer applicable to the current framework version, forcing developers to manually verify or reconcile discrepancies.
 \end{itemize}
 
 
-\section{Significant of the problem}
-
-Solving this problem is of critical importance for several reasons:
+\section{Significance of the problem}
 
 \begin{itemize}
-  \item Enhanced Developer Productivity: By significantly reducing the time spent searching for relevant information, the proposed system allows developers to focus on coding tasks, accelerating development timelines and increasing overall productivity.
-  \item Improved Workflow Efficiency: Delivering context-aware assistance directly within the coding environment (e.g., Visual Studio Code) eliminates the need to switch between multiple tools and resources, streamlining the development process and reducing cognitive load.
-  \item Support for Complex Frameworks: As frameworks like Next.js continue to evolve, the volume and complexity of their documentation will only increase. An intelligent system capable of efficiently managing and retrieving this knowledge ensures that developers can stay up-to-date and adapt to new features quickly.
+	\item \textbf{Streamlined developer experience.} By reducing the time spent navigating documentation and minimizing context switching within the development environment, the proposed system enhances developer focus and efficiency, ultimately accelerating development workflows.
+	\item \textbf{Grounded updates for evolving frameworks.} As frameworks like Next.js frequently evolve, maintaining up-to-date and accurate understanding becomes challenging. Our system leverages retrieval-based methods to provide LLMs with grounded, version-specific information, ensuring developers receive relevant and reliable guidance.
 \end{itemize}
 
-By solving this problem, we aim to not only improve the efficiency of individual developers but also set a foundation for the future of Artificial Intelligent (AI), AI-assisted development environments. This research will demonstrate how advanced AI techniques like RAG can transform the way developers interact with documentation, enhancing both their productivity and their overall experience.
+This project demonstrates how RAG can improve developer experience by delivering precise, contextually relevant documentation directly within the development environment. Rather than relying on static or outdated content, RAG enables dynamic, real-time support tailored to the developer's needs, making it a practical and scalable solution for modern software development.
+
 
 \section{Objectives}
 
-The objective of this research is to develop a tool, specifically a VS Code extension, that facilitates the web development process by addressing common challenges associated with modern frameworks. Utilize RAG to assist developers with question answering, code generation, and code review. RAG will retrieve relevant information from documentation or community forums to enhance the accuracy and relevance of the tool's suggestions.
+The objective of this research is to develop a tool, specifically a VS Code extension, that facilitates the web development process by addressing common challenges associated with modern frameworks. Utilize RAG to assist developers with question answering, code generation, and code review. RAG will retrieve relevant information from documentation to enhance the accuracy and relevance of the tool's suggestions.
 
 \section{Scope}
 The scope is intentionally confined to Next.js as the primary framework for web application development, enabling a focused exploration of its interaction with RAG methodologies. Additionally, the implementation targets applications written in JavaScript, TypeScript, HTML, and CSS, ensuring compatibility with commonly used web development programming languages.
@@ -81,10 +77,9 @@ The scope is intentionally confined to Next.js as the primary framework for web 
 Developing this tool involves several challenges:
 
 \begin{itemize}
-  \item Efficient context management: Since the goal is to make the tool lightweight, storing and managing the context of a user's codebase in a way that allows for fast retrieval without overwhelming system resources is a major challenge.
-  \item Data curation complexity: The data curation process requires extensive knowledge about the framework.
-  \item Handling framework updates: Keeping the tool updated with the frequent changes in frameworks like Next.js and their associated packages is challenging. Continuous updates are needed to ensure compatibility and provide accurate suggestions.
-  \item User experience: Balancing the amount of information presented to the user without overwhelming them is essential. The tool should provide meaningful insights and recommendations without causing information overload.
+  \item \textbf{Efficient context management.} Since the goal is to make the tool lightweight, storing and managing the context of a user's codebase in a way that allows for fast retrieval without overwhelming system resources is a major challenge.
+  \item \textbf{Data curation complexity.} The data curation process requires extensive knowledge about the framework.
+  \item \textbf{Handling framework updates.} Keeping the tool updated with the frequent changes in frameworks like Next.js and their associated packages is challenging. Continuous updates are needed to ensure compatibility and provide accurate suggestions.
 \end{itemize}
 
 \section{Structure of the report}
