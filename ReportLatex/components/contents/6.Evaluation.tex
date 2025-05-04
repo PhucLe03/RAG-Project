@@ -115,7 +115,7 @@ To evaluate the performance of both the retriever and the generator, we employ a
 
 Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance and generator latency for simple and complex queries, respectively.
 
-Results show that the retriever achieved high \text{Recall@K} in simple queries, with a peak of \textbf{0.81} at \textit{K} = 5, demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \text{Recall@K} dropping to \textbf{0.24} at \textit{K} = 5. \text{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
+Results show that the retriever achieved high \text{Recall@K} in simple queries, with a peak of \textbf{0.81} at \( K = 5 \), demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \text{Recall@K} dropping to \textbf{0.24} at \( K = 5 \). \text{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
 
 Latency remained reasonable for simple queries (approximately \textbf{1.2 seconds}), while complex queries understandably took longer due to the increased search depth and token length, averaging around \textbf{3.4 seconds}.
 
