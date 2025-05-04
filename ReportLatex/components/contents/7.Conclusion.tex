@@ -16,7 +16,7 @@ At present, the extension focuses exclusively on the Next.js framework, without 
 
 Currently, RAGGIN only offers configuration flexibility for the generator model (i.e., the LLM used for response generation). The embedding model for documentation remains fixed, with embeddings precomputed and bundled with the system. Moreover, the extension does not yet support local GPU-based embedding generation for user queries due to the complexities involved in GPU Docker setup and the additional size such support would impose on the container image.
 
-In terms of retrieval performance, our core service exhibits low precision and recall at small Top-\(K\) values: Precision@1 is approximately 0.267, and Recall@1 is 0.053. Performance improves only at larger \(K\), indicating the retrieval system is currently not optimized for extracting highly relevant results with minimal context. This limitation negatively impacts downstream LLM performance, as more irrelevant documents are included in the prompt context.
+In terms of retrieval performance, our core service exhibits low precision and recall at small Top-\(K\) values: Precision@1 is approximately 0.27, and Recall@1 is 0.05. Performance improves only at larger \(K\), indicating the retrieval system is currently not optimized for extracting highly relevant results with minimal context. This limitation negatively impacts downstream LLM performance, as more irrelevant documents are included in the prompt context.
 
 The full system image occupies roughly 20GB on Docker (17.3GB for the core backend service and 2.7GB for the Milvus database), excluding the language model and Ollama runtime, which challenges our original lightweight deployment goals.
 
