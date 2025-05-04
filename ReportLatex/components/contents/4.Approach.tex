@@ -1,4 +1,4 @@
-\chapter{Approach}
+\chapter{Proposed solution}
 
 % Approach
 %   1. Fine-Tuning vs. Retrieval-Augmented Generation
@@ -165,9 +165,9 @@ In our RAG pipeline, BGE-M3 serves as the foundation for the retrieval stage, en
 %	\label{table:qwen_filtered}
 %\end{table}
 
-\section{Why Ollama's LLMs}
+\section{Why Ollama?}
 
-In designing a fully local RAG system, Ollama was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen, LLaMA, and Mistral makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with the goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
+In designing a fully local RAG system, Ollama\footnote{Ollama - \url{https://ollama.com/}} was selected as the LLM runtime for its ease of use, lightweight architecture, and compatibility with a wide range of open-source models. Ollama provides a simple yet powerful API interface for serving large language models directly on local machines, removing the dependency on cloud-based inference and ensuring full control over data privacy and latency. Its support for models such as Qwen \cite{bai2023qwen}, LLaMA \cite{llama}, and Mistral \cite{mistral} makes it a versatile backend for experimentation and deployment. Moreover, the CLI-based installation and Docker integration simplify the setup process, aligning with the goal of being developer-friendly and easy to deploy. By utilizing Ollama, our system guarantees that all generation processes remain offline, making it suitable for privacy-conscious environments and offline development workflows.
 
 \section{Why Docker?}
 
