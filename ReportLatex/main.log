@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  4 MAY 2025 19:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  4 MAY 2025 21:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2788,17 +2788,38 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[32])
+[32]
+Underfull \hbox (badness 1221) in paragraph at lines 261--262
+ []\T1/cmr/bx/n/10 Developer Ecosys-tem and Com-mu-nity. \T1/cmr/m/n/10 Ol-lama
+ is un-der ac-tive de-vel-op-ment, with strong
+ []
 
-[33] (./components/contents/5.Implementation.tex
+
+
+[33]
+Underfull \hbox (badness 3229) in paragraph at lines 265--265
+[][][]\T1/cmr/m/n/8 Docker Un-veils 2024 State of Ap-pli-ca-tion De-vel-op-ment
+ Re-port - []$\T1/cmtt/m/n/8 https : / / www . docker . com / press-[]release /
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--275
+[][][]\T1/cmr/m/n/8 2024 Stack Over-flow De-vel-oper Sur-vey - []$\T1/cmtt/m/n/
+8 https : / / survey . stackoverflow . co / 2024 / technology #
+ []
+
+)
+
+[34] (./components/contents/5.Implementation.tex
 Chapter 5.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Approach/Documentation page example.png, id=970, 1445.4pt x 813.0375pt>
-
+<Images/Approach/Documentation page example.png, id=1000, 1445.4pt x 813.0375pt
+>
 File: Images/Approach/Documentation page example.png Graphic file (type png)
 <use Images/Approach/Documentation page example.png>
 Package pdftex.def Info: Images/Approach/Documentation page example.png  used o
@@ -2812,11 +2833,11 @@ ext-forms)|
 
 
 
-[34
+[35
 
  <./Images/Approach/Documentation page example.png>]
 
-[35]
+[36]
 Underfull \hbox (badness 10000) in paragraph at lines 91--92
 []\T1/cmtt/m/n/10 switcher. \T1/cmr/m/n/10 In-di-cates if an al-ter-na-tive lan
 -guage snip-pet is avail-able (e.g.,
@@ -2824,7 +2845,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 91--92
 
 
 
-[36]
+[37]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 161.
 
@@ -2849,7 +2870,7 @@ Underfull \hbox (badness 2096) in paragraph at lines 227--227
 
 
 
-[37]
+[38]
 Underfull \hbox (badness 1087) in paragraph at lines 245--246
 []|\T1/cmr/bx/n/9 Primary key\T1/cmr/m/n/9 . auto_-id=false. Built by
  []
@@ -2881,8 +2902,8 @@ Overfull \hbox (35.2655pt too wide) in paragraph at lines 242--259
 
 
 
-[38]
-<Images/Implement/section_code_snippet_count_distribution.png, id=1026, 578.16p
+[39]
+<Images/Implement/section_code_snippet_count_distribution.png, id=1057, 578.16p
 t x 433.62pt>
 File: Images/Implement/section_code_snippet_count_distribution.png Graphic file
  (type png)
@@ -2890,7 +2911,7 @@ File: Images/Implement/section_code_snippet_count_distribution.png Graphic file
 Package pdftex.def Info: Images/Implement/section_code_snippet_count_distributi
 on.png  used on input line 271.
 (pdftex.def)             Requested size: 409.71692pt x 307.28348pt.
-<Images/Implement/code_snippet_token_count_distribution.png, id=1027, 578.16pt 
+<Images/Implement/code_snippet_token_count_distribution.png, id=1058, 578.16pt 
 x 433.62pt>
 File: Images/Implement/code_snippet_token_count_distribution.png Graphic file (
 type png)
@@ -2900,15 +2921,15 @@ Package pdftex.def Info: Images/Implement/code_snippet_token_count_distribution
 (pdftex.def)             Requested size: 409.71692pt x 307.28348pt.
 
 
-[39 <./Images/Implement/section_code_snippet_count_distribution.png> <./Images/
+[40 <./Images/Implement/section_code_snippet_count_distribution.png> <./Images/
 Implement/code_snippet_token_count_distribution.png>]
-<Images/Implement/dense_code_ndcg.png, id=1038, 722.7pt x 433.62pt>
+<Images/Implement/dense_code_ndcg.png, id=1069, 722.7pt x 433.62pt>
 File: Images/Implement/dense_code_ndcg.png Graphic file (type png)
 <use Images/Implement/dense_code_ndcg.png>
 Package pdftex.def Info: Images/Implement/dense_code_ndcg.png  used on input li
 ne 318.
 (pdftex.def)             Requested size: 409.71692pt x 245.82944pt.
-<Images/Implement/hybrid_ndcg.png, id=1039, 722.7pt x 433.62pt>
+<Images/Implement/hybrid_ndcg.png, id=1070, 722.7pt x 433.62pt>
 File: Images/Implement/hybrid_ndcg.png Graphic file (type png)
 <use Images/Implement/hybrid_ndcg.png>
 Package pdftex.def Info: Images/Implement/hybrid_ndcg.png  used on input line 3
@@ -2916,23 +2937,23 @@ Package pdftex.def Info: Images/Implement/hybrid_ndcg.png  used on input line 3
 (pdftex.def)             Requested size: 409.71692pt x 245.82944pt.
 
 
-[40 <./Images/Implement/dense_code_ndcg.png>]
+[41 <./Images/Implement/dense_code_ndcg.png>]
 
-[41 <./Images/Implement/hybrid_ndcg.png>]
+[42 <./Images/Implement/hybrid_ndcg.png>]
 
-[42]
+[43]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 470.
 
-
-[43]
 
 [44]
 
 [45]
 
 [46]
-<Images/Implement/webview_communication.png, id=1227, 1018.55531pt x 340.27126p
+
+[47]
+<Images/Implement/webview_communication.png, id=1258, 1018.55531pt x 340.27126p
 t>
 File: Images/Implement/webview_communication.png Graphic file (type png)
 <use Images/Implement/webview_communication.png>
@@ -2941,13 +2962,13 @@ put line 746.
 (pdftex.def)             Requested size: 409.71692pt x 136.87451pt.
 
 
-[47]
+[48]
 
-[48 <./Images/Implement/webview_communication.png>]
+[49 <./Images/Implement/webview_communication.png>]
 
-[49])
+[50])
 
-[50] (./components/contents/6.Evaluation.tex
+[51] (./components/contents/6.Evaluation.tex
 Chapter 6.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2956,230 +2977,230 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[51
+[52
 
 ]
 
-[52]
-Underfull \hbox (badness 10000) in paragraph at lines 135--135
+[53]
+Underfull \hbox (badness 10000) in paragraph at lines 133--133
 []|\T1/cmr/m/n/10 Ollama model
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--135
+Underfull \hbox (badness 10000) in paragraph at lines 133--133
 \T1/cmr/m/n/10 choos-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--135
+Underfull \hbox (badness 10000) in paragraph at lines 133--133
 []|\T1/cmr/m/n/10 Click "se-lect model"
  []
 
 
-Underfull \hbox (badness 5064) in paragraph at lines 135--135
+Underfull \hbox (badness 5064) in paragraph at lines 133--133
 \T1/cmr/m/n/10 but-ton on chat page's
  []
 
 
-Underfull \hbox (badness 3758) in paragraph at lines 135--135
+Underfull \hbox (badness 3758) in paragraph at lines 133--133
 []|\T1/cmr/m/n/10 A list of mod-els (e.g:
  []
 
 
-Underfull \hbox (badness 1383) in paragraph at lines 135--135
+Underfull \hbox (badness 1383) in paragraph at lines 133--133
 \T1/cmr/m/n/10 Llama3.2, deepseek-r1,..)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
 []|\T1/cmr/m/n/10 Next.js ver-sion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
 \T1/cmr/m/n/10 choos-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
 []|\T1/cmr/m/n/10 Click "se-lect ver-sion"
  []
 
 
-Underfull \hbox (badness 5064) in paragraph at lines 136--136
+Underfull \hbox (badness 5064) in paragraph at lines 134--134
 \T1/cmr/m/n/10 but-ton on chat page's
  []
 
 
-Underfull \hbox (badness 1983) in paragraph at lines 136--136
+Underfull \hbox (badness 1983) in paragraph at lines 134--134
 \T1/cmr/m/n/10 down-loaded and ver-sion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 []|\T1/cmr/m/n/10 Ollama model
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 \T1/cmr/m/n/10 & Next.js
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 \T1/cmr/m/n/10 ver-sion choos-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 []|\T1/cmr/m/n/10 Choosing the Ol-lama
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 \T1/cmr/m/n/10 model or a Next.js
  []
 
 
-Underfull \hbox (badness 1755) in paragraph at lines 137--137
+Underfull \hbox (badness 1755) in paragraph at lines 135--135
 \T1/cmr/m/n/10 ver-sion with-out start-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 \T1/cmr/m/n/10 the RAG-GIN Docker
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 135--135
 \T1/cmr/m/n/10 con-tainer or Ol-lama
  []
 
 
-Underfull \hbox (badness 1163) in paragraph at lines 137--137
+Underfull \hbox (badness 1163) in paragraph at lines 135--135
 []|\T1/cmr/m/n/10 A VS Code no-ti-fi-ca-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--138
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 \T1/cmr/m/n/10 is en-abled only af-ter
  []
 
 
-Underfull \hbox (badness 1496) in paragraph at lines 138--138
+Underfull \hbox (badness 1496) in paragraph at lines 136--136
 \T1/cmr/m/n/10 when all re-quired fields
  []
 
 
-Underfull \hbox (badness 4505) in paragraph at lines 139--139
+Underfull \hbox (badness 4505) in paragraph at lines 137--137
 []|\T1/cmr/m/n/10 File up-loaded name is
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--141
+Underfull \hbox (badness 10000) in paragraph at lines 139--139
 []|\T1/cmr/m/n/10 File Con-text
  []
 
 
-Underfull \hbox (badness 1867) in paragraph at lines 141--141
+Underfull \hbox (badness 1867) in paragraph at lines 139--139
 []|\T1/cmr/m/n/10 Send a prompt with a
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
 []|\T1/cmr/m/n/10 Next.js ver-sion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
 []|\T1/cmr/m/n/10 Change ver-sion in
  []
 
 
-Underfull \hbox (badness 6559) in paragraph at lines 142--142
+Underfull \hbox (badness 6559) in paragraph at lines 140--140
 \T1/cmr/m/n/10 ad-vanced set-tings page
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
 []|\T1/cmr/m/n/10 Response dif-fers
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
 \T1/cmr/m/n/10 ap-pro-pri-ately be-tween
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 140--140
 \T1/cmr/m/n/10 se-lected ver-sions (e.g.,
  []
 
 
-Underfull \hbox (badness 6592) in paragraph at lines 143--143
+Underfull \hbox (badness 6592) in paragraph at lines 141--141
 []|\T1/cmr/m/n/10 Modify tem-per-a-ture or
  []
 
 
-Underfull \hbox (badness 1946) in paragraph at lines 143--143
+Underfull \hbox (badness 1946) in paragraph at lines 141--141
 \T1/cmr/m/n/10 top-k pa-ram-e-ters be-fore
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--143
+Underfull \hbox (badness 10000) in paragraph at lines 141--141
 \T1/cmr/m/n/10 changes based on
  []
 
 
-Underfull \hbox (badness 2418) in paragraph at lines 144--144
+Underfull \hbox (badness 2418) in paragraph at lines 142--142
 []|\T1/cmr/m/n/10 All prompts are stored
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--145
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
 []|\T1/cmr/m/n/10 Chat his-tory ^^U
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--145
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
 []|\T1/cmr/m/n/10 Title is up-dated and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--146
+Underfull \hbox (badness 10000) in paragraph at lines 144--144
 []|\T1/cmr/m/n/10 Chat his-tory ^^U
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--146
+Underfull \hbox (badness 10000) in paragraph at lines 144--144
 []|\T1/cmr/m/n/10 Chat is re-moved
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--146
+Underfull \hbox (badness 10000) in paragraph at lines 144--144
 \T1/cmr/m/n/10 per-ma-nently and does
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--147
+Underfull \hbox (badness 10000) in paragraph at lines 145--145
 []|\T1/cmr/m/n/10 Chat his-tory -
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 147--147
+Underfull \hbox (badness 1418) in paragraph at lines 145--145
 []|\T1/cmr/m/n/10 Press "delete all chats"
  []
 
 
-Underfull \hbox (badness 5008) in paragraph at lines 147--147
+Underfull \hbox (badness 5008) in paragraph at lines 145--145
 []|\T1/cmr/m/n/10 All chats are re-moved
  []
 
 )
 
-[53]
+[54]
 
-[54] (./components/contents/7.Conclusion.tex
+[55] (./components/contents/7.Conclusion.tex
 Chapter 7.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -3188,13 +3209,13 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[55
+[56
 
 ]
 
-[56])
+[57])
 
-[57]
+[58]
 Underfull \hbox (badness 1122) in paragraph at lines 65--65
 []\T1/cmr/m/n/10 Jacob De-vlin et al. \T1/cmr/m/it/10 BERT: Pre-training of Dee
 p Bidi-rec-tional Trans-form-ers for Lan-guage
@@ -3202,7 +3223,7 @@ p Bidi-rec-tional Trans-form-ers for Lan-guage
 
 
 
-[58
+[59
 
 ]
 Underfull \hbox (badness 2521) in paragraph at lines 65--65
@@ -3212,7 +3233,7 @@ nk-ing and Text Split-ting
 
 
 
-[59]
+[60]
 Underfull \hbox (badness 3009) in paragraph at lines 65--65
 []\T1/cmr/m/n/10 O. Ram et al. ``In-Context Retrieval-Augmented Lan-guage Mod-e
 ls''. In: \T1/cmr/m/it/10 arXiv preprint
@@ -3226,11 +3247,11 @@ Underfull \hbox (badness 1668) in paragraph at lines 65--65
 
 
 
-[60]
-
 [61]
 
-[62
+[62]
+
+[63
 
 
 ] (./components/contents/A.Interface.tex
@@ -3240,26 +3261,26 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Interface/interface_nextjs.png, id=1556, 297.36093pt x 724.95844pt>
+<Images/Interface/interface_nextjs.png, id=1589, 297.36093pt x 724.95844pt>
 File: Images/Interface/interface_nextjs.png Graphic file (type png)
 <use Images/Interface/interface_nextjs.png>
 Package pdftex.def Info: Images/Interface/interface_nextjs.png  used on input l
 ine 8.
 (pdftex.def)             Requested size: 182.09486pt x 443.9386pt.
-<Images/Interface/interface_not_nextjs.png, id=1557, 298.86656pt x 723.45282pt>
+<Images/Interface/interface_not_nextjs.png, id=1590, 298.86656pt x 723.45282pt>
 
 File: Images/Interface/interface_not_nextjs.png Graphic file (type png)
 <use Images/Interface/interface_not_nextjs.png>
 Package pdftex.def Info: Images/Interface/interface_not_nextjs.png  used on inp
 ut line 16.
 (pdftex.def)             Requested size: 182.09486pt x 440.79779pt.
-<Images/Interface/choose_model.png, id=1558, 303.38344pt x 286.06876pt>
+<Images/Interface/choose_model.png, id=1591, 303.38344pt x 286.06876pt>
 File: Images/Interface/choose_model.png Graphic file (type png)
 <use Images/Interface/choose_model.png>
 Package pdftex.def Info: Images/Interface/choose_model.png  used on input line 
 27.
 (pdftex.def)             Requested size: 204.85846pt x 193.171pt.
-<Images/Interface/choose_version.png, id=1559, 297.36093pt x 313.17pt>
+<Images/Interface/choose_version.png, id=1592, 297.36093pt x 313.17pt>
 File: Images/Interface/choose_version.png Graphic file (type png)
 <use Images/Interface/choose_version.png>
 Package pdftex.def Info: Images/Interface/choose_version.png  used on input lin
@@ -3267,11 +3288,11 @@ e 35.
 (pdftex.def)             Requested size: 204.85846pt x 215.74825pt.
 
 
-[63
+[64
 
  <./Images/Interface/interface_nextjs.png> <./Images/Interface/interface_not_ne
 xtjs.png>]
-<Images/Interface/simple_question.png, id=1567, 298.86656pt x 208.52907pt>
+<Images/Interface/simple_question.png, id=1600, 298.86656pt x 208.52907pt>
 File: Images/Interface/simple_question.png Graphic file (type png)
 <use Images/Interface/simple_question.png>
 Package pdftex.def Info: Images/Interface/simple_question.png  used on input li
@@ -3282,18 +3303,18 @@ Underfull \hbox (badness 1609) in paragraph at lines 48--48
 []\T1/cmr/bx/n/9 Figure A.5: |\T1/cmr/m/n/9 RAG-GIN's re-sponse to sim-ple
  []
 
-<Images/Interface/chat_history.png, id=1568, 297.36093pt x 447.17062pt>
+<Images/Interface/chat_history.png, id=1601, 297.36093pt x 447.17062pt>
 File: Images/Interface/chat_history.png Graphic file (type png)
 <use Images/Interface/chat_history.png>
 Package pdftex.def Info: Images/Interface/chat_history.png  used on input line 
 54.
 (pdftex.def)             Requested size: 204.85846pt x 308.0636pt.
-<Images/Interface/add_file.png, id=1569, 283.81032pt x 298.11375pt>
+<Images/Interface/add_file.png, id=1602, 283.81032pt x 298.11375pt>
 File: Images/Interface/add_file.png Graphic file (type png)
 <use Images/Interface/add_file.png>
 Package pdftex.def Info: Images/Interface/add_file.png  used on input line 65.
 (pdftex.def)             Requested size: 204.85846pt x 215.19214pt.
-<Images/Interface/send_complex.png, id=1570, 307.1475pt x 228.10219pt>
+<Images/Interface/send_complex.png, id=1603, 307.1475pt x 228.10219pt>
 File: Images/Interface/send_complex.png Graphic file (type png)
 <use Images/Interface/send_complex.png>
 Package pdftex.def Info: Images/Interface/send_complex.png  used on input line 
@@ -3301,10 +3322,10 @@ Package pdftex.def Info: Images/Interface/send_complex.png  used on input line
 (pdftex.def)             Requested size: 204.85846pt x 152.1385pt.
 
 
-[64 <./Images/Interface/choose_model.png> <./Images/Interface/choose_version.pn
+[65 <./Images/Interface/choose_model.png> <./Images/Interface/choose_version.pn
 g> <./Images/Interface/simple_question.png> <./Images/Interface/chat_history.pn
 g>]
-<Images/Interface/complex_response.png, id=1581, 1395.2125pt x 1032.85875pt>
+<Images/Interface/complex_response.png, id=1614, 1395.2125pt x 1032.85875pt>
 File: Images/Interface/complex_response.png Graphic file (type png)
 <use Images/Interface/complex_response.png>
 Package pdftex.def Info: Images/Interface/complex_response.png  used on input l
@@ -3315,21 +3336,21 @@ Overfull \hbox (13.60564pt too wide) in paragraph at lines 81--85
 []  []
  []
 
-<Images/Interface/ret_opt.png, id=1582, 298.86656pt x 647.41875pt>
+<Images/Interface/ret_opt.png, id=1615, 298.86656pt x 647.41875pt>
 File: Images/Interface/ret_opt.png Graphic file (type png)
 <use Images/Interface/ret_opt.png>
 Package pdftex.def Info: Images/Interface/ret_opt.png  used on input line 93.
 (pdftex.def)             Requested size: 204.85846pt x 443.77553pt.
-<Images/Interface/gen_opt.png, id=1583, 298.11375pt x 519.44063pt>
+<Images/Interface/gen_opt.png, id=1616, 298.11375pt x 519.44063pt>
 File: Images/Interface/gen_opt.png Graphic file (type png)
 <use Images/Interface/gen_opt.png>
 Package pdftex.def Info: Images/Interface/gen_opt.png  used on input line 101.
 (pdftex.def)             Requested size: 204.85846pt x 356.9481pt.
 
 
-[65 <./Images/Interface/add_file.png> <./Images/Interface/send_complex.png> <./
+[66 <./Images/Interface/add_file.png> <./Images/Interface/send_complex.png> <./
 Images/Interface/complex_response.png>]
-<Images/Interface/rename_chat.png, id=1593, 527.72156pt x 297.36093pt>
+<Images/Interface/rename_chat.png, id=1628, 527.72156pt x 297.36093pt>
 File: Images/Interface/rename_chat.png Graphic file (type png)
 <use Images/Interface/rename_chat.png>
 Package pdftex.def Info: Images/Interface/rename_chat.png  used on input line 1
@@ -3337,7 +3358,7 @@ Package pdftex.def Info: Images/Interface/rename_chat.png  used on input line 1
 (pdftex.def)             Requested size: 318.66948pt x 179.56134pt.
 )
 
-[66 <./Images/Interface/ret_opt.png> <./Images/Interface/gen_opt.png> <./Images
+[67 <./Images/Interface/ret_opt.png> <./Images/Interface/gen_opt.png> <./Images
 /Interface/rename_chat.png>] (./components/contents/B.TestResults.tex
 Appendix B.
 
@@ -3345,13 +3366,13 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Evaluations/rouge_1.png, id=1604, 891.0891pt x 406.1574pt>
+<Images/Evaluations/rouge_1.png, id=1638, 891.0891pt x 406.1574pt>
 File: Images/Evaluations/rouge_1.png Graphic file (type png)
 <use Images/Evaluations/rouge_1.png>
 Package pdftex.def Info: Images/Evaluations/rouge_1.png  used on input line 37.
 
 (pdftex.def)             Requested size: 455.24411pt x 207.50317pt.
-<Images/Evaluations/rouge_2.png, id=1605, 897.5934pt x 406.1574pt>
+<Images/Evaluations/rouge_2.png, id=1639, 897.5934pt x 406.1574pt>
 File: Images/Evaluations/rouge_2.png Graphic file (type png)
 <use Images/Evaluations/rouge_2.png>
 Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 45.
@@ -3359,16 +3380,16 @@ Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 45.
 (pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
 
 
-[67
+[68
 
  <./Images/Evaluations/rouge_1.png>]
-<Images/Evaluations/rouge_3.png, id=1611, 897.5934pt x 406.1574pt>
+<Images/Evaluations/rouge_3.png, id=1645, 897.5934pt x 406.1574pt>
 File: Images/Evaluations/rouge_3.png Graphic file (type png)
 <use Images/Evaluations/rouge_3.png>
 Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 53.
 
 (pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
-<Images/Evaluations/llm_eval_small.png, id=1612, 859.2903pt x 498.663pt>
+<Images/Evaluations/llm_eval_small.png, id=1646, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_small.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_small.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_small.png  used on input l
@@ -3376,13 +3397,21 @@ ine 69.
 (pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
 
 
-[68 <./Images/Evaluations/rouge_2.png> <./Images/Evaluations/rouge_3.png>]
-<Images/Evaluations/llm_eval_bigger.png, id=1619, 859.2903pt x 498.663pt>
+[69 <./Images/Evaluations/rouge_2.png> <./Images/Evaluations/rouge_3.png>]
+<Images/Evaluations/llm_eval_bigger.png, id=1653, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_bigger.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_bigger.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_bigger.png  used on input 
 line 77.
 (pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
+
+Overfull \hbox (27.46405pt too wide) in paragraph at lines 84--108
+ [] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 )
 
 Package caption Warning: Unused \captionsetup[sub] on input line 119.
@@ -3390,8 +3419,10 @@ See the caption package documentation for explanation.
 
 
 
-[69 <./Images/Evaluations/llm_eval_small.png> <./Images/Evaluations/llm_eval_bi
-gger.png>] 
+[70 <./Images/Evaluations/llm_eval_small.png> <./Images/Evaluations/llm_eval_bi
+gger.png>]
+
+[71] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -3399,17 +3430,17 @@ LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 79F21147CF8A0B823275575C35F1BAF8;12020.
+(rerunfilecheck)             Checksum: F53122FA6EC34F68CD6DE35156C9BF55;12020.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 57411 strings out of 473330
- 1266782 string characters out of 5723877
- 2646370 words of memory out of 5000000
- 79067 multiletter control sequences out of 15000+600000
- 584278 words of font info for 100 fonts, out of 8000000 for 9000
+ 57427 strings out of 473330
+ 1266969 string characters out of 5723877
+ 2646434 words of memory out of 5000000
+ 79069 multiletter control sequences out of 15000+600000
+ 584979 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  130i,17n,162p,1652b,2128s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/tex
@@ -3422,30 +3453,31 @@ m/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.p
 fb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
 /2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/202
-4/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb><c:/texlive/2024/texmf-di
-st/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/t
-ype1/public/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/publi
-c/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super
-/sfbx2488.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1000.
-pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb><c:/te
-xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2024
-/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2024/texmf-dis
-t/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive/2024/texmf-dist/fonts/ty
-pe1/public/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public
-/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/
-sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.p
-fb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/tex
-live/2024/texmf-dist/fonts/type1/public/cm-super/sftc1000.pfb><c:/texlive/2024/
-texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb><c:/texlive/2024/texmf-dist
-/fonts/type1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist/fonts/typ
-e1/public/cm-super/sftt0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/
-cm-super/sftt0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/s
-ftt1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb><c
-:/texlive/2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (76 pages, 3970529 bytes).
+4/texmf-dist/fonts/type1/public/cm-super/sfbi1000.pfb><c:/texlive/2024/texmf-di
+st/fonts/type1/public/cm-super/sfbx0900.pfb><c:/texlive/2024/texmf-dist/fonts/t
+ype1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/publi
+c/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super
+/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.
+pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1000.pfb><c:/te
+xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb><c:/texlive/2024
+/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2024/texmf-dis
+t/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2024/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public
+/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/
+sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.p
+fb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/tex
+live/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/texlive/2024/
+texmf-dist/fonts/type1/public/cm-super/sftc1000.pfb><c:/texlive/2024/texmf-dist
+/fonts/type1/public/cm-super/sfti0900.pfb><c:/texlive/2024/texmf-dist/fonts/typ
+e1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/
+cm-super/sftt0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/s
+ftt0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pf
+b><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb><c:/texlive/
+2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main.pdf (78 pages, 3978704 bytes).
 PDF statistics:
- 1901 PDF objects out of 2073 (max. 8388607)
- 1625 compressed objects within 17 object streams
- 577 named destinations out of 1000 (max. 500000)
+ 1945 PDF objects out of 2073 (max. 8388607)
+ 1665 compressed objects within 17 object streams
+ 590 named destinations out of 1000 (max. 500000)
  885 words of extra memory for PDF output out of 10000 (max. 10000000)
 
