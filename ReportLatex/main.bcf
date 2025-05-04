@@ -2509,6 +2509,7 @@
     <bcf:citekey order="133" intorder="1">bai2023qwen</bcf:citekey>
     <bcf:citekey order="134" intorder="1">codegemma</bcf:citekey>
     <bcf:citekey order="135" intorder="1">deepseek_r1</bcf:citekey>
+    <bcf:citekey order="136" intorder="1">chen2024bge</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
