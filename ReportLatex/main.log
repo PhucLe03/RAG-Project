@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  4 MAY 2025 21:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  4 MAY 2025 22:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2789,12 +2789,6 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 [32]
-Underfull \hbox (badness 1221) in paragraph at lines 261--262
- []\T1/cmr/bx/n/10 Developer Ecosys-tem and Com-mu-nity. \T1/cmr/m/n/10 Ol-lama
- is un-der ac-tive de-vel-op-ment, with strong
- []
-
-
 
 [33]
 Underfull \hbox (badness 3229) in paragraph at lines 265--265
@@ -2804,171 +2798,182 @@ Underfull \hbox (badness 3229) in paragraph at lines 265--265
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--275
+Underfull \hbox (badness 10000) in paragraph at lines 281--281
 [][][]\T1/cmr/m/n/8 2024 Stack Over-flow De-vel-oper Sur-vey - []$\T1/cmtt/m/n/
 8 https : / / survey . stackoverflow . co / 2024 / technology #
  []
 
-)
+<Images/Approach/stackoverflow-dev-survey-2024-technology.png, id=993, 2409.0pt
+ x 3824.2875pt>
+File: Images/Approach/stackoverflow-dev-survey-2024-technology.png Graphic file
+ (type png)
+<use Images/Approach/stackoverflow-dev-survey-2024-technology.png>
+Package pdftex.def Info: Images/Approach/stackoverflow-dev-survey-2024-technolo
+gy.png  used on input line 286.
+(pdftex.def)             Requested size: 364.19667pt x 578.11163pt.
 
-[34] (./components/contents/5.Implementation.tex
+
+[34])
+
+[35 <./Images/Approach/stackoverflow-dev-survey-2024-technology.png>]
+(./components/contents/5.Implementation.tex
 Chapter 5.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Approach/Documentation page example.png, id=1000, 1445.4pt x 813.0375pt
+<Images/Approach/Documentation page example.png, id=1010, 1445.4pt x 813.0375pt
 >
 File: Images/Approach/Documentation page example.png Graphic file (type png)
 <use Images/Approach/Documentation page example.png>
 Package pdftex.def Info: Images/Approach/Documentation page example.png  used o
-n input line 13.
+n input line 14.
 (pdftex.def)             Requested size: 455.24411pt x 256.07095pt.
 
-Overfull \hbox (32.88669pt too wide) in paragraph at lines 32--32
+Overfull \hbox (32.88669pt too wide) in paragraph at lines 33--33
 \T1/cmtt/m/n/10 Forms](https://github.com/vercel/next.js/tree/canary/examples/n
 ext-forms)|  
  []
 
 
 
-[35
+[36
 
  <./Images/Approach/Documentation page example.png>]
 
-[36]
-Underfull \hbox (badness 10000) in paragraph at lines 91--92
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
 []\T1/cmtt/m/n/10 switcher. \T1/cmr/m/n/10 In-di-cates if an al-ter-na-tive lan
 -guage snip-pet is avail-able (e.g.,
  []
 
 
 
-[37]
+[38]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 161.
+nput line 162.
 
-Underfull \hbox (badness 1097) in paragraph at lines 224--224
+Underfull \hbox (badness 1097) in paragraph at lines 225--225
 []|\T1/cmr/m/n/10 Whether to set the field as the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--225
+Underfull \hbox (badness 10000) in paragraph at lines 226--226
 []|\T1/cmr/m/n/10 Switch to en-able or dis-able
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--225
+Underfull \hbox (badness 10000) in paragraph at lines 226--226
 \T1/cmr/m/n/10 au-to-matic ID (pri-mary key)
  []
 
 
-Underfull \hbox (badness 2096) in paragraph at lines 227--227
+Underfull \hbox (badness 2096) in paragraph at lines 228--228
 []|\T1/cmr/m/n/10 Data type: In-te-ger [1, 32,768].
  []
 
 
 
-[38]
-Underfull \hbox (badness 1087) in paragraph at lines 245--246
+[39]
+Underfull \hbox (badness 1087) in paragraph at lines 246--247
 []|\T1/cmr/bx/n/9 Primary key\T1/cmr/m/n/9 . auto_-id=false. Built by
  []
 
 
-Underfull \hbox (badness 3492) in paragraph at lines 248--249
+Underfull \hbox (badness 3492) in paragraph at lines 249--250
 []|\T1/cmr/bx/n/9 Partition key\T1/cmr/m/n/9 . In-di-cates doc-u-men-ta-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
 []|\T1/cmr/m/n/9 Sparse em-bed-ding of con-cate-nated
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
 \T1/cmr/m/n/9 ti-tle + de-scrip-tion. \T1/cmr/m/it/9 In-dex\T1/cmr/m/n/9 :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
 \T1/cmr/m/n/9 SPARSE_-IN-VERTED_-IN-DEX; \T1/cmr/m/it/9 Met-ric\T1/cmr/m/n/9 :
  []
 
 
-Overfull \hbox (35.2655pt too wide) in paragraph at lines 242--259
+Overfull \hbox (35.2655pt too wide) in paragraph at lines 243--260
  [][] 
  []
 
 
 
-[39]
-<Images/Implement/section_code_snippet_count_distribution.png, id=1057, 578.16p
+[40]
+<Images/Implement/section_code_snippet_count_distribution.png, id=1067, 578.16p
 t x 433.62pt>
 File: Images/Implement/section_code_snippet_count_distribution.png Graphic file
  (type png)
 <use Images/Implement/section_code_snippet_count_distribution.png>
 Package pdftex.def Info: Images/Implement/section_code_snippet_count_distributi
-on.png  used on input line 271.
+on.png  used on input line 272.
 (pdftex.def)             Requested size: 409.71692pt x 307.28348pt.
-<Images/Implement/code_snippet_token_count_distribution.png, id=1058, 578.16pt 
+<Images/Implement/code_snippet_token_count_distribution.png, id=1068, 578.16pt 
 x 433.62pt>
 File: Images/Implement/code_snippet_token_count_distribution.png Graphic file (
 type png)
 <use Images/Implement/code_snippet_token_count_distribution.png>
 Package pdftex.def Info: Images/Implement/code_snippet_token_count_distribution
-.png  used on input line 279.
+.png  used on input line 280.
 (pdftex.def)             Requested size: 409.71692pt x 307.28348pt.
 
 
-[40 <./Images/Implement/section_code_snippet_count_distribution.png> <./Images/
+[41 <./Images/Implement/section_code_snippet_count_distribution.png> <./Images/
 Implement/code_snippet_token_count_distribution.png>]
-<Images/Implement/dense_code_ndcg.png, id=1069, 722.7pt x 433.62pt>
+<Images/Implement/dense_code_ndcg.png, id=1079, 722.7pt x 433.62pt>
 File: Images/Implement/dense_code_ndcg.png Graphic file (type png)
 <use Images/Implement/dense_code_ndcg.png>
 Package pdftex.def Info: Images/Implement/dense_code_ndcg.png  used on input li
-ne 318.
+ne 319.
 (pdftex.def)             Requested size: 409.71692pt x 245.82944pt.
-<Images/Implement/hybrid_ndcg.png, id=1070, 722.7pt x 433.62pt>
+<Images/Implement/hybrid_ndcg.png, id=1080, 722.7pt x 433.62pt>
 File: Images/Implement/hybrid_ndcg.png Graphic file (type png)
 <use Images/Implement/hybrid_ndcg.png>
 Package pdftex.def Info: Images/Implement/hybrid_ndcg.png  used on input line 3
-26.
+27.
 (pdftex.def)             Requested size: 409.71692pt x 245.82944pt.
 
 
-[41 <./Images/Implement/dense_code_ndcg.png>]
+[42 <./Images/Implement/dense_code_ndcg.png>]
 
-[42 <./Images/Implement/hybrid_ndcg.png>]
-
-[43]
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 470.
-
+[43 <./Images/Implement/hybrid_ndcg.png>]
 
 [44]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 471.
+
 
 [45]
 
 [46]
 
 [47]
-<Images/Implement/webview_communication.png, id=1258, 1018.55531pt x 340.27126p
+
+[48]
+<Images/Implement/webview_communication.png, id=1269, 1018.55531pt x 340.27126p
 t>
 File: Images/Implement/webview_communication.png Graphic file (type png)
 <use Images/Implement/webview_communication.png>
 Package pdftex.def Info: Images/Implement/webview_communication.png  used on in
-put line 746.
+put line 748.
 (pdftex.def)             Requested size: 409.71692pt x 136.87451pt.
 
 
-[48]
+[49]
 
-[49 <./Images/Implement/webview_communication.png>]
+[50 <./Images/Implement/webview_communication.png>]
 
-[50])
+[51])
 
-[51] (./components/contents/6.Evaluation.tex
+[52] (./components/contents/6.Evaluation.tex
 Chapter 6.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2977,11 +2982,18 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[52
+[53
 
 ]
+Underfull \hbox (badness 1024) in paragraph at lines 113--114
+[]\T1/cmtt/m/n/10 Codestral-22B[][][]\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 LLaMA2-13
+B \T1/cmr/m/n/10 [[]52[]], and \T1/cmtt/m/n/10 Qwen2.5-14B \T1/cmr/m/n/10 [[]22
+[]] con-sis-tently achieved top scores,
+ []
 
-[53]
+
+
+[54]
 Underfull \hbox (badness 10000) in paragraph at lines 133--133
 []|\T1/cmr/m/n/10 Ollama model
  []
@@ -3198,9 +3210,9 @@ Underfull \hbox (badness 5008) in paragraph at lines 145--145
 
 )
 
-[54]
+[55]
 
-[55] (./components/contents/7.Conclusion.tex
+[56] (./components/contents/7.Conclusion.tex
 Chapter 7.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -3209,13 +3221,13 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[56
+[57
 
 ]
 
-[57])
+[58])
 
-[58]
+[59]
 Underfull \hbox (badness 1122) in paragraph at lines 65--65
 []\T1/cmr/m/n/10 Jacob De-vlin et al. \T1/cmr/m/it/10 BERT: Pre-training of Dee
 p Bidi-rec-tional Trans-form-ers for Lan-guage
@@ -3223,7 +3235,7 @@ p Bidi-rec-tional Trans-form-ers for Lan-guage
 
 
 
-[59
+[60
 
 ]
 Underfull \hbox (badness 2521) in paragraph at lines 65--65
@@ -3233,7 +3245,7 @@ nk-ing and Text Split-ting
 
 
 
-[60]
+[61]
 Underfull \hbox (badness 3009) in paragraph at lines 65--65
 []\T1/cmr/m/n/10 O. Ram et al. ``In-Context Retrieval-Augmented Lan-guage Mod-e
 ls''. In: \T1/cmr/m/it/10 arXiv preprint
@@ -3247,11 +3259,11 @@ Underfull \hbox (badness 1668) in paragraph at lines 65--65
 
 
 
-[61]
-
 [62]
 
-[63
+[63]
+
+[64
 
 
 ] (./components/contents/A.Interface.tex
@@ -3261,26 +3273,26 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Interface/interface_nextjs.png, id=1589, 297.36093pt x 724.95844pt>
+<Images/Interface/interface_nextjs.png, id=1623, 297.36093pt x 724.95844pt>
 File: Images/Interface/interface_nextjs.png Graphic file (type png)
 <use Images/Interface/interface_nextjs.png>
 Package pdftex.def Info: Images/Interface/interface_nextjs.png  used on input l
 ine 8.
 (pdftex.def)             Requested size: 182.09486pt x 443.9386pt.
-<Images/Interface/interface_not_nextjs.png, id=1590, 298.86656pt x 723.45282pt>
+<Images/Interface/interface_not_nextjs.png, id=1624, 298.86656pt x 723.45282pt>
 
 File: Images/Interface/interface_not_nextjs.png Graphic file (type png)
 <use Images/Interface/interface_not_nextjs.png>
 Package pdftex.def Info: Images/Interface/interface_not_nextjs.png  used on inp
 ut line 16.
 (pdftex.def)             Requested size: 182.09486pt x 440.79779pt.
-<Images/Interface/choose_model.png, id=1591, 303.38344pt x 286.06876pt>
+<Images/Interface/choose_model.png, id=1625, 303.38344pt x 286.06876pt>
 File: Images/Interface/choose_model.png Graphic file (type png)
 <use Images/Interface/choose_model.png>
 Package pdftex.def Info: Images/Interface/choose_model.png  used on input line 
 27.
 (pdftex.def)             Requested size: 204.85846pt x 193.171pt.
-<Images/Interface/choose_version.png, id=1592, 297.36093pt x 313.17pt>
+<Images/Interface/choose_version.png, id=1626, 297.36093pt x 313.17pt>
 File: Images/Interface/choose_version.png Graphic file (type png)
 <use Images/Interface/choose_version.png>
 Package pdftex.def Info: Images/Interface/choose_version.png  used on input lin
@@ -3288,11 +3300,11 @@ e 35.
 (pdftex.def)             Requested size: 204.85846pt x 215.74825pt.
 
 
-[64
+[65
 
  <./Images/Interface/interface_nextjs.png> <./Images/Interface/interface_not_ne
 xtjs.png>]
-<Images/Interface/simple_question.png, id=1600, 298.86656pt x 208.52907pt>
+<Images/Interface/simple_question.png, id=1634, 298.86656pt x 208.52907pt>
 File: Images/Interface/simple_question.png Graphic file (type png)
 <use Images/Interface/simple_question.png>
 Package pdftex.def Info: Images/Interface/simple_question.png  used on input li
@@ -3303,18 +3315,18 @@ Underfull \hbox (badness 1609) in paragraph at lines 48--48
 []\T1/cmr/bx/n/9 Figure A.5: |\T1/cmr/m/n/9 RAG-GIN's re-sponse to sim-ple
  []
 
-<Images/Interface/chat_history.png, id=1601, 297.36093pt x 447.17062pt>
+<Images/Interface/chat_history.png, id=1635, 297.36093pt x 447.17062pt>
 File: Images/Interface/chat_history.png Graphic file (type png)
 <use Images/Interface/chat_history.png>
 Package pdftex.def Info: Images/Interface/chat_history.png  used on input line 
 54.
 (pdftex.def)             Requested size: 204.85846pt x 308.0636pt.
-<Images/Interface/add_file.png, id=1602, 283.81032pt x 298.11375pt>
+<Images/Interface/add_file.png, id=1636, 283.81032pt x 298.11375pt>
 File: Images/Interface/add_file.png Graphic file (type png)
 <use Images/Interface/add_file.png>
 Package pdftex.def Info: Images/Interface/add_file.png  used on input line 65.
 (pdftex.def)             Requested size: 204.85846pt x 215.19214pt.
-<Images/Interface/send_complex.png, id=1603, 307.1475pt x 228.10219pt>
+<Images/Interface/send_complex.png, id=1637, 307.1475pt x 228.10219pt>
 File: Images/Interface/send_complex.png Graphic file (type png)
 <use Images/Interface/send_complex.png>
 Package pdftex.def Info: Images/Interface/send_complex.png  used on input line 
@@ -3322,10 +3334,10 @@ Package pdftex.def Info: Images/Interface/send_complex.png  used on input line
 (pdftex.def)             Requested size: 204.85846pt x 152.1385pt.
 
 
-[65 <./Images/Interface/choose_model.png> <./Images/Interface/choose_version.pn
+[66 <./Images/Interface/choose_model.png> <./Images/Interface/choose_version.pn
 g> <./Images/Interface/simple_question.png> <./Images/Interface/chat_history.pn
 g>]
-<Images/Interface/complex_response.png, id=1614, 1395.2125pt x 1032.85875pt>
+<Images/Interface/complex_response.png, id=1649, 1395.2125pt x 1032.85875pt>
 File: Images/Interface/complex_response.png Graphic file (type png)
 <use Images/Interface/complex_response.png>
 Package pdftex.def Info: Images/Interface/complex_response.png  used on input l
@@ -3336,21 +3348,21 @@ Overfull \hbox (13.60564pt too wide) in paragraph at lines 81--85
 []  []
  []
 
-<Images/Interface/ret_opt.png, id=1615, 298.86656pt x 647.41875pt>
+<Images/Interface/ret_opt.png, id=1650, 298.86656pt x 647.41875pt>
 File: Images/Interface/ret_opt.png Graphic file (type png)
 <use Images/Interface/ret_opt.png>
 Package pdftex.def Info: Images/Interface/ret_opt.png  used on input line 93.
 (pdftex.def)             Requested size: 204.85846pt x 443.77553pt.
-<Images/Interface/gen_opt.png, id=1616, 298.11375pt x 519.44063pt>
+<Images/Interface/gen_opt.png, id=1651, 298.11375pt x 519.44063pt>
 File: Images/Interface/gen_opt.png Graphic file (type png)
 <use Images/Interface/gen_opt.png>
 Package pdftex.def Info: Images/Interface/gen_opt.png  used on input line 101.
 (pdftex.def)             Requested size: 204.85846pt x 356.9481pt.
 
 
-[66 <./Images/Interface/add_file.png> <./Images/Interface/send_complex.png> <./
+[67 <./Images/Interface/add_file.png> <./Images/Interface/send_complex.png> <./
 Images/Interface/complex_response.png>]
-<Images/Interface/rename_chat.png, id=1628, 527.72156pt x 297.36093pt>
+<Images/Interface/rename_chat.png, id=1661, 527.72156pt x 297.36093pt>
 File: Images/Interface/rename_chat.png Graphic file (type png)
 <use Images/Interface/rename_chat.png>
 Package pdftex.def Info: Images/Interface/rename_chat.png  used on input line 1
@@ -3358,7 +3370,7 @@ Package pdftex.def Info: Images/Interface/rename_chat.png  used on input line 1
 (pdftex.def)             Requested size: 318.66948pt x 179.56134pt.
 )
 
-[67 <./Images/Interface/ret_opt.png> <./Images/Interface/gen_opt.png> <./Images
+[68 <./Images/Interface/ret_opt.png> <./Images/Interface/gen_opt.png> <./Images
 /Interface/rename_chat.png>] (./components/contents/B.TestResults.tex
 Appendix B.
 
@@ -3366,13 +3378,13 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-<Images/Evaluations/rouge_1.png, id=1638, 891.0891pt x 406.1574pt>
+<Images/Evaluations/rouge_1.png, id=1671, 891.0891pt x 406.1574pt>
 File: Images/Evaluations/rouge_1.png Graphic file (type png)
 <use Images/Evaluations/rouge_1.png>
 Package pdftex.def Info: Images/Evaluations/rouge_1.png  used on input line 37.
 
 (pdftex.def)             Requested size: 455.24411pt x 207.50317pt.
-<Images/Evaluations/rouge_2.png, id=1639, 897.5934pt x 406.1574pt>
+<Images/Evaluations/rouge_2.png, id=1672, 897.5934pt x 406.1574pt>
 File: Images/Evaluations/rouge_2.png Graphic file (type png)
 <use Images/Evaluations/rouge_2.png>
 Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 45.
@@ -3380,16 +3392,16 @@ Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 45.
 (pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
 
 
-[68
+[69
 
  <./Images/Evaluations/rouge_1.png>]
-<Images/Evaluations/rouge_3.png, id=1645, 897.5934pt x 406.1574pt>
+<Images/Evaluations/rouge_3.png, id=1678, 897.5934pt x 406.1574pt>
 File: Images/Evaluations/rouge_3.png Graphic file (type png)
 <use Images/Evaluations/rouge_3.png>
 Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 53.
 
 (pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
-<Images/Evaluations/llm_eval_small.png, id=1646, 859.2903pt x 498.663pt>
+<Images/Evaluations/llm_eval_small.png, id=1679, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_small.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_small.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_small.png  used on input l
@@ -3397,8 +3409,8 @@ ine 69.
 (pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
 
 
-[69 <./Images/Evaluations/rouge_2.png> <./Images/Evaluations/rouge_3.png>]
-<Images/Evaluations/llm_eval_bigger.png, id=1653, 859.2903pt x 498.663pt>
+[70 <./Images/Evaluations/rouge_2.png> <./Images/Evaluations/rouge_3.png>]
+<Images/Evaluations/llm_eval_bigger.png, id=1686, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_bigger.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_bigger.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_bigger.png  used on input 
@@ -3419,65 +3431,76 @@ See the caption package documentation for explanation.
 
 
 
-[70 <./Images/Evaluations/llm_eval_small.png> <./Images/Evaluations/llm_eval_bi
+[71 <./Images/Evaluations/llm_eval_small.png> <./Images/Evaluations/llm_eval_bi
 gger.png>]
 
-[71] 
+[72] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F53122FA6EC34F68CD6DE35156C9BF55;12020.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 8917C150566F853369FEBEE568599CFE;12021
+(rerunfilecheck)             After:  0854C666A8D54BD8DB6597C2799947AB;12021.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 57427 strings out of 473330
- 1266969 string characters out of 5723877
- 2646434 words of memory out of 5000000
- 79069 multiletter control sequences out of 15000+600000
+ 57456 strings out of 473330
+ 1268002 string characters out of 5723877
+ 2715111 words of memory out of 5000000
+ 79091 multiletter control sequences out of 15000+600000
  584979 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  130i,17n,162p,1652b,2128s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/tex
-live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.p
-fb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/tex
-live/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
-/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/202
-4/texmf-dist/fonts/type1/public/cm-super/sfbi1000.pfb><c:/texlive/2024/texmf-di
-st/fonts/type1/public/cm-super/sfbx0900.pfb><c:/texlive/2024/texmf-dist/fonts/t
-ype1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/publi
-c/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super
-/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.
-pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1000.pfb><c:/te
-xlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb><c:/texlive/2024
-/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2024/texmf-dis
-t/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2024/texmf-dist/fonts/ty
-pe1/public/cm-super/sfrm0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public
-/cm-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/
-sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.p
-fb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/tex
-live/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/texlive/2024/
-texmf-dist/fonts/type1/public/cm-super/sftc1000.pfb><c:/texlive/2024/texmf-dist
-/fonts/type1/public/cm-super/sfti0900.pfb><c:/texlive/2024/texmf-dist/fonts/typ
-e1/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/
-cm-super/sftt0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/s
-ftt0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pf
-b><c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb><c:/texlive/
-2024/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (78 pages, 3978704 bytes).
+
+pdfTeX warning (dest): name{Hfootnote.31} has been referenced but does not exis
+t, replaced by a fixed one
+
+<c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texli
+ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
+><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texli
+ve/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2
+024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/
+texmf-dist/fonts/type1/public/cm-super/sfbi1000.pfb><c:/texlive/2024/texmf-dist
+/fonts/type1/public/cm-super/sfbx0900.pfb><c:/texlive/2024/texmf-dist/fonts/typ
+e1/public/cm-super/sfbx1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/
+cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/s
+fbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pf
+b><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1000.pfb><c:/texl
+ive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb><c:/texlive/2024/t
+exmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2024/texmf-dist/
+fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2024/texmf-dist/fonts/type
+1/public/cm-super/sfrm0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/c
+m-super/sfrm0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sf
+rm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb
+><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/texli
+ve/2024/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb><c:/texlive/2024/te
+xmf-dist/fonts/type1/public/cm-super/sftc1000.pfb><c:/texlive/2024/texmf-dist/f
+onts/type1/public/cm-super/sfti0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1
+/public/cm-super/sfti1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm
+-super/sftt0800.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sft
+t0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+<c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb><c:/texlive/20
+24/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main.pdf (79 pages, 4290780 bytes).
 PDF statistics:
- 1945 PDF objects out of 2073 (max. 8388607)
- 1665 compressed objects within 17 object streams
- 590 named destinations out of 1000 (max. 500000)
- 885 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1980 PDF objects out of 2073 (max. 8388607)
+ 1697 compressed objects within 17 object streams
+ 597 named destinations out of 1000 (max. 500000)
+ 890 words of extra memory for PDF output out of 10000 (max. 10000000)
 

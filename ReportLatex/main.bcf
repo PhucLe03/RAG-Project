@@ -2508,8 +2508,14 @@
     <bcf:citekey order="132" intorder="1">hui2024qwen2.5</bcf:citekey>
     <bcf:citekey order="133" intorder="1">bai2023qwen</bcf:citekey>
     <bcf:citekey order="134" intorder="1">codegemma</bcf:citekey>
-    <bcf:citekey order="135" intorder="1">deepseek_r1</bcf:citekey>
-    <bcf:citekey order="136" intorder="1">chen2024bge</bcf:citekey>
+    <bcf:citekey order="135" intorder="1">baichuan2</bcf:citekey>
+    <bcf:citekey order="136" intorder="1">hui2024qwen2.5</bcf:citekey>
+    <bcf:citekey order="137" intorder="1">llama3</bcf:citekey>
+    <bcf:citekey order="138" intorder="1">deepseek_r1</bcf:citekey>
+    <bcf:citekey order="139" intorder="1">codellama</bcf:citekey>
+    <bcf:citekey order="140" intorder="1">llama2</bcf:citekey>
+    <bcf:citekey order="141" intorder="1">deepseek_r1</bcf:citekey>
+    <bcf:citekey order="142" intorder="1">chen2024bge</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
