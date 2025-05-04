@@ -25,7 +25,7 @@
 \EndWhile
 \If{${keepPrunedConnections}$} \Comment{Add some of the discarded connections from $W_d$}
     \While{$|W_d| > 0$ \textbf{and} $|R| < M$}
-        \State $R \gets R \cup$ Extract nearest element from $W_d$ to $q$
+        \State $R \gets R$ $ \cup$ Extract nearest element from $W_d$ to $q$
     \EndWhile
 \EndIf
 \State \textbf{return} $R$

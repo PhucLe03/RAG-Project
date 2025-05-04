@@ -187,15 +187,13 @@ Where:
 
 - ReLU: Rectified Linear Unit activation function, defined as $\text{ReLU}(x) = \max(0, x)$.
     \item \textbf{Multi-vector retrieval}\\\\
-Representing query and passage with multiple vectors
-
-Formulas:
-
-- Query representation:  
+Query representation:  
   $$ E_q = \text{norm}(W_{mul}^\top H_q) $$
 
-- Passage representation:  
+Passage representation:  
   $$ E_p = \text{norm}(W_{mul}^\top H_p) $$
+  
+Where:
 
 - $W_{mul} \in \mathbb{R}^{d \times d}$: A learnable projection matrix.
 
@@ -372,17 +370,17 @@ Structured data, such as knowledge bases (KBs), offers a rich source for augment
 
 To enable effective interaction with structured data, KnowledGPT employs several key functions:
 \begin{itemize}
-    \item \textit{get\_entity\_info:} Retrieves encyclopedic descriptions of an entity from the KB.
-    \item \textit{find\_entity\_or\_value:} Extracts entities or attribute values related to a query by identifying the most relevant relation.
-    \item \textit{find\_relationship:} Identifies relationships between two entities within the KB.
+    \item \texttt{get\_entity\_info:} Retrieves encyclopedic descriptions of an entity from the KB.
+    \item \texttt{find\_entity\_or\_value:} Extracts entities or attribute values related to a query by identifying the most relevant relation.
+    \item \texttt{find\_relationship:} Identifies relationships between two entities within the KB.
 \end{itemize}
 
 These functions allow KnowledGPT to leverage the structured nature of KBs to extract precise and relevant knowledge.
 
-The \textit{find\_entity\_or\_value} function is central to querying entities and attribute values. It matches the query's relation to KB triples using embedding-based similarity and retrieves the corresponding entities or values. The algorithm is detailed below.
+The \texttt{find\_entity\_or\_value} function is central to querying entities and attribute values. It matches the query's relation to KB triples using embedding-based similarity and retrieves the corresponding entities or values. The algorithm is detailed below.
 
 \begin{algorithm}
-\caption{\text{find\_entity\_or\_value}} \label{alg:cap}
+\caption{\texttt{find\_entity\_or\_value}} \label{alg:cap}
 \textbf{Input:} query $q$, alias list of entity $\mathcal{E}$, alias list of relation $\mathcal{R}$. \\
 \textbf{Output:} a list of target entities or attribute values $\mathcal{T}$.
 \begin{algorithmic}[1]

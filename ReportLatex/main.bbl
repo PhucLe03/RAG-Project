@@ -19,53 +19,61 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global/global}
-    \entry{asai2023selfrag}{article}{}{}
+    \entry{asai2023selfrag}{misc}{}{}
       \name{author}{5}{}{%
-        {{hash=e520aec96eb612706dc81e744adf6c0b}{%
+        {{hash=a0602035e63a56d86a67823386c1a49d}{%
            family={Asai},
            familyi={A\bibinitperiod},
-           given={A.},
+           given={Akari},
            giveni={A\bibinitperiod}}}%
-        {{hash=de75d8e160ca13e48c143cc033f970f1}{%
+        {{hash=9621ce78a8b5476f9ea926664e4a1107}{%
            family={Wu},
            familyi={W\bibinitperiod},
-           given={Z.},
+           given={Zeqiu},
            giveni={Z\bibinitperiod}}}%
-        {{hash=61ad10c626e1d641e0b1d7b5f48d3233}{%
+        {{hash=2679ca309489b1dec6dad69e85c8967a}{%
            family={Wang},
            familyi={W\bibinitperiod},
-           given={Y.},
+           given={Yizhong},
            giveni={Y\bibinitperiod}}}%
-        {{hash=9c5f4b533067120c933aeea71fe89167}{%
+        {{hash=f15d7827a681f6fb724f9686f4c3b738}{%
            family={Sil},
            familyi={S\bibinitperiod},
-           given={A.},
+           given={Avirup},
            giveni={A\bibinitperiod}}}%
-        {{hash=06a24f4935126675f8ba4c7699d91e42}{%
+        {{hash=e9dafefb58a6a6e1e496fdf8928b3eeb}{%
            family={Hajishirzi},
            familyi={H\bibinitperiod},
-           given={H.},
+           given={Hannaneh},
            giveni={H\bibinitperiod}}}%
       }
-      \strng{namehash}{618d98bfb1754f691be4fc3b9153381c}
-      \strng{fullhash}{0f88f05658e8a1bc5fdacc089f2b3336}
-      \strng{fullhashraw}{0f88f05658e8a1bc5fdacc089f2b3336}
-      \strng{bibnamehash}{618d98bfb1754f691be4fc3b9153381c}
-      \strng{authorbibnamehash}{618d98bfb1754f691be4fc3b9153381c}
-      \strng{authornamehash}{618d98bfb1754f691be4fc3b9153381c}
-      \strng{authorfullhash}{0f88f05658e8a1bc5fdacc089f2b3336}
-      \strng{authorfullhashraw}{0f88f05658e8a1bc5fdacc089f2b3336}
+      \strng{namehash}{fa96a5b67078795c72e10786b255fb98}
+      \strng{fullhash}{180d6d6201c7dbd79dd59996dbaeab7b}
+      \strng{fullhashraw}{180d6d6201c7dbd79dd59996dbaeab7b}
+      \strng{bibnamehash}{fa96a5b67078795c72e10786b255fb98}
+      \strng{authorbibnamehash}{fa96a5b67078795c72e10786b255fb98}
+      \strng{authornamehash}{fa96a5b67078795c72e10786b255fb98}
+      \strng{authorfullhash}{180d6d6201c7dbd79dd59996dbaeab7b}
+      \strng{authorfullhashraw}{180d6d6201c7dbd79dd59996dbaeab7b}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2310.11511}}
-      \field{title}{SELF-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection}
-      \field{volume}{arXiv:2310.11511v1}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2310.11511
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2310.11511
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2310.11511
+      \endverb
     \endentry
-    \entry{ba2016layernorm}{article}{}{}
+    \entry{ba2016layernorm}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=750bb29ebaf655e36626e464041edb6d}{%
            family={Ba},
@@ -80,7 +88,7 @@
         {{hash=813bd95fe553e6079cd53a567b238287}{%
            family={Hinton},
            familyi={H\bibinitperiod},
-           given={Geoffrey\bibnamedelima E},
+           given={Geoffrey\bibnamedelima E.},
            giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
       }
       \strng{namehash}{059348b2d0b3fe9a67209502c14057d1}
@@ -95,14 +103,21 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{stat}
+      \field{eprintclass}{stat.ML}
+      \field{eprinttype}{arXiv}
       \field{title}{Layer Normalization}
-      \field{volume}{1050}
       \field{year}{2016}
-      \field{pages}{21}
-      \range{pages}{1}
+      \verb{eprint}
+      \verb 1607.06450
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1607.06450
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1607.06450
+      \endverb
     \endentry
-    \entry{bai2023qwen}{article}{}{}
+    \entry{bai2023qwen}{misc}{}{}
       \name{author}{48}{}{%
         {{hash=dd935a128aad343ed15dbb47a481d356}{%
            family={Bai},
@@ -357,11 +372,19 @@
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2309.16609}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Qwen Technical Report}
-      \field{volume}{arXiv:2309.16609}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2309.16609
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2309.16609
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2309.16609
+      \endverb
     \endentry
     \entry{bernhardsson_annoy}{misc}{}{}
       \name{author}{1}{}{%
@@ -387,30 +410,50 @@
       \field{note}{Available at \url{https://github.com/spotify/annoy}}
       \field{title}{Approximate Nearest Neighbors Oh Yeah}
     \endentry
-    \entry{brown2020}{misc}{}{}
-      \name{author}{1}{}{%
-        {{hash=2a78169cebccc5c7f36671f3c4b9ba6b}{%
+    \entry{brown2020}{software}{}{}
+      \name{author}{3}{}{%
+        {{hash=470153203938959a9c4e169eab068236}{%
            family={Brown},
            familyi={B\bibinitperiod},
-           given={D.},
+           given={Dorian},
            giveni={D\bibinitperiod}}}%
+        {{hash=473b58dab2062f9cc6cabc0d011e1e2a}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Sarthak},
+           giveni={S\bibinitperiod}}}%
+        {{hash=dc1379e278d6e5bfabcb6b118bc661ec}{%
+           family={nlp4whp},
+           familyi={n\bibinitperiod}}}%
       }
-      \strng{namehash}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{fullhash}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{fullhashraw}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{bibnamehash}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{authorbibnamehash}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{authornamehash}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{authorfullhash}{2a78169cebccc5c7f36671f3c4b9ba6b}
-      \strng{authorfullhashraw}{2a78169cebccc5c7f36671f3c4b9ba6b}
+      \list{publisher}{1}{%
+        {Zenodo}%
+      }
+      \strng{namehash}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{fullhash}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{fullhashraw}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{bibnamehash}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{authorbibnamehash}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{authornamehash}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{authorfullhash}{3b01dd7a25fbd7fd419bd9efaf650b3b}
+      \strng{authorfullhashraw}{3b01dd7a25fbd7fd419bd9efaf650b3b}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{howpublished}{Online}
-      \field{note}{Available at \url{https://doi.org/10.5281/zenodo.4520057}}
-      \field{title}{Rank-BM25: A Collection of BM25 Algorithms in Python}
-      \field{year}{2020}
+      \field{month}{2}
+      \field{title}{dorianbrown/rank\_bm25 0.2.1}
+      \field{version}{0.2.1}
+      \field{year}{2021}
+      \verb{doi}
+      \verb 10.5281/zenodo.4520057
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.5281/zenodo.4520057
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.5281/zenodo.4520057
+      \endverb
     \endentry
     \entry{fewshot}{misc}{}{}
       \name{author}{31}{}{%
@@ -595,43 +638,6 @@
       \verb{url}
       \verb https://arxiv.org/abs/2005.14165
       \endverb
-    \endentry
-    \entry{bruch2009}{inproceedings}{}{}
-      \name{author}{3}{}{%
-        {{hash=ffc609bcddf701bc0b8a59da31202313}{%
-           family={Bruch},
-           familyi={B\bibinitperiod},
-           given={Marcel},
-           giveni={M\bibinitperiod}}}%
-        {{hash=98f471912e248a73379dde4aa46e4ecf}{%
-           family={Monperrus},
-           familyi={M\bibinitperiod},
-           given={Martin},
-           giveni={M\bibinitperiod}}}%
-        {{hash=4c8995f42a6a2e4a5997d105c6463290}{%
-           family={Mezini},
-           familyi={M\bibinitperiod},
-           given={Mira},
-           giveni={M\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Amsterdam, Netherlands}%
-      }
-      \strng{namehash}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{fullhash}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{fullhashraw}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{bibnamehash}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{authorbibnamehash}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{authornamehash}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{authorfullhash}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \strng{authorfullhashraw}{d84ca7ce2d2b64f982b22f9bbc560d27}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 7th Joint Meeting of the European Software Engineering Conference and ACM Symposium on the Foundations of Software Engineering (ESEC/FSE)}
-      \field{title}{Learning from Examples to Improve Code Completion Systems}
-      \field{year}{2009}
     \endentry
     \entry{chen2024bge}{misc}{}{}
       \name{author}{6}{}{%
@@ -1081,9 +1087,14 @@
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Available at \url{https://github.com/Microsoft/SPTAG}}
-      \field{title}{SPTAG: A Library for Fast Approximate Nearest Neighbor Search}
+      \field{title}{SPTAG: A library for fast approximate nearest neighbor search}
       \field{year}{2018}
+      \verb{urlraw}
+      \verb https://github.com/Microsoft/SPTAG
+      \endverb
+      \verb{url}
+      \verb https://github.com/Microsoft/SPTAG
+      \endverb
     \endentry
     \entry{tfidf}{misc}{}{}
       \name{author}{3}{}{%
@@ -2193,7 +2204,6 @@
       \field{labeltitlesource}{title}
       \field{eprintclass}{cs.CL}
       \field{eprinttype}{arXiv}
-      \field{note}{Available at \url{https://arxiv.org/abs/1810.04805}}
       \field{title}{BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding}
       \field{year}{2019}
       \verb{eprint}
@@ -2206,7 +2216,7 @@
       \verb https://arxiv.org/abs/1810.04805
       \endverb
     \endentry
-    \entry{douze2024faiss}{article}{}{}
+    \entry{douze2024faiss}{misc}{}{}
       \name{author}{9}{}{%
         {{hash=e9190eb3cfa416148f38314a0698d592}{%
            family={Douze},
@@ -2269,9 +2279,15 @@
       \field{eprintclass}{cs.LG}
       \field{eprinttype}{arXiv}
       \field{title}{The Faiss library}
-      \field{year}{2024}
+      \field{year}{2025}
       \verb{eprint}
       \verb 2401.08281
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2401.08281
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2401.08281
       \endverb
     \endentry
     \entry{elasticsearch}{misc}{}{}
@@ -2279,10 +2295,30 @@
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labeltitlesource}{title}
       \field{howpublished}{Online}
-      \field{note}{Available at \url{https://github.com/elastic/elasticsearch}}
       \field{title}{Elasticsearch}
+      \verb{urlraw}
+      \verb https://github.com/elastic/elasticsearch
+      \endverb
+      \verb{url}
+      \verb https://github.com/elastic/elasticsearch
+      \endverb
     \endentry
-    \entry{gao2023ragllmsurvey}{article}{}{}
+    \entry{bruch2009}{proceedings}{}{}
+      \list{location}{1}{%
+        {Amsterdam, The Netherlands}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labeltitlesource}{title}
+      \field{abstract}{It is our great pleasure to welcome you to the 7th Joint meeting of the European Software Engineering Conference -- ESEC, and the ACM SIGSOFT Symposium on the Foundations of Software Engineering Conference -- FSE. This year's conference continues its tradition of being a premier forum for researchers, practitioners, and educators to present and discuss the most recent innovations, trends, experiences, and challenges in the field of software engineering. Held bi-annually, ESEC/FSE brings together experts from academia and industry to exchange the latest research results and trends, as well as their practical application in all areas of software engineering.The call for papers attracted 217 submissions from all continents. The program committee accepted 32 papers that cover a variety of topics, including empirical software engineering, specification \& verification, analysis \& testing, service-orientation, and mining software repositories. In addition, the program includes keynote speeches by Mary Shaw (Carnegie-Mellon University) on "The Challenge of Pervasive Software to the Conventional Wisdom of Software Engineering," Ralf-Peter Schäfer (TomTom) on "IQ Routes and HD Traffic - Technology insights about TomTom's time-dynamic navigation concept," and Richard Taylor (University of California, Irvine), recipient of the 2009 ACM SIGSOFT Outstanding Research Award, on "Software Architecture: Many Faces, Many Places, Yet a Central Discipline." The conference also features challenge talks, in which visionary ideas in relevant Software Engineering topics are presented. We hope that these proceedings will serve as a valuable reference for software engineering researchers and practitioners.}
+      \field{isbn}{9781605580012}
+      \field{title}{ESEC/FSE '09: Proceedings of the 7th joint meeting of the European software engineering conference and the ACM SIGSOFT symposium on The foundations of software engineering}
+      \field{year}{2009}
+    \endentry
+    \entry{gao2023ragllmsurvey}{misc}{}{}
       \name{author}{10}{}{%
         {{hash=572def57560315de76cedfc3e17c2eb2}{%
            family={Gao},
@@ -2347,11 +2383,19 @@
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2312.10997}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Retrieval-Augmented Generation for Large Language Models: A Survey}
-      \field{volume}{arXiv:2312.10997}
-      \field{year}{2023}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2312.10997
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2312.10997
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2312.10997
+      \endverb
     \endentry
     \entry{llama3}{misc}{}{}
       \name{author}{561}{}{%
@@ -5185,7 +5229,7 @@
       \verb https://arxiv.org/abs/2407.21783
       \endverb
     \endentry
-    \entry{he2016residualcon}{inproceedings}{}{}
+    \entry{he2016residualcon}{misc}{}{}
       \name{author}{4}{}{%
         {{hash=6b4b60e909e78633945f3f9c9dc83e01}{%
            family={He},
@@ -5221,13 +5265,21 @@
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the IEEE conference on computer vision and pattern recognition}
-      \field{title}{Deep residual learning for image recognition}
-      \field{year}{2016}
-      \field{pages}{770\bibrangedash 778}
-      \range{pages}{9}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{title}{Deep Residual Learning for Image Recognition}
+      \field{year}{2015}
+      \verb{eprint}
+      \verb 1512.03385
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1512.03385
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1512.03385
+      \endverb
     \endentry
-    \entry{he2024}{article}{}{}
+    \entry{he2024}{misc}{}{}
       \name{author}{4}{}{%
         {{hash=fb565164f15761d434a3ef3a4c5b416b}{%
            family={He},
@@ -5263,11 +5315,19 @@
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2410.09662}}
-      \field{title}{Exploring Demonstration Retrievers in RAG for Coding Tasks: Yeas and Nays!}
-      \field{volume}{arXiv:2410.09662v1}
-      \field{year}{2024}
+      \field{eprintclass}{cs.SE}
+      \field{eprinttype}{arXiv}
+      \field{title}{Evaluating the Effectiveness and Efficiency of Demonstration Retrievers in RAG for Coding Tasks}
+      \field{year}{2025}
+      \verb{eprint}
+      \verb 2410.09662
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2410.09662
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2410.09662
+      \endverb
     \endentry
     \entry{lstm}{article}{}{}
       \name{author}{2}{}{%
@@ -5282,6 +5342,12 @@
            given={Jürgen},
            giveni={J\bibinitperiod}}}%
       }
+      \list{location}{1}{%
+        {Cambridge, MA, USA}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
       \strng{namehash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
       \strng{fullhash}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
       \strng{fullhashraw}{4c2e1e2e1ac91e1df9d4f7b85ebe39b4}
@@ -5294,49 +5360,66 @@
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Neural computation}
-      \field{month}{12}
-      \field{title}{Long Short-term Memory}
+      \field{abstract}{Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.}
+      \field{issn}{0899-7667}
+      \field{journaltitle}{Neural Comput.}
+      \field{month}{11}
+      \field{number}{8}
+      \field{title}{Long Short-Term Memory}
       \field{volume}{9}
       \field{year}{1997}
-      \field{pages}{1735\bibrangedash 80}
-      \range{pages}{51}
+      \field{pages}{1735\bibrangedash 1780}
+      \range{pages}{46}
       \verb{doi}
       \verb 10.1162/neco.1997.9.8.1735
       \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1162/neco.1997.9.8.1735
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1162/neco.1997.9.8.1735
+      \endverb
     \endentry
-    \entry{hostnik2024}{article}{}{}
+    \entry{hostnik2024}{misc}{}{}
       \name{author}{2}{}{%
         {{hash=4fd2ae7a1542f416bedb508f054c0e21}{%
            family={Hostnik},
            familyi={H\bibinitperiod},
            given={Marko},
            giveni={M\bibinitperiod}}}%
-        {{hash=5e0fef13b573d96dc42415d4db1492a0}{%
-           family={Robnik-Sikonja},
-           familyi={R\bibinithyphendelim S\bibinitperiod},
+        {{hash=26dfee7dd9e2b5f46211c92abf736e07}{%
+           family={Robnik-Šikonja},
+           familyi={R\bibinithyphendelim Š\bibinitperiod},
            given={Marko},
            giveni={M\bibinitperiod}}}%
       }
-      \strng{namehash}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{fullhash}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{fullhashraw}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{bibnamehash}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{authorbibnamehash}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{authornamehash}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{authorfullhash}{4d7dddbcf4ece527d6436d014dc11bd9}
-      \strng{authorfullhashraw}{4d7dddbcf4ece527d6436d014dc11bd9}
+      \strng{namehash}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{fullhash}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{fullhashraw}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{bibnamehash}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{authorbibnamehash}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{authornamehash}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{authorfullhash}{9cf0cb06eaf4f5384c80df7070668284}
+      \strng{authorfullhashraw}{9cf0cb06eaf4f5384c80df7070668284}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2408.05026}}
-      \field{title}{Retrieval-Augmented Code Completion for Local Projects Using Large Language Models}
-      \field{volume}{arXiv:2408.05026v1}
+      \field{eprintclass}{cs.SE}
+      \field{eprinttype}{arXiv}
+      \field{title}{Retrieval-augmented code completion for local projects using large language models}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2408.05026
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2408.05026
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2408.05026
+      \endverb
     \endentry
-    \entry{hui2024qwen2.5}{article}{}{}
+    \entry{hui2024qwen2.5}{misc}{}{}
       \name{author}{24}{}{%
         {{hash=f34c34e7bfee1c214b840e1406f93b43}{%
            family={Hui},
@@ -5471,11 +5554,19 @@
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2409.12186}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Qwen2.5-Coder Technical Report}
-      \field{volume}{arXiv:2409.12186}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2409.12186
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2409.12186
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2409.12186
+      \endverb
     \endentry
     \entry{mcontriever}{article}{}{}
       \name{author}{7}{}{%
@@ -5538,51 +5629,59 @@
       \verb https://openreview.net/forum?id=jKN1pXi7b0
       \endverb
     \endentry
-    \entry{jafari2021lsh}{article}{}{}
+    \entry{jafari2021lsh}{misc}{}{}
       \name{author}{5}{}{%
-        {{hash=3e935b596962f09208ed5472db5d1280}{%
+        {{hash=1318b8707feba0bab563d720543bf035}{%
            family={Jafari},
            familyi={J\bibinitperiod},
-           given={O.},
+           given={Omid},
            giveni={O\bibinitperiod}}}%
-        {{hash=55b58401424901781dfde7f4afb195ad}{%
+        {{hash=7c18a0f8995ffc0ee59e919f8dc0ddd5}{%
            family={Maurya},
            familyi={M\bibinitperiod},
-           given={P.},
+           given={Preeti},
            giveni={P\bibinitperiod}}}%
-        {{hash=4c23871527b5ce5548d9f7c7a9b894cb}{%
+        {{hash=ac7adfdec115858236f1f2053e704a5d}{%
            family={Nagarkar},
            familyi={N\bibinitperiod},
-           given={P.},
+           given={Parth},
            giveni={P\bibinitperiod}}}%
-        {{hash=5d15de893c5335fe35bd1615f9d21f51}{%
+        {{hash=5ec06577af2c26c88e8c83f7d2d6b4f7}{%
            family={Islam},
            familyi={I\bibinitperiod},
-           given={K.\bibnamedelimi M.},
+           given={Khandker\bibnamedelima Mushfiqul},
            giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-        {{hash=f11a549e713a1cf0abbe591b48da9aaa}{%
+        {{hash=e712b83515e6b6c1d75c78110665fd83}{%
            family={Crushev},
            familyi={C\bibinitperiod},
-           given={C.},
+           given={Chidambaram},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{1121b4f26181dc407825550c0ef8bc40}
-      \strng{fullhash}{066c46370af56b2c7341b5aec0396db9}
-      \strng{fullhashraw}{066c46370af56b2c7341b5aec0396db9}
-      \strng{bibnamehash}{1121b4f26181dc407825550c0ef8bc40}
-      \strng{authorbibnamehash}{1121b4f26181dc407825550c0ef8bc40}
-      \strng{authornamehash}{1121b4f26181dc407825550c0ef8bc40}
-      \strng{authorfullhash}{066c46370af56b2c7341b5aec0396db9}
-      \strng{authorfullhashraw}{066c46370af56b2c7341b5aec0396db9}
+      \strng{namehash}{335924c8ecb9759ac1835961a3a392d6}
+      \strng{fullhash}{1a110da1829b2cd50afb2d3dfcfd520b}
+      \strng{fullhashraw}{1a110da1829b2cd50afb2d3dfcfd520b}
+      \strng{bibnamehash}{335924c8ecb9759ac1835961a3a392d6}
+      \strng{authorbibnamehash}{335924c8ecb9759ac1835961a3a392d6}
+      \strng{authornamehash}{335924c8ecb9759ac1835961a3a392d6}
+      \strng{authorfullhash}{1a110da1829b2cd50afb2d3dfcfd520b}
+      \strng{authorfullhashraw}{1a110da1829b2cd50afb2d3dfcfd520b}
       \field{sortinit}{J}
       \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2102.08942}}
-      \field{title}{A Survey on Locality Sensitive Hashing Algorithms and Their Applications}
-      \field{volume}{arXiv:2102.08942}
+      \field{eprintclass}{cs.DB}
+      \field{eprinttype}{arXiv}
+      \field{title}{A Survey on Locality Sensitive Hashing Algorithms and their Applications}
       \field{year}{2021}
+      \verb{eprint}
+      \verb 2102.08942
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2102.08942
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2102.08942
+      \endverb
     \endentry
     \entry{mistral}{misc}{}{}
       \name{author}{18}{}{%
@@ -5705,7 +5804,7 @@
       \verb https://arxiv.org/abs/2310.06825
       \endverb
     \endentry
-    \entry{johnson2017similarity}{article}{}{}
+    \entry{johnson2017similarity}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=1805e103501075ef0b21851b4259f4a3}{%
            family={Johnson},
@@ -5735,11 +5834,19 @@
       \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/1702.08734}}
-      \field{title}{Billion-scale Similarity Search with GPUs}
-      \field{volume}{arXiv:1702.08734}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{title}{Billion-scale similarity search with GPUs}
       \field{year}{2017}
+      \verb{eprint}
+      \verb 1702.08734
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1702.08734
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1702.08734
+      \endverb
     \endentry
     \entry{kshirsagar2024chunking}{article}{}{}
       \name{author}{1}{}{%
@@ -5772,7 +5879,7 @@
       \verb 10.32628/CSEIT2410593
       \endverb
     \endentry
-    \entry{kulkarni2024rag}{inproceedings}{}{}
+    \entry{kulkarni2024rag}{misc}{}{}
       \name{author}{4}{}{%
         {{hash=654abb6bc5e6efe2c688c543afc648ca}{%
            family={Kulkarni},
@@ -5807,11 +5914,21 @@
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the AAAI 2024 Workshop on Synergy of Reinforcement Learning and Large Language Models}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Reinforcement Learning for Optimizing RAG for Domain Chatbots}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2401.06800
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2401.06800
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2401.06800
+      \endverb
     \endentry
-    \entry{lewis2020}{article}{}{}
+    \entry{lewis2020}{misc}{}{}
       \name{author}{12}{}{%
         {{hash=ecbe786a5668bf643d74bb24fe1c3cfe}{%
            family={Lewis},
@@ -5886,13 +6003,22 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks}
-      \field{volume}{arXiv:2005.11401}
-      \field{year}{2020}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 2005.11401
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2005.11401
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2005.11401
+      \endverb
     \endentry
-    \entry{li2019visualsearch}{article}{}{}
-      \name{author}{7}{}{%
+    \entry{li2019visualsearch}{misc}{}{}
+      \name{author}{6}{}{%
         {{hash=5f61775c2fbdd179d018bb797bd0ce1d}{%
            family={Li},
            familyi={L\bibinitperiod},
@@ -5923,32 +6049,35 @@
            familyi={W\bibinitperiod},
            given={Ning},
            giveni={N\bibinitperiod}}}%
-        {{hash=88f10f739f7ff4608b89a8ff7fbbfa06}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Yuan},
-           giveni={Y\bibinitperiod}}}%
       }
       \strng{namehash}{f89b0bb6b75f9c0c3ec6991d35b3c86f}
-      \strng{fullhash}{6acd1ff03b042404931095a9e859fe8a}
-      \strng{fullhashraw}{6acd1ff03b042404931095a9e859fe8a}
+      \strng{fullhash}{8f3bf7327ca67d49138c491c1052b5d7}
+      \strng{fullhashraw}{8f3bf7327ca67d49138c491c1052b5d7}
       \strng{bibnamehash}{f89b0bb6b75f9c0c3ec6991d35b3c86f}
       \strng{authorbibnamehash}{f89b0bb6b75f9c0c3ec6991d35b3c86f}
       \strng{authornamehash}{f89b0bb6b75f9c0c3ec6991d35b3c86f}
-      \strng{authorfullhash}{6acd1ff03b042404931095a9e859fe8a}
-      \strng{authorfullhashraw}{6acd1ff03b042404931095a9e859fe8a}
+      \strng{authorfullhash}{8f3bf7327ca67d49138c491c1052b5d7}
+      \strng{authorfullhashraw}{8f3bf7327ca67d49138c491c1052b5d7}
       \field{extraname}{1}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/1908.07389}}
+      \field{eprintclass}{cs.IR}
+      \field{eprinttype}{arXiv}
       \field{title}{The Design and Implementation of a Real Time Visual Search System on JD E-commerce Platform}
-      \field{volume}{arXiv:1908.07389}
       \field{year}{2019}
+      \verb{eprint}
+      \verb 1908.07389
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1908.07389
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1908.07389
+      \endverb
     \endentry
-    \entry{li2019design}{article}{}{}
+    \entry{li2019design}{misc}{}{}
       \name{author}{6}{}{%
         {{hash=5f61775c2fbdd179d018bb797bd0ce1d}{%
            family={Li},
@@ -5994,13 +6123,21 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/1908.07389}}
+      \field{eprintclass}{cs.IR}
+      \field{eprinttype}{arXiv}
       \field{title}{The Design and Implementation of a Real Time Visual Search System on JD E-commerce Platform}
-      \field{volume}{arXiv:1908.07389}
       \field{year}{2019}
+      \verb{eprint}
+      \verb 1908.07389
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1908.07389
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1908.07389
+      \endverb
     \endentry
-    \entry{li2023santa}{article}{}{}
+    \entry{li2023santa}{misc}{}{}
       \name{author}{7}{}{%
         {{hash=af8af2c2ae4eea343159a7dfcb2fcfce}{%
            family={Li},
@@ -6051,18 +6188,26 @@
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2305.19912}}
+      \field{eprintclass}{cs.IR}
+      \field{eprinttype}{arXiv}
       \field{title}{Structure-Aware Language Model Pretraining Improves Dense Retrieval on Structured Data}
-      \field{volume}{arXiv:2305.19912}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2305.19912
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2305.19912
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2305.19912
+      \endverb
     \endentry
-    \entry{malkov2018hnsw}{article}{}{}
+    \entry{malkov2018hnsw}{misc}{}{}
       \name{author}{2}{}{%
-        {{hash=623b91159152c4732a26e6d6f4da036d}{%
+        {{hash=1761d9a54a91e198bbbb1ab8c90b87cf}{%
            family={Malkov},
            familyi={M\bibinitperiod},
-           given={Y.\bibnamedelimi A.},
+           given={Yu.\bibnamedelimi A.},
            giveni={Y\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
         {{hash=0ab161f0ecfa8c1f0510bd561839d6ac}{%
            family={Yashunin},
@@ -6070,30 +6215,33 @@
            given={D.\bibnamedelimi A.},
            giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
       }
-      \strng{namehash}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{fullhash}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{fullhashraw}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{bibnamehash}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{authorbibnamehash}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{authornamehash}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{authorfullhash}{57bf0e7947a229f654506ebc5a45073a}
-      \strng{authorfullhashraw}{57bf0e7947a229f654506ebc5a45073a}
+      \strng{namehash}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{fullhash}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{fullhashraw}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{bibnamehash}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{authorbibnamehash}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{authornamehash}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{authorfullhash}{41f677ba5b31db2db6a749a416e76e0e}
+      \strng{authorfullhashraw}{41f677ba5b31db2db6a749a416e76e0e}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{IEEE Transactions on Pattern Analysis and Machine Intelligence}
-      \field{number}{4}
-      \field{title}{Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs}
-      \field{volume}{42}
+      \field{eprintclass}{cs.DS}
+      \field{eprinttype}{arXiv}
+      \field{title}{Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs}
       \field{year}{2018}
-      \field{pages}{824\bibrangedash 836}
-      \range{pages}{13}
-      \verb{doi}
-      \verb 10.1109/TPAMI.2018.2889473
+      \verb{eprint}
+      \verb 1603.09320
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1603.09320
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1603.09320
       \endverb
     \endentry
-    \entry{mikolov2013efficient}{article}{}{}
+    \entry{mikolov2013efficient}{misc}{}{}
       \name{author}{4}{}{%
         {{hash=a2d359b12ca2fadf0b40136a73f021bb}{%
            family={Mikolov},
@@ -6128,17 +6276,19 @@
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1301.3781}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Efficient Estimation of Word Representations in Vector Space}
       \field{year}{2013}
-    \endentry
-    \entry{pase2020}{misc}{}{}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{Online}
-      \field{note}{Available at \url{https://www.researchgate.net/publication/341744935}}
-      \field{title}{PASE: PostgreSQL Ultra-High-Dimensional Approximate Nearest Neighbor Search Extension}
+      \verb{eprint}
+      \verb 1301.3781
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1301.3781
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1301.3781
+      \endverb
     \endentry
     \entry{Pennington2014GloVeGV}{inproceedings}{}{}
       \name{author}{3}{}{%
@@ -6214,17 +6364,17 @@
       \verb https://api.semanticscholar.org/CorpusID:49313245
       \endverb
     \endentry
-    \entry{radford2019}{report}{}{}
+    \entry{radford2019}{improceedings}{}{}
       \name{author}{6}{}{%
         {{hash=a812c46caad94fc8701be37871f303ba}{%
            family={Radford},
            familyi={R\bibinitperiod},
            given={Alec},
            giveni={A\bibinitperiod}}}%
-        {{hash=495187f3a2c93ddb8083bd18a5702527}{%
+        {{hash=154c21dba0a601ad2f9ec03612c6d5e0}{%
            family={Wu},
            familyi={W\bibinitperiod},
-           given={Jeffrey},
+           given={Jeff},
            giveni={J\bibinitperiod}}}%
         {{hash=5c2f5c2e6d4a9ec8681377f8a8e5e6af}{%
            family={Child},
@@ -6247,25 +6397,26 @@
            given={Ilya},
            giveni={I\bibinitperiod}}}%
       }
-      \list{institution}{1}{%
-        {OpenAI}%
-      }
       \strng{namehash}{ca3baa5a22057195db1c71be39b4c922}
-      \strng{fullhash}{272bcacf72583dff08d1a2eedd467b89}
-      \strng{fullhashraw}{272bcacf72583dff08d1a2eedd467b89}
+      \strng{fullhash}{f577afbbbc5ae55cee9f0d9f79adcb02}
+      \strng{fullhashraw}{f577afbbbc5ae55cee9f0d9f79adcb02}
       \strng{bibnamehash}{ca3baa5a22057195db1c71be39b4c922}
       \strng{authorbibnamehash}{ca3baa5a22057195db1c71be39b4c922}
       \strng{authornamehash}{ca3baa5a22057195db1c71be39b4c922}
-      \strng{authorfullhash}{272bcacf72583dff08d1a2eedd467b89}
-      \strng{authorfullhashraw}{272bcacf72583dff08d1a2eedd467b89}
+      \strng{authorfullhash}{f577afbbbc5ae55cee9f0d9f79adcb02}
+      \strng{authorfullhashraw}{f577afbbbc5ae55cee9f0d9f79adcb02}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Available at \url{https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf}}
       \field{title}{Language Models are Unsupervised Multitask Learners}
-      \field{type}{techreport}
       \field{year}{2019}
+      \verb{urlraw}
+      \verb https://api.semanticscholar.org/CorpusID:160025533
+      \endverb
+      \verb{url}
+      \verb https://api.semanticscholar.org/CorpusID:160025533
+      \endverb
     \endentry
     \entry{raffel2023t5}{misc}{}{}
       \name{author}{9}{}{%
@@ -6329,7 +6480,6 @@
       \field{labeltitlesource}{title}
       \field{eprintclass}{cs.LG}
       \field{eprinttype}{arXiv}
-      \field{note}{Available at \url{1910.10683}}
       \field{title}{Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer}
       \field{year}{2023}
       \verb{eprint}
@@ -6342,63 +6492,71 @@
       \verb https://arxiv.org/abs/1910.10683
       \endverb
     \endentry
-    \entry{ram2023incontext}{article}{}{}
+    \entry{ram2023incontext}{misc}{}{}
       \name{author}{7}{}{%
-        {{hash=bbed2cd31a685677d532a2ef0a8a5672}{%
+        {{hash=416ee2cb84b19aab919030cd0c5f937b}{%
            family={Ram},
            familyi={R\bibinitperiod},
-           given={O.},
+           given={Ori},
            giveni={O\bibinitperiod}}}%
-        {{hash=d32fbe015f0413ebce9bf2fbdd78eed8}{%
+        {{hash=154258d1a56f82a525406e727dd091ed}{%
            family={Levine},
            familyi={L\bibinitperiod},
-           given={Y.},
+           given={Yoav},
            giveni={Y\bibinitperiod}}}%
-        {{hash=69688523cf4f86d0652fb15633f148e3}{%
+        {{hash=f1b7be2e770a18e1dd360ae311eb0f10}{%
            family={Dalmedigos},
            familyi={D\bibinitperiod},
-           given={I.},
+           given={Itay},
            giveni={I\bibinitperiod}}}%
-        {{hash=ba991fa19e2f342d7a7dad2b86a7650b}{%
+        {{hash=507e49f3e305d5914c2a56193f6af03a}{%
            family={Muhlgay},
            familyi={M\bibinitperiod},
-           given={D.},
+           given={Dor},
            giveni={D\bibinitperiod}}}%
-        {{hash=74342603cd73f0e1929ce0606f6cd522}{%
+        {{hash=962f93a56bcc50c535d249db893423e5}{%
            family={Shashua},
            familyi={S\bibinitperiod},
-           given={A.},
+           given={Amnon},
            giveni={A\bibinitperiod}}}%
-        {{hash=58b656b308f8f05de64c7c47065b206f}{%
+        {{hash=91d47c0d6ebf96d50082140932162381}{%
            family={Leyton-Brown},
            familyi={L\bibinithyphendelim B\bibinitperiod},
-           given={K.},
+           given={Kevin},
            giveni={K\bibinitperiod}}}%
-        {{hash=c8fb95e812a8beefe1be0c01447b216a}{%
+        {{hash=774e2e16526f33f383bed004b13bf326}{%
            family={Shoham},
            familyi={S\bibinitperiod},
-           given={Y.},
+           given={Yoav},
            giveni={Y\bibinitperiod}}}%
       }
-      \strng{namehash}{a13482bdbad0d9c90fed1cfc9a57c6e0}
-      \strng{fullhash}{f733fc88eb46c972df2d9f546e74d97b}
-      \strng{fullhashraw}{f733fc88eb46c972df2d9f546e74d97b}
-      \strng{bibnamehash}{a13482bdbad0d9c90fed1cfc9a57c6e0}
-      \strng{authorbibnamehash}{a13482bdbad0d9c90fed1cfc9a57c6e0}
-      \strng{authornamehash}{a13482bdbad0d9c90fed1cfc9a57c6e0}
-      \strng{authorfullhash}{f733fc88eb46c972df2d9f546e74d97b}
-      \strng{authorfullhashraw}{f733fc88eb46c972df2d9f546e74d97b}
+      \strng{namehash}{222fbfc47cf9c15ea637261d77cdf932}
+      \strng{fullhash}{20a90e089eaa92ec45ad661b43f21921}
+      \strng{fullhashraw}{20a90e089eaa92ec45ad661b43f21921}
+      \strng{bibnamehash}{222fbfc47cf9c15ea637261d77cdf932}
+      \strng{authorbibnamehash}{222fbfc47cf9c15ea637261d77cdf932}
+      \strng{authornamehash}{222fbfc47cf9c15ea637261d77cdf932}
+      \strng{authorfullhash}{20a90e089eaa92ec45ad661b43f21921}
+      \strng{authorfullhashraw}{20a90e089eaa92ec45ad661b43f21921}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2302.00083}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{In-Context Retrieval-Augmented Language Models}
-      \field{volume}{arXiv:2302.00083v3}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2302.00083
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2302.00083
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2302.00083
+      \endverb
     \endentry
-    \entry{reimers-2019-sentence-bert}{inproceedings}{}{}
+    \entry{reimers-2019-sentence-bert}{misc}{}{}
       \name{author}{2}{}{%
         {{hash=da9947b27b0d1c4c912e2b391426d443}{%
            family={Reimers},
@@ -6410,9 +6568,6 @@
            familyi={G\bibinitperiod},
            given={Iryna},
            giveni={I\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Association for Computational Linguistics}%
       }
       \strng{namehash}{2466af6376c9c5e3658dcc6692351f3e}
       \strng{fullhash}{2466af6376c9c5e3658dcc6692351f3e}
@@ -6426,10 +6581,13 @@
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing}
-      \field{month}{11}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks}
       \field{year}{2019}
+      \verb{eprint}
+      \verb 1908.10084
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1908.10084
       \endverb
@@ -6475,7 +6633,7 @@
       \verb https://api.semanticscholar.org/CorpusID:207178704
       \endverb
     \endentry
-    \entry{roziere2023code}{article}{}{}
+    \entry{roziere2023code}{misc}{}{}
       \name{author}{26}{}{%
         {{hash=e0d9a8657c1043f53c54f3f5a6ff305f}{%
            family={Rozière},
@@ -6621,11 +6779,19 @@
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2308.12950}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Code Llama: Open Foundation Models for Code}
-      \field{volume}{arXiv:2308.12950}
-      \field{year}{2023}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2308.12950
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2308.12950
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2308.12950
+      \endverb
     \endentry
     \entry{codellama}{misc}{}{}
       \name{author}{26}{}{%
@@ -6818,12 +6984,17 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Nature}
-      \field{note}{Available at \url{https://doi.org/10.1038/323533a0}}
       \field{title}{Learning representations by back-propagating errors}
       \field{volume}{323}
       \field{year}{1986}
       \field{pages}{533\bibrangedash 536}
       \range{pages}{4}
+      \verb{urlraw}
+      \verb https://api.semanticscholar.org/CorpusID:205001834
+      \endverb
+      \verb{url}
+      \verb https://api.semanticscholar.org/CorpusID:205001834
+      \endverb
     \endentry
     \entry{sachdev2018}{inproceedings}{}{}
       \name{author}{6}{}{%
@@ -6858,9 +7029,6 @@
            given={Satish},
            giveni={S\bibinitperiod}}}%
       }
-      \list{location}{1}{%
-        {Philadelphia, PA, USA}%
-      }
       \strng{namehash}{0280e6c7bdecb02f67aa3d33896ea523}
       \strng{fullhash}{6ccb2c645b6e71b3636c0fb0dc0acf1b}
       \strng{fullhashraw}{6ccb2c645b6e71b3636c0fb0dc0acf1b}
@@ -6873,9 +7041,14 @@
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 2nd ACM SIGPLAN International Workshop on Machine Learning and Programming Languages (MAPL)}
-      \field{title}{Retrieval on Source Code: A Neural Code Search}
+      \field{month}{06}
+      \field{title}{Retrieval on source code: a neural code search}
       \field{year}{2018}
+      \field{pages}{31\bibrangedash 41}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1145/3211346.3211353
+      \endverb
     \endentry
     \entry{surveypromptengineering}{misc}{}{}
       \name{author}{6}{}{%
@@ -6925,7 +7098,7 @@
       \field{eprintclass}{cs.AI}
       \field{eprinttype}{arXiv}
       \field{title}{A Systematic Survey of Prompt Engineering in Large Language Models: Techniques and Applications}
-      \field{year}{2024}
+      \field{year}{2025}
       \verb{eprint}
       \verb 2402.07927
       \endverb
@@ -6936,46 +7109,56 @@
       \verb https://arxiv.org/abs/2402.07927
       \endverb
     \endentry
-    \entry{svyatkovskiy2020}{inproceedings}{}{}
+    \entry{svyatkovskiy2020}{misc}{}{}
       \name{author}{4}{}{%
         {{hash=f504be962fed8d94d847b9167c1fe68b}{%
            family={Svyatkovskiy},
            familyi={S\bibinitperiod},
            given={Alexey},
            giveni={A\bibinitperiod}}}%
-        {{hash=878a7ef6dd6d949583906abd736f77d1}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Shaohua},
+        {{hash=2d043aee11656beafd534459b7a1e7e1}{%
+           family={Deng},
+           familyi={D\bibinitperiod},
+           given={Shao\bibnamedelima Kun},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=1687cc7486c0589bc8f6ac9484e50770}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Shengyu},
            giveni={S\bibinitperiod}}}%
-        {{hash=1701c0f05662e92cf52cfc8c16437496}{%
-           family={Shen},
+        {{hash=aca2bfabfe0161570bc3a1976aff4d3f}{%
+           family={Sundaresan},
            familyi={S\bibinitperiod},
-           given={Yelong},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Weizhu},
-           giveni={W\bibinitperiod}}}%
+           given={Neel},
+           giveni={N\bibinitperiod}}}%
       }
       \strng{namehash}{c3f9a3915efd0475f9eee9e892654b36}
-      \strng{fullhash}{b84ae497e5cd9e52d03a44e73bb4f133}
-      \strng{fullhashraw}{b84ae497e5cd9e52d03a44e73bb4f133}
+      \strng{fullhash}{bcfe92f0b3a7b65185d22bf4276828b7}
+      \strng{fullhashraw}{bcfe92f0b3a7b65185d22bf4276828b7}
       \strng{bibnamehash}{c3f9a3915efd0475f9eee9e892654b36}
       \strng{authorbibnamehash}{c3f9a3915efd0475f9eee9e892654b36}
       \strng{authornamehash}{c3f9a3915efd0475f9eee9e892654b36}
-      \strng{authorfullhash}{b84ae497e5cd9e52d03a44e73bb4f133}
-      \strng{authorfullhashraw}{b84ae497e5cd9e52d03a44e73bb4f133}
+      \strng{authorfullhash}{bcfe92f0b3a7b65185d22bf4276828b7}
+      \strng{authorfullhashraw}{bcfe92f0b3a7b65185d22bf4276828b7}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the ACM/IEEE International Conference on Software Engineering (ICSE)}
-      \field{title}{IntelliCode Compose: Code Generation using Transformer and Retrieval-based Models}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{IntelliCode Compose: Code Generation Using Transformer}
       \field{year}{2020}
+      \verb{eprint}
+      \verb 2005.08025
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2005.08025
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2005.08025
+      \endverb
     \endentry
-    \entry{tan2024}{article}{}{}
+    \entry{tan2024}{misc}{}{}
       \name{author}{7}{}{%
         {{hash=f1f5f0a7d51a47d39596972642fc0440}{%
            family={Tan},
@@ -7025,11 +7208,19 @@
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2405.07530}}
+      \field{eprintclass}{cs.SE}
+      \field{eprinttype}{arXiv}
       \field{title}{Prompt-based Code Completion via Multi-Retrieval Augmented Generation}
-      \field{volume}{arXiv:2405.07530v1}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2405.07530
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2405.07530
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2405.07530
+      \endverb
     \endentry
     \entry{codegemma}{misc}{}{}
       \name{author}{27}{}{%
@@ -14468,7 +14659,7 @@
       \verb https://arxiv.org/abs/2302.13971
       \endverb
     \endentry
-    \entry{vaswani2017}{article}{}{}
+    \entry{vaswani2017}{misc}{}{}
       \name{author}{8}{}{%
         {{hash=7f28e84700536646dd6620a0db07ad09}{%
            family={Vaswani},
@@ -14523,11 +14714,19 @@
       \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/pdf/1706.03762}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{Attention Is All You Need}
-      \field{volume}{arXiv:1706.03762}
-      \field{year}{2017}
+      \field{year}{2023}
+      \verb{eprint}
+      \verb 1706.03762
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1706.03762
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1706.03762
+      \endverb
     \endentry
     \entry{wang2021milvus}{inproceedings}{}{}
       \name{author}{22}{}{%
@@ -14645,6 +14844,9 @@
       \list{location}{1}{%
         {Virtual Event, China}%
       }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
       \strng{namehash}{d10969ac908ccedbd72a2cfaabc57b28}
       \strng{fullhash}{6a92d377f9fb5993f48502e97cd98d1d}
       \strng{fullhashraw}{6a92d377f9fb5993f48502e97cd98d1d}
@@ -14658,14 +14860,18 @@
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 2021 International Conference on Management of Data (SIGMOD ’21)}
+      \field{abstract}{Recently, there has been a pressing need to manage high-dimensional vector data in data science and AI applications. This trend is fueled by the proliferation of unstructured data and machine learning (ML), where ML models usually transform unstructured data into feature vectors for data analytics, e.g., product recommendation. Existing systems and algorithms for managing vector data have two limitations: (1) They incur serious performance issue when handling large-scale and dynamic vector data; and (2) They provide limited functionalities that cannot meet the requirements of versatile applications.This paper presents Milvus, a purpose-built data management system to efficiently manage large-scale vector data. Milvus supports easy-to-use application interfaces (including SDKs and RESTful APIs); optimizes for the heterogeneous computing platform with modern CPUs and GPUs; enables advanced query processing beyond simple vector similarity search; handles dynamic data for fast updates while ensuring efficient query processing; and distributes data across multiple nodes to achieve scalability and availability. We first describe the design and implementation of Milvus. Then we demonstrate the real-world use cases supported by Milvus. In particular, we build a series of 10 applications (e.g., image/video search, chemical structure analysis, COVID-19 dataset search, personalized recommendation, biological multi-factor authentication, intelligent question answering) on top of Milvus. Finally, we experimentally evaluate Milvus with a wide range of systems including two open source systems (Vearch and Microsoft SPTAG) and three commercial systems. Experiments show that Milvus is up to two orders of magnitude faster than the competitors while providing more functionalities. Now Milvus is deployed by hundreds of organizations worldwide and it is also recognized as an incubation-stage project of the LF AI \& Data Foundation. Milvus is open-sourced at https://github.com/milvus-io/milvus.}
+      \field{booktitle}{Proceedings of the 2021 International Conference on Management of Data}
+      \field{isbn}{9781450383431}
+      \field{series}{SIGMOD '21}
       \field{title}{Milvus: A Purpose-Built Vector Data Management System}
       \field{year}{2021}
-      \field{pages}{2624\bibrangedash 2638}
-      \range{pages}{15}
+      \field{pages}{2614\bibrangedash 2627}
+      \range{pages}{14}
       \verb{doi}
       \verb 10.1145/3448016.3457550
       \endverb
+      \keyw{vector database,machine learning,high-dimensional similarity search,heterogeneous computing,data science}
     \endentry
     \entry{wang2024e5_improve}{misc}{}{}
       \name{author}{6}{}{%
@@ -14797,67 +15003,75 @@
       \verb https://arxiv.org/abs/2212.03533
       \endverb
     \endentry
-    \entry{wang2023knowledgpt}{article}{}{}
+    \entry{wang2023knowledgpt}{misc}{}{}
       \name{author}{8}{}{%
-        {{hash=bbe869383a7d3458b82c516a21e4482c}{%
+        {{hash=e994283fda3ac7656924778697a2c9c9}{%
            family={Wang},
            familyi={W\bibinitperiod},
-           given={X.},
+           given={Xintao},
            giveni={X\bibinitperiod}}}%
-        {{hash=1fb6d669be33ccc30fc5a1911273dc42}{%
+        {{hash=0760ed3716ace68f1b22551eba352b59}{%
            family={Yang},
            familyi={Y\bibinitperiod},
-           given={Q.},
+           given={Qianwen},
            giveni={Q\bibinitperiod}}}%
-        {{hash=aa083d03c02d59d39b2afb509692d4f8}{%
+        {{hash=b55265b694d931195f4c2ec87f927fec}{%
            family={Qiu},
            familyi={Q\bibinitperiod},
-           given={Y.},
+           given={Yongting},
            giveni={Y\bibinitperiod}}}%
-        {{hash=2398dbe0b920a0780e2f8a962bac272a}{%
+        {{hash=39a8da8676d4d58dd6271f13e8025815}{%
            family={Liang},
            familyi={L\bibinitperiod},
-           given={J.},
+           given={Jiaqing},
            giveni={J\bibinitperiod}}}%
-        {{hash=16ae0989f5e1d256ef0cfff56b31723a}{%
+        {{hash=bd398be3a81f1af1f2dfa5d70b5da09c}{%
            family={He},
            familyi={H\bibinitperiod},
-           given={Q.},
+           given={Qianyu},
            giveni={Q\bibinitperiod}}}%
-        {{hash=59b900979e5b3eb2d9b1eef34f84f72d}{%
+        {{hash=603d5d77c05fae666a215ca1fdb7dc37}{%
            family={Gu},
            familyi={G\bibinitperiod},
-           given={Z.},
+           given={Zhouhong},
            giveni={Z\bibinitperiod}}}%
-        {{hash=e0eafbc1c76e39410a36e75fc2abafc6}{%
+        {{hash=2372c327abe4e8df4d4a28ad8d3655e7}{%
            family={Xiao},
            familyi={X\bibinitperiod},
-           given={Y.},
+           given={Yanghua},
            giveni={Y\bibinitperiod}}}%
-        {{hash=8c0d8d495d30364a6fdc14d3ee19f5b7}{%
+        {{hash=f27ec46ccd272a021fd78bdac92dd490}{%
            family={Wang},
            familyi={W\bibinitperiod},
-           given={W.},
+           given={Wei},
            giveni={W\bibinitperiod}}}%
       }
-      \strng{namehash}{acd9e82ae33177dd4a8978b3c1ffba56}
-      \strng{fullhash}{8f40e96ff387c5e45c6952df17f77d0f}
-      \strng{fullhashraw}{8f40e96ff387c5e45c6952df17f77d0f}
-      \strng{bibnamehash}{acd9e82ae33177dd4a8978b3c1ffba56}
-      \strng{authorbibnamehash}{acd9e82ae33177dd4a8978b3c1ffba56}
-      \strng{authornamehash}{acd9e82ae33177dd4a8978b3c1ffba56}
-      \strng{authorfullhash}{8f40e96ff387c5e45c6952df17f77d0f}
-      \strng{authorfullhashraw}{8f40e96ff387c5e45c6952df17f77d0f}
+      \strng{namehash}{094a0cc1894aaa997fa3dd6df10b3711}
+      \strng{fullhash}{e9adfc340bfcd2afc7d2f5b3d77577a0}
+      \strng{fullhashraw}{e9adfc340bfcd2afc7d2f5b3d77577a0}
+      \strng{bibnamehash}{094a0cc1894aaa997fa3dd6df10b3711}
+      \strng{authorbibnamehash}{094a0cc1894aaa997fa3dd6df10b3711}
+      \strng{authornamehash}{094a0cc1894aaa997fa3dd6df10b3711}
+      \strng{authorfullhash}{e9adfc340bfcd2afc7d2f5b3d77577a0}
+      \strng{authorfullhashraw}{e9adfc340bfcd2afc7d2f5b3d77577a0}
       \field{extraname}{4}
       \field{sortinit}{W}
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2308.11761}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{KnowledGPT: Enhancing Large Language Models with Retrieval and Storage Access on Knowledge Bases}
-      \field{volume}{arXiv:2308.11761v1}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2308.11761
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2308.11761
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2308.11761
+      \endverb
     \endentry
     \entry{wei2020analyticdbv}{article}{}{}
       \name{author}{7}{}{%
@@ -14897,6 +15111,9 @@
            given={Yuanzhe},
            giveni={Y\bibinitperiod}}}%
       }
+      \list{publisher}{1}{%
+        {VLDB Endowment}%
+      }
       \strng{namehash}{03789583ad2c0e09288bacd12d0091c4}
       \strng{fullhash}{52b1d33c8cf16213fcb5098a2a6281f7}
       \strng{fullhashraw}{52b1d33c8cf16213fcb5098a2a6281f7}
@@ -14910,9 +15127,12 @@
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Proceedings of the VLDB Endowment}
+      \field{abstract}{With the explosive growth of unstructured data (such as images, videos, and audios), unstructured data analytics is widespread in a rich vein of real-world applications. Many database systems start to incorporate unstructured data analysis to meet such demands. However, queries over unstructured and structured data are often treated as disjoint tasks in most systems, where hybrid queries (i.e., involving both data types) are not yet fully supported.In this paper, we present a hybrid analytic engine developed at Alibaba, named AnalyticDB-V (ADBV), to fulfill such emerging demands. ADBV offers an interface that enables users to express hybrid queries using SQL semantics by converting unstructured data to high dimensional vectors. ADBV adopts the lambda framework and leverages the merits of approximate nearest neighbor search (ANNS) techniques to support hybrid data analytics. Moreover, a novel ANNS algorithm is proposed to improve the accuracy on large-scale vectors representing massive unstructured data. All ANNS algorithms are implemented as physical operators in ADBV, meanwhile, accuracy-aware cost-based optimization techniques are proposed to identify effective execution plans. Experimental results on both public and in-house datasets show the superior performance achieved by ADBV and its effectiveness. ADBV has been successfully deployed on Alibaba Cloud to provide hybrid query processing services for various real-world applications.}
+      \field{issn}{2150-8097}
+      \field{journaltitle}{Proc. VLDB Endow.}
+      \field{month}{8}
       \field{number}{12}
-      \field{title}{AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data}
+      \field{title}{AnalyticDB-V: a hybrid analytical engine towards query fusion for structured and unstructured data}
       \field{volume}{13}
       \field{year}{2020}
       \field{pages}{3152\bibrangedash 3165}
@@ -14996,7 +15216,7 @@
       \verb https://arxiv.org/abs/2201.11903
       \endverb
     \endentry
-    \entry{wu2024}{inproceedings}{}{}
+    \entry{wu2024}{misc}{}{}
       \name{author}{5}{}{%
         {{hash=65027af5f4f54f2e6c7bb140253872e2}{%
            family={Wu},
@@ -15024,12 +15244,6 @@
            given={Xiaofei},
            giveni={X\bibinitperiod}}}%
       }
-      \list{location}{1}{%
-        {Vienna, Austria}%
-      }
-      \list{publisher}{1}{%
-        {PMLR}%
-      }
       \strng{namehash}{7f0e13b8bc9100b49037998919e091c4}
       \strng{fullhash}{8736bc299e9ab41d96f013dcd00efcab}
       \strng{fullhashraw}{8736bc299e9ab41d96f013dcd00efcab}
@@ -15042,10 +15256,19 @@
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 41st International Conference on Machine Learning}
+      \field{eprintclass}{cs.SE}
+      \field{eprinttype}{arXiv}
       \field{title}{Repoformer: Selective Retrieval for Repository-Level Code Completion}
-      \field{volume}{235}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2403.10059
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2403.10059
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2403.10059
+      \endverb
     \endentry
     \entry{baichuan2}{misc}{}{}
       \name{author}{55}{}{%
@@ -15333,6 +15556,7 @@
       \strng{authornamehash}{c6b91bb11f6660e1e96590edd471c6d6}
       \strng{authorfullhash}{81b2f45ecf7acd4037f6576868728bf3}
       \strng{authorfullhashraw}{81b2f45ecf7acd4037f6576868728bf3}
+      \field{extraname}{1}
       \field{sortinit}{Y}
       \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
       \field{labelnamesource}{author}
@@ -15351,7 +15575,52 @@
       \verb https://arxiv.org/abs/2309.10305
       \endverb
     \endentry
-    \entry{yoon2024compact}{article}{}{}
+    \entry{pase2020}{improceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=9c245130418606dd988ed12a97044d62}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Wen},
+           giveni={W\bibinitperiod}}}%
+        {{hash=38f3efe34cb29092007fe04331b383a3}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=09a37c5db2ab1b5187a96ca15079b65d}{%
+           family={Fang},
+           familyi={F\bibinitperiod},
+           given={Gai},
+           giveni={G\bibinitperiod}}}%
+        {{hash=446dbaa550b254673e8cd24cdaaf74e0}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Hong},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{2f46fd0f075d0b1e736cdac2b7c4621a}
+      \strng{fullhash}{7ddcfae7d1510640340c2cbb307e9970}
+      \strng{fullhashraw}{7ddcfae7d1510640340c2cbb307e9970}
+      \strng{bibnamehash}{2f46fd0f075d0b1e736cdac2b7c4621a}
+      \strng{authorbibnamehash}{2f46fd0f075d0b1e736cdac2b7c4621a}
+      \strng{authornamehash}{2f46fd0f075d0b1e736cdac2b7c4621a}
+      \strng{authorfullhash}{7ddcfae7d1510640340c2cbb307e9970}
+      \strng{authorfullhashraw}{7ddcfae7d1510640340c2cbb307e9970}
+      \field{extraname}{2}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{06}
+      \field{title}{PASE: PostgreSQL Ultra-High-Dimensional Approximate Nearest Neighbor Search Extension}
+      \field{year}{2020}
+      \field{pages}{2241\bibrangedash 2253}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1145/3318464.3386131
+      \endverb
+    \endentry
+    \entry{yoon2024compact}{misc}{}{}
       \name{author}{5}{}{%
         {{hash=7238c0e74ac2d60d872ba14f8860860c}{%
            family={Yoon},
@@ -15391,12 +15660,21 @@
       \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Korea University and AIGEN Sciences}
-      \field{note}{Authors: Chanwoong Yoon, Taewhoo Lee, Hyeon Hwang, Minbyul Jeong, and Jaewoo Kang}
-      \field{title}{COMPACT: Compressing Retrieved Documents Actively for Question Answering}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{CompAct: Compressing Retrieved Documents Actively for Question Answering}
       \field{year}{2024}
+      \verb{eprint}
+      \verb 2407.09014
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2407.09014
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2407.09014
+      \endverb
     \endentry
-    \entry{zhang2023repocoder}{article}{}{}
+    \entry{zhang2023repocoder}{misc}{}{}
       \name{author}{9}{}{%
         {{hash=02d354190ad141e545596b9ce8d69990}{%
            family={Zhang},
@@ -15457,11 +15735,19 @@
       \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2303.12570}}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
       \field{title}{RepoCoder: Repository-Level Code Completion Through Iterative Retrieval and Generation}
-      \field{volume}{arXiv:2303.12570}
       \field{year}{2023}
+      \verb{eprint}
+      \verb 2303.12570
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2303.12570
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2303.12570
+      \endverb
     \endentry
     \entry{miracl}{article}{}{}
       \name{author}{9}{}{%
@@ -15535,15 +15821,6 @@
       \verb{doi}
       \verb 10.1162/tacl_a_00595
       \endverb
-      \verb{eprint}
-      \verb https://direct.mit.edu/tacl/article-pdf/doi/10.1162/tacl\_a\_00595/2157340/tacl\_a\_00595.pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1162/tacl\_a\_00595
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1162/tacl%5C_a%5C_00595
-      \endverb
     \endentry
     \entry{mdpr}{article}{}{}
       \name{author}{4}{}{%
@@ -15606,7 +15883,7 @@
       \endverb
       \keyw{multiliingual retrieval,Dense retrieval}
     \endentry
-    \entry{zhang2024}{article}{}{}
+    \entry{zhang2024}{misc12}{}{}
       \name{author}{5}{}{%
         {{hash=7356078205262c5bd688d4aca26a7017}{%
            family={Zhang},
@@ -15647,11 +15924,19 @@
       \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint}
-      \field{note}{Available at \url{https://arxiv.org/abs/2409.20550}}
+      \field{eprintclass}{cs.SE}
+      \field{eprinttype}{arXiv}
       \field{title}{LLM Hallucinations in Practical Code Generation: Phenomena, Mechanism, and Mitigation}
-      \field{volume}{arXiv:2409.20550v1}
-      \field{year}{2024}
+      \field{year}{2025}
+      \verb{eprint}
+      \verb 2409.20550
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2409.20550
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2409.20550
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

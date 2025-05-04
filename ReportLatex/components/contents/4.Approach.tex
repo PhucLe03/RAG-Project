@@ -264,11 +264,11 @@ In designing a fully local RAG system, Ollama\footnote{Ollama - \url{https://oll
 
 Docker was chosen as the containerization solution for our RAG system to ensure portability, consistency, and ease of deployment across various development environments. According to Docker’s 2024 report\footnote{Docker Unveils 2024 State of Application Development Report - \url{https://www.docker.com/press-release/unveils-2024-state-of-application-development-report/}}, over 36\% of developers now use remote development environments such as GitHub Codespaces, Gitpod, and Coder, indicating a strong shift away from traditional local development toward cloud-based workflows. This trend reinforces the importance of containerization in providing a consistent, reproducible environment for development and deployment.
 		
-Our backend—comprising retrieval services, embedding logic, and vector database integration—is relatively complex and contains multiple dependencies that are difficult to configure manually. Docker allows us to encapsulate these components into isolated containers, enabling users to launch the full backend stack with a single command, regardless of operating system or local setup.
+Our backend comprising retrieval services, embedding logic, and vector database integration is relatively complex and contains multiple dependencies that are difficult to configure manually. Docker allows us to encapsulate these components into isolated containers, enabling users to launch the full backend stack with a single command, regardless of operating system or local setup.
 		
 Additionally, the report shows that 64\% of developers have integrated AI tools into their development workflows, especially for coding, documentation, and research. Docker helps simplify the deployment of AI/ML components and ensures they can be reused consistently across teams. By abstracting away the configuration complexity of tools like the Milvus vector database and embedding models, Docker facilitates smoother onboarding, maintenance, and scalability.
 		
-Finally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of models, data, and configurations—without altering the core codebase—making it an ideal solution for modern AI-powered systems like ours.
+Finally, Docker’s support for volume mounting and environment variables offers flexibility in managing different versions of models, data, and configurations, without altering the core codebase, making it an ideal solution for modern AI-powered systems like ours.
 
 \section{Why VS Code extension?}
 
@@ -278,15 +278,15 @@ The interactive user interface of the VS Code extension is designed to optimize 
 
 %VS Code is the most widely adopted Integrated Development Environment (IDE) among web developers\footnote{2024 Stack Overflow Developer Survey - \url{https://survey.stackoverflow.co/2024/technology\#most-popular-technologies-new-collab-tools}}. Its robust support for terminals, extensions, and custom interfaces makes it an ideal platform for deploying AI-assisted tools.
 
-According to the 2024 Stack Overflow Developer Survey\footnote{2024 Stack Overflow Developer Survey - \url{https://survey.stackoverflow.co/2024/technology\#most-popular-technologies-new-collab-tools}}, 73.6\% of developers reported using VS Code more than double the share of its nearest competitor. This wide adoption reflects the editor’s reliability, ease of use, and active community support.
+According to the 2024 Stack Overflow Developer Survey\protect\footnotemark, 73.6\% of developers reported using VS Code more than double the share of its nearest competitor. This wide adoption reflects the editor’s reliability, ease of use, and active community support.
 
 \begin{figure}[H]
 	\vspace{2pt}
 	\centering
 	\includegraphics[width=0.8\textwidth]{Images/Approach/stackoverflow-dev-survey-2024-technology.png}
 	\vspace{5mm}
-	\caption{Most popular integrated development environments in 2024 according to the Stack Overflow Developer.}
+	\caption{Most popular IDEs in 2024 according to the Stack Overflow Developer\protect\footnotemark.}
 	\label{fig:vscode_survey}
 \end{figure}
 
-
+\footnotetext{2024 Stack Overflow Developer Survey - \url{https://survey.stackoverflow.co/2024/technology\#most-popular-technologies-new-collab-tools}}

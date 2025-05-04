@@ -224,7 +224,7 @@ Before presenting our schema design, we detail the properties utilized within ou
 		\texttt{description}  & Description of the field                                                            & Data type: String. Optional                                                                                                                          \\ \hline
 		\texttt{is\_primary}  & Whether to set the field as the primary key field or not                            & Data type: Boolean. Mandatory for the primary key field                                                            \\ \hline
 		\texttt{auto\_id}     & Switch to enable or disable automatic ID (primary key) allocation                   & Data type: Boolean. Mandatory for primary key field                                                                                     \\ \hline
-		\texttt{max\_length}  & Maximum byte length for strings allowed to be inserted.                             & {[}1, 65,535{]}. Mandatory for \texttt{VARCHAR} field. byte                                            \\ \hline
+		\texttt{max\_length}  & Maximum byte length for strings allowed to be inserted.                             & Data type: Integer {[}1, 65,535{]}. Mandatory for \texttt{VARCHAR} field. byte                                            \\ \hline
 		\texttt{dim}          & Dimension of the vector                                                            & Data type: Integer {[}1, 32,768{]}. Mandatory for dense vector field. Omit for sparse vector field                                                   \\ \hline
 		\texttt{is\_partition\_key} & Whether this field is a partition-key field                                      & Data type: Boolean                                                                                           \\ \hline
 	\end{tabular}
@@ -481,9 +481,11 @@ Request parameters:
 	\item \texttt{dense\_code\_weight} (optional, default = 1.0). Weight for dense code embeddings.
 	\item \texttt{top\_k} (optional, default = 5). Number of results to return.
 	\item \texttt{filter\_expr} (optional). Additional filter expression\footnote{Filtered Search - \url{https://milvus.io/docs/filtered-search.md}} for Milvus.
-	\item \texttt{radius\_sparse}, \texttt{radius\_dense\_text}, \texttt{radius\_dense\_code} (optional, default = 0.5). Search radius\footnote{Range Search - \url{https://milvus.io/docs/range-search.md}} for each modality.
-   	\item \texttt{range\_sparse}, \texttt{range\_dense\_text}, \texttt{range\_dense\_code} (optional, default = 0.5). Search range\footnote{Range Search - \url{https://milvus.io/docs/range-search.md}} for each modality.
+	\item \texttt{radius\_sparse}, \texttt{radius\_dense\_text}, \texttt{radius\_dense\_code} (optional, default = 0.5). Search radius\protect\footnotemark \space for each modality.
+   	\item \texttt{range\_sparse}, \texttt{range\_dense\_text}, \texttt{range\_dense\_code} (optional, default = 0.5). Search range\protect\footnotemark \space for each modality.
 \end{itemize}
+
+\footnotetext{Range Search - \url{https://milvus.io/docs/range-search.md}}
 
 Processing steps:
 
@@ -497,13 +499,6 @@ Processing steps:
 	\[
 	\text{normalized\_score} = \frac{\frac{\pi}{2} - \arctan(\text{distance})}{\frac{\pi}{2}}
 	\]
-	
-	where:
-	\begin{itemize}
-		\item A distance close to 0 maps to a score close to 1 (indicating high relevance).
-		\item A distance approaching \(+\infty\) maps to a score close to 0 (indicating low relevance).
-		\item The output is clamped to \([0, 1]\) to avoid overflow or underflow.
-	\end{itemize}
 	
 	This mapping ensures that smaller distances (closer matches) correspond to higher normalized scores.
 	
@@ -592,7 +587,7 @@ Example response:
 The installation of specific models is conducted via the command prompt or terminal, with available models conveniently listed on \url{https://ollama.com/search}.
 The command to install a model is \verb|ollama pull <model_name>|.
 
-Once a model is installed, it is stored locally, ensuring a high level of data privacy and security - an essential feature for applications dealing with sensitive or proprietary information. To test the model, we can use the command \verb|ollama run <model_name>| .
+Once a model is installed, it is stored locally, ensuring a high level of data privacy and security - an essential feature for applications dealing with sensitive or proprietary information. To test the model, we can use the command \verb|ollama run <model_name>|.
 
 Furthermore, the platform's lightweight design enhances compatibility across a variety of hardware configurations, making it particularly suitable for environments with limited computational resources. This flexibility makes Ollama an optimal choice for deploying local LLMs in diverse use cases.
 
@@ -609,7 +604,7 @@ Furthermore, the platform's lightweight design enhances compatibility across a v
 
 
 
-\paragraph*{Integration with RAGGIN.} To integrate Ollama into the RAG workflow, we use the Ollama API for direct interaction with the locally installed models. The endpoint for the API is:
+\paragraph*{Integration with RAGGIN.} To integrate Ollama into the RAG workflow, we use the Ollama API for direct interaction with the locally installed models.
 
 POST \url{http://localhost:11434/api/generate}
 
@@ -634,10 +629,10 @@ When RAGGIN Generator receives the generate request, it will take the query, mod
 Request parameters:
 \begin{itemize}
 	\item \texttt{version\_name.} Version filter (e.g. \texttt{v15.3.1}).
-	\item \texttt{query.}: The input query or prompt that serves as the basis for the system to retrieve relevant information and generate a response.
-	\item \texttt{model.}: The name of the Ollama LLM selected for generating the response.
+	\item \texttt{query.} The input query or prompt that serves as the basis for the system to retrieve relevant information and generate a response.
+	\item \texttt{model.} The name of the Ollama LLM selected for generating the response.
 	\item \texttt{file\_list} (optional). A collection of \texttt{FileModel} instances, where each instance includes the following string fields: \texttt{fileName}, \texttt{fileExtension}, and \texttt{fileContent}.
-	\item \texttt{additional\_options} (optional). An optional field comprising two subfields: \texttt{retriever\_options}, the configurable parameters associated with the hybrid search endpoint and \texttt{generator\_options} - the set of options controlling the language model's generation behavior.
+	\item \texttt{additional\_options} (optional). \texttt{retriever\_options}, the configurable parameters associated with the hybrid search endpoint and \texttt{generator\_options}, the set of options controlling the language model's generation behavior.
 	
 \end{itemize}
 
@@ -687,7 +682,7 @@ The response body will contain the generated response and some other relevant in
 \end{lstlisting}
 
 
-\section{VS Code Extension}
+\section{VS Code extension}
 \label{sec:VS Code Extension}
 The VS Code extension, also named RAGGIN, serves as an interface between the user and a locally hosted execution core running in Docker. After the user downloads the RAGGIN core (see Section~\ref{sec:raggin-core}), they can interact with it directly through the extension’s built-in UI in VS Code. A detailed description of the user interface is provided in Appendix~\ref{appendix:interface}.
 
@@ -741,7 +736,7 @@ Our initial codebase followed the directory structure illustrated below. It prim
   \label{fig:tree}
 \end{figure}
 
-\subsection{VS Code extension webview comunication}
+\subsection{VS Code extension webview communication}
 VS Code provides a post-message communication mechanism that enables interaction between the extension backend and the webview. This system is particularly useful for initiating processes, requesting data, or triggering UI updates. To facilitate this communication, both the extension layer and the webview can send messages and listen for incoming ones, ensuring a seamless two-way data exchange.
 \begin{figure}[H]
 	\centering

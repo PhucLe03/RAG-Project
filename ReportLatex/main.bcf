@@ -2515,7 +2515,8 @@
     <bcf:citekey order="139" intorder="1">codellama</bcf:citekey>
     <bcf:citekey order="140" intorder="1">llama2</bcf:citekey>
     <bcf:citekey order="141" intorder="1">deepseek_r1</bcf:citekey>
-    <bcf:citekey order="142" intorder="1">chen2024bge</bcf:citekey>
+    <bcf:citekey order="142" intorder="1">gao2023ragllmsurvey</bcf:citekey>
+    <bcf:citekey order="143" intorder="1">chen2024bge</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

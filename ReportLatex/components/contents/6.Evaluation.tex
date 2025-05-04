@@ -14,8 +14,7 @@ The evaluation was conducted using the default parameters for both the retriever
 \section{Evaluation metrics}
 
 	\subsection{Retriever metrics}
-	\noindent\textbf{Recall@K.}  
-	Recall@K quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
+	\noindent\textbf{Recall@K.}  Quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
 	\[
 	\text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Relevant documents}|}
 	\]
@@ -31,8 +30,7 @@ The evaluation was conducted using the default parameters for both the retriever
 		\text{Recall@5} = \frac{3}{4} = 0.75 \quad (75\%)
 	\end{equation*}
 	
-	\noindent\textbf{Precision@K.}  
-	Precision@K measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
+	\noindent\textbf{Precision@K.} Measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
 	\[
 	\text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Top-}K \text{ retrieved documents}|}
 	\]
@@ -47,8 +45,7 @@ The evaluation was conducted using the default parameters for both the retriever
 		\text{Precision@5} = \frac{3}{5} = 0.6 \quad (60\%)
 	\end{equation*}
 	
-	\noindent\textbf{Latency.}  
-	Latency represents the response time taken to complete a retrieval operation.
+	\noindent\textbf{Latency.} Represents the response time taken to complete a retrieval operation.
 	\[
 	\text{Latency (ms)} = \text{Time}_{\text{returned}} - \text{Time}_{\text{submitted}}
 	\]
@@ -60,8 +57,7 @@ The evaluation was conducted using the default parameters for both the retriever
 	
 	\subsection{Generator metrics}
 	
-	\noindent\textbf{ROUGE Score.}  
-	ROUGE evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
+	\noindent\textbf{ROUGE Score.} Evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
 	\[
 	\text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
 	\]
@@ -71,8 +67,7 @@ The evaluation was conducted using the default parameters for both the retriever
 		\text{ROUGE-2} = \frac{8}{10} = 0.8
 	\end{equation*}
 	
-	\noindent\textbf{Relevance.}  
-	Relevance measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
+	\noindent\textbf{Relevance.} Measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
 	\[
 	\text{Relevance} = \frac{1}{N} \sum_{i=1}^{N} \text{RelevanceScore}_i
 	\]
@@ -82,8 +77,7 @@ The evaluation was conducted using the default parameters for both the retriever
 		\text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
 	\end{equation*}
 	
-	\noindent\textbf{Latency.}  
-	Latency in the generation phase denotes the time elapsed between the completion of retrieval and the generation of the final output.
+	\noindent\textbf{Latency.} Denotes the time elapsed between the completion of retrieval and the generation of the final output.
 	\[
 	\text{Latency (ms)} = \text{Time}_{\text{generated}} - \text{Time}_{\text{retrieved}}
 	\]
@@ -96,7 +90,7 @@ The evaluation was conducted using the default parameters for both the retriever
 
 \section{Evaluation summary}
 
-\subsection{Retriever performance}
+\subsection*{Retriever performance}
 
 Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance for simple and complex queries, respectively.
 
@@ -105,7 +99,7 @@ Results show that the retriever achieved high \text{Recall@K} in simple queries,
 Latency remained reasonable for simple queries (approximately \textbf{1.2 seconds}), while complex queries understandably took longer due to the increased search depth and token length, averaging around \textbf{3.4 seconds}.
 
 
-\subsection{Generator performance}
+\subsection*{Generator performance}
 
 The generator ROUGE scores across various models are illustrated in Figure~\ref{fig:rouge_1}, Figure~\ref{fig:rouge_2} and Figure~\ref{fig:rouge_3}, corresponding to ROUGE-1, ROUGE-2 and ROUGE-3 metrics, respectively. Additionally, model-wise relevance evaluations are presented in Figure~\ref{fig:llm_eval_small} and Figure~\ref{fig:llm_eval_bigger}, capturing the perceived quality of generated outputs across different model sizes. Notably:
 
@@ -115,7 +109,7 @@ The generator ROUGE scores across various models are illustrated in Figure~\ref{
 	\item Smaller models like \texttt{Qwen-1.8B} \cite{bai2023qwen} and \texttt{CodeGemma-2B} \cite{codegemma} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
 \end{itemize}
 
-Generator latency remained within practical limits but varied notably with model size and architecture. Lightweight models such as \texttt{Qwen-4B} \cite{baichuan2} and \texttt{Qwen2.5-0.5B} \cite{hui2024qwen2.5} delivered rapid response times—averaging under \textbf{4 seconds} for simple prompts and approximately \textbf{5–6 seconds} for complex ones. Mid-sized models, including \texttt{LLaMA3.2-3B} \cite{llama3} and \texttt{DeepSeek-R1-1.5B} \cite{deepseek_r1}, offered a balanced performance profile, with latencies around \textbf{6–7 seconds} for simple and \textbf{14 seconds} for complex inputs. Conversely, larger models such as \texttt{CodeLlama-7B} \cite{codellama}, \texttt{LLaMA2-13B} \cite{llama2}, and particularly \texttt{Codestral-22B}\footnoteref{codestral}, incurred significantly higher latencies, with complex queries requiring up to \textbf{150 seconds}. These results underscore the trade-off between model capacity and inference speed, a key consideration for latency-sensitive deployments.
+Generator latency remained within practical limits but varied notably with model size and architecture. Lightweight models such as \texttt{Qwen-4B} \cite{baichuan2} and \texttt{Qwen2.5-0.5B} \cite{hui2024qwen2.5} delivered rapid response times, averaging under \textbf{4 seconds} for simple prompts and approximately \textbf{5–6 seconds} for complex ones. Mid-sized models, including \texttt{LLaMA3.2-3B} \cite{llama3} and \texttt{DeepSeek-R1-1.5B} \cite{deepseek_r1}, offered a balanced performance profile, with latencies around \textbf{6–7 seconds} for simple and \textbf{14 seconds} for complex inputs. Conversely, larger models such as \texttt{CodeLlama-7B} \cite{codellama}, \texttt{LLaMA2-13B} \cite{llama2}, and particularly \texttt{Codestral-22B}\footnoteref{codestral}, incurred significantly higher latencies, with complex queries requiring up to \textbf{150 seconds}. These results underscore the trade-off between model capacity and inference speed, a key consideration for latency-sensitive deployments.
 
 \section{Testing}
 
@@ -130,8 +124,8 @@ Moreover, for the VS Code extension component, we will test RAGGIN's operability
 		\hline
 		\textbf{ID} & \textbf{Component} & \textbf{Test Scenarios} & \textbf{Expected Result} & \textbf{Status} \\ \hline
 		%\textbf{Header components} & & & & \hline
-		Test01 & Ollama model choosing component & Click "select model" button on chat page's header & A list of models (e.g: Llama3.2, deepseek-r1,..) returned. & Pass \\ \hline
-		Test02 & Next.js version choosing component & Click "select version" button on chat page's header & A list of Next.js version downloaded and version available returned. & Pass \\ \hline
+		Test01 & Ollama model choosing component & Click "select model" button on chat page's header & A list of models (e.g: Llama3.2, deepseek-r1,..) returned & Pass \\ \hline
+		Test02 & Next.js version choosing component & Click "select version" button on chat page's header & A list of Next.js version downloaded and version available returned & Pass \\ \hline
 		Test03 &  Ollama model \& Next.js version choosing component & Choosing the Ollama model or a Next.js version without starting the RAGGIN Docker container or Ollama service & A VS Code notification should appear informing the user that the backend services are not running & Pass \\ \hline
 		Test04 & Chat input form & Check if the send button is enabled only after selecting model, version, and input prompt & Send button appears only when all required fields are filled, and functions correctly on click & Pass \\ \hline
 		Test05 & File upload & Upload any file through context file input & File uploaded name is displayed upper the chat input area and selectable as chat context & Pass \\ \hline
@@ -145,5 +139,5 @@ Moreover, for the VS Code extension component, we will test RAGGIN's operability
 		Test13 & Chat history - Delete all chats & Press "delete all chats" button & All chats are removed permanently and does not reappear after reload & Pass \\ \hline
 		Test13 & Global state save & Reload the extension after using it & Previously saved sessions are restored correctly from global/local state & Pass \\ \hline
 	\end{tabular}
-	\caption{Scenario-Based Manual Testing for RAGGIN VS Code Extension}
+	\caption{Scenario based manual testing for RAGGIN VS Code extension}
 \end{table}
