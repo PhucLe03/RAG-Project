@@ -43,7 +43,7 @@ In essence, an embedding is a vector, a high-dimensional representation of a tex
 
 Many embedding techniques have been used over the years:
 \begin{itemize}
-    \item \textbf{Word2Vec \cite{mikolov2013efficient}.} A well-liked technique that uses the Continuous Bag of Words (CBOW) or Skip-gram models to learn word embeddings depending on local context. Word2Vec is effective at many jobs, but it has a major drawback: it has trouble handling polysemy, which is the situation where words have several meanings depending on the context. This is because Word2Vec creates a single representation for every word, independent of how it is used.
+    \item \textbf{Word2Vec in  \cite{mikolov2013efficient}.} A well-liked technique that uses the Continuous Bag of Words (CBOW) or Skip-gram models to learn word embeddings depending on local context. Word2Vec is effective at many jobs, but it has a major drawback: it has trouble handling polysemy, which is the situation where words have several meanings depending on the context. This is because Word2Vec creates a single representation for every word, independent of how it is used.
 
     \item \textbf{BERT \cite{devlin2019bert}.} A transformer-based model that generates contextual embeddings, considering both the preceding and following words in a sentence. This allows BERT to produce more accurate representations of words based on their surrounding context. It has been widely adopted for many NLP tasks such as question answering, sentiment analysis, and named entity recognition.
 
@@ -76,13 +76,13 @@ Moreover, our embedding can be trained in different ways:
     \caption{HNSW search algorithm visualization. The search starts from entry point from top layer (shown red), red arrows show direction of greedy algorithm to query point (shown yellow) \cite{malkov2018hnsw}}
     \end{figure}
 
-The HNSW algorithm begins with a network construction phase (Algorithm \ref{alg:insert}), where the graph structure is incrementally built through the consecutive insertion of stored elements. For each new element, a maximum layer $l$ is randomly determined using an exponentially decaying probability distribution. This hierarchical organization ensures that higher layers contain progressively fewer nodes, optimizing the search process by focusing on coarse-to-fine navigation.
+The HNSW algorithm begins with a network construction phase (Algorithm \ref{alg:insert}), where the graph structure is incrementally built through the consecutive insertion of stored elements. For each new element, a maximum layer $\ell$ is randomly determined using an exponentially decaying probability distribution. This hierarchical organization ensures that higher layers contain progressively fewer nodes, optimizing the search process by focusing on coarse-to-fine navigation.
 
 The insertion process begins at the top layer of the hierarchical graph, where the algorithm performs a greedy traversal to locate the $ef$ closest neighbors to the newly inserted element $q$ within that layer. Once these nearest neighbors are identified, they serve as entry points for the next layer. This process is repeated layer by layer, moving downward through the graph, ensuring that the inserted element is effectively connected to its most relevant neighbors at each level.
 
 \input{components/contents/hnsw_algo/insert}
 
-Closest neighbors at each layer are identified using a variant of the greedy search algorithm (as outlined in Algorithm \ref{alg:search_layer}). To approximate the $ef$ nearest neighbors at a given layer $l_c$, the algorithm maintains a dynamic list $W$, which stores the $ef$ closest found elements. This list is initially populated with the entry points and is iteratively updated during the search process.
+Closest neighbors at each layer are identified using a variant of the greedy search algorithm (as outlined in Algorithm \ref{alg:search_layer}). To approximate the $ef$ nearest neighbors at a given layer $\ell{c}$, the algorithm maintains a dynamic list $W$, which stores the $ef$ closest found elements. This list is initially populated with the entry points and is iteratively updated during the search process.
 
 \input{components/contents/hnsw_algo/search_layer}
 
@@ -93,7 +93,7 @@ In the HNSW algorithm, two methods are employed to select M neighbors from a poo
 \input{components/contents/hnsw_algo/sel_nei_sim}
 \input{components/contents/hnsw_algo/sel_nei_heu}
 
-The K-approximate nearest neighbor search (K-ANNS) algorithm, as implemented in the HNSW framework, is detailed in Algorithm \ref{alg:knn}. It is conceptually similar to the insertion process of an item with a designated top layer $l=0$. However, instead of establishing new connections, the goal of the K-ANNS algorithm is to identify and return the closest neighbors in the graph's ground layer as the final search results.
+The K-approximate nearest neighbor search (K-ANNS) algorithm, as implemented in the HNSW framework, is detailed in Algorithm \ref{alg:knn}. It is conceptually similar to the insertion process of an item with a designated top layer $\ell{c}=0$. However, instead of establishing new connections, the goal of the K-ANNS algorithm is to identify and return the closest neighbors in the graph's ground layer as the final search results.
 
 \input{components/contents/hnsw_algo/knn}
 
