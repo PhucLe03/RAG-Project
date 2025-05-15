@@ -1,140 +1,140 @@
-\chapter{Related works and tools}
+\chapter{Related works and tools} \label{chap:3}
 
 \section{RAG and LLMs in coding tasks}
 
 \subsection{Retrieval strategies}
 
-\textbf{Sparse retrieval methods}: Tools like BM25 \cite{brown2020} rank documents based on term frequency and inverse document frequency (TF-IDF). While highly effective for small-scale knowledge bases, their efficiency declines as data scales increase \cite{he2024}.
+\paragraph*{Sparse retrieval methods.} Tools like BM25 \cite{brown2020} rank documents based on term frequency and inverse document frequency (TF-IDF) \cite{tfidf}. While highly effective for small-scale knowledge bases, their efficiency declines as data scales increase \cite{he2024}.
     
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Related work and tool/BM25.png}
     \vspace{3mm}
-    \caption{BM25 visualization.}
+    \caption{BM25 visualization}
     \end{figure}
 
-\textbf{Dense retrieval methods}: Leveraging semantic embeddings, dense retrieval tools like SBERT \cite{reimers-2019-sentence-bert}'s semantic search and approximate techniques (e.g., HNSW \cite{malkov2018hnsw}, ANNOY \cite{bernhardsson_annoy}, and LSH \cite{jafari2021lsh}) provide scalable solutions for large knowledge bases. These approaches achieve significant speed improvements with minimal accuracy trade-offs \cite{he2024}.
+\paragraph*{Dense retrieval methods.} Leveraging semantic embeddings, dense retrieval tools like SBERT \cite{reimers-2019-sentence-bert}'s semantic search and approximate techniques (e.g., HNSW \cite{malkov2018hnsw}, ANNOY \cite{bernhardsson_annoy}, and LSH \cite{jafari2021lsh}) provide scalable solutions for large knowledge bases. These approaches achieve significant speed improvements with minimal accuracy trade-offs \cite{he2024}.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Related work and tool/LSH.png}
     \vspace{3mm}
-    \caption{LSH visualization.}
+    \caption{LSH visualization}
     \end{figure}
     
-\textbf{Selective retrieval}: Frameworks such as Repoformer \cite{wu2024} employ selective retrieval, determining the necessity of retrieval based on contextual evaluation. This approach reduces inefficiencies and avoid adding irrelevant context.
+\paragraph*{Selective retrieval.} Frameworks such as Repoformer \cite{wu2024} employ selective retrieval, determining the necessity of retrieval based on contextual evaluation. This approach reduces inefficiencies and avoid adding irrelevant context.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/Repoformer.png}
     \vspace{3mm}
-    \caption{REPOFORMER framework \cite{wu2024}.}
+    \caption{REPOFORMER framework \cite{wu2024}}
     \end{figure}
     
-\textbf{Multi-retrieval perspectives}: Systems like ProCC \cite{tan2024} utilize diverse perspectives, including lexical semantics, hypothetical line embeddings, and code summarization, to enrich context and improve code completion accuracy.
+\paragraph*{Multi-retrieval perspectives.} Systems like ProCC \cite{tan2024} utilize diverse perspectives, including lexical semantics, hypothetical line embeddings, and code summarization, to enrich context and improve code completion accuracy.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/ProCC.png}
     \vspace{3mm}
-    \caption{ProCC framework \cite{tan2024}.}
+    \caption{ProCC framework \cite{tan2024}}
     \end{figure}
     
-    \textbf{Multilingual and multifunctional embeddings}:
+\paragraph*{Multilingual and multifunctional embeddings.}
     Models like BGE M3-Embedding \cite{chen2024bge} support over 100 languages and various retrieval functionalities, including dense, multi-vector, and sparse retrieval, enhacing versatility in coding tasks.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/Characters of M3-Embedding.png}
     \vspace*{4mm}
-    \caption{Characters of M3-Embedding \cite{chen2024bge}.}
+    \caption{Characters of M3-Embedding \cite{chen2024bge}}
     \end{figure}
 
 \subsection{Generative enhancements}
 
-\textbf{Generative Pre-trained Transformers}: LLMs like GPT-2 \cite{radford2019} and code Llama \cite{roziere2023code} are trained on extensive code corpora, enabling them to handle diverse tasks such as function completion and API usage.
+\paragraph*{Generative Pre-trained Transformers.} LLMs like GPT-2 \cite{radford2019} and code Llama \cite{roziere2023code} are trained on extensive code corpora, enabling them to handle diverse tasks such as function completion and API usage.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/llama2.png}
-    \caption{The Code Llama specialization pipeline \cite{roziere2023code}.}
+    \caption{The Code Llama specialization pipeline \cite{roziere2023code}}
     \end{figure}
     
-\textbf{In-context augmentation}: RAG pipelines integrate retrieved code snippets directly into prompts, enhancing generation without additional fine-tuning. This approach is particularly effective for repository-level code generation \cite{hostnik2024}.
+\paragraph*{In-context augmentation.} RAG pipelines integrate retrieved code snippets directly into prompts, enhancing generation without additional fine-tuning. This approach is particularly effective for repository-level code generation \cite{hostnik2024}.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/snippet additional metadata.png}
     \vspace{2mm}
-    \caption{The retrieved snippet contains continuation tokens and additional metadata \cite{hostnik2024}.}
+    \caption{The retrieved snippet contains continuation tokens and additional metadata \cite{hostnik2024}}
     \end{figure}
     
-\textbf{Specialized models for coding}: Models like Qwen2.5-Coder \cite{hui2024qwen2.5} and CodeQwen1.5-7B-Chat \cite{bai2023qwen} are fine-tuned for coding tasks, demonstrating improved performance in code generation and comprehension.
+\paragraph*{Specialized models for coding.} Models like Qwen2.5-Coder \cite{hui2024qwen2.5} and CodeQwen1.5-7B-Chat \cite{bai2023qwen} are fine-tuned for coding tasks, demonstrating improved performance in code generation and comprehension.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/The three-stage training pipeline for Qwen2.5-Coder.png}
     \vspace{2mm}
-    \caption{The three-stage training pipeline for Qwen2.5-Coder \cite{hostnik2024}.}
+    \caption{The three-stage training pipeline for Qwen2.5-Coder \cite{hui2024qwen2.5}}
     \end{figure}
 
-\subsection{Specialized Applications}
+\subsection{Specialized applications}
 
-\textbf{Repository-level code completion}: Tools like Repoformer and RepoCoder \cite{zhang2023repocoder} focus on cross-file dependencies, retrieving and integrating relevant code snippets to improve repository-wide coherence.
+\paragraph*{Repository-level code completion.} Tools like Repoformer and RepoCoder \cite{zhang2023repocoder} focus on cross-file dependencies, retrieving and integrating relevant code snippets to improve repository-wide coherence.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/Related work and tool/RepoCoder.png}
     \vspace{2mm}
-    \caption{Demonstrating the format of the RepoCoder prompt \cite{zhang2023repocoder}.}
+    \caption{Demonstrating the format of the RepoCoder prompt \cite{zhang2023repocoder}}
     \end{figure}
     
-\textbf{Commit message and assertion generation}: RAG systems generate commit messages and assertions by retrieving semantically aligned examples, balancing efficiency and effectiveness \cite{he2024}.
+\paragraph*{Commit message and assertion generation.} RAG systems generate commit messages and assertions by retrieving semantically aligned examples, balancing efficiency and effectiveness \cite{he2024}.
 
-\textbf{Code hallucination mitigation}: Automated code generation, powered by LLMs, has significantly enhanced development efficiency by generating code from input requirements. However, LLMs often produce hallucinations, particularly when handling complex contextual dependencies in repository-level development scenarios. To address these challenges, RAG-based mitigation methods have been proposed \cite{zhang2024}.
+\paragraph*{Code hallucination mitigation.} Automated code generation, powered by LLMs, has significantly enhanced development efficiency by generating code from input requirements. However, LLMs often produce hallucinations, particularly when handling complex contextual dependencies in repository-level development scenarios. To address these challenges, RAG-based mitigation methods have been proposed \cite{zhang2024}.
 
 \section{Developer assistance tools}
 
 \subsection{Functionality}
 
-\textbf{Search and Retrieval Tools}: Platforms like stack overflow\footnote{\href{https://stackoverflow.com/}{Stack Overflow - https://stackoverflow.com/}} provide a database of Q\&A posts where users search for solutions based on keywords or queries. Neural code search (NCS) \cite{sachdev2018} enhances this by enabling natrual language queries over raw codebases without curated answers, using vector embeddings and ranking strategies.
+\paragraph*{Search and Retrieval Tools.} Platforms like stack overflow\footnote{\href{https://stackoverflow.com/}{Stack Overflow - https://stackoverflow.com/}} provide a database of Q\&A posts where users search for solutions based on keywords or queries. Neural code search (NCS) \cite{sachdev2018} enhances this by enabling natrual language queries over raw codebases without curated answers, using vector embeddings and ranking strategies.
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Images/Related work and tool/stackoverflow-trends-chart.png}
     \vspace{1mm}
-    \caption{Stackoverflow trends chart 2008-2024.}
+    \caption{Stackoverflow trends chart 2008-2025}
     \end{figure}
 
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{Images/Related work and tool/NCS evaluation results.png}
     \vspace{3mm}
-    \caption{NCS evaluation results \cite{sachdev2018}.}
+    \caption{NCS evaluation results \cite{sachdev2018}}
     \end{figure}
     
-\textbf{Code completion and suggestion systems}: Intelligent tools like IntelliCode Compose \cite{svyatkovskiy2020} and example-based systems \cite{bruch2009} prioritize providing relevant suggestions for method calls, arguments, and entire lines of code. These systems are designed to enhance developer productivity by learning from existing codebases.
+\paragraph*{Code completion and suggestion systems.} Intelligent tools like IntelliCode Compose \cite{svyatkovskiy2020} and example-based systems \cite{bruch2009} prioritize providing relevant suggestions for method calls, arguments, and entire lines of code. These systems are designed to enhance developer productivity by learning from existing codebases.
 
-\textbf{Hybrid generation systems}: RAG models combine retrieval with generative capabilities \cite{lewis2020}, producing specific and contextually appropriate outputs by accessing external document repositories and leveraging models
+\paragraph*{Hybrid generation systems.} RAG models combine retrieval with generative capabilities \cite{lewis2020}, producing specific and contextually appropriate outputs by accessing external document repositories and leveraging models
 
 \subsection{Retrieval mechanisms}
-\textbf{Keyword-based retrieval}: Traditional forums rely on keyword searches, often yielding broad results with low contextual relevance.
+\paragraph*{Keyword-based retrieval.} Traditional forums rely on keyword searches, often yielding broad results with low contextual relevance.
 
-\textbf{Embedding-based retrieval}: Tools like NCS employ word embeddings, TF-IDF weighting \cite{mitra2017}, and vector similarity for precise retrieval of relevant code snippets. These systems also incorporate syntactic and semantic elements extracted from source code.
+\paragraph*{Embedding-based retrieval.} Tools like NCS employ word embeddings, TF-IDF weighting \cite{tfidf}, and vector similarity for precise retrieval of relevant code snippets. These systems also incorporate syntactic and semantic elements extracted from source code.
 
-\textbf{Rule-based retrieval}: Example-based systems mine patterns and associations (e.g., frequent co-occurrence of API calls) from repositories to recommend contextually relevant options.
+\paragraph*{Rule-based retrieval.} Example-based systems mine patterns and associations (e.g., frequent co-occurrence of API calls) from repositories to recommend contextually relevant options.
 
 \subsection{Code generation capabilities}
-\textbf{Static suggestion systems}: Earlier systems \cite{bruch2009} relied solely on static type information, offering alphabetically sorted method recommendations without understanding contextual relevance.
+\paragraph*{Static suggestion systems.} Earlier systems \cite{bruch2009} relied solely on static type information, offering alphabetically sorted method recommendations without understanding contextual relevance.
 
-\textbf{Generative models}: IntelliCode Compose represents a generative approach, using transformer-based architectures \cite{vaswani2017} like GPT-C to predict and generate entire lines or blocks of syntactically correct code. This includes multilingual support and optimized decoding methods like beam search.
+\paragraph*{Generative models.} IntelliCode Compose represents a generative approach, using transformer-based architectures \cite{vaswani2017} to predict and generate entire lines or blocks of syntactically correct code. This includes multilingual support and optimized decoding methods like beam search.
 
 \subsection{Integration in development processes}
-\textbf{Standalone search interfaces}:
+\paragraph*{Standalone search interfaces}
     \begin{itemize}
-        \item \textbf{NCS} \cite{sachdev2018}: Functions as an external platform where developers input natural language queries to retrieve relevant code snippets directly from large codebases.
-        \item \textbf{Sourcegraph}\footnote{\href{https://sourcegraph.com/}{Sourcegraph - https://sourcegraph.com/}}: Provides a universal code search and navigation tool, enabling developers to search across multiple repositories and languages from a centralized interface.
-        \item \textbf{Krugle}\footnote{\href{https://www.krugle.com/}{Krugle - https://www.krugle.com/}}: A specialized search engine designed for searching open-source and enterprise code repositories. It indexes and organizes code by context, allowing developers to locate relevant examples, API usage, and documentation efficiently.
+        \item \textbf{NCS \cite{sachdev2018}.} Functions as an external platform where developers input natural language queries to retrieve relevant code snippets directly from large codebases.
+        \item \textbf{Sourcegraph\footnote{\href{https://sourcegraph.com/}{Sourcegraph - https://sourcegraph.com/}}.} Provides a universal code search and navigation tool, enabling developers to search across multiple repositories and languages from a centralized interface.
+        \item \textbf{Krugle\footnote{\href{https://www.krugle.com/}{Krugle - https://www.krugle.com/}}.} A specialized search engine designed for searching open-source and enterprise code repositories. It indexes and organizes code by context, allowing developers to locate relevant examples, API usage, and documentation efficiently.
     \end{itemize}
 
     \begin{table}[h!]
@@ -164,14 +164,15 @@
     & Web-based platform. \\ \hline
     
     \end{tabular}
-    \caption{Comparison of NCS, Sourcegraph, and Krugle.}
+    \caption{Comparison of NCS, Sourcegraph, and Krugle}
     \end{table}
 
-\textbf{IDE-embedded assistance}:
+\paragraph*{IDE-embedded assistance}
     \begin{itemize}
-        \item \textbf{IntelliCode Compose} \cite{svyatkovskiy2020}: Integrates into VS Code, offering real-time code generation and suggestions.
-        \item \textbf{Github Copilot}\footnote{\href{https://github.com/features/copilot}{Github Copilot - https://github.com/features/copilot}}: Embedded within various IDEs, including VS Code and JetBrains, it leverages AI to provide code completions and suggestions based on the current context.
-        \item \textbf{Tabnine}\footnote{\href{https://www.tabnine.com/}{Tabnine - https://www.tabnine.com/}}: An AI-powered code completion tool that integrates with various IDEs, offering whole-line and full-function code completions based on the current code context.
+        \item \textbf{IntelliCode Compose \cite{svyatkovskiy2020}.} Integrates into VS Code, offering real-time code generation and suggestions.
+        \item \textbf{Github Copilot\footnote{\href{https://github.com/features/copilot}{Github Copilot - https://github.com/features/copilot}}.} Embedded within various IDEs, including VS Code and JetBrains, it leverages AI to provide code completions and suggestions based on the current context.
+        \item \textbf{Tabnine\footnote{\href{https://www.tabnine.com/}{Tabnine - https://www.tabnine.com/}}.} An AI-powered code completion tool that integrates with various integrated development environments
+        (IDEs), offering whole-line and full-function code completions based on the current code context.
     \end{itemize}
 
     \begin{table}[h!]
@@ -206,11 +207,11 @@
     & Basic model: free version with basic features; Dev version at \$9/month and Enterprise at \$39/user/month \\ \hline
     
     \end{tabular}
-    \caption{Comparison of IntelliCode Compose, GitHub Copilot, and Tabnine.}
+    \caption{Comparison of IntelliCode Compose, GitHub Copilot, and Tabnine}
     \end{table}
 
 \begin{figure}[H]
 \includegraphics[width=1.05\textwidth]{Images/Related work and tool/Code Snippet and Completion suggestion.png}
 \vspace{3mm}
-\caption{IntelliCode Compose's code snippet completion suggestion and completion-tree demonstration \cite{svyatkovskiy2020}.}
+\caption{IntelliCode Compose's code snippet completion suggestion and completion-tree demonstration \cite{svyatkovskiy2020}}
 \end{figure}

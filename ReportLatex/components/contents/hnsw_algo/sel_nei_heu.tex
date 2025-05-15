@@ -1,13 +1,13 @@
 \begin{algorithm}[H]
-\caption{SELECT-NEIGHBORS-HEURISTIC($q$, $C$, $M$, $lc$, \texttt{extendCandidates}, \texttt{keepPrunedConnections})}
+\caption{SELECT-NEIGHBORS-HEURISTIC($q$, $C$, $M$, $\ell{c}$, ${extendCandidates}$, ${keepPrunedConnections}$)}\label{alg:nei_heu}
 \begin{algorithmic}[1]
-\Require Base element $q$, candidate elements $C$, number of neighbors to return $M$, layer number $lc$, flag indicating whether or not to extend candidate list \texttt{extendCandidates}, flag indicating whether or not to add discarded elements \texttt{keepPrunedConnections}
+\Require Base element $q$, candidate elements $C$, number of neighbors to return $M$, layer number $\ell{c}$, flag indicating whether or not to extend candidate list ${extendCandidates}$, flag indicating whether or not to add discarded elements ${keepPrunedConnections}$
 \Ensure $M$ elements selected by the heuristic
 \State $R \gets \emptyset$
 \State $W \gets C$ \Comment{Working queue for the candidates}
-\If{\texttt{extendCandidates}} \Comment{Extend candidates by their neighbors}
+\If{${extendCandidates}$} \Comment{Extend candidates by their neighbors}
     \For{each $e \in C$}
-        \For{each $e_{\text{adj}} \in \texttt{neighbourhood}(e)$ at layer $lc$}
+        \For{each $e_{\text{adj}} \in \texttt{neighbourhood}(e)$ at layer $\ell{c}$}
             \If{$e_{\text{adj}} \notin W$}
                 \State $W \gets W \cup e_{\text{adj}}$
             \EndIf
@@ -23,9 +23,9 @@
         \State $W_d \gets W_d \cup e$
     \EndIf
 \EndWhile
-\If{\texttt{keepPrunedConnections}} \Comment{Add some of the discarded connections from $W_d$}
+\If{${keepPrunedConnections}$} \Comment{Add some of the discarded connections from $W_d$}
     \While{$|W_d| > 0$ \textbf{and} $|R| < M$}
-        \State $R \gets R \cup$ Extract nearest element from $W_d$ to $q$
+        \State $R \gets R$ $ \cup$ Extract nearest element from $W_d$ to $q$
     \EndWhile
 \EndIf
 \State \textbf{return} $R$

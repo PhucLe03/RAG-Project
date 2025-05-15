@@ -1,16 +1,16 @@
 \begin{algorithm}[H]
-\caption{K-ANN-SEARCH(\texttt{hsnw}, $q$, $K$, $ef$)}
+\caption{K-ANN-SEARCH(\texttt{hsnw}, $q$, $K$, $ef$)}\label{alg:knn}
 \begin{algorithmic}[1]
 \Require Multilayer graph \texttt{hsnw}, query element $q$, number of nearest neighbors to return $K$, size of the dynamic candidate list $ef$
 \Ensure $K$ nearest elements to $q$
 \State $W \gets \emptyset$ \Comment{Set for the current nearest elements}
 \State $ep \gets$ Get enter point for \texttt{hsnw}
 \State $L \gets$ Level of $ep$ \Comment{Top layer for \texttt{hsnw}}
-\For{$lc \gets L \dots 1$}
-    \State $W \gets$ \texttt{SEARCH-LAYER}$(q, ep, \texttt{ef}=1, lc)$
+\For{$\ell{c} \gets L \dots 1$}
+    \State $W \gets$ \texttt{SEARCH-LAYER}$(q, ep, {ef}=1, \ell{c})$
     \State $ep \gets$ Get nearest element from $W$ to $q$
 \EndFor
-\State $W \gets$ \texttt{SEARCH-LAYER}$(q, ep, ef, lc=0)$
+\State $W \gets$ \texttt{SEARCH-LAYER}$(q, ep, {ef}, \ell{c}=0)$
 \State \textbf{return} $K$ nearest elements from $W$ to $q$
 \end{algorithmic}
 \end{algorithm}

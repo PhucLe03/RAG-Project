@@ -13,6 +13,7 @@
 \usepackage{amsmath}
 \usepackage{subcaption}
 \usepackage{listings}
+\usepackage{forest}
 \usepackage[framemethod=tikz]{mdframed}
 % \usepackage{parskip}
 \usepackage{float}
@@ -27,7 +28,7 @@
 \newcommand{\xmark}{\ding{55}}     % X-mark
 % \setkeys{Gin}{draft}
 \usepackage[toc,page]{appendix}
-
+\usepackage[none]{hyphenat}
 
 
 % \usepackage{fancyhdr}
@@ -181,6 +182,9 @@
 % \fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
 % \renewcommand{\headrulewidth}{0.3pt}
 % \renewcommand{\footrulewidth}{0.3pt}
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
 
 
 %%%

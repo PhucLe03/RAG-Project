@@ -1,139 +1,143 @@
-\chapter{Evaluation}
-
-\section{Evaluation metrics}
-
-	\subsection{Retriever Metrics}
-	
-	\textbf{Recall@K:}  
-	Recall@K quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
-	\[
-	\text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Relevant documents}|}
-	\]
-	Where:
-	\begin{itemize}
-		\item $|\text{Relevant documents}|$ denotes the total number of documents relevant to the query.
-		\item $|\text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents}|$ is the count of relevant documents found in the top $K$ results.
-	\end{itemize}
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: A query returns the top \( K = 5 \) documents. Among them, \( 3 \) are relevant, while the total number of relevant documents is \( 4 \).
-		\item Calculation:
-		\begin{equation*}
-			\text{Recall@5} = \frac{3}{4} = 0.75 \quad (75\%)
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Precision@K:}  
-	Precision@K measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
-	\[
-	\text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Top-}K \text{ retrieved documents}|}
-	\]
-	Where:
-	\begin{itemize}
-		\item $|\text{Top-}K \text{ retrieved documents}|$ is the number of documents retrieved within the top $K$ results.
-	\end{itemize}
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: A query retrieves the top \( K = 5 \) documents, with \( 3 \) being relevant. The total number of relevant documents is \( 4 \).
-		\item Calculation:
-		\begin{equation*}
-			\text{Precision@5} = \frac{3}{5} = 0.6 \quad (60\%)
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Latency:}  
-	Latency represents the response time taken to complete a retrieval operation.
-	\[
-	\text{Latency (ms)} = \text{Time}_{\text{returned}} - \text{Time}_{\text{submitted}}
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: The query is submitted at 11:00:00.000 and the result is received at 11:00:00.340.
-		\item Calculation:
-		\begin{equation*}
-			\text{Latency} = 340\,\text{ms} - 0\,\text{ms} = 340\,\text{ms}
-		\end{equation*}
-	\end{itemize}
-	
-	\subsection{Generator Metrics}
-	
-	\textbf{ROUGE Score:}  
-	ROUGE evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
-	\[
-	\text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: A reference document has 10 bigrams, and the generated output contains 8 matching bigrams.
-		\item Calculation:
-		\begin{equation*}
-			\text{ROUGE-2} = \frac{8}{10} = 0.8
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Relevance:}  
-	Relevance measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
-	\[
-	\text{Relevance} = \frac{1}{N} \sum_{i=1}^{N} \text{RelevanceScore}_i
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: Five queries yield relevance scores of \( 0.9, 0.8, 0.7, 1.0, \text{and } 0.6 \).
-		\item Calculation:
-		\begin{equation*}
-			\text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
-		\end{equation*}
-	\end{itemize}
-	
-	\textbf{Latency:}  
-	Latency in the generation phase denotes the time elapsed between the completion of retrieval and the generation of the final output.
-	\[
-	\text{Latency (ms)} = \text{Time}_{\text{generated}} - \text{Time}_{\text{retrieved}}
-	\]
-	\textbf{Example:}
-	\begin{itemize}
-		\item Scenario: The output is generated at 12:00:00.210 after retrieval completes at 12:00:00.000.
-		\item Calculation:
-		\begin{equation*}
-			\text{Latency} = 210\,\text{ms} - 0\,\text{ms} = 210\,\text{ms}
-		\end{equation*}
-	\end{itemize}
-
+\chapter{Evaluation and testing}
 
 \section{Evaluation methodology}
 
 To evaluate the performance of both the retriever and the generator, we employ a curated dataset containing queries with predefined relevant documents. The evaluation covers two types:
 
 \begin{itemize} 
-	\item \textbf{Simple queries:} Direct questions that require retrieving clearly defined information from the documentation. 
-	\item \textbf{Complex queries:} Queries involving multiple components, conditions, or requiring deeper semantic understanding.
+	\item \textbf{Simple queries.} Direct questions that require retrieving clearly defined information from the documentation. 
+	\item \textbf{Complex queries.} Queries involving multiple components, conditions, or requiring deeper semantic understanding.
 \end{itemize}
+
+The evaluation was conducted using the default parameters for both the retriever and generator components, with the system targeting Next.js version 15.3.1. All experiments were performed on a machine equipped with an Intel Core i5-12400F processor and an NVIDIA RTX 3060 GPU with 12GB of VRAM.
+
+\section{Evaluation metrics}
+
+	\subsection{Retriever metrics}
+	\noindent\textbf{Recall@K.}  Quantifies the proportion of relevant documents successfully retrieved among the top $K$ results for a given query.
+	\[
+	\text{Recall@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Relevant documents}|}
+	\]
+	
+	Where:
+	\begin{itemize}
+		\item $|\text{Relevant documents}|$ denotes the total number of documents relevant to the query.
+		\item $|\text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents}|$ is the count of relevant documents found in the top $K$ results.
+	\end{itemize}
+	
+	\textbf{Example.} A query returns the top \( K = 5 \) documents. Among them, \( 3 \) are relevant, while the total number of relevant documents is \( 4 \).
+	\begin{equation*}
+		\text{Recall@5} = \frac{3}{4} = 0.75 \quad (75\%)
+	\end{equation*}
+	
+	\noindent\textbf{Precision@K.} Measures the accuracy of the top $K$ retrieved documents by evaluating how many of them are truly relevant.
+	\[
+	\text{Precision@K} = \frac{| \text{Relevant documents} \cap \text{Top-}K \text{ retrieved documents} |}{|\text{Top-}K \text{ retrieved documents}|}
+	\]
+	
+	Where:
+	\begin{itemize}
+		\item $|\text{Top-}K \text{ retrieved documents}|$ is the number of documents retrieved within the top $K$ results.
+	\end{itemize}
+	
+	\textbf{Example.} A query retrieves the top \( K = 5 \) documents, with \( 3 \) being relevant. The total number of relevant documents is \( 4 \).
+	\begin{equation*}
+		\text{Precision@5} = \frac{3}{5} = 0.6 \quad (60\%)
+	\end{equation*}
+	
+	\noindent\textbf{Latency.} Represents the response time taken to complete a retrieval operation.
+	\[
+	\text{Latency (ms)} = \text{Time}_{\text{returned}} - \text{Time}_{\text{submitted}}
+	\]
+	
+	\textbf{Example.} The query is submitted at 11:00:00.000 and the result is received at 11:00:00.340.
+	\begin{equation*}
+		\text{Latency} = 340\,\text{ms} - 0\,\text{ms} = 340\,\text{ms}
+	\end{equation*}
+	
+	\subsection{Generator metrics}
+	
+	\noindent\textbf{ROUGE Score.} Evaluates the lexical overlap between generated content and a set of reference texts. ROUGE-N specifically computes $n$-gram overlaps:
+	\[
+	\text{ROUGE-N} = \frac{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{Generated}} \text{Count}(\text{ngram})}{\sum_{\text{ref} \in \text{References}} \sum_{\text{ngram} \in \text{ref}} \text{Count}(\text{ngram})}
+	\]
+	
+	\textbf{Example.} A reference document has 10 bigrams, and the generated output contains 8 matching bigrams.
+	\begin{equation*}
+		\text{ROUGE-2} = \frac{8}{10} = 0.8
+	\end{equation*}
+	
+	\noindent\textbf{Relevance.} Measures how well the generated outputs align with the intent of user queries, typically rated manually and averaged across queries.
+	\[
+	\text{Relevance} = \frac{1}{N} \sum_{i=1}^{N} \text{RelevanceScore}_i
+	\]
+	
+	\textbf{Example.} Five queries yield relevance scores of \( 0.9, 0.8, 0.7, 1.0, \text{and } 0.6 \).
+	\begin{equation*}
+		\text{Relevance} = \frac{0.9 + 0.8 + 0.7 + 1.0 + 0.6}{5} = 0.8
+	\end{equation*}
+	
+	\noindent\textbf{Latency.} Denotes the time elapsed between the completion of retrieval and the generation of the final output.
+	\[
+	\text{Latency (ms)} = \text{Time}_{\text{generated}} - \text{Time}_{\text{retrieved}}
+	\]
+	
+	\textbf{Example.} The output is generated at 12:00:00.210 after retrieval completes at 12:00:00.000.
+	\begin{equation*}
+		\text{Latency} = 210\,\text{ms} - 0\,\text{ms} = 210\,\text{ms}
+	\end{equation*}
+
 
 \section{Evaluation summary}
 
-\subsection{Retriever Performance}
+\subsection*{Retriever performance}
 
-Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance and generator latency for simple and complex queries, respectively.
+Table \ref{tab:ret_simple} and Table \ref{tab:ret_complex} present the retriever performance for simple and complex queries, respectively.
 
-Results show that the retriever achieved high \textbf{Recall@K} in simple queries, with a peak of \textbf{0.81} at \textbf{K=5}, demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \textbf{Recall@K} dropping to \textbf{0.24} at \textbf{K=5}. \textbf{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
+Results show that the retriever achieved high \text{Recall@K} in simple queries, with a peak of \textbf{0.81} at \( K = 5 \), demonstrating strong coverage of relevant documents. However, performance declined in complex queries due to their nuanced requirements, with \text{Recall@K} dropping to \textbf{0.24} at \( K = 5 \). \text{Precision@K} also showed a similar pattern, peaking at \textbf{0.57} in simple cases but falling below \textbf{0.3} for complex ones.
 
 Latency remained reasonable for simple queries (approximately \textbf{1.2 seconds}), while complex queries understandably took longer due to the increased search depth and token length, averaging around \textbf{3.4 seconds}.
 
 
-\subsection{Generator Performance}
+\subsection*{Generator performance}
 
 The generator ROUGE scores across various models are illustrated in Figure~\ref{fig:rouge_1}, Figure~\ref{fig:rouge_2} and Figure~\ref{fig:rouge_3}, corresponding to ROUGE-1, ROUGE-2 and ROUGE-3 metrics, respectively. Additionally, model-wise relevance evaluations are presented in Figure~\ref{fig:llm_eval_small} and Figure~\ref{fig:llm_eval_bigger}, capturing the perceived quality of generated outputs across different model sizes. Notably:
 
 \begin{itemize}
-	\item \textbf{Codestral-22B}, \textbf{LLaMA2-13B}, and \textbf{Qwen2.5-14B} consistently achieved top scores, producing highly relevant and fluent outputs across diverse test cases.
-	\item \textbf{Mistral-7B}, \textbf{CodeLLaMA-7B}, and \textbf{Qwen2.5-3B} also demonstrated balanced performance, with strong semantic accuracy and reliable response generation.
-	\item Smaller models like \textbf{Qwen-1.8B} and \textbf{CodeGemma-2B} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
+	\item \texttt{Codestral-22B}\footnote{\label{codestral}Codestral - \url{https://mistral.ai/news/codestral}}, \texttt{LLaMA2-13B} \cite{llama2}, and \texttt{Qwen2.5-14B} \cite{hui2024qwen2.5} consistently achieved top scores, producing highly relevant and fluent outputs across diverse test cases.
+	\item \texttt{Mistral-7B} \cite{mistral}, \texttt{CodeLLaMA-7B} \cite{roziere2023code}, and \texttt{Qwen2.5-3B} \cite{hui2024qwen2.5} also demonstrated balanced performance, with strong semantic accuracy and reliable response generation.
+	\item Smaller models like \texttt{Qwen-1.8B} \cite{bai2023qwen} and \texttt{CodeGemma-2B} \cite{codegemma} showed limitations in deeper contextual understanding, reflected in lower performance in complex reasoning tasks.
 \end{itemize}
 
-Overall, generation latency remained within practical limits—averaging approximately \textbf{6 seconds} for simple prompts and \textbf{12 seconds} for complex queries—though these values varied depending on the size and architecture of the underlying language model.
+Generator latency remained within practical limits but varied notably with model size and architecture. Lightweight models such as \texttt{Qwen-4B} \cite{baichuan2} and \texttt{Qwen2.5-0.5B} \cite{hui2024qwen2.5} delivered rapid response times, averaging under \textbf{4 seconds} for simple prompts and approximately \textbf{5–6 seconds} for complex ones. Mid-sized models, including \texttt{LLaMA3.2-3B} \cite{llama3} and \texttt{DeepSeek-R1-1.5B} \cite{deepseek_r1}, offered a balanced performance profile, with latencies around \textbf{6–7 seconds} for simple and \textbf{14 seconds} for complex inputs. Conversely, larger models such as \texttt{CodeLlama-7B} \cite{codellama}, \texttt{LLaMA2-13B} \cite{llama2}, and particularly \texttt{Codestral-22B}\footnoteref{codestral}, incurred significantly higher latencies, with complex queries requiring up to \textbf{150 seconds}. These results underscore the trade-off between model capacity and inference speed, a key consideration for latency-sensitive deployments.
 
 \section{Testing}
 
-\subsection{Unit testing} Validate individual functions and components of the extension.
+Performance varies depending on hardware configuration and the size of the selected model. However, during real-world usage, there are instances where the model responds with "I don't know" or fails to generate a meaningful answer-particularly when a smaller LLM is selected. In such cases, switching to a larger, more capable model (e.g., \texttt{deepseek-r1:8b} \cite{deepseek_r1}) often leads to significantly more accurate and context-aware responses. This highlights the importance of model selection based on the complexity of the task, as well as the value of scalable performance in RAG systems.
 
-\subsection{Integration testing} Ensure proper interaction between extension components and the VSCode environment.
+Moreover, for the VS Code extension component, we will test RAGGIN's operability through scenario testing.
+
+\begin{table}[H]
+	\centering
+	\label{tab:rag_extension_test_scenarios}
+	\begin{tabular}{p{1cm}p{3cm}p{4cm}p{4cm}p{1.5cm}}
+		\hline
+		\textbf{ID} & \textbf{Component} & \textbf{Test Scenarios} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+		%\textbf{Header components} & & & & \hline
+		Test01 & Ollama model choosing component & Click "select model" button on chat page's header & A list of models (e.g: Llama3.2, deepseek-r1,..) returned & Pass \\ \hline
+		Test02 & Next.js version choosing component & Click "select version" button on chat page's header & A list of Next.js version downloaded and version available returned & Pass \\ \hline
+		Test03 &  Ollama model \& Next.js version choosing component & Choosing the Ollama model or a Next.js version without starting the RAGGIN Docker container or Ollama service & A VS Code notification should appear informing the user that the backend services are not running & Pass \\ \hline
+		Test04 & Chat input form & Check if the send button is enabled only after selecting model, version, and input prompt & Send button appears only when all required fields are filled, and functions correctly on click & Pass \\ \hline
+		Test05 & File upload & Upload any file through context file input & File uploaded name is displayed upper the chat input area and selectable as chat context & Pass \\ \hline
+		Test06 & Chat generation & Enter a prompt and click send & Message is rendered in the chat window and model returns a valid response & Pass \\ \hline
+		Test07 & File Context Integration & Send a prompt with a selected file context & Response content reflects data from the uploaded file & Pass \\ \hline
+		Test08 & Next.js version setting & Change version in advanced settings page and submit prompt & Response differs appropriately between selected versions (e.g., v13 vs v15) & Pass \\ \hline
+		Test09 & Parameter tuning & Modify temperature or top-k parameters before submitting prompt & Model response behavior changes based on parameter values & Pass \\ \hline
+		Test10 & Chat History – Save & Send multiple prompts in a session & All prompts are stored and shown in correct order under History tab & Pass \\ \hline
+		Test11 & Chat history – Rename & Rename an existing chat from the history panel & Title is updated and persists across sessions & Pass \\ \hline
+		Test12 & Chat history – Delete & Delete a chat from history list & Chat is removed permanently and does not reappear after reload & Pass \\ \hline
+		Test13 & Chat history - Delete all chats & Press "delete all chats" button & All chats are removed permanently and does not reappear after reload & Pass \\ \hline
+		Test13 & Global state save & Reload the extension after using it & Previously saved sessions are restored correctly from global/local state & Pass \\ \hline
+	\end{tabular}
+	\caption{Scenario based manual testing for RAGGIN VS Code extension}
+\end{table}

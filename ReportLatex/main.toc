@@ -4,16 +4,14 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivations}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Problem statement}{2}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Significant of the problem}{3}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Objectives}{3}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Scope}{3}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Challenges}{4}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Structure of the report}{4}{section.1.7}%
+\contentsline {section}{\numberline {1.3}Scope}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Objective}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Structure of the report}{3}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Preliminaries}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Retriever}{5}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Preprocessing}{6}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Embedding}{6}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Hierarchical navigable small world (HNSW) indexing}{7}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.3}Hierarchical navigable small world indexing}{7}{subsection.2.1.3}%
 \contentsline {subsection}{\numberline {2.1.4}Pre-retrieval}{10}{subsection.2.1.4}%
 \contentsline {subsection}{\numberline {2.1.5}Retrieval}{11}{subsection.2.1.5}%
 \contentsline {subsection}{\numberline {2.1.6}Post-retrieval}{12}{subsection.2.1.6}%
@@ -21,63 +19,57 @@
 \contentsline {subsection}{\numberline {2.2.1}Transformer architecture}{13}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Prompt engineering}{14}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Augmentation methods}{15}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Augmentation stage: Inference}{15}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Augmentation source: Structured data}{16}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.1}Augmentation stage - Inference}{15}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Augmentation source - Structured data}{16}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Augmentation process}{17}{subsection.2.3.3}%
 \contentsline {chapter}{\numberline {3}Related works and tools}{20}{chapter.3}%
 \contentsline {section}{\numberline {3.1}RAG and LLMs in coding tasks}{20}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Retrieval strategies}{20}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Generative enhancements}{22}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Specialized Applications}{24}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.3}Specialized applications}{24}{subsection.3.1.3}%
 \contentsline {section}{\numberline {3.2}Developer assistance tools}{24}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Functionality}{24}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Retrieval mechanisms}{25}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.2}Retrieval mechanisms}{26}{subsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.2.3}Code generation capabilities}{26}{subsection.3.2.3}%
 \contentsline {subsection}{\numberline {3.2.4}Integration in development processes}{26}{subsection.3.2.4}%
-\contentsline {chapter}{\numberline {4}Approach}{28}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Fine-tuning vs. RAG}{28}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Fine-tuning}{28}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Comparison between fine-tuning and RAG}{29}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Rationale for choosing RAG}{29}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Why BGE-M3?}{30}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Why Ollama's LLMs}{30}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Why Docker?}{30}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Why VS Code Extension?}{31}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Main architecture}{31}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Local vector storage}{33}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}VS Code integration}{35}{subsection.4.6.2}%
-\contentsline {chapter}{\numberline {5}Implementation}{37}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Database}{37}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Data Preparation}{37}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Data Preprocessing}{38}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Database design}{39}{subsection.5.1.3}%
+\contentsline {chapter}{\numberline {4}Proposed solution}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Fine-tuning vs. RAG}{29}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Fine-tuning}{29}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Comparison between fine-tuning and RAG}{30}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Rationale for choosing RAG}{30}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Main architecture}{31}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Why Milvus?}{31}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Why BGE-M3?}{32}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Why Ollama?}{33}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Why Docker?}{34}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Why VS Code extension?}{34}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Implementation}{36}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Database}{36}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Data preparation}{36}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Data preprocessing}{38}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Database design}{40}{subsection.5.1.3}%
 \contentsline {subsection}{\numberline {5.1.4}Database setup}{43}{subsection.5.1.4}%
 \contentsline {subsection}{\numberline {5.1.5}Database API}{43}{subsection.5.1.5}%
 \contentsline {section}{\numberline {5.2}RAGGIN core services}{45}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Retriever}{45}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Generator}{47}{subsection.5.2.2}%
-\contentsline {section}{\numberline {5.3}RAGGIN VSCode Extension Development}{49}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Installing in VSCode (Private installation)}{49}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Icons \& labels}{49}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Primary function}{53}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Performance}{54}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Known Limitations and Future Roadmap}{54}{subsection.5.3.5}%
-\contentsline {chapter}{\numberline {6}Evaluation}{55}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Evaluation metrics}{55}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Retriever Metrics}{55}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Generator Metrics}{56}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Evaluation methodology}{56}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Evaluation summary}{56}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Retriever Performance}{56}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Generator Performance}{57}{subsection.6.3.2}%
-\contentsline {section}{\numberline {6.4}Testing}{57}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Unit testing}{57}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Integration testing}{57}{subsection.6.4.2}%
-\contentsline {chapter}{\numberline {7}Conclusion}{58}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Achieved Results}{58}{section.7.1}%
+\contentsline {section}{\numberline {5.3}VS Code extension}{49}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Intialize RAGGIN codebase}{49}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}VS Code extension webview communication}{49}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Storing user chat data}{51}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Optimizing chat context for LLM input}{51}{subsection.5.3.4}%
+\contentsline {chapter}{\numberline {6}Evaluation and testing}{53}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluation methodology}{53}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Evaluation metrics}{53}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Retriever metrics}{53}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Generator metrics}{54}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Evaluation summary}{54}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Testing}{55}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Conclusion}{57}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Achieved results}{57}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Limitations}{58}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Future development directions}{59}{section.7.3}%
-\contentsline {chapter}{Bibliography}{60}{chapter*.60}%
-\contentsline {chapter}{Appendices}{64}{section*.61}%
+\contentsline {section}{\numberline {7.3}Future development directions}{58}{section.7.3}%
+\contentsline {chapter}{Bibliography}{60}{chapter*.103}%
+\contentsline {chapter}{Appendices}{64}{section*.104}%
 \contentsline {chapter}{\numberline {A}Interface of the RAGGIN extension}{65}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}Evaluation and test results}{69}{appendix.1.B}%
+\contentsline {chapter}{\numberline {B}Evaluation and testing results}{69}{appendix.1.B}%

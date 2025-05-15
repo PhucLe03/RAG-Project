@@ -1,7 +1,7 @@
 \begin{algorithm}[H]
-\caption{SEARCH-LAYER($q$, $ep$, $ef$, $lc$)}
+\caption{SEARCH-LAYER($q$, $ep$, $ef$, $\ell{c}$)}\label{alg:search_layer}
 \begin{algorithmic}[1]
-\Require Query element $q$, enter points $ep$, number of nearest to $q$ elements to return $ef$, layer number $lc$
+\Require Query element $q$, enter points $ep$, number of nearest to $q$ elements to return $ef$, layer number $\ell{c}$
 \Ensure $ef$ closest neighbors to $q$
 \State $v \gets ep$ \Comment{Set of visited elements}
 \State $C \gets ep$ \Comment{Set of candidates}
@@ -12,7 +12,7 @@
     \If{\texttt{distance}$(c, q) > \texttt{distance}(f, q)$}
         \State \textbf{break} \Comment{All elements in $W$ are evaluated}
     \EndIf
-    \For{each $e \in \texttt{neighbourhood}(c)$ at layer $lc$} \Comment{Update $C$ and $W$}
+    \For{each $e \in \texttt{neighbourhood}(c)$ at layer $\ell{c}$} \Comment{Update $C$ and $W$}
         \If{$e \notin v$}
             \State $v \gets v \cup e$
             \State $f \gets$ Get furthest element from $W$ to $q$

@@ -2,50 +2,66 @@
 
 This chapter summarizes the accomplishments of the project over two semesters of research, design, and implementation. It also outlines the current limitations and potential directions for future development of the extension.
 
-\section{Achieved Results}
+\section{Achieved results}
 
-We have developed an intelligent code assistance system tailored for web development, leveraging RAG to reduce hallucination and support integration of up-to-date information. The system is implemented as a Visual Studio Code extension named RAGGIN, Retrieval-Augmented Generation for Guided Intelligence in Next.js.
+We have developed an intelligent code assistance system tailored for web development, leveraging RAG to reduce hallucination and support integration of up-to-date information. The system is implemented as a VS Code extension and a dockerized application both named RAGGIN, Retrieval-Augmented Generation for Guided Intelligence in Next.js.
 
-The project's source code is publicly available on GitHub under the MIT license\footnote{The MIT License — \url{https://opensource.org/license/mit}}, ensuring full transparency. The backend services\footnote{RAGGIN core service — \url{https://hub.docker.com/repository/docker/melukootto/raggin/general}} have been containerized and published on Docker Hub, while the extension frontend\footnote{RAGGIN Extension — \url{https://marketplace.visualstudio.com/items/?itemName=raggin.raggin}} is released on the Visual Studio Code Marketplace. Additionally, the processed Next.js documentation dataset used for retrieval has been made available on Kaggle\footnote{Next.js documentation dataset — \url{https://www.kaggle.com/datasets/jiyujizai/nextjs-documentation-for-raggin}}.
+Through Section \ref{sec:VS Code Extension}, RAGGIN addresses the problem of context-switching by providing real-time AI assistance directly within the VS Code workspace, allowing developers to remain focused and work more efficiently. Through Sections \ref{sec:Database} \& \ref{sec:raggin-core}, RAGGIN supports a wide range of Next.js versions (from \texttt{v13.0.0} to \texttt{v15.3.1}) and flexible selection of local Ollama-hosted LLM models, RAGGIN offers full control over the assistant’s behavior. Users can adjust both retrieval parameters and generation parameters (e.g., top-\textit{K} documents, similarity thresholds, temperature, max tokens) to adapt the assistant to the complexity of their projects. Developers can also upload relevant local files, ensuring that AI responses remain context-aware and more intelligent.
 
-We have delivered a system that assists developers in integrating AI into their workflow, offering an open-source solution that grants the freedom to choose their preferred LLMs according to their system requirements. The system provides both deep configurability and flexibility while maintaining seamless integration within their familiar development environment.
+The project's source code is publicly available on GitHub\footnote{RAGGIN - \url{https://github.com/silam741852963/RAGGIN}} under the MIT license\footnote{The MIT License - \url{https://opensource.org/license/mit}}, ensuring full transparency. The backend services\footnote{RAGGIN core service - \url{https://hub.docker.com/repository/docker/melukootto/raggin/general}} have been containerized and published on Docker Hub, while the extension frontend\footnote{RAGGIN extension - \url{https://marketplace.visualstudio.com/items/?itemName=raggin.raggin}} is released on the VS Code Marketplace. Additionally, the processed Next.js documentation dataset used for retrieval has been made available on Kaggle\footnote{Next.js documentation dataset - \url{https://www.kaggle.com/datasets/jiyujizai/nextjs-documentation-for-raggin}}.
+
+Throughout the course of this capstone project, we embarked on a comprehensive journey to understand and practically apply RAG from the ground up. Our learning began with a deep theoretical study of RAG, examining its architecture, motivations, and potential to mitigate large language models' weaknesses, especially hallucinations and ungrounded generation \cite{gao2023ragllmsurvey}. This foundational understanding is thoroughly explored in Chapter \ref{chap:2}, where we analyze RAG's role in enhancing information reliability by incorporating external knowledge sources at inference time.
+
+From this theoretical base, we transitioned to hands-on application by designing and implementing a full-stack RAG-based developer assistant system specialized for the Next.js framework. This decision to narrow the scope to a single, well-defined framework allowed us to minimize complexity and deeply tailor retrieval and generation strategies for real-world use (see Section \ref{sec:main_archi}).
+
+As documented in Chapter \ref{chap:3}, we critically reviewed existing RAG toolchains, both open-source and commercial identified common issues such as poor IDE integration, and limited offline support. This informed our decision to build a vertical system stack and prioritize local usability and responsiveness.
+
+Subsection \ref{sec:data_preprocessing} presents our approach to preprocessing the official Next.js documentation. We experimented with various markdown parsing and chunking techniques, settling on a hierarchical chunking strategy aligned with document semantics. This taught us the critical role of chunk granularity in balancing retrieval accuracy and latency.
+
+We gained practical expertise with Milvus, a high-performance vector database, detailed in Subsection \ref{sec:database_design}. This included vector indexing, partitioning by version, managing metadata, and hybrid keyword-vector search. Our deployment strategy also incorporated query optimizations to reduce latency under Dockerized conditions.
+
+Section \ref{sec:raggin-core} documents our backend design using FastAPI, outlines how we containerized our services and published them via Docker Hub. These tasks enhanced our understanding of API design patterns, DevOps workflows, and infrastructure management for machine learning applications.
+
+In Section \ref{sec:VS Code Extension}, we describe the development and publishing process of a custom VS Code extension. This phase gave us insights into frontend and backend bridging, prompt construction from developer context, and the importance of seamless developer experience in AI tooling.
 
 \section{Limitations}
 
 At present, the extension focuses exclusively on the Next.js framework, without support for the broader ecosystem of related technologies commonly used alongside it. While we have manually curated the documentation dataset, defined chunking strategies, and designed embedding pipelines specifically for Next.js, the system lacks the ability to automatically identify and process documentation from other frameworks. As a result, the extension cannot yet be scaled automatically to support additional technologies.
 
-Currently, RAGGIN only offers configuration flexibility for the generator model (i.e., the LLM used for response generation). The embedding model for documentation remains fixed, with embeddings precomputed and bundled with the system. Moreover, the extension does not yet support local GPU-based embedding generation for user queries due to the complexities involved in GPU Docker setup and the additional size such support would impose on the container image.
+Currently, RAGGIN only offers configuration flexibility for the generator model. The embedding model for documentation remains fixed, with embeddings precomputed and bundled with the system. Moreover, the extension does not yet support local GPU-based embedding generation for user queries due to the complexities involved in GPU Docker setup and the additional size such support would impose on the container image.
 
-In terms of retrieval performance, our core service exhibits low precision and recall at small Top-\(K\) values: Precision@1 is approximately 0.267, and Recall@1 is 0.053. Performance improves only at larger \(K\), indicating the retrieval system is currently not optimized for extracting highly relevant results with minimal context. This limitation negatively impacts downstream LLM performance, as more irrelevant documents are included in the prompt context.
+In terms of retrieval performance, our core service exhibits low precision and recall at small top-\textit{K} values: Precision@1 is approximately 0.27, and Recall@1 is 0.05. Performance improves only at larger \(K\), indicating the retrieval system is currently not optimized for extracting highly relevant results with minimal context. This limitation negatively impacts downstream LLM performance, as more irrelevant documents are included in the prompt context.
 
 The full system image occupies roughly 20GB on Docker (17.3GB for the core backend service and 2.7GB for the Milvus database), excluding the language model and Ollama runtime, which challenges our original lightweight deployment goals.
 
-Finally, it is worth noting that RAGGIN is positioned as an open-source alternative to proprietary services like GitHub Copilot\footnote{GitHub Copilot — \url{https://github.com/features/copilot}}, which benefits from commercial-scale infrastructure and full integration with the Visual Studio Code ecosystem through its parent company, Microsoft.
+Currently, RAGGIN extension only supports adding context from a single file at a time, which can be limiting for projects that span multiple files or modules. Unlike tools like GitHub Copilot\footnote{GitHub Copilot - \url{https://github.com/features/copilot}}, it does not support code comparison or understanding across the full codebase. Additionally, responses are displayed only after the entire output is generated, without real-time token-by-token streaming, which can lead to noticeable delays-especially when handling longer responses. Moreover, our prompt only includes the three most recent user messages, the context provided to the model is relatively basic and intentionally limited. This design choice helps reduce prompt length and ensures compatibility with models that have strict token limits. However, it also means that the model may lack deeper conversational memory or long-range context understanding.
+
+Finally, it is worth noting that RAGGIN is positioned as an open-source alternative to proprietary services like GitHub Copilot, which benefits from commercial-scale infrastructure and full integration with the VS Code ecosystem through its parent company, Microsoft.
 
 \section{Future development directions}
 
 To address the current limitations, we propose several concrete development directions aimed at improving scalability, configurability, performance, and portability of RAGGIN.
 
-\paragraph*{Expanding framework support}
+\paragraph*{Expanding framework support.}
 
-To broaden beyond Next.js, future work will focus on automating the identification and acquisition of documentation from other technologies, such as React\footnote{React — \url{https://reactjs.org}}, Vue\footnote{Vue — \url{https://vuejs.org}}, or TailwindCSS\footnote{Tailwind CSS — \url{https://tailwindcss.com}}. This may involve using sitemap parsing, structured data from \texttt{schema.org}\footnote{\texttt{schema.org} — \url{https://schema.org}}, or scraping via documentation RSS feeds. A modular preprocessing pipeline will also be developed to support customizable chunking and embedding per framework.
+To broaden beyond Next.js, future work will focus on automating the identification and acquisition of documentation from other technologies, such as React\footnote{React - \url{https://reactjs.org}}, Vue\footnote{Vue - \url{https://vuejs.org}}, or TailwindCSS\footnote{Tailwind CSS - \url{https://tailwindcss.com}}. This may involve using sitemap parsing, structured data from \texttt{schema.org}\footnote{\texttt{schema.org} - \url{https://schema.org}}, or scraping via documentation RSS feeds. A modular preprocessing pipeline will also be developed to support customizable chunking and embedding per framework.
 
-\paragraph*{Custom embedding model configuration}
+\paragraph*{Custom embedding model configuration.}
 
-Support for configurable embedding models will be introduced, allowing users to select their preferred models (e.g., BGE-M3, E5, or InstructorXL\footnote{InstructorXL — \url{https://huggingface.co/hkunlp/instructor-xl}}) during setup. Additionally, GPU-based embedding generation for user queries will be optionally enabled through a separate, GPU-enabled Docker image to prevent bloating the default container.
+Support for configurable embedding models will be introduced, allowing users to select their preferred models (e.g., BGE-M3 \cite{chen2024bge}, or InstructorXL\footnote{InstructorXL - \url{https://huggingface.co/hkunlp/instructor-xl}}) during setup. Additionally, GPU-based embedding generation for user queries will be optionally enabled through a separate, GPU-enabled Docker image to prevent bloating the default container.
 
-\paragraph*{Improving retrieval accuracy at low Top-\(K\)}
+\paragraph*{Improving retrieval accuracy at low top-\textit{K}.}
 
-Include fine-tuning the embedding model on task-specific data, introducing learning-to-rank mechanisms for hybrid scoring, and employing lightweight rerankers such as MiniLM\footnote{MiniLM — \url{https://huggingface.co/nreimers/MiniLM-L6-H384-uncased}} or RankT5\footnote{RankT5 — \url{https://github.com/nyu-dl/dl4marco-2022}} to refine the top retrieved entries. These methods aim to increase the relevance of results with minimal context.
+Include fine-tuning the embedding model on task-specific data, introducing learning-to-rank mechanisms for hybrid scoring, and employing lightweight rerankers such as MiniLM\footnote{MiniLM - \url{https://huggingface.co/nreimers/MiniLM-L6-H384-uncased}} or RankT5\footnote{RankT5 - \url{https://github.com/nyu-dl/dl4marco-2022}} to refine the top retrieved entries. These methods aim to increase the relevance of results with minimal context.
 
-\paragraph*{Reducing system size}
+\paragraph*{Reducing system size.}
 
-To meet lightweight deployment goals, we plan to modularize services, separating the backend API, and embedding module into independently deployable containers. Further size reduction can be achieved through multi-stage Docker builds, minimal base images (e.g., Alpine\footnote{Alpine Linux — \url{https://alpinelinux.org}}).
+To meet lightweight deployment goals, we plan to modularize services, separating the backend API, and embedding module into independently deployable containers. Further size reduction can be achieved through multi-stage Docker builds, minimal base images (e.g., Alpine\footnote{Alpine Linux - \url{https://alpinelinux.org}}).
 
-\paragraph*{Ecosystem integration and tooling}
+\paragraph*{Extension's capability enhancement.}
 
-To enhance usability and ecosystem compatibility, future development will target integration with the Language Server Protocol (LSP)\footnote{Language Server Protocol (LSP) — \url{https://microsoft.github.io/language-server-protocol}}, enabling support beyond Visual Studio Code (e.g., WebStorm\footnote{WebStorm — \url{https://www.jetbrains.com/webstorm}}, Neovim\footnote{Neovim — \url{https://neovim.io}}).
-
+To enhance the extension for handle multi-file context, allowing for improved understanding and reasoning across larger codebases, support cross-file analysis and code comparison. We also aim to introduce real-time streaming responses and expand the current prompt memory beyond just the last three messages, using smarter context management to retain relevant history. Also enhancing usability and ecosystem compatibility, future development will target integration with the Language Server Protocol (LSP)\footnote{Language Server Protocol (LSP) - \url{https://microsoft.github.io/language-server-protocol}}, enabling support beyond VS Code (e.g., WebStorm\footnote{WebStorm - \url{https://www.jetbrains.com/webstorm}}, Neovim\footnote{Neovim - \url{https://neovim.io}}).
+ 
 These future directions aim to evolve RAGGIN into a robust, extensible, and developer-friendly tool that remains open, transparent, and adaptable to diverse workflows.
 
 %% \section{Conclusion}
