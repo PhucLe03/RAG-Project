@@ -249,7 +249,7 @@ We developed a schema optimized for organizing and storing documentation data. T
 		\texttt{version}             & VARCHAR                & 20   & \textbf{Partition key}.  Indicates documentation version.\\
 		\texttt{tag}                 & VARCHAR                & 255  & Labels source (documentation vs.\ documented errors) \\
 		\hline
-		\texttt{text\_content}       & VARCHAR                & 65\,535 & Markdown body.\\
+		\texttt{text\_content}       & VARCHAR                & 65\,535 & Markdown body \\
 		\texttt{code\_content}       & VARCHAR                & 65\,535 & JSON-stringified dict of code snippets \\
 		\hline
 		\texttt{sparse\_title}       & SPARSE\_FLOAT\_VECTOR  & –    & Sparse embedding of concatenated title + description.  \emph{Index}: SPARSE\_INVERTED\_INDEX; \emph{Metric}: Inner Product \\

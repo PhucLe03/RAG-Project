@@ -45,23 +45,23 @@ Fine-tuning involves adapting a pre-trained LLM to specific tasks or domains by 
         \hline
         \textbf{Aspect} & \textbf{Fine-tuning} & \textbf{RAG} \\
         \hline
-        Dynamic vs. Static & Static. Relies on pre-trained knowledge, requiring retraining to update information. & Dynamic. Accesses up-to-date external data sources, providing current information without retraining. \\
+        Dynamic vs. Static & Static. Relies on pre-trained knowledge, requiring retraining to update information & Dynamic. Accesses up-to-date external data sources, providing current information without retraining \\
         \hline
-        Architecture & Utilizes a pre-trained LLM adjusted with task-specific datasets. & Combines LLM with external knowledge bases, enabling retrieval and generation. \\
+        Architecture & Utilizes a pre-trained LLM adjusted with task-specific datasets & Combines LLM with external knowledge bases, enabling retrieval and generation \\
         \hline
-        Customization & High customization in domain-specific knowledge, tone, and style. & Limited customization to domain behavior but excels in integrating external content. \\
+        Customization & High customization in domain-specific knowledge, tone, and style & Limited customization to domain behavior but excels in integrating external content \\
         \hline
-        Hallucinations & Reduces hallucinations through domain-specific training. & Minimizes hallucinations by grounding responses in retrieved documents. \\
+        Hallucinations & Reduces hallucinations through domain-specific training & Minimizes hallucinations by grounding responses in retrieved documents \\
         \hline
-        Accuracy & High accuracy in specific, trained domains but limited outside the training scope. & Highly accurate for retrieving up-to-date, domain-relevant information. \\
+        Accuracy & High accuracy in specific, trained domains but limited outside the training scope & Highly accurate for retrieving up-to-date, domain-relevant information \\
         \hline
-        Transparency & Functions as a "black box" with limited insight into response reasoning. & Transparent response generation with traceable data sources. \\
+        Transparency & Functions as a "black box" with limited insight into response reasoning & Transparent response generation with traceable data sources \\
         \hline
-        Cost & Higher cost due to significant computational resources, and periodic retraining for updates. & Lower cost as it eliminates the need for retraining by leveraging external knowledge bases. \\
+        Cost & Higher cost due to significant computational resources, and periodic retraining for updates & Lower cost as it eliminates the need for retraining by leveraging external knowledge bases \\
         \hline
-        Complexity & More complex due to the need for expertise in NLP, deep learning, and hyperparameter tuning. & Simpler to set up with minimal coding for retrieval integration. \\
+        Complexity & More complex due to the need for expertise in NLP, deep learning, and hyperparameter tuning & Simpler to set up with minimal coding for retrieval integration \\
         \hline
-        Adaptability & Less adaptable, requiring retraining for new information. & Easily adapts to new data and dynamic environments. \\
+        Adaptability & Less adaptable, requiring retraining for new information & Easily adapts to new data and dynamic environments \\
         \hline
     \end{tabular}
     \caption{Comparison of fine-tuning and RAG}
