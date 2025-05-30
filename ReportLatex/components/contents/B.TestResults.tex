@@ -32,6 +32,38 @@
 	\caption{Retriever evaluation results for complex queries with default parameters}\label{tab:ret_complex}
 \end{table}
 
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{p{0.5cm}p{2.5cm}p{2cm}p{4cm}}
+		\hline
+		\textbf{K} & \textbf{Precision@K} & \textbf{Recall@K} & \textbf{Latency (s)} \\
+		\hline
+		1 & 0.50 & 0.10 & 0.60 \\
+		3 & 0.58 & 0.37 & 0.93 \\
+		5 & \textbf{0.70} & \textbf{0.76} & 0.83 \\
+		7 & 0.50 & 0.76 & 0.88 \\
+		\hline
+	\end{tabular}
+	\caption{Retriever evaluation results for simple queries using current optimal parameters}\label{tab:ret_simple_updated}
+\end{table}
+
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{p{0.5cm}p{2.5cm}p{2cm}p{4cm}}
+		\hline
+		\textbf{K} & \textbf{Precision@K} & \textbf{Recall@K} & \textbf{Latency (s)} \\
+		\hline
+		1 & 0.33 & 0.08 & 2.94 \\
+		3 & 0.33 & 0.22 & 2.66 \\
+		5 & \textbf{0.33} & \textbf{0.35} & 2.85 \\
+		7 & 0.24 & \textbf{0.35} & 2.78 \\
+		\hline
+	\end{tabular}
+	\caption{Retriever evaluation results for complex queries using current optimal parameters}\label{tab:ret_complex_updated}
+\end{table}
+
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{Images/Evaluations/rouge_1.png}

@@ -243,18 +243,18 @@ We developed a schema optimized for organizing and storing documentation data. T
 	\begin{tabular}{l c c p{6.8cm}}
 		\hline
 		\textbf{Field} & \textbf{dtype} & \textbf{Len / Dim} & \textbf{Notes  /  Description} \\ \hline
-		\texttt{entry\_id}           & VARCHAR                & 255  & \textbf{Primary key}. auto\_id\,=\,false.  Built by concatenating version + doc name + section name.\\
-		\texttt{title}               & VARCHAR                & 255  & Built from documentation name, description, and section name.\\
-		\texttt{metadata}            & JSON                   & –    & JSON blob of title, description, and related links.\\
+		\texttt{entry\_id}           & VARCHAR                & 255  & \textbf{Primary key}. auto\_id\,=\,false.  Built by concatenating version + doc name + section name \\
+		\texttt{title}               & VARCHAR                & 255  & Built from documentation name, description, and section name \\
+		\texttt{metadata}            & JSON                   & –    & JSON blob of title, description, and related links \\
 		\texttt{version}             & VARCHAR                & 20   & \textbf{Partition key}.  Indicates documentation version.\\
-		\texttt{tag}                 & VARCHAR                & 255  & Labels source (documentation vs.\ documented errors).\\
+		\texttt{tag}                 & VARCHAR                & 255  & Labels source (documentation vs.\ documented errors) \\
 		\hline
 		\texttt{text\_content}       & VARCHAR                & 65\,535 & Markdown body.\\
 		\texttt{code\_content}       & VARCHAR                & 65\,535 & JSON-stringified dict of code snippets \\
 		\hline
-		\texttt{sparse\_title}       & SPARSE\_FLOAT\_VECTOR  & –    & Sparse embedding of concatenated title + description.  \emph{Index}: SPARSE\_INVERTED\_INDEX; \emph{Metric}: Inner Product.\\
-		\texttt{dense\_text\_content}& FLOAT\_VECTOR          & 1024 & Dense embedding of full text.  \emph{Index}: HNSW; \emph{Metric}: Cosine.\\
-		\texttt{dense\_code\_snippet}& FLOAT\_VECTOR          & 1024 & Avg-pooled vector over all snippet embeddings.  \emph{Index}: HNSW; \emph{Metric}: Cosine.\\
+		\texttt{sparse\_title}       & SPARSE\_FLOAT\_VECTOR  & –    & Sparse embedding of concatenated title + description.  \emph{Index}: SPARSE\_INVERTED\_INDEX; \emph{Metric}: Inner Product \\
+		\texttt{dense\_text\_content}& FLOAT\_VECTOR          & 1024 & Dense embedding of full text.  \emph{Index}: HNSW; \emph{Metric}: Cosine \\
+		\texttt{dense\_code\_snippet}& FLOAT\_VECTOR          & 1024 & Avg-pooled vector over all snippet embeddings.  \emph{Index}: HNSW; \emph{Metric}: Cosine \\
 		\hline
 	\end{tabular}
 	\caption{Schema structure}

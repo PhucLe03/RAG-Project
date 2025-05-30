@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  5 MAY 2025 02:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.12.16)  30 MAY 2025 18:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2914,10 +2914,7 @@ Overfull \hbox (35.2655pt too wide) in paragraph at lines 243--260
  [][] 
  []
 
-
-
-[40]
-<Images/Implement/section_code_snippet_count_distribution.png, id=1051, 578.16p
+<Images/Implement/section_code_snippet_count_distribution.png, id=1043, 578.16p
 t x 433.62pt>
 File: Images/Implement/section_code_snippet_count_distribution.png Graphic file
  (type png)
@@ -2925,6 +2922,9 @@ File: Images/Implement/section_code_snippet_count_distribution.png Graphic file
 Package pdftex.def Info: Images/Implement/section_code_snippet_count_distributi
 on.png  used on input line 272.
 (pdftex.def)             Requested size: 409.71692pt x 307.28348pt.
+
+
+[40]
 <Images/Implement/code_snippet_token_count_distribution.png, id=1052, 578.16pt 
 x 433.62pt>
 File: Images/Implement/code_snippet_token_count_distribution.png Graphic file (
@@ -3404,48 +3404,48 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 <Images/Evaluations/rouge_1.png, id=1702, 891.0891pt x 406.1574pt>
 File: Images/Evaluations/rouge_1.png Graphic file (type png)
 <use Images/Evaluations/rouge_1.png>
-Package pdftex.def Info: Images/Evaluations/rouge_1.png  used on input line 37.
+Package pdftex.def Info: Images/Evaluations/rouge_1.png  used on input line 69.
 
 (pdftex.def)             Requested size: 455.24411pt x 207.50317pt.
-<Images/Evaluations/rouge_2.png, id=1703, 897.5934pt x 406.1574pt>
-File: Images/Evaluations/rouge_2.png Graphic file (type png)
-<use Images/Evaluations/rouge_2.png>
-Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 45.
-
-(pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
 
 
 [69
 
- <./Images/Evaluations/rouge_1.png>]
-<Images/Evaluations/rouge_3.png, id=1709, 897.5934pt x 406.1574pt>
-File: Images/Evaluations/rouge_3.png Graphic file (type png)
-<use Images/Evaluations/rouge_3.png>
-Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 53.
+]
+<Images/Evaluations/rouge_2.png, id=1709, 897.5934pt x 406.1574pt>
+File: Images/Evaluations/rouge_2.png Graphic file (type png)
+<use Images/Evaluations/rouge_2.png>
+Package pdftex.def Info: Images/Evaluations/rouge_2.png  used on input line 77.
 
 (pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
-<Images/Evaluations/llm_eval_small.png, id=1710, 859.2903pt x 498.663pt>
+<Images/Evaluations/rouge_3.png, id=1710, 897.5934pt x 406.1574pt>
+File: Images/Evaluations/rouge_3.png Graphic file (type png)
+<use Images/Evaluations/rouge_3.png>
+Package pdftex.def Info: Images/Evaluations/rouge_3.png  used on input line 85.
+
+(pdftex.def)             Requested size: 455.24411pt x 205.9972pt.
+
+
+[70 <./Images/Evaluations/rouge_1.png> <./Images/Evaluations/rouge_2.png>]
+<Images/Evaluations/llm_eval_small.png, id=1717, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_small.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_small.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_small.png  used on input l
-ine 69.
+ine 101.
 (pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
-
-
-[70 <./Images/Evaluations/rouge_2.png> <./Images/Evaluations/rouge_3.png>]
-<Images/Evaluations/llm_eval_bigger.png, id=1717, 859.2903pt x 498.663pt>
+<Images/Evaluations/llm_eval_bigger.png, id=1718, 859.2903pt x 498.663pt>
 File: Images/Evaluations/llm_eval_bigger.png Graphic file (type png)
 <use Images/Evaluations/llm_eval_bigger.png>
 Package pdftex.def Info: Images/Evaluations/llm_eval_bigger.png  used on input 
-line 77.
+line 109.
 (pdftex.def)             Requested size: 409.71692pt x 237.76524pt.
 
-Overfull \hbox (38.84541pt too wide) in paragraph at lines 84--108
+
+[71 <./Images/Evaluations/rouge_3.png> <./Images/Evaluations/llm_eval_small.png
+>]
+Overfull \hbox (38.84541pt too wide) in paragraph at lines 116--140
  [] 
  []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 )
 
@@ -3454,10 +3454,8 @@ See the caption package documentation for explanation.
 
 
 
-[71 <./Images/Evaluations/llm_eval_small.png> <./Images/Evaluations/llm_eval_bi
-gger.png>]
+[72 <./Images/Evaluations/llm_eval_bigger.png>]
 
-[72] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./main.aux)
  ***********
@@ -3471,10 +3469,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 57468 strings out of 473330
- 1268264 string characters out of 5723877
- 2722758 words of memory out of 5000000
- 79102 multiletter control sequences out of 15000+600000
+ 57472 strings out of 473330
+ 1268347 string characters out of 5723877
+ 2722988 words of memory out of 5000000
+ 79104 multiletter control sequences out of 15000+600000
  584979 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  130i,17n,162p,2118b,2128s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3521,10 +3519,10 @@ onts/type1/public/cm-super/sfti0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1
 t0900.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
 <c:/texlive/2024/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb><c:/texlive/20
 24/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (79 pages, 4292620 bytes).
+Output written on main.pdf (79 pages, 4292934 bytes).
 PDF statistics:
- 2012 PDF objects out of 2073 (max. 8388607)
- 1728 compressed objects within 18 object streams
- 598 named destinations out of 1000 (max. 500000)
+ 2014 PDF objects out of 2073 (max. 8388607)
+ 1730 compressed objects within 18 object streams
+ 600 named destinations out of 1000 (max. 500000)
  858 words of extra memory for PDF output out of 10000 (max. 10000000)
 
